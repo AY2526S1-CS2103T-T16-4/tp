@@ -13,7 +13,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Aditya Khandelwal
 
-<img src="images/adityaphoto.png" width="200px">
+<img src="images/adityagk753.png" width="200px">
 
 [[github](http://github.com/adityagk753)]
 [[portfolio](team/aditya.md)]
