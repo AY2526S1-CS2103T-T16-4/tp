@@ -17,7 +17,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[homepage](http://www.comp.nus.edu.sg/~damithch)]
 [[github](https://github.com/johndoe)]
-[[portfolio](team/liminong)]
+[[portfolio](team/johndoe.md)]
 
 * Role: Project Advisor
 
@@ -26,7 +26,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/johndoe.png" width="200px">
 
 [[github](http://github.com/johndoe)]
-[[portfolio](team/liminong)]
+[[portfolio](team/johndoe.md)]
 
 * Role: Team Lead
 * Responsibilities: UI
@@ -35,7 +35,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/flyingcat9.png" width="200px">
 
-[[github](http://github.com/flyingcat9)] [[portfolio](team/flyingcat9)]
+[[github](http://github.com/flyingcat9)] [[portfolio](tea/liminong.md)]
 
 * Role: Developer
 * Responsibilities: Deliverables and deadlines, Scheduling and tracking
@@ -45,7 +45,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/johndoe.png" width="200px">
 
 [[github](http://github.com/johndoe)]
-[[portfolio](team/liminong.md)]
+[[portfolio](team/johndoe.md)]
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
@@ -55,7 +55,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/johndoe.png" width="200px">
 
 [[github](http://github.com/johndoe)]
-[[portfolio](team/liminong)]
+[[portfolio](team/johndoe.md)]
 
 * Role: Developer
 * Responsibilities: UI
