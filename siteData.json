@@ -9,7 +9,7 @@
         "project-team": "Project team",
         "aditya-khandelwal": "Aditya Khandelwal",
         "lim-jinle-alexius": "Lim Jinle, Alexius",
-        "jane-doe": "Jane Doe",
+        "faith-wan": "Faith Wan",
         "ong-li-min": "Ong Li Min",
         "jean-doe": "Jean Doe",
         "eugene-lek": "Eugene Lek"
@@ -157,6 +157,14 @@
       "title": "Eugene Lek's Project Portfolio Page",
       "headings": {
         "project-addressbook-level-3": "Project: AddressBook Level 3"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "team/faith.md",
+      "title": "Faith's Project Portfolio Page",
+      "headings": {
+        "project-bloodnet": "Project: BloodNet"
       },
       "headingKeywords": {}
     },
