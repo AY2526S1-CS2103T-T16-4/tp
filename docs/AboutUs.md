@@ -30,15 +30,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Developer
 
-### Jane Doe
+### Faith Wan
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/fsythw.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/fsythw)]
+[[portfolio](team/fsythw.md)]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: Developer
 
 ### Ong Li Min
 
