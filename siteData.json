@@ -9,7 +9,7 @@
         "project-team": "Project team",
         "lim-jinle-alexius": "Lim Jinle, Alexius",
         "jane-doe": "Jane Doe",
-        "johnny-doe": "Johnny Doe",
+        "ong-li-min": "Ong Li Min",
         "jean-doe": "Jean Doe",
         "james-doe": "James Doe"
       },
@@ -144,10 +144,10 @@
       "headingKeywords": {}
     },
     {
-      "src": "team/johndoe.md",
-      "title": "John Doe's Project Portfolio Page",
+      "src": "team/liminong.md",
+      "title": "Li Min Ong's Project Portfolio Page",
       "headings": {
-        "project-addressbook-level-3": "Project: AddressBook Level 3"
+        "project-bloodnet-level-3": "Project: BloodNet Level 3"
       },
       "headingKeywords": {}
     }
