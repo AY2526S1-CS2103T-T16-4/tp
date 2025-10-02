@@ -30,14 +30,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Team Lead
 * Responsibilities: UI
 
-### Johnny Doe
+### Ong Li Min
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/flyingcat9.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/flyingcat9)] [[portfolio](team/liminong.md)]
 
 * Role: Developer
-* Responsibilities: Data
+* Responsibilities: Deliverables and deadlines, Scheduling and tracking
 
 ### Jean Doe
 
