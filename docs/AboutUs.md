@@ -11,6 +11,16 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
+### Aditya Khandelwal
+
+<img src="images/adityagk753.png" width="200px">
+
+[[github](http://github.com/adityagk753)]
+[[portfolio](team/aditya.md)]
+
+* Role: Developer
+* Responsibilities: Software Development
+
 ### Lim Jinle, Alexius
 
 <img src="images/tastyveggy.png" width="200px">
