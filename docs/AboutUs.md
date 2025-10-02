@@ -11,6 +11,27 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
+### Aditya Khandelwal
+
+<img src="images/adityagk753.png" width="200px">
+
+[[github](http://github.com/adityagk753)]
+[[portfolio](team/aditya.md)]
+
+* Role: Developer
+* Responsibilities: Software Development
+
+### Lim Jinle, Alexius
+
+<img src="images/tastyveggy.png" width="200px">
+
+[[github](https://github.com/TastyVeggy)]
+[[portfolio](team/alexius.md)]
+
+* Role: Developer
+
+## Project team
+
 ### Faith Wan
 
 <img src="images/fsythw.png" width="200px">
@@ -20,24 +41,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Developer
 
-### Jane Doe
+### Ong Li Min
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/flyingcat9.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/flyingcat9)] [[portfolio](team/liminong.md)]
 
 * Role: Team Lead
-* Responsibilities: UI
-
-### Johnny Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Data
+* Responsibilities: Everything under the Sun
 
 ### Jean Doe
 
@@ -49,12 +60,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### James Doe
+### Eugene Lek
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/eugene_lek.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/Eugene-Lek)]
+[[portfolio](team/eugene-lek.md)]
 
-* Role: Developer
-* Responsibilities: UI
+* Role: Git expert
+* Responsibilities: Git only
