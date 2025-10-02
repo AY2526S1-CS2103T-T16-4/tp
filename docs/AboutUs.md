@@ -36,8 +36,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[github](http://github.com/flyingcat9)] [[portfolio](team/liminong.md)]
 
-* Role: Developer
-* Responsibilities: Deliverables and deadlines, Scheduling and tracking
+* Role: Team Lead
+* Responsibilities: Everything under the Sun
 
 ### Jean Doe
 
@@ -49,12 +49,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### James Doe
+### Eugene Lek
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/eugene_lek.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/Eugene-Lek)]
+[[portfolio](team/eugene-lek.md)]
 
-* Role: Developer
-* Responsibilities: UI
+* Role: Git expert
+* Responsibilities: Git only
