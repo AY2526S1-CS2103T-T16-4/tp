@@ -11,7 +11,7 @@
         "jane-doe": "Jane Doe",
         "ong-li-min": "Ong Li Min",
         "jean-doe": "Jean Doe",
-        "james-doe": "James Doe"
+        "eugene-lek": "Eugene Lek"
       },
       "headingKeywords": {}
     },
@@ -140,6 +140,14 @@
       "title": "Alexius' Project Portfolio Page",
       "headings": {
         "project-bloodnet": "Project: BloodNet"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "team/eugene-lek.md",
+      "title": "Eugene Lek's Project Portfolio Page",
+      "headings": {
+        "project-addressbook-level-3": "Project: AddressBook Level 3"
       },
       "headingKeywords": {}
     },
