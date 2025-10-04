@@ -35,7 +35,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/BloodNet-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/BloodNet-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2526S1-CS2103T-T16-4/tp/tree/master/src/main/java/seedu/address) and [`MainApp`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -67,13 +67,13 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/BloodNet-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/java/seedu/address/ui/Ui.java)
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/BloodNet-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/BloodNet-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -84,7 +84,7 @@ The `UI` component,
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/BloodNet-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -116,7 +116,7 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/BloodNet-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
 <puml src="diagrams/ModelClassDiagram.puml" width="450" />
 
@@ -287,7 +287,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …      | I want to …                                                                                               | So that I can …                                                                                                  |
+| Priority | As a …      | I want to …                                                                                               | So that …                                                                                                  |
 | -------- | ----------- |-----------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
 | * * *    | admin staff | add a donor’s contact & blood type                                                                        | the blood bank can keep in touch with the donor if more information is needed                                    |
 | * * *    | admin staff | add a donor’s gender                                                                                      | the blood bank is aware of the haemoglobin level of the person                                                   |
@@ -301,9 +301,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | * * *    | admin staff | delete a donor (soft-delete / archive)                                                                    | Remove donors who have passed away or are no longer eligible for donation                                        |
 | * * *    | admin staff | list all donors in the system                                                                             | Have a quick overview of all the people who have agreed to donate blood to us                                    |
 | * * *    | admin staff | find all donors of a particular blood type                                                                | If we have a shortage of a particular blood type, we can contact these people and ask them for donations         |
-| * * *    | admin staff | record a blood donation by a contact                                                                      | So that I can track how many donations each contact has made, and the details of those donations                 |
-| * * *    | admin staff | modify a blood donation record                                                                            | modify wrongly keyed in records                                                                                  |
-| * * *    | admin staff | delete a blood donation record                                                                            | remove wrongly keyed in records                                                                                  |
+| * * *    | admin staff | record a blood donation by a contact                                                                      | I can track how many donations each contact has made, and the details of those donations                 |
+| * * *    | admin staff | modify a blood donation record                                                                            | I can modify wrongly keyed in records                                                                                  |
+| * * *    | admin staff | delete a blood donation record                                                                            | I can remove wrongly keyed in records                                                                                  |
 | * * *    | admin staff | sort all blood donation records of a contact                                                              | I can see a person’s blood donation history to determine if it has been at least 12 weeks since their last donation |
 | * * *    | admin staff | check if a person is eligible for donation on a particular date (based on age and last donation interval) | I can quickly determine if the person is eligible for donation on their requested appointment date               |
 | * * *    | manager     | report the breakdown of contacts by blood group                                                           | I can understand which blood group we are lacking donors in                                                      |
@@ -313,7 +313,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | * *      | admin staff | export donor contact information into a file                                                              | I can share donor lists with approved stakeholders when needed                                                   |
 | * *      | admin staff | be able to choose which fields to anonymise when exporting information                                    | I can comply with data protection policies                                                                       |
 | * *      | admin staff | send reminders to eligible donors for their next donation                                                 | Donors are aware of when they can donate again                                                                   |
-| * *      | admin staff | tag a donor as unavailable                                                                                | So they are not contacted when they cannot donate (traveling, ill etc)                                           |
+| * *      | admin staff | tag a donor as unavailable                                                                                | they are not contacted when they cannot donate (traveling, ill etc)                                           |
 | * *      | admin staff | add a donor’s weight                                                                                      | I know how much blood can be drawn from a donor in accord with minimum weight requirements                       |
 | * *      | admin staff | modify a donor’s weight                                                                                   | I can update the donor’s weight or fix it if I typed wrongly                                                     |
 | * *      | admin staff | mass import donor information from a file                                                                 | I can quickly onboard data from other instances of the same system within the blood bank                         |
@@ -330,7 +330,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-### **Use case: Add a donor’s contact & blood type**
+### **Use case: UC01 - Add a donor’s contact & blood type**
 
 **Actor**: Admin staff
 
@@ -349,34 +349,34 @@ Use case ends.
 
 ---
 
-### **Use case: Update a Donor's information**
+### **Use case: UC02 - Update a donor's information**
 
 **Actor**: Admin staff
 
 **MSS**
 
-1. Admin staff requests to list donors
-2. BloodNet displays a list of donors
-3. Admin staff requests to update a specified donor, and provides the fields to update and values to update them with.
-4. BloodNet updates fields of the donor for which values were supplied.
+1. Admin staff lists all donors ([UC05](#use-case-uc05---list-all-donors-in-the-system
+)).
+2. Admin staff requests to update a specified donor, and provides the fields to update and values to update them with.
+3. BloodNet updates fields of the donor for which values were supplied.
 
 Use case ends.
 
 **Extensions**
-* 2a. The list is empty.
+* 1a. The list is empty.
     * Use case ends.
 
-* 3a. Donor ID not found.
-    * 3a1. BloodNet shows an error message. 
+* 2a. Donor ID not found.
+    * 3a1. BloodNet shows an error message.
     * Use case returns to step 3.
 
-* 3b. One or more invalid values provided.
+* 2b. One or more invalid values provided.
     * 3b1. BloodNet shows an error message.
     * Use case returns to step 3.
 
 ---
 
-### **Use case: Search donors by name**
+### **Use case: UC03 - Search donors by name**
 
 **Actor**: Admin staff
 
@@ -389,31 +389,30 @@ Use case ends.
 
 ---
 
-### **Use case: Delete a donor**
+### **Use case: UC04 - Delete a donor**
 
 **Actor**: Admin staff
 
 **MSS**
 
-1. Admin staff requests to list donors
-2. BloodNet displays a list of donors
-3. Admin staff requests to delete a donor.
-4. BloodNet deletes a donor. 
+1. Admin staff lists all donors ([UC05](#use-case-uc05---list-all-donors-in-the-system)).
+2. Admin staff requests to delete a donor.
+3. BloodNet deletes a donor.
 
 Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty. 
+* 1a. The list is empty.
     * Use case ends.
 
-* 3a. Donor ID is invalid.
+* 2a. Donor ID is invalid.
     * 3a1. BloodNet shows an error message.
     * Use case returns to step 3.
 
 ---
 
-### **Use case: List all donors in the system**
+### **Use case: UC05 - List all donors in the system**
 
 **Actor**: Admin staff
 
@@ -426,7 +425,7 @@ Use case ends.
 
 ---
 
-### **Use case: Find all donors of a particular blood type**
+### **Use case: UC06 - Find all donors of a particular blood type**
 
 **Actor**: Admin staff
 
@@ -439,7 +438,7 @@ Use case ends.
 
 ---
 
-### **Use case: Record a blood donation by a donor**
+### **Use case: UC07 - Record a blood donation by a donor**
 
 **Actor**: Admin staff
 
@@ -467,7 +466,7 @@ Use case ends.
 
 ---
 
-### **Use case: List all blood donations by a donor**
+### **Use case: UC08 - List all blood donations by a donor**
 
 **Actor**: Admin staff
 
@@ -493,7 +492,7 @@ Use case ends.
 ---
 
 
-### **Use case: Modify a blood donation record**
+### **Use case: UC09 - Modify a blood donation record**
 
 **Actor**: Admin staff
 
@@ -527,7 +526,7 @@ Use case ends.
 
 ---
 
-### **Use case: Delete a blood donation record**
+### **Use case: UC10 - Delete a blood donation record**
 
 **Actor**: Admin staff
 
@@ -557,7 +556,7 @@ Use case ends.
 
 ---
 
-### **Use case: Check if a person is eligible for donation on a particular date**
+### **Use case: UC11 - Check if a person is eligible for donation on a particular date**
 
 **Actor**: Admin staff
 
@@ -581,7 +580,7 @@ Use case ends.
 
 ---
 
-### **Use case: See donor demographics (e.g. age ranges, gender distribution)**
+### **Use case: UC12 - See donor demographics (e.g. age ranges, gender distribution)**
 
 **Actor**: Manager
 
@@ -594,7 +593,7 @@ Use case ends.
 
 ---
 
-### **Use case: Report the breakdown of contacts by blood group**
+### **Use case: UC13 - Report the breakdown of contacts by blood group**
 
 **Actor**: Manager
 
@@ -607,7 +606,7 @@ Use case ends.
 
 ---
 
-### **Use case: View a record of every change done to the system**
+### **Use case: UC14 - View a record of every change done to the system**
 
 **Actor**: Manager
 
