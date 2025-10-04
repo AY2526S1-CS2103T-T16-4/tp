@@ -339,9 +339,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Blood Type**: The current blood types are A+, A-, B+, B-, AB+, AB-, O+ and O-
 * **Donor**: People who donate blood to others
-* **ID**: The identification that tracks the user currently tracked by the system
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Name**: Alphabets, spaces and special characters (,’-) only in a name
 * **Private contact detail**: A Singaporean (+65) contact detail that is not meant to be shared with others
 
 --------------------------------------------------------------------------------------------------------------------
