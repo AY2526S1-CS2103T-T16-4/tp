@@ -46,13 +46,14 @@ public class PersonTest {
         editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB)
                 .withBloodType(VALID_BLOOD_TYPE_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
-        
+
         // different name and number, all other attributes same -> return false
         editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
         // name differs in case and different number, all other attributes same -> returns false
-        Person editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).withPhone(VALID_PHONE_BOB).build();
+        Person editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase())
+                .withPhone(VALID_PHONE_BOB).build();
         assertFalse(BOB.isSamePerson(editedBob));
 
         // name has trailing spaces and different number, all other attributes same -> returns false
