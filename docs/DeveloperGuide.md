@@ -1,7 +1,7 @@
 ---
   layout: default.md
-  title: "Developer Guide"
-  pageNav: 3
+    title: "Developer Guide"
+    pageNav: 3
 ---
 
 # AB-3 Developer Guide
@@ -241,13 +241,13 @@ The following activity diagram summarizes what happens when a user executes a ne
 **Aspect: How undo & redo executes:**
 
 * **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
+    * Pros: Easy to implement.
+    * Cons: May have performance issues in terms of memory usage.
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
+    * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+    * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
 
@@ -274,13 +274,15 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
+* has a need to manage a database of blood donors with detailed profile information
+* requires quick access to donor personal information
+* prefer desktop apps over other types of apps
+* is able to type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
+* wants to filter profiles such as by blood type
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: manage blood-donor profiles more efficiently as opposed to a typical mouse driven app
 
 
 ### User stories
@@ -356,7 +358,7 @@ Use case ends.
 **MSS**
 
 1. Admin staff lists all donors ([UC05](#use-case-uc05---list-all-donors-in-the-system
-)).
+   )).
 2. Admin staff requests to update a specified donor, and provides the fields to update and values to update them with.
 3. BloodNet updates fields of the donor for which values were supplied.
 
@@ -449,7 +451,7 @@ Use case ends.
 3. Admin staff requests to record a blood donation by a donor.
 4. BloodNet records the donation details (including date and volume).
 
- Use case ends.
+Use case ends.
 
 **Extensions**
 
@@ -629,8 +631,10 @@ Use case ends.
 
 ### Glossary
 
+* **Blood Type**: The current blood types are A+, A-, B+, B-, AB+, AB-, O+ and O-
+* **Donor**: People who donate blood to others
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Private contact detail**: A Singaporean (+65) contact detail that is not meant to be shared with others
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -649,15 +653,15 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
 1. _{ more test cases …​ }_
@@ -666,16 +670,16 @@ testers are expected to do more *exploratory* testing.
 
 1. Deleting a person while all persons are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Test case: `delete 1`<br>
+       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+    1. Test case: `delete 0`<br>
+       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
 
@@ -683,6 +687,6 @@ testers are expected to do more *exploratory* testing.
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
