@@ -626,9 +626,14 @@ Use case ends.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4. Should start within 5 seconds on a typical user machine (4 core CPU, 8GB RAM, SSD)
 5. User guide should be written with easy-to-understand English that is comprehensible to users without technical background.
-6. The user interface should be intuitive enough for users who are not IT-saavy
-7. Should not be required to have beautiful visual design or animations since it is for administrative use
-8. Should have user confirmation for _irreversible operations_
+6. The user interface should be intuitive enough for users who are not IT-saavy.
+7. Should not be required to have beautiful visual design or animations since it is for administrative use.
+8. Should have user confirmation for _irreversible operations_.
+9. Should provide error message, in response to an invalid operation, that details what went wrong and how to fix it for a non-technical user.
+10. Should be designed for a single user within a single computer.
+11. Should backup contacts data within a human-editable file such that it persists across instances of the program.
+12. Should work without requiring an installer.
+13. Should be built into a JAR file of no larger than 100MB.
 
 
 ### Glossary
