@@ -624,15 +624,25 @@ Use case ends.
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 1000 persons and the program should still be responsive with response time less than 1 second for each operation.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. Should start within 5 seconds on a typical user machine (4 core CPU, 8GB RAM, SSD)
+5. User guide should be written with easy-to-understand English that is comprehensible to users without technical background.
+6. The user interface should be intuitive enough for users who are not IT-saavy.
+7. Should not be required to have beautiful visual design or animations since it is for administrative use.
+8. Should have user confirmation for _irreversible operations_.
+9. Should provide error message, in response to an invalid operation, that details what went wrong and how to fix it for a non-technical user.
+10. Should be designed for a single user within a single computer.
+11. Should backup contacts data within a human-editable file such that it persists across instances of the program.
+12. Should work without requiring an installer.
+13. Should be built into a JAR file of no larger than 100MB.
 
-*{More to be added}*
 
 ### Glossary
 
-* **Blood Type**: The current blood types are A+, A-, B+, B-, AB+, AB-, O+ and O-
+* **Blood Type**: The blood types suppported are A+, A-, B+, B-, AB+, AB-, O+ and O-
 * **Donor**: People who donate blood to others
+* **Irreversible operation**: An action that leads to permanent data loss
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A Singaporean (+65) contact detail that is not meant to be shared with others
 
