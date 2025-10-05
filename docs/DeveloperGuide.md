@@ -629,8 +629,10 @@ Use case ends.
 
 ### Glossary
 
+* **Blood Type**: The current blood types are A+, A-, B+, B-, AB+, AB-, O+ and O-
+* **Donor**: People who donate blood to others
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Private contact detail**: A Singaporean (+65) contact detail that is not meant to be shared with others
 
 --------------------------------------------------------------------------------------------------------------------
 
