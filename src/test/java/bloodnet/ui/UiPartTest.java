@@ -1,8 +1,8 @@
 package bloodnet.ui;
 
-import static bloodnet.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static bloodnet.testutil.Assert.assertThrows;
 
 import java.net.URL;
 import java.nio.file.Path;
@@ -10,14 +10,14 @@ import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import bloodnet.MainApp;
 import javafx.fxml.FXML;
+import bloodnet.MainApp;
 
 public class UiPartTest {
 
     private static final String MISSING_FILE_PATH = "UiPartTest/missingFile.fxml";
     private static final String INVALID_FILE_PATH = "UiPartTest/invalidFile.fxml";
-    private static final String VALID_FILE_PATH = "UiPartTest/validFile.fxml";
+    private static final String VALID_FILE_PATH = "view/UiPartTest/validFile.fxml";
     private static final String VALID_FILE_WITH_FX_ROOT_PATH = "UiPartTest/validFileWithFxRoot.fxml";
     private static final TestFxmlObject VALID_FILE_ROOT = new TestFxmlObject("Hello World!");
 
