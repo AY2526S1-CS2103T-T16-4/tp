@@ -1,12 +1,12 @@
 package bloodnet.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_TYPE;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_NAME;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_PHONE;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_TAG;
 import static bloodnet.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;

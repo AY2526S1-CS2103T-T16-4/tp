@@ -1,7 +1,7 @@
 package bloodnet.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static bloodnet.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static java.util.Objects.requireNonNull;
 
 import bloodnet.model.Model;
 

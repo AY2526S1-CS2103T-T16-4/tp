@@ -1,6 +1,5 @@
 package bloodnet.logic;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static bloodnet.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static bloodnet.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static bloodnet.logic.commands.CommandTestUtil.BLOOD_TYPE_DESC_AMY;
@@ -9,6 +8,7 @@ import static bloodnet.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static bloodnet.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static bloodnet.testutil.Assert.assertThrows;
 import static bloodnet.testutil.TypicalPersons.AMY;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;

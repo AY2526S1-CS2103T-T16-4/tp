@@ -1,7 +1,7 @@
 package bloodnet.model.person;
 
-import static java.util.Objects.requireNonNull;
 import static bloodnet.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Person's email in the address book.

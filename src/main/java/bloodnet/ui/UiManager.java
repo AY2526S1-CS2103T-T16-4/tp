@@ -2,15 +2,15 @@ package bloodnet.ui;
 
 import java.util.logging.Logger;
 
+import bloodnet.MainApp;
+import bloodnet.commons.core.LogsCenter;
+import bloodnet.commons.util.StringUtil;
+import bloodnet.logic.Logic;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import bloodnet.MainApp;
-import bloodnet.commons.core.LogsCenter;
-import bloodnet.commons.util.StringUtil;
-import bloodnet.logic.Logic;
 
 /**
  * The manager of the UI component.

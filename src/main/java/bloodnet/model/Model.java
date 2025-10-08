@@ -3,9 +3,9 @@ package bloodnet.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
 import bloodnet.commons.core.GuiSettings;
 import bloodnet.model.person.Person;
+import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.

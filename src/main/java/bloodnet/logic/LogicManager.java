@@ -5,7 +5,6 @@ import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import bloodnet.commons.core.GuiSettings;
 import bloodnet.commons.core.LogsCenter;
 import bloodnet.logic.commands.Command;
@@ -17,6 +16,7 @@ import bloodnet.model.Model;
 import bloodnet.model.ReadOnlyAddressBook;
 import bloodnet.model.person.Person;
 import bloodnet.storage.Storage;
+import javafx.collections.ObservableList;
 
 /**
  * The main LogicManager of the app.

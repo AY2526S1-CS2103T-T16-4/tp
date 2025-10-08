@@ -2,14 +2,14 @@ package bloodnet.logic;
 
 import java.nio.file.Path;
 
-import bloodnet.model.Model;
-import javafx.collections.ObservableList;
 import bloodnet.commons.core.GuiSettings;
 import bloodnet.logic.commands.CommandResult;
 import bloodnet.logic.commands.exceptions.CommandException;
 import bloodnet.logic.parser.exceptions.ParseException;
+import bloodnet.model.Model;
 import bloodnet.model.ReadOnlyAddressBook;
 import bloodnet.model.person.Person;
+import javafx.collections.ObservableList;
 
 /**
  * API of the Logic component

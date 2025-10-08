@@ -1,11 +1,11 @@
 package bloodnet.logic.commands;
 
+import static bloodnet.testutil.Assert.assertThrows;
+import static bloodnet.testutil.TypicalPersons.ALICE;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static bloodnet.testutil.Assert.assertThrows;
-import static bloodnet.testutil.TypicalPersons.ALICE;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -14,7 +14,6 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
 import bloodnet.commons.core.GuiSettings;
 import bloodnet.logic.Messages;
 import bloodnet.logic.commands.exceptions.CommandException;
@@ -24,6 +23,7 @@ import bloodnet.model.ReadOnlyAddressBook;
 import bloodnet.model.ReadOnlyUserPrefs;
 import bloodnet.model.person.Person;
 import bloodnet.testutil.PersonBuilder;
+import javafx.collections.ObservableList;
 
 public class AddCommandTest {
 

@@ -1,13 +1,13 @@
 package bloodnet.ui;
 
 import bloodnet.logic.Logic;
+import bloodnet.logic.commands.CommandResult;
+import bloodnet.logic.commands.exceptions.CommandException;
+import bloodnet.logic.parser.exceptions.ParseException;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import bloodnet.logic.commands.CommandResult;
-import bloodnet.logic.commands.exceptions.CommandException;
-import bloodnet.logic.parser.exceptions.ParseException;
 
 /**
  * The UI component that is responsible for receiving user command inputs.

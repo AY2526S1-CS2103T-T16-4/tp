@@ -4,10 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import javafx.collections.ObservableList;
 import bloodnet.commons.util.ToStringBuilder;
 import bloodnet.model.person.Person;
 import bloodnet.model.person.UniquePersonList;
+import javafx.collections.ObservableList;
+
 
 /**
  * Wraps all data at the address-book level

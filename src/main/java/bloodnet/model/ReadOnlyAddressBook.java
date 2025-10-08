@@ -1,7 +1,7 @@
 package bloodnet.model;
 
-import javafx.collections.ObservableList;
 import bloodnet.model.person.Person;
+import javafx.collections.ObservableList;
 
 /**
  * Unmodifiable view of an address book

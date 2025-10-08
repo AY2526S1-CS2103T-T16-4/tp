@@ -5,8 +5,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
 import bloodnet.commons.core.Config;
 import bloodnet.commons.core.LogsCenter;
 import bloodnet.commons.core.Version;
@@ -30,6 +28,8 @@ import bloodnet.storage.StorageManager;
 import bloodnet.storage.UserPrefsStorage;
 import bloodnet.ui.Ui;
 import bloodnet.ui.UiManager;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
  * Runs the application.

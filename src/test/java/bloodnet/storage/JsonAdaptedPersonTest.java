@@ -1,9 +1,9 @@
 package bloodnet.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static bloodnet.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static bloodnet.testutil.Assert.assertThrows;
 import static bloodnet.testutil.TypicalPersons.BENSON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
