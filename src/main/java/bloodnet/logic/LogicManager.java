@@ -9,6 +9,7 @@ import bloodnet.commons.core.GuiSettings;
 import bloodnet.commons.core.LogsCenter;
 import bloodnet.logic.commands.Command;
 import bloodnet.logic.commands.CommandResult;
+import bloodnet.logic.commands.commandsessions.CommandSession;
 import bloodnet.logic.commands.exceptions.CommandException;
 import bloodnet.logic.parser.AddressBookParser;
 import bloodnet.logic.parser.exceptions.ParseException;
@@ -33,8 +34,11 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final AddressBookParser addressBookParser;
 
+    private CommandSession currentSession = null;
+
     /**
-     * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
+     * Constructs a {@code LogicManager} with the given {@code Model} and
+     * {@code Storage}.
      */
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -47,9 +51,34 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
 
+        if (currentSession != null) {
+            return handleSessionInput(commandText);
+        }
+
+        Command command = addressBookParser.parseCommand(commandText);
+        currentSession = command.createSession(model);
+
+        if (currentSession != null) {
+            return handleSessionInput(commandText);
+        }
+        commandResult = command.execute(model);
+        saveAddressBookSafely();
+
+        return commandResult;
+    }
+
+    private CommandResult handleSessionInput(String input) throws CommandException {
+        CommandResult result = currentSession.handle(input);
+        logger.info(result.getFeedbackToUser());
+        if (currentSession.isDone()) {
+            currentSession = null;
+            saveAddressBookSafely();
+        }
+        return result;
+    }
+
+    private void saveAddressBookSafely() throws CommandException {
         try {
             storage.saveAddressBook(model.getAddressBook());
         } catch (AccessDeniedException e) {
@@ -57,8 +86,6 @@ public class LogicManager implements Logic {
         } catch (IOException ioe) {
             throw new CommandException(String.format(FILE_OPS_ERROR_FORMAT, ioe.getMessage()), ioe);
         }
-
-        return commandResult;
     }
 
     @Override
