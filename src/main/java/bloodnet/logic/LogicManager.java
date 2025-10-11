@@ -10,6 +10,7 @@ import bloodnet.commons.core.LogsCenter;
 import bloodnet.logic.commands.Command;
 import bloodnet.logic.commands.CommandResult;
 import bloodnet.logic.commands.commandsessions.CommandSession;
+import bloodnet.logic.commands.commandsessions.exceptions.TerminalSessionStateException;
 import bloodnet.logic.commands.exceptions.CommandException;
 import bloodnet.logic.parser.AddressBookParser;
 import bloodnet.logic.parser.exceptions.ParseException;
@@ -27,6 +28,10 @@ public class LogicManager implements Logic {
 
     public static final String FILE_OPS_PERMISSION_ERROR_FORMAT =
             "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
+
+    public static final String TERMINAL_COMMAND_SESSION_STATE_ERROR_MESSAGE = 
+            "An error has occured under the hood! \n" +
+            "Your previous command was likely not properly captured. Please try again.";
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
@@ -69,8 +74,13 @@ public class LogicManager implements Logic {
     }
 
     private CommandResult handleSessionInput(String input) throws CommandException {
-        CommandResult result = currentSession.handle(input);
-        logger.info(result.getFeedbackToUser());
+        CommandResult result;
+        try {
+            result = currentSession.handle(input);
+        } catch (TerminalSessionStateException e) {
+            currentSession = null;
+            result = new CommandResult(TERMINAL_COMMAND_SESSION_STATE_ERROR_MESSAGE);
+        }
         if (currentSession.isDone()) {
             currentSession = null;
             saveAddressBookSafely();

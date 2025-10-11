@@ -1,6 +1,7 @@
 package bloodnet.logic.commands.commandsessions;
 
 import bloodnet.logic.commands.CommandResult;
+import bloodnet.logic.commands.commandsessions.exceptions.TerminalSessionStateException;
 import bloodnet.logic.commands.exceptions.CommandException;
 
 /**
@@ -46,13 +47,13 @@ public class ConfirmationCommandSession implements CommandSession {
         },
         DONE {
             @Override
-            Response handle(ConfirmationCommandSession session, String action, String input) {
-                throw new IllegalStateException("Session is done, no more input expected.");
+            Response handle(ConfirmationCommandSession session, String action, String input) throws TerminalSessionStateException{
+                throw new TerminalSessionStateException();
             }
         };
 
         abstract Response handle(ConfirmationCommandSession session, String action, String input)
-                throws CommandException;
+                throws CommandException, TerminalSessionStateException;
 
     }
 
@@ -73,7 +74,7 @@ public class ConfirmationCommandSession implements CommandSession {
     }
 
     @Override
-    public CommandResult handle(String input) throws CommandException {
+    public CommandResult handle(String input) throws CommandException, TerminalSessionStateException {
         Response response = currentState.handle(this, action, input);
         this.currentState = response.nextState();
         return response.result();

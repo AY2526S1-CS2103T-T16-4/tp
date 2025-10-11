@@ -1,6 +1,7 @@
 package bloodnet.logic.commands.commandsessions;
 
 import bloodnet.logic.commands.CommandResult;
+import bloodnet.logic.commands.commandsessions.exceptions.TerminalSessionStateException;
 import bloodnet.logic.commands.exceptions.CommandException;
 
 /**
@@ -22,8 +23,10 @@ public interface CommandSession {
      * @return the result of executing or continuing the command session.
      * @throws CommandException If an error occurs during command execution/ input
      *                          processing.
+     * @throws TerminalSessionStateException If session is already 
+     * in terminal state.
      */
-    CommandResult handle(String userInput) throws CommandException;
+    CommandResult handle(String userInput) throws CommandException, TerminalSessionStateException;
 
     /**
      * Returns whether this command session has completed and no longer
