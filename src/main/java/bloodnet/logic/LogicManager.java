@@ -9,6 +9,8 @@ import bloodnet.commons.core.GuiSettings;
 import bloodnet.commons.core.LogsCenter;
 import bloodnet.logic.commands.Command;
 import bloodnet.logic.commands.CommandResult;
+import bloodnet.logic.commands.commandsessions.CommandSession;
+import bloodnet.logic.commands.commandsessions.exceptions.TerminalSessionStateException;
 import bloodnet.logic.commands.exceptions.CommandException;
 import bloodnet.logic.parser.AddressBookParser;
 import bloodnet.logic.parser.exceptions.ParseException;
@@ -27,14 +29,21 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_PERMISSION_ERROR_FORMAT =
             "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
 
+    public static final String TERMINAL_COMMAND_SESSION_STATE_ERROR_MESSAGE =
+            "An error has occured under the hood! \n"
+            + "Your previous command was likely not properly captured. Please try again.";
+
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
 
+    private CommandSession currentSession = null;
+
     /**
-     * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
+     * Constructs a {@code LogicManager} with the given {@code Model} and
+     * {@code Storage}.
      */
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -42,14 +51,54 @@ public class LogicManager implements Logic {
         addressBookParser = new AddressBookParser();
     }
 
+    /**
+     * Constructs a {@code LogicManager} with the given {@code Model},
+     * {@code Storage} and {@code AddressBookParser}.
+     */
+    public LogicManager(Model model, Storage storage, AddressBookParser addressBookParser) {
+        this.model = model;
+        this.storage = storage;
+        this.addressBookParser = addressBookParser;
+    }
+
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
 
+        if (currentSession != null) {
+            return handleSessionInput(commandText);
+        }
+
+        Command command = addressBookParser.parseCommand(commandText);
+        currentSession = command.createSession(model);
+
+        if (currentSession != null) {
+            return handleSessionInput(commandText);
+        }
+        commandResult = command.execute(model);
+        saveAddressBookSafely();
+
+        return commandResult;
+    }
+
+    private CommandResult handleSessionInput(String input) throws CommandException {
+        CommandResult result;
+        try {
+            result = currentSession.handle(input);
+        } catch (TerminalSessionStateException e) {
+            currentSession = null;
+            result = new CommandResult(TERMINAL_COMMAND_SESSION_STATE_ERROR_MESSAGE);
+        }
+        if (currentSession != null && currentSession.isDone()) {
+            currentSession = null;
+            saveAddressBookSafely();
+        }
+        return result;
+    }
+
+    private void saveAddressBookSafely() throws CommandException {
         try {
             storage.saveAddressBook(model.getAddressBook());
         } catch (AccessDeniedException e) {
@@ -57,8 +106,6 @@ public class LogicManager implements Logic {
         } catch (IOException ioe) {
             throw new CommandException(String.format(FILE_OPS_ERROR_FORMAT, ioe.getMessage()), ioe);
         }
-
-        return commandResult;
     }
 
     @Override

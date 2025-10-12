@@ -8,12 +8,16 @@ import static bloodnet.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static bloodnet.testutil.TypicalPersons.getTypicalAddressBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 import bloodnet.commons.core.index.Index;
 import bloodnet.logic.Messages;
+import bloodnet.logic.commands.commandsessions.CommandSession;
+import bloodnet.logic.commands.commandsessions.ConfirmationCommandSession;
+import bloodnet.logic.commands.exceptions.CommandException;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
@@ -117,4 +121,19 @@ public class DeleteCommandTest {
 
         assertTrue(model.getFilteredPersonList().isEmpty());
     }
+
+    @Test
+    public void createSession_nullModel_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> (new DeleteCommand(Index.fromZeroBased(0))).createSession(null));
+    }
+
+    @Test
+    public void createSession_validModel_returnsConfirmationCommandSession() throws CommandException {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        CommandSession session = (new DeleteCommand(Index.fromZeroBased(0))).createSession(model);
+
+        assertTrue(session instanceof ConfirmationCommandSession);
+        assertFalse(session.isDone());
+    }
+
 }
