@@ -51,6 +51,16 @@ public class LogicManager implements Logic {
         addressBookParser = new AddressBookParser();
     }
 
+    /**
+     * Constructs a {@code LogicManager} with the given {@code Model},
+     * {@code Storage} and {@code AddressBookParser}.
+     */
+    public LogicManager(Model model, Storage storage, AddressBookParser addressBookParser) {
+        this.model = model;
+        this.storage = storage;
+        this.addressBookParser = addressBookParser;
+    }
+
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -81,7 +91,7 @@ public class LogicManager implements Logic {
             currentSession = null;
             result = new CommandResult(TERMINAL_COMMAND_SESSION_STATE_ERROR_MESSAGE);
         }
-        if (currentSession.isDone()) {
+        if (currentSession != null && currentSession.isDone()) {
             currentSession = null;
             saveAddressBookSafely();
         }
