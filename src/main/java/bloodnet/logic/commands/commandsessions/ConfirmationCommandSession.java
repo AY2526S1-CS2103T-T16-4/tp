@@ -23,7 +23,7 @@ public class ConfirmationCommandSession implements CommandSession {
             @Override
             Response handle(ConfirmationCommandSession session, String action, String input) {
                 CommandResult prompt = new CommandResult(
-                        String.format("Are you sure you want to %s? This action is not reversible.", action));
+                        String.format(ConfirmationCommandSession.MESSAGE_SEEK_CONFIRMATION, action));
                 return new Response(PENDING_CONFIRMATION, prompt);
             }
         },
@@ -35,11 +35,11 @@ public class ConfirmationCommandSession implements CommandSession {
                     CommandResult result = session.onConfirm.run();
                     return new Response(DONE, result);
                 } else if ("no".equals(normalisedInput)) {
-                    CommandResult result = new CommandResult(String.format("Operation cancelled. Did not %s.", action));
+                    CommandResult result = new CommandResult(String.format(MESSAGE_CANCELLED, action));
                     return new Response(DONE, result);
                 } else {
                     CommandResult result = new CommandResult(
-                            String.format("Please response with 'yes' or 'no'. Are you sure you want to %s?",
+                            String.format(MESSAGE_INVALID_INPUT,
                                     session.action));
                     return new Response(this, result);
                 }
@@ -47,7 +47,8 @@ public class ConfirmationCommandSession implements CommandSession {
         },
         DONE {
             @Override
-            Response handle(ConfirmationCommandSession session, String action, String input) throws TerminalSessionStateException{
+            Response handle(ConfirmationCommandSession session, String action, String input)
+                    throws TerminalSessionStateException {
                 throw new TerminalSessionStateException();
             }
         };
@@ -59,6 +60,12 @@ public class ConfirmationCommandSession implements CommandSession {
 
     private record Response(State nextState, CommandResult result) {
     };
+
+    public static final String MESSAGE_SEEK_CONFIRMATION =
+            "Are you sure you want to %s? This action is not reversible.";
+    public static final String MESSAGE_INVALID_INPUT =
+            "Please response with 'yes' or 'no'. Are you sure you want to %s?";
+    public static final String MESSAGE_CANCELLED = "Operation cancelled. Did not %s.";
 
     private State currentState = State.INITIAL;
     private final String action;
