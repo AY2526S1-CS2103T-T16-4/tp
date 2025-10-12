@@ -23,8 +23,8 @@ public interface CommandSession {
      * @return the result of executing or continuing the command session.
      * @throws CommandException If an error occurs during command execution/ input
      *                          processing.
-     * @throws TerminalSessionStateException If session is already 
-     * in terminal state.
+     * @throws TerminalSessionStateException If session is already
+     *                                       in terminal state.
      */
     CommandResult handle(String userInput) throws CommandException, TerminalSessionStateException;
 
