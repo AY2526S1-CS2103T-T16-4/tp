@@ -19,9 +19,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import bloodnet.logic.commands.AddCommand;
+import bloodnet.logic.commands.Command;
 import bloodnet.logic.commands.CommandResult;
 import bloodnet.logic.commands.ListCommand;
+import bloodnet.logic.commands.commandsessions.CommandSession;
+import bloodnet.logic.commands.commandsessions.exceptions.TerminalSessionStateException;
 import bloodnet.logic.commands.exceptions.CommandException;
+import bloodnet.logic.parser.AddressBookParser;
 import bloodnet.logic.parser.exceptions.ParseException;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
@@ -81,6 +85,48 @@ public class LogicManagerTest {
         assertCommandFailureForExceptionFromStorage(DUMMY_AD_EXCEPTION, String.format(
                 LogicManager.FILE_OPS_PERMISSION_ERROR_FORMAT, DUMMY_AD_EXCEPTION.getMessage()));
     }
+
+    @Test
+    public void execute_multiStateCommand_success() throws CommandException, ParseException {
+        JsonAddressBookStorage addressBookStorage =
+                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        Logic logic = new LogicManager(model, storage, new AddressBookParserStub());
+
+
+        CommandResult result;
+        for (int i = 1; i <= 3; i++) {
+            result = logic.execute("multi state");
+            // Verify that session is still ongoing
+            assertEquals(Integer.toString(i), result.getFeedbackToUser());
+        }
+
+        // Verify that upon reaching the terminal state for 'multi state' command,
+        // the session is cleaned up and subsequent execute behaves as a fresh
+        // command, not session input
+        result = logic.execute("");
+        assertEquals("Success", result.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_terminalSessionStateException_resetsSession() throws CommandException, ParseException {
+        JsonAddressBookStorage addressBookStorage =
+                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        Logic logic = new LogicManager(model, storage, new AddressBookParserStub());
+
+        CommandResult result = logic.execute("throw terminal");
+
+        assertEquals(LogicManager.TERMINAL_COMMAND_SESSION_STATE_ERROR_MESSAGE, result.getFeedbackToUser());
+
+        // Verify that session is cleaned up after terminalSessionStateException and
+        // subsequent execute behaves as a fresh command, not session input
+        result = logic.execute("");
+        assertEquals("Success", result.getFeedbackToUser());
+    }
+
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
@@ -171,5 +217,99 @@ public class LogicManagerTest {
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+    }
+
+    /**
+     * A CommandSession stub that throws TerminalSessionStateException
+     */
+    private class TerminalExceptionSessionStub implements CommandSession {
+        @Override
+        public CommandResult handle(String input) throws TerminalSessionStateException {
+            throw new TerminalSessionStateException();
+        }
+
+        @Override
+        public boolean isDone() {
+            return false;
+        }
+    }
+    /**
+     * A Command stub that creates a session that throws TerminalSessionStateException
+     */
+    private class TerminalExceptionCommandStub extends Command {
+        @Override
+        public CommandSession createSession(Model model) {
+            return new TerminalExceptionSessionStub();
+        }
+
+        @Override
+        public CommandResult execute(Model model) {
+            throw new AssertionError("This method should not be called.");
+        }
+    }
+
+    /**
+     * A CommandSession stub involving multiple states.
+     * <p>
+     * Upon each {@code handle} call, it returns the number of times
+     * {@code handle} has been invoked. When it has invoked {@code handle}
+     * 3 or more times, the session is done.
+     * </p>
+     */
+    private class MultiStateCommandSessionStub implements CommandSession {
+        private int currentState = 0;
+
+        @Override
+        public CommandResult handle(String input) throws CommandException, TerminalSessionStateException {
+            currentState += 1;
+            return new CommandResult(Integer.toString(currentState));
+        }
+
+        @Override
+        public boolean isDone() {
+            return this.currentState >= 3;
+        }
+    }
+
+    /**
+     * A Command stub to create a command session involving multiple states.
+     */
+    private class MultiStateCommandStub extends Command {
+        @Override
+        public CommandSession createSession(Model model) {
+            return new MultiStateCommandSessionStub();
+        }
+
+        @Override
+        public CommandResult execute(Model model) {
+            throw new AssertionError("This method should not be called.");
+        }
+    }
+
+    /**
+     * A Command stub that always succeeds.
+     */
+    private class SuccessCommandStub extends Command {
+        @Override
+        public CommandResult execute(Model model) {
+            return new CommandResult("Success");
+        }
+    }
+
+    /**
+     * A AddressBookParser stub that allows for parsing of command text to
+     * return the Command stubs defined within this enclosing test class.
+     */
+    private class AddressBookParserStub extends AddressBookParser {
+        @Override
+        public Command parseCommand(String userInput) {
+            if (userInput == "throw terminal") {
+                return new TerminalExceptionCommandStub();
+            } else if (userInput == "multi state") {
+                return new MultiStateCommandStub();
+            } else {
+                return new SuccessCommandStub();
+            }
+        }
     }
 }

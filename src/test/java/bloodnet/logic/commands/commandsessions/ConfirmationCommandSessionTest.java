@@ -2,6 +2,7 @@ package bloodnet.logic.commands.commandsessions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -66,6 +67,18 @@ public class ConfirmationCommandSessionTest {
                 String.format(ConfirmationCommandSession.MESSAGE_INVALID_INPUT, "action"),
                 result.getFeedbackToUser());
         assertFalse(session.isDone());
+    }
+
+    @Test
+    public void handle_terminalState_throwTerminalSessionStateException()
+            throws CommandException, TerminalSessionStateException {
+        Command commandStub = new CommandStub();
+        ConfirmationCommandSession session = new ConfirmationCommandSession("action", () -> commandStub.execute(model));
+
+        session.handle("");
+        session.handle("yes");
+
+        assertThrows(TerminalSessionStateException.class, () -> session.handle(""));
     }
 
     /**
