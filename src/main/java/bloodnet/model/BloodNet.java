@@ -11,10 +11,10 @@ import javafx.collections.ObservableList;
 
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the blood-net level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class BloodNet implements ReadOnlyBloodNet {
 
     private final UniquePersonList persons;
 
@@ -29,12 +29,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
     }
 
-    public AddressBook() {}
+    public BloodNet() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an BloodNet using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public BloodNet(ReadOnlyBloodNet toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -50,9 +50,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code BloodNet} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyBloodNet newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
@@ -61,7 +61,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the bloodnet.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -69,8 +69,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a person to the bloodnet.
+     * The person must not already exist in the bloodnet.
      */
     public void addPerson(Person p) {
         persons.add(p);
@@ -78,8 +78,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in the bloodnet.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the bloodnet.
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
@@ -88,8 +88,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code BloodNet}.
+     * {@code key} must exist in the bloodnet.
      */
     public void removePerson(Person key) {
         persons.remove(key);
@@ -116,12 +116,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddressBook)) {
+        if (!(other instanceof BloodNet)) {
             return false;
         }
 
-        AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons);
+        BloodNet otherBloodNet = (BloodNet) other;
+        return persons.equals(otherBloodNet.persons);
     }
 
     @Override

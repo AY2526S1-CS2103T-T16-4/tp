@@ -29,9 +29,9 @@ import bloodnet.testutil.EditPersonDescriptorBuilder;
 import bloodnet.testutil.PersonBuilder;
 import bloodnet.testutil.PersonUtil;
 
-public class AddressBookParserTest {
+public class BloodNetParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final BloodNetParser parser = new BloodNetParser();
 
     @Test
     public void parseCommand_add() throws Exception {

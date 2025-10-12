@@ -5,14 +5,14 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import bloodnet.commons.exceptions.DataLoadingException;
-import bloodnet.model.ReadOnlyAddressBook;
+import bloodnet.model.ReadOnlyBloodNet;
 import bloodnet.model.ReadOnlyUserPrefs;
 import bloodnet.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends BloodNetStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataLoadingException;
@@ -21,12 +21,12 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getBloodNetFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataLoadingException;
+    Optional<ReadOnlyBloodNet> readBloodNet() throws DataLoadingException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveBloodNet(ReadOnlyBloodNet bloodNet) throws IOException;
 
 }

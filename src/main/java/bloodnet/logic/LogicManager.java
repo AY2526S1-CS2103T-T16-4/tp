@@ -10,10 +10,10 @@ import bloodnet.commons.core.LogsCenter;
 import bloodnet.logic.commands.Command;
 import bloodnet.logic.commands.CommandResult;
 import bloodnet.logic.commands.exceptions.CommandException;
-import bloodnet.logic.parser.AddressBookParser;
+import bloodnet.logic.parser.BloodNetParser;
 import bloodnet.logic.parser.exceptions.ParseException;
 import bloodnet.model.Model;
-import bloodnet.model.ReadOnlyAddressBook;
+import bloodnet.model.ReadOnlyBloodNet;
 import bloodnet.model.person.Person;
 import bloodnet.storage.Storage;
 import javafx.collections.ObservableList;
@@ -31,7 +31,7 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final BloodNetParser bloodNetParser;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -39,7 +39,7 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        bloodNetParser = new BloodNetParser();
     }
 
     @Override
@@ -47,11 +47,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = bloodNetParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveBloodNet(model.getBloodNet());
         } catch (AccessDeniedException e) {
             throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
         } catch (IOException ioe) {
@@ -62,8 +62,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyBloodNet getBloodNet() {
+        return model.getBloodNet();
     }
 
     @Override
@@ -72,8 +72,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getBloodNetFilePath() {
+        return model.getBloodNetFilePath();
     }
 
     @Override

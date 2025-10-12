@@ -6,7 +6,7 @@ import static java.util.Objects.requireNonNull;
 import bloodnet.model.Model;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons in the bloodnet to the user.
  */
 public class ListCommand extends Command {
 

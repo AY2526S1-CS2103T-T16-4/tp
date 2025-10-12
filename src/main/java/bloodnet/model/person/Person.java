@@ -11,7 +11,7 @@ import bloodnet.commons.util.ToStringBuilder;
 import bloodnet.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Person in the bloodnet.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {

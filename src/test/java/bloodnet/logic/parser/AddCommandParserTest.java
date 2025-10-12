@@ -83,7 +83,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, EMAIL_DESC_AMY + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_EMAIL));
 
-        // multiple addresses
+        // multiple blood types
         assertParseFailure(parser, BLOOD_TYPE_DESC_AMY + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_BLOOD_TYPE));
 
@@ -109,7 +109,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, INVALID_PHONE_DESC + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE));
 
-        // invalid address
+        // invalid blood type
         assertParseFailure(parser, INVALID_BLOOD_TYPE_DESC + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_BLOOD_TYPE));
 
@@ -127,7 +127,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, validExpectedPersonString + INVALID_PHONE_DESC,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE));
 
-        // invalid address
+        // invalid blood type
         assertParseFailure(parser, validExpectedPersonString + INVALID_BLOOD_TYPE_DESC,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_BLOOD_TYPE));
     }
@@ -156,7 +156,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + BLOOD_TYPE_DESC_BOB,
                 expectedMessage);
 
-        // missing address prefix
+        // missing blood type prefix
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_BLOOD_TYPE_BOB,
                 expectedMessage);
 
@@ -179,7 +179,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + BLOOD_TYPE_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
 
-        // invalid address
+        // invalid blood type
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_BLOOD_TYPE_DESC
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, BloodType.MESSAGE_CONSTRAINTS);
 

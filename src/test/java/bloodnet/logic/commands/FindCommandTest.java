@@ -5,7 +5,7 @@ import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static bloodnet.testutil.TypicalPersons.CARL;
 import static bloodnet.testutil.TypicalPersons.ELLE;
 import static bloodnet.testutil.TypicalPersons.FIONA;
-import static bloodnet.testutil.TypicalPersons.getTypicalAddressBook;
+import static bloodnet.testutil.TypicalPersons.getTypicalBloodNet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -24,8 +24,8 @@ import bloodnet.model.person.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalBloodNet(), new UserPrefs());
 
     @Test
     public void equals() {

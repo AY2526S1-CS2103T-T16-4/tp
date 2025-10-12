@@ -92,7 +92,7 @@ public class PersonTest {
         editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different address -> returns false
+        // different blood type -> returns false
         editedAlice = new PersonBuilder(ALICE).withBloodType(VALID_BLOOD_TYPE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 

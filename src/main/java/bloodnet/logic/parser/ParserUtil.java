@@ -66,14 +66,14 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a {@code String bloodType} into an {@code BloodType}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code bloodType} is invalid.
      */
-    public static BloodType parseBloodType(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedBloodType = address.trim();
+    public static BloodType parseBloodType(String bloodType) throws ParseException {
+        requireNonNull(bloodType);
+        String trimmedBloodType = bloodType.trim();
         if (!BloodType.isValidBloodType(trimmedBloodType)) {
             throw new ParseException(BloodType.MESSAGE_CONSTRAINTS);
         }

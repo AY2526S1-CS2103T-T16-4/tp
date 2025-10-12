@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import bloodnet.model.AddressBook;
+import bloodnet.model.BloodNet;
 import bloodnet.model.person.Person;
 
 /**
@@ -61,10 +61,10 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code BloodNet} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static BloodNet getTypicalBloodNet() {
+        BloodNet ab = new BloodNet();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }

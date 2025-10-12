@@ -17,9 +17,9 @@ import org.junit.jupiter.api.Test;
 import bloodnet.commons.core.GuiSettings;
 import bloodnet.logic.Messages;
 import bloodnet.logic.commands.exceptions.CommandException;
-import bloodnet.model.AddressBook;
+import bloodnet.model.BloodNet;
 import bloodnet.model.Model;
-import bloodnet.model.ReadOnlyAddressBook;
+import bloodnet.model.ReadOnlyBloodNet;
 import bloodnet.model.ReadOnlyUserPrefs;
 import bloodnet.model.person.Person;
 import bloodnet.testutil.PersonBuilder;
@@ -109,12 +109,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getBloodNetFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setBloodNetFilePath(Path bloodNetFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -124,12 +124,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setBloodNet(ReadOnlyBloodNet newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyBloodNet getBloodNet() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -196,8 +196,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyBloodNet getBloodNet() {
+            return new BloodNet();
         }
     }
 
