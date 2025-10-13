@@ -14,7 +14,7 @@ import bloodnet.model.Model;
 import bloodnet.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a person identified using it's displayed index from the bloodnet.
  */
 public class DeleteCommand extends Command {
 

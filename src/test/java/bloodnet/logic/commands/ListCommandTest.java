@@ -3,7 +3,7 @@ package bloodnet.logic.commands;
 import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static bloodnet.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static bloodnet.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static bloodnet.testutil.TypicalPersons.getTypicalAddressBook;
+import static bloodnet.testutil.TypicalPersons.getTypicalBloodNet;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,8 +22,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
+        expectedModel = new ModelManager(model.getBloodNet(), new UserPrefs());
     }
 
     @Test

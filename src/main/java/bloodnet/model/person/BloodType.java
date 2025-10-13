@@ -13,7 +13,7 @@ public class BloodType {
             "Blood type should either be A-, A+, B-, B+, AB-, AB+, O- or O+, and it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the blood type must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "^(A|B|AB|O)[+-]$";

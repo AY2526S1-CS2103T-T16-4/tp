@@ -120,9 +120,9 @@ public class ParserUtilTest {
 
     @Test
     public void parseBloodType_validValueWithWhitespace_returnsTrimmedBloodType() throws Exception {
-        String addressWithWhitespace = WHITESPACE + VALID_BLOOD_TYPE + WHITESPACE;
+        String bloodTypeWithWhitespace = WHITESPACE + VALID_BLOOD_TYPE + WHITESPACE;
         BloodType expectedBloodType = new BloodType(VALID_BLOOD_TYPE);
-        assertEquals(expectedBloodType, ParserUtil.parseBloodType(addressWithWhitespace));
+        assertEquals(expectedBloodType, ParserUtil.parseBloodType(bloodTypeWithWhitespace));
     }
 
     @Test

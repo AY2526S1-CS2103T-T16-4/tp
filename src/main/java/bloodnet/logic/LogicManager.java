@@ -12,10 +12,10 @@ import bloodnet.logic.commands.CommandResult;
 import bloodnet.logic.commands.commandsessions.CommandSession;
 import bloodnet.logic.commands.commandsessions.exceptions.TerminalSessionStateException;
 import bloodnet.logic.commands.exceptions.CommandException;
-import bloodnet.logic.parser.AddressBookParser;
+import bloodnet.logic.parser.BloodNetParser;
 import bloodnet.logic.parser.exceptions.ParseException;
 import bloodnet.model.Model;
-import bloodnet.model.ReadOnlyAddressBook;
+import bloodnet.model.ReadOnlyBloodNet;
 import bloodnet.model.person.Person;
 import bloodnet.storage.Storage;
 import javafx.collections.ObservableList;
@@ -37,7 +37,7 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final BloodNetParser bloodNetParser;
 
     private CommandSession currentSession = null;
 
@@ -48,17 +48,17 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        bloodNetParser = new BloodNetParser();
     }
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model},
-     * {@code Storage} and {@code AddressBookParser}.
+     * {@code Storage} and {@code BloodNetParser}.
      */
-    public LogicManager(Model model, Storage storage, AddressBookParser addressBookParser) {
+    public LogicManager(Model model, Storage storage, BloodNetParser bloodNetParser) {
         this.model = model;
         this.storage = storage;
-        this.addressBookParser = addressBookParser;
+        this.bloodNetParser = bloodNetParser;
     }
 
     @Override
@@ -71,14 +71,14 @@ public class LogicManager implements Logic {
             return handleSessionInput(commandText);
         }
 
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = bloodNetParser.parseCommand(commandText);
         currentSession = command.createSession(model);
 
         if (currentSession != null) {
             return handleSessionInput(commandText);
         }
         commandResult = command.execute(model);
-        saveAddressBookSafely();
+        saveBloodNetSafely();
 
         return commandResult;
     }
@@ -93,14 +93,14 @@ public class LogicManager implements Logic {
         }
         if (currentSession != null && currentSession.isDone()) {
             currentSession = null;
-            saveAddressBookSafely();
+            saveBloodNetSafely();
         }
         return result;
     }
 
-    private void saveAddressBookSafely() throws CommandException {
+    private void saveBloodNetSafely() throws CommandException {
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveBloodNet(model.getBloodNet());
         } catch (AccessDeniedException e) {
             throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
         } catch (IOException ioe) {
@@ -109,8 +109,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyBloodNet getBloodNet() {
+        return model.getBloodNet();
     }
 
     @Override
@@ -119,8 +119,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getBloodNetFilePath() {
+        return model.getBloodNetFilePath();
     }
 
     @Override

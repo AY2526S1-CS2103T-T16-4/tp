@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import bloodnet.model.AddressBook;
-import bloodnet.model.ReadOnlyAddressBook;
+import bloodnet.model.BloodNet;
+import bloodnet.model.ReadOnlyBloodNet;
 import bloodnet.model.person.BloodType;
 import bloodnet.model.person.Email;
 import bloodnet.model.person.Name;
@@ -14,7 +14,7 @@ import bloodnet.model.person.Phone;
 import bloodnet.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code BloodNet} with sample data.
  */
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
@@ -40,8 +40,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyBloodNet getSampleBloodNet() {
+        BloodNet sampleAb = new BloodNet();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
