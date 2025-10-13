@@ -56,7 +56,9 @@ public class Person {
         return bloodType;
     }
 
-    public DateOfBirth getDateOfBirth() { return dateOfBirth; }
+    public DateOfBirth getDateOfBirth() {
+        return dateOfBirth;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}

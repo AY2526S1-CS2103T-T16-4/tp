@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import bloodnet.logic.commands.EditCommand.EditPersonDescriptor;
 import bloodnet.model.person.BloodType;
+import bloodnet.model.person.DateOfBirth;
 import bloodnet.model.person.Email;
 import bloodnet.model.person.Name;
 import bloodnet.model.person.Person;
@@ -73,6 +74,15 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
+     * Sets the {@code DateOfBirth} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withDateOfBirth(String dateOfBirth) {
+        descriptor.setDateOfBirth(new DateOfBirth(dateOfBirth));
+        return this;
+    }
+
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
@@ -85,4 +95,6 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptor build() {
         return descriptor;
     }
+
+
 }

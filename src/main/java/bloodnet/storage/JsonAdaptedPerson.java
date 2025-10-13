@@ -113,7 +113,7 @@ class JsonAdaptedPerson {
                     DateOfBirth.class.getSimpleName()));
         }
         if (!DateOfBirth.isValidDateOfBirth(dateOfBirth)) {
-            throw new IllegalValueException(BloodType.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(DateOfBirth.MESSAGE_CONSTRAINTS);
         }
         final DateOfBirth modelDateOfBirth = new DateOfBirth(dateOfBirth);
 
