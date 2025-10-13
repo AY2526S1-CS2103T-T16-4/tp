@@ -218,7 +218,9 @@ public class EditCommand extends Command {
             this.dateOfBirth = dateOfBirth;
         }
 
-        public Optional<DateOfBirth> getDateOfBirth() { return Optional.ofNullable(dateOfBirth);}
+        public Optional<DateOfBirth> getDateOfBirth() {
+            return Optional.ofNullable(dateOfBirth);
+        }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.

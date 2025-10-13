@@ -21,7 +21,7 @@ public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new BloodType("A+"),new DateOfBirth("28-03-1995"),
+                new BloodType("A+"), new DateOfBirth("28-03-1995"),
                 getTagSet("friends")),
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new BloodType("AB+"), new DateOfBirth("01-01-2000"),
