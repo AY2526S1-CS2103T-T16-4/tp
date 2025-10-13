@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import bloodnet.logic.parser.exceptions.ParseException;
 import bloodnet.model.person.BloodType;
+import bloodnet.model.person.DateOfBirth;
 import bloodnet.model.person.Email;
 import bloodnet.model.person.Name;
 import bloodnet.model.person.Phone;
@@ -24,6 +25,7 @@ public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_BLOOD_TYPE = " ";
+    private static final String INVALID_DATE_OF_BIRTH = "XX-20-1000";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
@@ -31,6 +33,7 @@ public class ParserUtilTest {
     private static final String VALID_PHONE = "12345678";
     private static final String VALID_BLOOD_TYPE = "B+";
     private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_DATE_OF_BIRTH = "10-13-1998";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -147,6 +150,33 @@ public class ParserUtilTest {
         Email expectedEmail = new Email(VALID_EMAIL);
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
     }
+
+    /**
+     * Checking to see what is returned if null is returned as a birthdate.
+     */
+    @Test
+    public void parseDateOfBirth_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDateOfBirth((String) null));
+    }
+
+    @Test
+    public void parseDateOfBirth_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDateOfBirth(INVALID_DATE_OF_BIRTH));
+    }
+
+    @Test
+    public void parseDateOfBirth_validValueWithoutWhitespace_returnsDateOfBirth() throws Exception {
+        DateOfBirth expectedEmail = new DateOfBirth(VALID_DATE_OF_BIRTH);
+        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_DATE_OF_BIRTH));
+    }
+
+    @Test
+    public void parseDateOfBirth_validValueWithWhitespace_returnsDateOfBirthEmail() throws Exception {
+        String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
+        Email expectedEmail = new Email(VALID_EMAIL);
+        assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+    }
+
 
     @Test
     public void parseTag_null_throwsNullPointerException() {

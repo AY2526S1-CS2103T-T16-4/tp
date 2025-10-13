@@ -10,6 +10,7 @@ import bloodnet.commons.core.index.Index;
 import bloodnet.commons.util.StringUtil;
 import bloodnet.logic.parser.exceptions.ParseException;
 import bloodnet.model.person.BloodType;
+import bloodnet.model.person.DateOfBirth;
 import bloodnet.model.person.Email;
 import bloodnet.model.person.Name;
 import bloodnet.model.person.Phone;
@@ -79,6 +80,22 @@ public class ParserUtil {
         }
         return new BloodType(trimmedBloodType);
     }
+
+    /**
+     * Parses a {@code String date of birth} into a {@code Date of Birth}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date of birth} is invalid.
+     */
+    public static DateOfBirth parseDateOfBirth(String dateOfBirth) throws ParseException {
+        requireNonNull(dateOfBirth);
+        String trimmedDateOfBirth = dateOfBirth.trim();
+        if (!DateOfBirth.isValidDateOfBirth(trimmedDateOfBirth)) {
+            throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
+        }
+        return new DateOfBirth(trimmedDateOfBirth);
+    }
+
 
     /**
      * Parses a {@code String email} into an {@code Email}.

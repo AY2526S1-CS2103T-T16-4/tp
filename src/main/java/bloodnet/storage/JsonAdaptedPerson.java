@@ -1,5 +1,6 @@
 package bloodnet.storage;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import bloodnet.commons.exceptions.IllegalValueException;
 import bloodnet.model.person.BloodType;
+import bloodnet.model.person.DateOfBirth;
 import bloodnet.model.person.Email;
 import bloodnet.model.person.Name;
 import bloodnet.model.person.Person;
@@ -28,6 +30,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String bloodType;
+    private final String dateOfBirth;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -36,11 +39,13 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("bloodType") String bloodType,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+            @JsonProperty("dateOfBirth") String dateOfBirth,
+                             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.bloodType = bloodType;
+        this.dateOfBirth = dateOfBirth;
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -54,6 +59,7 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         bloodType = source.getBloodType().value;
+        dateOfBirth = source.getDateOfBirth().value.toString();
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -103,8 +109,17 @@ class JsonAdaptedPerson {
         }
         final BloodType modelBloodType = new BloodType(bloodType);
 
+        if (dateOfBirth == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    DateOfBirth.class.getSimpleName()));
+        }
+        if (!DateOfBirth.isValidDateOfBirth(dateOfBirth)) {
+            throw new IllegalValueException(BloodType.MESSAGE_CONSTRAINTS);
+        }
+        final DateOfBirth modelDateOfBirth = new DateOfBirth(dateOfBirth);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelBloodType, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelBloodType, modelDateOfBirth, modelTags);
     }
 
 }
