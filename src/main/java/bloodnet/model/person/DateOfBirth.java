@@ -41,6 +41,7 @@ public class DateOfBirth {
             LocalDate date = LocalDate.parse(test, DATE_FORMATTER);
             return date.getYear() >= 1900 && !date.isAfter(LocalDate.now());
         } catch (DateTimeParseException e) {
+            System.out.println("Failed to parse: " + e.getMessage());
             return false;
         }
     }

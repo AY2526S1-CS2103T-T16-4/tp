@@ -33,7 +33,7 @@ public class ParserUtilTest {
     private static final String VALID_PHONE = "12345678";
     private static final String VALID_BLOOD_TYPE = "B+";
     private static final String VALID_EMAIL = "rachel@example.com";
-    private static final String VALID_DATE_OF_BIRTH = "10-13-1998";
+    private static final String VALID_DATE_OF_BIRTH = "10-12-1998";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -166,8 +166,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseDateOfBirth_validValueWithoutWhitespace_returnsDateOfBirth() throws Exception {
-        DateOfBirth expectedEmail = new DateOfBirth(VALID_DATE_OF_BIRTH);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_DATE_OF_BIRTH));
+        DateOfBirth expectedDateOfBirth = new DateOfBirth(VALID_DATE_OF_BIRTH);
+        assertEquals(expectedDateOfBirth, ParserUtil.parseDateOfBirth(VALID_DATE_OF_BIRTH));
     }
 
     @Test

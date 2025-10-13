@@ -121,7 +121,7 @@ public class JsonAdaptedPersonTest {
     public void toModelType_invalidDateofBirth_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
                 VALID_BLOOD_TYPE, INVALID_DATE_OF_BIRTH, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, DateOfBirth.class.getSimpleName());
+        String expectedMessage = DateOfBirth.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
