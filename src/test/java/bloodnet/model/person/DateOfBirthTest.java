@@ -1,7 +1,9 @@
 package bloodnet.model.person;
 
 import static bloodnet.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -53,12 +55,12 @@ public class DateOfBirthTest {
         assertTrue(DateOfBirth.isValidDateOfBirth("12-12-2002")); // random birthdate
         assertTrue(DateOfBirth.isValidDateOfBirth("01-07-2003")); // random birthdate
 
-
     }
 
     @Test
     public void equals() {
         DateOfBirth dateOfBirth = new DateOfBirth("01-01-2008");
+        DateOfBirth anotherValidBirthDate = new DateOfBirth("14-02-2000");
 
         // same values -> returns true
         assertTrue(dateOfBirth.equals(new DateOfBirth("01-01-2008")));
@@ -73,6 +75,13 @@ public class DateOfBirthTest {
         assertFalse(dateOfBirth.equals(3.0f));
 
         // different values -> returns false
-        assertFalse(dateOfBirth.equals(new DateOfBirth("02-02-2007")));
+        assertFalse(dateOfBirth.equals(anotherValidBirthDate));
+
+        // checking the hashCode method against each other
+        assertNotEquals(dateOfBirth.hashCode(), anotherValidBirthDate.hashCode());
+
+        //valid with itself
+        assertNotEquals(dateOfBirth.hashCode(), dateOfBirth.hashCode());
+
     }
 }

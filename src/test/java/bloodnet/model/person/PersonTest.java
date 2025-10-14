@@ -11,6 +11,7 @@ import static bloodnet.testutil.TypicalPersons.ALICE;
 import static bloodnet.testutil.TypicalPersons.BOB;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -107,6 +108,14 @@ public class PersonTest {
         // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
+
+        // testing two different hash codes
+        editedAlice = new PersonBuilder(ALICE).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
+        assertNotEquals(ALICE.hashCode(), editedAlice.hashCode());
+
+        // testing the same hash
+        editedAlice = new PersonBuilder(ALICE).build();
+        assertNotEquals(ALICE.hashCode(), ALICE.hashCode());
     }
 
     @Test
