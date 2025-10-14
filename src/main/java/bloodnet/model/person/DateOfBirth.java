@@ -9,17 +9,23 @@ import java.time.format.DateTimeParseException;
 
 
 /**
- * Represents a Person's birthdate (DD-MM-YYYY) in the address book.
+ * Represents a Person's birthdate (DD-MM-YYYY) in BloodNet
  * Guarantees: immutable; is valid as declared in {@link #isValidDateOfBirth(String)}
  */
 public class DateOfBirth {
 
+    /**
+     * Blood donation requiremenets taken from: https://www.hsa.gov.sg/blood-donation/can-i-donate
+     */
     public static final String MESSAGE_CONSTRAINTS =
             "The birthdate should be of the format DD-MM-YYYY. "
                     + "Please note that blood donors should be at least 16 years and at "
                     + "most 60 years old (one day before their 61st birthday).";
     public static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    /**
+     * This is stored as a LocalDate for easier parseability.
+     */
     public final LocalDate value;
 
 
@@ -41,19 +47,28 @@ public class DateOfBirth {
     public static boolean isValidDateOfBirth(String test) {
         try {
             LocalDate date = LocalDate.parse(test, DATE_FORMATTER);
-            return !date.isAfter(LocalDate.now().minusYears(16))
-                    && !date.isBefore(LocalDate.now().minusYears(61)
+            LocalDate current = LocalDate.now();
+            return !date.isAfter(current.minusYears(16))
+                    && !date.isBefore(current.minusYears(61)
                     .plusDays(1));
         } catch (DateTimeParseException e) {
             return false;
         }
     }
 
+    /**
+     * Formats the date as the same format as inputted ie: DD-MM-YYYY
+     * @return
+     */
     @Override
     public String toString() {
         return value.format(DATE_FORMATTER);
     }
 
+    /**
+     * Compares two dates with one another
+     * @param other date
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -75,3 +90,4 @@ public class DateOfBirth {
     }
 
 }
+
