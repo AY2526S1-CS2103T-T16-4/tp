@@ -15,7 +15,9 @@ import java.time.format.DateTimeParseException;
 public class DateOfBirth {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "The birthdate should be of the format DD-MM-YYYY and the year should be from 1900-2025.";
+            "The birthdate should be of the format DD-MM-YYYY. "
+                    + "Please note that blood donors should be at least 16 years and at "
+                    + "most 60 years old (one day before their 61st birthday).";
     public static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public final LocalDate value;
@@ -39,9 +41,10 @@ public class DateOfBirth {
     public static boolean isValidDateOfBirth(String test) {
         try {
             LocalDate date = LocalDate.parse(test, DATE_FORMATTER);
-            return date.getYear() >= 1900 && !date.isAfter(LocalDate.now());
+            return !date.isAfter(LocalDate.now().minusYears(16))
+                    && !date.isBefore(LocalDate.now().minusYears(61)
+                    .plusDays(1));
         } catch (DateTimeParseException e) {
-            System.out.println("Failed to parse: " + e.getMessage());
             return false;
         }
     }
