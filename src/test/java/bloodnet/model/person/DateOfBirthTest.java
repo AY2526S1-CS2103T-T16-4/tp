@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 public class DateOfBirthTest {
 
     /**
-     * Checking what happens if null is thrown
+     * Checking what happens if null is thrown.
      */
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -81,7 +81,7 @@ public class DateOfBirthTest {
         assertNotEquals(dateOfBirth.hashCode(), anotherValidBirthDate.hashCode());
 
         //valid with itself
-        assertNotEquals(dateOfBirth.hashCode(), dateOfBirth.hashCode());
+        assertEquals(dateOfBirth.hashCode(), dateOfBirth.hashCode());
 
     }
 }

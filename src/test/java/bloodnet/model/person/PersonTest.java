@@ -115,7 +115,7 @@ public class PersonTest {
 
         // testing the same hash
         editedAlice = new PersonBuilder(ALICE).build();
-        assertNotEquals(ALICE.hashCode(), ALICE.hashCode());
+        assertEquals(ALICE.hashCode(), ALICE.hashCode());
     }
 
     @Test

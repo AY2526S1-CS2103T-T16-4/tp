@@ -24,7 +24,7 @@ public class DateOfBirth {
     public static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("dd-MM-yyyy");
     /**
-     * This is stored as a LocalDate for easier parseability.
+     * This is stored as a LocalDate for easier parsing purposes.
      */
     public final LocalDate value;
 
@@ -66,7 +66,7 @@ public class DateOfBirth {
     }
 
     /**
-     * Compares two dates with one another
+     * Compares two dates of birth with one another.
      * @param other date
      */
     @Override
@@ -84,6 +84,9 @@ public class DateOfBirth {
         return value.equals(otherDateOfBirth.value);
     }
 
+    /**
+     * This returns the same hashCode if the values are equal to one another.
+     */
     @Override
     public int hashCode() {
         return value.hashCode();
