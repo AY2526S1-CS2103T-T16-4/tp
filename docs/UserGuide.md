@@ -47,10 +47,10 @@ BloodNet is a **desktop app for managing contacts, optimized for use via a  Line
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com b/A+ t/friend t/colleague`
+**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com b/A+`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
 **Help**   | `help`
@@ -65,12 +65,6 @@ Action     | Format, Examples
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-
-* Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -94,16 +88,12 @@ Format: `help`
 
 Adds a person to the BloodNet system.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE …​`
 
-<box type="tip" seamless>
-
-**Tip:** A person can have any number of tags (including 0)
-</box>
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com b/B+`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com b/O- t/criminal`
+* `add n/Betsy Crowe e/betsycrowe@example.com b/O-`
 
 ### Listing all persons : `list`
 
@@ -115,18 +105,15 @@ Format: `list`
 
 Edits an existing person in the BloodNet system.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 2 n/Betsy Crower ` Edits the name of the 2nd person to be `Betsy Crower`.
 
 ### Locating persons by name: `find`
 

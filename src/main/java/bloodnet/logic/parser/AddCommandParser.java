@@ -5,9 +5,7 @@ import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_TYPE;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_NAME;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_PHONE;
-import static bloodnet.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
 import bloodnet.logic.commands.AddCommand;
@@ -17,7 +15,6 @@ import bloodnet.model.person.Email;
 import bloodnet.model.person.Name;
 import bloodnet.model.person.Person;
 import bloodnet.model.person.Phone;
-import bloodnet.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -32,7 +29,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                        PREFIX_BLOOD_TYPE, PREFIX_TAG);
+                        PREFIX_BLOOD_TYPE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_BLOOD_TYPE, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -44,9 +41,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         BloodType bloodType = ParserUtil.parseBloodType(argMultimap.getValue(PREFIX_BLOOD_TYPE).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, bloodType, tagList);
+        Person person = new Person(name, phone, email, bloodType);
 
         return new AddCommand(person);
     }

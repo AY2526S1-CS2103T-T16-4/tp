@@ -2,13 +2,9 @@ package bloodnet.model.person;
 
 import static bloodnet.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import bloodnet.commons.util.ToStringBuilder;
-import bloodnet.model.tag.Tag;
 
 /**
  * Represents a Person in the bloodnet.
@@ -23,18 +19,16 @@ public class Person {
 
     // Data fields
     private final BloodType bloodType;
-    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, BloodType bloodType, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, bloodType, tags);
+    public Person(Name name, Phone phone, Email email, BloodType bloodType) {
+        requireAllNonNull(name, phone, email, bloodType);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.bloodType = bloodType;
-        this.tags.addAll(tags);
     }
 
     public Name getName() {
@@ -51,14 +45,6 @@ public class Person {
 
     public BloodType getBloodType() {
         return bloodType;
-    }
-
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
     }
 
     /**
@@ -93,14 +79,13 @@ public class Person {
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
-                && bloodType.equals(otherPerson.bloodType)
-                && tags.equals(otherPerson.tags);
+                && bloodType.equals(otherPerson.bloodType);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, bloodType, tags);
+        return Objects.hash(name, phone, email, bloodType);
     }
 
     @Override
@@ -110,7 +95,6 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("bloodType", bloodType)
-                .add("tags", tags)
                 .toString();
     }
 
