@@ -1,6 +1,7 @@
 package bloodnet.model;
 
 import static bloodnet.logic.commands.CommandTestUtil.VALID_BLOOD_TYPE_BOB;
+import static bloodnet.logic.commands.CommandTestUtil.VALID_DATE_OF_BIRTH_BOB;
 import static bloodnet.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static bloodnet.testutil.Assert.assertThrows;
 import static bloodnet.testutil.TypicalPersons.ALICE;
@@ -46,8 +47,9 @@ public class BloodNetTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withBloodType(VALID_BLOOD_TYPE_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        Person editedAlice = new PersonBuilder(ALICE)
+                .withBloodType(VALID_BLOOD_TYPE_BOB).withTags(VALID_TAG_HUSBAND)
+                .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         BloodNetStub newData = new BloodNetStub(newPersons);
 
@@ -73,8 +75,9 @@ public class BloodNetTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInBloodNet_returnsTrue() {
         bloodNet.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withBloodType(VALID_BLOOD_TYPE_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        Person editedAlice = new PersonBuilder(ALICE)
+                .withBloodType(VALID_BLOOD_TYPE_BOB).withTags(VALID_TAG_HUSBAND)
+                .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
         assertTrue(bloodNet.hasPerson(editedAlice));
     }
 

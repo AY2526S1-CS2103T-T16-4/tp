@@ -171,10 +171,10 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseDateOfBirth_validValueWithWhitespace_returnsDateOfBirthEmail() throws Exception {
-        String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+    public void parseDateOfBirth_validValueWithWhitespace_returnsDateOfBirth() throws Exception {
+        String dateOfBirthWithWhiteSpace = WHITESPACE + VALID_DATE_OF_BIRTH + WHITESPACE;
+        DateOfBirth expectedDateOfBirth = new DateOfBirth(VALID_DATE_OF_BIRTH);
+        assertEquals(expectedDateOfBirth, ParserUtil.parseDateOfBirth(dateOfBirthWithWhiteSpace));
     }
 
 

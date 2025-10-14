@@ -1,6 +1,7 @@
 package bloodnet.model.person;
 
 import static bloodnet.commons.util.AppUtil.checkArgument;
+import static java.time.format.ResolverStyle.STRICT;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
@@ -18,11 +19,9 @@ public class DateOfBirth {
      * Blood donation requiremenets taken from: https://www.hsa.gov.sg/blood-donation/can-i-donate
      */
     public static final String MESSAGE_CONSTRAINTS =
-            "The birthdate should be of the format DD-MM-YYYY. "
-                    + "Please note that blood donors should be at least 16 years and at "
-                    + "most 60 years old (one day before their 61st birthday).";
+            "The date of birth should be of the format DD-MM-YYYY and not more than 130 years ago.";
     public static final DateTimeFormatter DATE_FORMATTER =
-            DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(STRICT);
     /**
      * This is stored as a LocalDate for easier parsing purposes.
      */
@@ -45,12 +44,12 @@ public class DateOfBirth {
      * Checks to see if it can be parsed as a valid date of birth.
      */
     public static boolean isValidDateOfBirth(String test) {
+
         try {
             LocalDate date = LocalDate.parse(test, DATE_FORMATTER);
             LocalDate current = LocalDate.now();
-            return !date.isAfter(current.minusYears(16))
-                    && !date.isBefore(current.minusYears(61)
-                    .plusDays(1));
+            return !date.isAfter(current)
+                    && !date.isBefore(current.minusYears(130));
         } catch (DateTimeParseException e) {
             return false;
         }

@@ -123,11 +123,11 @@ public class AddCommandParserTest {
         assertParseFailure(parser, INVALID_BLOOD_TYPE_DESC + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_BLOOD_TYPE));
 
-        // invalid blood type
+        // invalid date of birth
         assertParseFailure(parser, INVALID_DATE_OF_BIRTH_DESC + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DATE_OF_BIRTH));
 
-        // valid value followed by invalid value
+        // valid value followed by an invalid value
 
         // invalid name
         assertParseFailure(parser, validExpectedPersonString + INVALID_NAME_DESC,

@@ -53,7 +53,7 @@ public class EditPersonDescriptorTest {
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withBloodType(VALID_BLOOD_TYPE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different blood type -> returns false
+        // different date of birth -> returns false
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
