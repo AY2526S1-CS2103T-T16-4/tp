@@ -3,6 +3,7 @@
     "name": "Person with invalid name field: Ha!ns Mu@ster",
     "phone": "94824242",
     "email": "hans@example.com",
+    "dateOfBirth": "11-08-1980",
     "bloodType": "AB+"
   } ]
 }

@@ -3,6 +3,7 @@ package bloodnet.logic.commands;
 import static bloodnet.logic.commands.CommandTestUtil.DESC_AMY;
 import static bloodnet.logic.commands.CommandTestUtil.DESC_BOB;
 import static bloodnet.logic.commands.CommandTestUtil.VALID_BLOOD_TYPE_BOB;
+import static bloodnet.logic.commands.CommandTestUtil.VALID_DATE_OF_BIRTH_BOB;
 import static bloodnet.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static bloodnet.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static bloodnet.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -52,6 +53,10 @@ public class EditPersonDescriptorTest {
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withBloodType(VALID_BLOOD_TYPE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
+        // different date of birth -> returns false
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
+
         // different tags -> returns false
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(DESC_AMY.equals(editedAmy));
@@ -64,7 +69,8 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getName().orElse(null) + ", phone="
                 + editPersonDescriptor.getPhone().orElse(null) + ", email="
                 + editPersonDescriptor.getEmail().orElse(null) + ", bloodType="
-                + editPersonDescriptor.getBloodType().orElse(null) + ", tags="
+                + editPersonDescriptor.getBloodType().orElse(null) + ", dateOfBirth="
+                + editPersonDescriptor.getDateOfBirth().orElse(null) + ", tags="
                 + editPersonDescriptor.getTags().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
     }

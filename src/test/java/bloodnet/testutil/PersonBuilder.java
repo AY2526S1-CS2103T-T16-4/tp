@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import bloodnet.model.person.BloodType;
+import bloodnet.model.person.DateOfBirth;
 import bloodnet.model.person.Email;
 import bloodnet.model.person.Name;
 import bloodnet.model.person.Person;
@@ -20,11 +21,13 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_BLOOD_TYPE = "B+";
+    public static final String DEFAULT_DATE_OF_BIRTH = "14-02-2000";
 
     private Name name;
     private Phone phone;
     private Email email;
     private BloodType bloodType;
+    private DateOfBirth dateOfBirth;
     private Set<Tag> tags;
 
     /**
@@ -35,6 +38,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         bloodType = new BloodType(DEFAULT_BLOOD_TYPE);
+        dateOfBirth = new DateOfBirth(DEFAULT_DATE_OF_BIRTH);
         tags = new HashSet<>();
     }
 
@@ -46,6 +50,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         bloodType = personToCopy.getBloodType();
+        dateOfBirth = personToCopy.getDateOfBirth();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -89,8 +94,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code DateOfBirth} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = new DateOfBirth(dateOfBirth);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, bloodType, tags);
+        return new Person(name, phone, email, bloodType, dateOfBirth, tags);
     }
 
 }
