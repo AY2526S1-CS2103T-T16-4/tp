@@ -7,24 +7,24 @@ import java.util.logging.Logger;
 
 import bloodnet.commons.core.LogsCenter;
 import bloodnet.commons.exceptions.DataLoadingException;
-import bloodnet.model.ReadOnlyBloodNet;
+import bloodnet.model.ReadOnlyPersonList;
 import bloodnet.model.ReadOnlyUserPrefs;
 import bloodnet.model.UserPrefs;
 
 /**
- * Manages storage of BloodNet data in local storage.
+ * Manages storage of PersonList data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private BloodNetStorage bloodNetStorage;
+    private PersonStorage personStorage;
     private UserPrefsStorage userPrefsStorage;
 
     /**
-     * Creates a {@code StorageManager} with the given {@code BloodNetStorage} and {@code UserPrefStorage}.
+     * Creates a {@code StorageManager} with the given {@code PersonStorage} and {@code UserPrefStorage}.
      */
-    public StorageManager(BloodNetStorage bloodNetStorage, UserPrefsStorage userPrefsStorage) {
-        this.bloodNetStorage = bloodNetStorage;
+    public StorageManager(PersonStorage personStorage, UserPrefsStorage userPrefsStorage) {
+        this.personStorage = personStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -46,33 +46,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ BloodNet methods ==============================
+    // ================ PersonList methods ==============================
 
     @Override
-    public Path getBloodNetFilePath() {
-        return bloodNetStorage.getBloodNetFilePath();
+    public Path getPersonListFilePath() {
+        return personStorage.getPersonListFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyBloodNet> readBloodNet() throws DataLoadingException {
-        return readBloodNet(bloodNetStorage.getBloodNetFilePath());
+    public Optional<ReadOnlyPersonList> readPersonList() throws DataLoadingException {
+        return readPersonList(personStorage.getPersonListFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyBloodNet> readBloodNet(Path filePath) throws DataLoadingException {
+    public Optional<ReadOnlyPersonList> readPersonList(Path filePath) throws DataLoadingException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return bloodNetStorage.readBloodNet(filePath);
+        return personStorage.readPersonList(filePath);
     }
 
     @Override
-    public void saveBloodNet(ReadOnlyBloodNet bloodNet) throws IOException {
-        saveBloodNet(bloodNet, bloodNetStorage.getBloodNetFilePath());
+    public void savePersonList(ReadOnlyPersonList personList) throws IOException {
+        savePersonList(personList, personStorage.getPersonListFilePath());
     }
 
     @Override
-    public void saveBloodNet(ReadOnlyBloodNet bloodNet, Path filePath) throws IOException {
+    public void savePersonList(ReadOnlyPersonList personList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        bloodNetStorage.saveBloodNet(bloodNet, filePath);
+        personStorage.savePersonList(personList, filePath);
     }
 
 }

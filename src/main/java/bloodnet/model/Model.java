@@ -37,20 +37,20 @@ public interface Model {
     /**
      * Returns the user prefs' bloodnet file path.
      */
-    Path getBloodNetFilePath();
+    Path getPersonListFilePath();
 
     /**
      * Sets the user prefs' bloodnet file path.
      */
-    void setBloodNetFilePath(Path bloodNetFilePath);
+    void setPersonListFilePath(Path bloodNetFilePath);
 
     /**
      * Replaces bloodnet data with the data in {@code bloodNet}.
      */
-    void setBloodNet(ReadOnlyBloodNet bloodNet);
+    void setPersonList(ReadOnlyPersonList bloodNet);
 
-    /** Returns the BloodNet */
-    ReadOnlyBloodNet getBloodNet();
+    /** Returns the PersonList */
+    ReadOnlyPersonList getPersonList();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the bloodnet.

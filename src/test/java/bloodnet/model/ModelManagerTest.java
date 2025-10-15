@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import bloodnet.commons.core.GuiSettings;
 import bloodnet.model.person.NameContainsKeywordsPredicate;
-import bloodnet.testutil.BloodNetBuilder;
+import bloodnet.testutil.PersonListBuilder;
 
 public class ModelManagerTest {
 
@@ -26,7 +26,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new BloodNet(), new BloodNet(modelManager.getBloodNet()));
+        assertEquals(new PersonList(), new PersonList(modelManager.getPersonList()));
     }
 
     @Test
@@ -37,14 +37,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setBloodNetFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setPersonListFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setBloodNetFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setPersonListFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -61,15 +61,15 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setBloodNetFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setBloodNetFilePath(null));
+    public void setPersonListFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setPersonListFilePath(null));
     }
 
     @Test
-    public void setBloodNetFilePath_validPath_setsBloodNetFilePath() {
+    public void setPersonListFilePath_validPath_setsPersonListFilePath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setBloodNetFilePath(path);
-        assertEquals(path, modelManager.getBloodNetFilePath());
+        modelManager.setPersonListFilePath(path);
+        assertEquals(path, modelManager.getPersonListFilePath());
     }
 
     @Test
@@ -78,12 +78,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_personNotInBloodNet_returnsFalse() {
+    public void hasPerson_personNotInPersonList_returnsFalse() {
         assertFalse(modelManager.hasPerson(ALICE));
     }
 
     @Test
-    public void hasPerson_personInBloodNet_returnsTrue() {
+    public void hasPerson_personInPersonList_returnsTrue() {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
     }
@@ -95,8 +95,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        BloodNet bloodNet = new BloodNetBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        BloodNet differentBloodNet = new BloodNet();
+        PersonList bloodNet = new PersonListBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        PersonList differentPersonList = new PersonList();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
@@ -114,7 +114,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different bloodNet -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentBloodNet, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentPersonList, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
@@ -126,7 +126,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setBloodNetFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setPersonListFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(bloodNet, differentUserPrefs)));
     }
 }

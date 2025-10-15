@@ -15,7 +15,7 @@ import java.util.List;
 
 import bloodnet.commons.core.index.Index;
 import bloodnet.logic.commands.exceptions.CommandException;
-import bloodnet.model.BloodNet;
+import bloodnet.model.PersonList;
 import bloodnet.model.Model;
 import bloodnet.model.person.NameContainsKeywordsPredicate;
 import bloodnet.model.person.Person;
@@ -105,11 +105,11 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        BloodNet expectedBloodNet = new BloodNet(actualModel.getBloodNet());
+        PersonList expectedPersonList = new PersonList(actualModel.getPersonList());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedBloodNet, actualModel.getBloodNet());
+        assertEquals(expectedPersonList, actualModel.getPersonList());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
     /**

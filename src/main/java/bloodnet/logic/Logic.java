@@ -7,7 +7,7 @@ import bloodnet.logic.commands.CommandResult;
 import bloodnet.logic.commands.exceptions.CommandException;
 import bloodnet.logic.parser.exceptions.ParseException;
 import bloodnet.model.Model;
-import bloodnet.model.ReadOnlyBloodNet;
+import bloodnet.model.ReadOnlyPersonList;
 import bloodnet.model.person.Person;
 import javafx.collections.ObservableList;
 
@@ -25,11 +25,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the BloodNet.
+     * Returns the PersonList.
      *
-     * @see Model#getBloodNet()
+     * @see Model#getPersonList()
      */
-    ReadOnlyBloodNet getBloodNet();
+    ReadOnlyPersonList getPersonList();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
@@ -37,7 +37,7 @@ public interface Logic {
     /**
      * Returns the user prefs' bloodnet file path.
      */
-    Path getBloodNetFilePath();
+    Path getPersonListFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

@@ -4,7 +4,7 @@ import static bloodnet.logic.commands.CommandTestUtil.VALID_BLOOD_TYPE_BOB;
 import static bloodnet.logic.commands.CommandTestUtil.VALID_DATE_OF_BIRTH_BOB;
 import static bloodnet.testutil.Assert.assertThrows;
 import static bloodnet.testutil.TypicalPersons.ALICE;
-import static bloodnet.testutil.TypicalPersons.getTypicalBloodNet;
+import static bloodnet.testutil.TypicalPersons.getTypicalPersonList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,25 +22,25 @@ import bloodnet.testutil.PersonBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class BloodNetTest {
+public class PersonListTest {
 
-    private final BloodNet bloodNet = new BloodNet();
+    private final PersonList personList = new PersonList();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), bloodNet.getPersonList());
+        assertEquals(Collections.emptyList(), personList.getPersonList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> bloodNet.resetData(null));
+        assertThrows(NullPointerException.class, () -> personList.resetData(null));
     }
 
     @Test
-    public void resetData_withValidReadOnlyBloodNet_replacesData() {
-        BloodNet newData = getTypicalBloodNet();
-        bloodNet.resetData(newData);
-        assertEquals(newData, bloodNet);
+    public void resetData_withValidReadOnlyPersonList_replacesData() {
+        PersonList newData = getTypicalPersonList();
+        personList.resetData(newData);
+        assertEquals(newData, personList);
     }
 
     @Test
@@ -50,54 +50,54 @@ public class BloodNetTest {
                 .withBloodType(VALID_BLOOD_TYPE_BOB)
                 .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        BloodNetStub newData = new BloodNetStub(newPersons);
+        PersonListStub newData = new PersonListStub(newPersons);
 
-        assertThrows(DuplicatePersonException.class, () -> bloodNet.resetData(newData));
+        assertThrows(DuplicatePersonException.class, () -> personList.resetData(newData));
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> bloodNet.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> personList.hasPerson(null));
     }
 
     @Test
-    public void hasPerson_personNotInBloodNet_returnsFalse() {
-        assertFalse(bloodNet.hasPerson(ALICE));
+    public void hasPerson_personNotInPersonList_returnsFalse() {
+        assertFalse(personList.hasPerson(ALICE));
     }
 
     @Test
-    public void hasPerson_personInBloodNet_returnsTrue() {
-        bloodNet.addPerson(ALICE);
-        assertTrue(bloodNet.hasPerson(ALICE));
+    public void hasPerson_personInPersonList_returnsTrue() {
+        personList.addPerson(ALICE);
+        assertTrue(personList.hasPerson(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInBloodNet_returnsTrue() {
-        bloodNet.addPerson(ALICE);
+    public void hasPerson_personWithSameIdentityFieldsInPersonList_returnsTrue() {
+        personList.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE)
                 .withBloodType(VALID_BLOOD_TYPE_BOB)
                 .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
-        assertTrue(bloodNet.hasPerson(editedAlice));
+        assertTrue(personList.hasPerson(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> bloodNet.getPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> personList.getPersonList().remove(0));
     }
 
     @Test
     public void toStringMethod() {
-        String expected = BloodNet.class.getCanonicalName() + "{persons=" + bloodNet.getPersonList() + "}";
-        assertEquals(expected, bloodNet.toString());
+        String expected = PersonList.class.getCanonicalName() + "{persons=" + personList.getPersonList() + "}";
+        assertEquals(expected, personList.toString());
     }
 
     /**
-     * A stub ReadOnlyBloodNet whose persons list can violate interface constraints.
+     * A stub ReadOnlyPersonList whose persons list can violate interface constraints.
      */
-    private static class BloodNetStub implements ReadOnlyBloodNet {
+    private static class PersonListStub implements ReadOnlyPersonList {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
 
-        BloodNetStub(Collection<Person> persons) {
+        PersonListStub(Collection<Person> persons) {
             this.persons.setAll(persons);
         }
 

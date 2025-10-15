@@ -14,7 +14,7 @@ import javafx.collections.ObservableList;
  * Wraps all data at the blood-net level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class BloodNet implements ReadOnlyBloodNet {
+public class PersonList implements ReadOnlyPersonList {
 
     private final UniquePersonList persons;
 
@@ -29,12 +29,12 @@ public class BloodNet implements ReadOnlyBloodNet {
         persons = new UniquePersonList();
     }
 
-    public BloodNet() {}
+    public PersonList() {}
 
     /**
-     * Creates an BloodNet using the Persons in the {@code toBeCopied}
+     * Creates an PersonList using the Persons in the {@code toBeCopied}
      */
-    public BloodNet(ReadOnlyBloodNet toBeCopied) {
+    public PersonList(ReadOnlyPersonList toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -50,9 +50,9 @@ public class BloodNet implements ReadOnlyBloodNet {
     }
 
     /**
-     * Resets the existing data of this {@code BloodNet} with {@code newData}.
+     * Resets the existing data of this {@code PersonList} with {@code newData}.
      */
-    public void resetData(ReadOnlyBloodNet newData) {
+    public void resetData(ReadOnlyPersonList newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
@@ -88,7 +88,7 @@ public class BloodNet implements ReadOnlyBloodNet {
     }
 
     /**
-     * Removes {@code key} from this {@code BloodNet}.
+     * Removes {@code key} from this {@code PersonList}.
      * {@code key} must exist in the bloodnet.
      */
     public void removePerson(Person key) {
@@ -116,11 +116,11 @@ public class BloodNet implements ReadOnlyBloodNet {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof BloodNet)) {
+        if (!(other instanceof PersonList)) {
             return false;
         }
 
-        BloodNet otherBloodNet = (BloodNet) other;
+        PersonList otherBloodNet = (PersonList) other;
         return persons.equals(otherBloodNet.persons);
     }
 

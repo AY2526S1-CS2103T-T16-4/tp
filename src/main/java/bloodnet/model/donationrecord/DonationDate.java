@@ -10,7 +10,7 @@ import static java.util.Objects.requireNonNull;
 
 
 /**
- * Represents a Donation Date (DD-MM-YYYY) in BloodNet
+ * Represents a Donation Date (DD-MM-YYYY) in PersonList
  * Guarantees: immutable; is valid as declared in {@link #isValidDonationDate(String)}
  */
 public class DonationDate {

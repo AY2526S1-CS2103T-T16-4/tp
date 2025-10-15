@@ -14,7 +14,7 @@ import bloodnet.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path bloodNetFilePath = Paths.get("data" , "bloodnet.json");
+    private Path personListFilePath = Paths.get("data" , "persons.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -35,7 +35,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setBloodNetFilePath(newUserPrefs.getBloodNetFilePath());
+        setPersonListFilePath(newUserPrefs.getPersonListFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,13 +47,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getBloodNetFilePath() {
-        return bloodNetFilePath;
+    public Path getPersonListFilePath() {
+        return personListFilePath;
     }
 
-    public void setBloodNetFilePath(Path bloodNetFilePath) {
-        requireNonNull(bloodNetFilePath);
-        this.bloodNetFilePath = bloodNetFilePath;
+    public void setPersonListFilePath(Path personListFilePath) {
+        requireNonNull(personListFilePath);
+        this.personListFilePath = personListFilePath;
     }
 
     @Override
@@ -69,19 +69,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         UserPrefs otherUserPrefs = (UserPrefs) other;
         return guiSettings.equals(otherUserPrefs.guiSettings)
-                && bloodNetFilePath.equals(otherUserPrefs.bloodNetFilePath);
+                && personListFilePath.equals(otherUserPrefs.personListFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, bloodNetFilePath);
+        return Objects.hash(guiSettings, personListFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + bloodNetFilePath);
+        sb.append("\nLocal data file location : " + personListFilePath);
         return sb.toString();
     }
 

@@ -5,7 +5,7 @@ import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static bloodnet.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static bloodnet.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static bloodnet.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static bloodnet.testutil.TypicalPersons.getTypicalBloodNet;
+import static bloodnet.testutil.TypicalPersons.getTypicalPersonList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,7 +29,7 @@ import bloodnet.model.person.Person;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalPersonList(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -39,7 +39,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
                 Messages.format(personToDelete));
 
-        ModelManager expectedModel = new ModelManager(model.getBloodNet(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getPersonList(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -63,7 +63,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
                 Messages.format(personToDelete));
 
-        Model expectedModel = new ModelManager(model.getBloodNet(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getPersonList(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
 
@@ -76,7 +76,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of bloodnet list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getBloodNet().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getPersonList().getPersonList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
@@ -129,7 +129,7 @@ public class DeleteCommandTest {
 
     @Test
     public void createSession_validModel_returnsConfirmationCommandSession() throws CommandException {
-        Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
+        Model model = new ModelManager(getTypicalPersonList(), new UserPrefs());
         CommandSession session = (new DeleteCommand(Index.fromZeroBased(0))).createSession(model);
 
         assertTrue(session instanceof ConfirmationCommandSession);

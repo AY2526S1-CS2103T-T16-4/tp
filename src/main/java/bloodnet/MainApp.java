@@ -13,19 +13,15 @@ import bloodnet.commons.util.ConfigUtil;
 import bloodnet.commons.util.StringUtil;
 import bloodnet.logic.Logic;
 import bloodnet.logic.LogicManager;
-import bloodnet.model.BloodNet;
+import bloodnet.model.PersonList;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
-import bloodnet.model.ReadOnlyBloodNet;
+import bloodnet.model.ReadOnlyPersonList;
 import bloodnet.model.ReadOnlyUserPrefs;
 import bloodnet.model.UserPrefs;
 import bloodnet.model.util.SampleDataUtil;
-import bloodnet.storage.BloodNetStorage;
-import bloodnet.storage.JsonBloodNetStorage;
-import bloodnet.storage.JsonUserPrefsStorage;
-import bloodnet.storage.Storage;
-import bloodnet.storage.StorageManager;
-import bloodnet.storage.UserPrefsStorage;
+import bloodnet.storage.*;
+import bloodnet.storage.PersonStorage;
 import bloodnet.ui.Ui;
 import bloodnet.ui.UiManager;
 import javafx.application.Application;
@@ -48,7 +44,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing BloodNet ]===========================");
+        logger.info("=============================[ Initializing PersonList ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -57,8 +53,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        BloodNetStorage bloodNetStorage = new JsonBloodNetStorage(userPrefs.getBloodNetFilePath());
-        storage = new StorageManager(bloodNetStorage, userPrefsStorage);
+        PersonStorage personStorage = new JsonPersonStorage(userPrefs.getPersonListFilePath());
+        storage = new StorageManager(personStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
 
@@ -73,21 +69,21 @@ public class MainApp extends Application {
      * or an empty bloodnet will be used instead if errors occur when reading {@code storage}'s bloodnet.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        logger.info("Using data file : " + storage.getBloodNetFilePath());
+        logger.info("Using data file : " + storage.getPersonListFilePath());
 
-        Optional<ReadOnlyBloodNet> bloodNetOptional;
-        ReadOnlyBloodNet initialData;
+        Optional<ReadOnlyPersonList> bloodNetOptional;
+        ReadOnlyPersonList initialData;
         try {
-            bloodNetOptional = storage.readBloodNet();
+            bloodNetOptional = storage.readPersonList();
             if (!bloodNetOptional.isPresent()) {
-                logger.info("Creating a new data file " + storage.getBloodNetFilePath()
-                        + " populated with a sample BloodNet.");
+                logger.info("Creating a new data file " + storage.getPersonListFilePath()
+                        + " populated with a sample PersonList.");
             }
-            initialData = bloodNetOptional.orElseGet(SampleDataUtil::getSampleBloodNet);
+            initialData = bloodNetOptional.orElseGet(SampleDataUtil::getSamplePersonList);
         } catch (DataLoadingException e) {
-            logger.warning("Data file at " + storage.getBloodNetFilePath() + " could not be loaded."
-                    + " Will be starting with an empty BloodNet.");
-            initialData = new BloodNet();
+            logger.warning("Data file at " + storage.getPersonListFilePath() + " could not be loaded."
+                    + " Will be starting with an empty PersonList.");
+            initialData = new PersonList();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -170,13 +166,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting BloodNet " + MainApp.VERSION);
+        logger.info("Starting PersonList " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping BloodNet ] =============================");
+        logger.info("============================ [ Stopping PersonList ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

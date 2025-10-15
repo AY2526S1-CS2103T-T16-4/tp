@@ -4,9 +4,9 @@ import bloodnet.model.person.Person;
 import javafx.collections.ObservableList;
 
 /**
- * Unmodifiable view of an bloodnet
+ * Unmodifiable view of a person list
  */
-public interface ReadOnlyBloodNet {
+public interface ReadOnlyPersonList {
 
     /**
      * Returns an unmodifiable view of the persons list.

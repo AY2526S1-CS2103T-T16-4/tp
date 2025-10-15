@@ -5,14 +5,14 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import bloodnet.commons.exceptions.DataLoadingException;
-import bloodnet.model.ReadOnlyBloodNet;
+import bloodnet.model.ReadOnlyPersonList;
 import bloodnet.model.ReadOnlyUserPrefs;
 import bloodnet.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends BloodNetStorage, UserPrefsStorage {
+public interface Storage extends PersonStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataLoadingException;
@@ -21,12 +21,12 @@ public interface Storage extends BloodNetStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getBloodNetFilePath();
+    Path getPersonListFilePath();
 
     @Override
-    Optional<ReadOnlyBloodNet> readBloodNet() throws DataLoadingException;
+    Optional<ReadOnlyPersonList> readPersonList() throws DataLoadingException;
 
     @Override
-    void saveBloodNet(ReadOnlyBloodNet bloodNet) throws IOException;
+    void savePersonList(ReadOnlyPersonList bloodNet) throws IOException;
 
 }

@@ -1,5 +1,7 @@
 package bloodnet.storage;
 
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -18,6 +20,7 @@ class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
+    private final String id;
     private final String name;
     private final String phone;
     private final String email;
@@ -27,9 +30,10 @@ class JsonAdaptedPerson {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+    public JsonAdaptedPerson(@JsonProperty("id") String id, @JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("bloodType") String bloodType,
             @JsonProperty("dateOfBirth") String dateOfBirth) {
+        this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -41,6 +45,7 @@ class JsonAdaptedPerson {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedPerson(Person source) {
+        id = source.getId().toString();
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
@@ -54,6 +59,11 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Person toModelType() throws IllegalValueException {
+        if (id == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "ID"));
+        }
+        final UUID modelId = UUID.fromString(id);
+
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -97,7 +107,7 @@ class JsonAdaptedPerson {
         final DateOfBirth modelDateOfBirth = new DateOfBirth(dateOfBirth);
 
 
-        return new Person(modelName, modelPhone, modelEmail, modelBloodType, modelDateOfBirth);
+        return new Person(modelId, modelName, modelPhone, modelEmail, modelBloodType, modelDateOfBirth);
     }
 
 }

@@ -99,7 +99,7 @@ public class EditCommand extends Command {
         BloodType updatedBloodType = editPersonDescriptor.getBloodType().orElse(personToEdit.getBloodType());
         DateOfBirth updatedDateOfBirth = editPersonDescriptor.getDateOfBirth().orElse(personToEdit.getDateOfBirth());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedBloodType, updatedDateOfBirth);
+        return new Person(personToEdit.getId(), updatedName, updatedPhone, updatedEmail, updatedBloodType, updatedDateOfBirth);
     }
 
     private Person getPersonToEdit(Model model) throws CommandException {

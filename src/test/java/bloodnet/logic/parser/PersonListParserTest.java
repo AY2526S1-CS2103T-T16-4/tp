@@ -29,14 +29,17 @@ import bloodnet.testutil.EditPersonDescriptorBuilder;
 import bloodnet.testutil.PersonBuilder;
 import bloodnet.testutil.PersonUtil;
 
-public class BloodNetParserTest {
+public class PersonListParserTest {
 
-    private final BloodNetParser parser = new BloodNetParser();
+    private final PersonListParser parser = new PersonListParser();
 
     @Test
     public void parseCommand_add() throws Exception {
         Person person = new PersonBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
+
+        // Set the ids to be the same so that it doesn't cause the test to fail
+        // This is okay since we just want to check that the contents are the same
         assertEquals(new AddCommand(person), command);
     }
 

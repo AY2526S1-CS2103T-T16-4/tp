@@ -22,13 +22,13 @@ import bloodnet.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class BloodNetParser {
+public class PersonListParser {
 
     /**
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private static final Logger logger = LogsCenter.getLogger(BloodNetParser.class);
+    private static final Logger logger = LogsCenter.getLogger(PersonListParser.class);
 
     /**
      * Parses user input into command for execution.

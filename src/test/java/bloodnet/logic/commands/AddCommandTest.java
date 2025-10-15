@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import bloodnet.model.ReadOnlyPersonList;
 import org.junit.jupiter.api.Test;
 
 import bloodnet.commons.core.GuiSettings;
 import bloodnet.logic.Messages;
 import bloodnet.logic.commands.exceptions.CommandException;
-import bloodnet.model.BloodNet;
+import bloodnet.model.PersonList;
 import bloodnet.model.Model;
-import bloodnet.model.ReadOnlyBloodNet;
 import bloodnet.model.ReadOnlyUserPrefs;
 import bloodnet.model.person.Person;
 import bloodnet.testutil.PersonBuilder;
@@ -109,12 +109,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getBloodNetFilePath() {
+        public Path getPersonListFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setBloodNetFilePath(Path bloodNetFilePath) {
+        public void setPersonListFilePath(Path bloodNetFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -124,12 +124,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setBloodNet(ReadOnlyBloodNet newData) {
+        public void setPersonList(ReadOnlyPersonList newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyBloodNet getBloodNet() {
+        public ReadOnlyPersonList getPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -196,8 +196,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyBloodNet getBloodNet() {
-            return new BloodNet();
+        public ReadOnlyPersonList getPersonList() {
+            return new PersonList();
         }
     }
 

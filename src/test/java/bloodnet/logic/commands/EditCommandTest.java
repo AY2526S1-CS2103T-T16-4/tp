@@ -9,12 +9,13 @@ import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static bloodnet.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static bloodnet.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static bloodnet.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static bloodnet.testutil.TypicalPersons.getTypicalBloodNet;
+import static bloodnet.testutil.TypicalPersons.getTypicalPersonList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import bloodnet.model.PersonList;
 import org.junit.jupiter.api.Test;
 
 import bloodnet.commons.core.index.Index;
@@ -23,7 +24,6 @@ import bloodnet.logic.commands.EditCommand.EditPersonDescriptor;
 import bloodnet.logic.commands.commandsessions.CommandSession;
 import bloodnet.logic.commands.commandsessions.ConfirmationCommandSession;
 import bloodnet.logic.commands.exceptions.CommandException;
-import bloodnet.model.BloodNet;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
@@ -36,7 +36,7 @@ import bloodnet.testutil.PersonBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalPersonList(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -46,7 +46,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
-        Model expectedModel = new ModelManager(new BloodNet(model.getBloodNet()), new UserPrefs());
+        Model expectedModel = new ModelManager(new PersonList(model.getPersonList()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -67,7 +67,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
-        Model expectedModel = new ModelManager(new BloodNet(model.getBloodNet()), new UserPrefs());
+        Model expectedModel = new ModelManager(new PersonList(model.getPersonList()), new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -80,7 +80,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
-        Model expectedModel = new ModelManager(new BloodNet(model.getBloodNet()), new UserPrefs());
+        Model expectedModel = new ModelManager(new PersonList(model.getPersonList()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -96,7 +96,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
-        Model expectedModel = new ModelManager(new BloodNet(model.getBloodNet()), new UserPrefs());
+        Model expectedModel = new ModelManager(new PersonList(model.getPersonList()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -116,7 +116,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit person in filtered list into a duplicate in bloodnet
-        Person personInList = model.getBloodNet().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Person personInList = model.getPersonList().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(personInList).build());
 
@@ -141,7 +141,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of bloodnet list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getBloodNet().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getPersonList().getPersonList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
@@ -193,7 +193,7 @@ public class EditCommandTest {
 
     @Test
     public void createSession_validModel_returnsConfirmationCommandSession() throws CommandException {
-        Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
+        Model model = new ModelManager(getTypicalPersonList(), new UserPrefs());
         Command editCommand = new EditCommand(Index.fromZeroBased(0), new EditPersonDescriptor());
 
         CommandSession session = editCommand.createSession(model);

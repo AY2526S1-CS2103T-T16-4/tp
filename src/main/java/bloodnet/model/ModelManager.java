@@ -19,25 +19,25 @@ import javafx.collections.transformation.FilteredList;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final BloodNet bloodNet;
+    private final PersonList personList;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
     /**
-     * Initializes a ModelManager with the given bloodNet and userPrefs.
+     * Initializes a ModelManager with the given personList and userPrefs.
      */
-    public ModelManager(ReadOnlyBloodNet bloodNet, ReadOnlyUserPrefs userPrefs) {
-        requireAllNonNull(bloodNet, userPrefs);
+    public ModelManager(ReadOnlyPersonList personList, ReadOnlyUserPrefs userPrefs) {
+        requireAllNonNull(personList, userPrefs);
 
-        logger.fine("Initializing with bloodnet: " + bloodNet + " and user prefs " + userPrefs);
+        logger.fine("Initializing with bloodnet: " + personList + " and user prefs " + userPrefs);
 
-        this.bloodNet = new BloodNet(bloodNet);
+        this.personList = new PersonList(personList);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.bloodNet.getPersonList());
+        filteredPersons = new FilteredList<>(this.personList.getPersonList());
     }
 
     public ModelManager() {
-        this(new BloodNet(), new UserPrefs());
+        this(new PersonList(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -65,42 +65,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getBloodNetFilePath() {
-        return userPrefs.getBloodNetFilePath();
+    public Path getPersonListFilePath() {
+        return userPrefs.getPersonListFilePath();
     }
 
     @Override
-    public void setBloodNetFilePath(Path bloodNetFilePath) {
-        requireNonNull(bloodNetFilePath);
-        userPrefs.setBloodNetFilePath(bloodNetFilePath);
+    public void setPersonListFilePath(Path personListFilePath) {
+        requireNonNull(personListFilePath);
+        userPrefs.setPersonListFilePath(personListFilePath);
     }
 
-    //=========== BloodNet ================================================================================
+    //=========== PersonList ================================================================================
 
     @Override
-    public void setBloodNet(ReadOnlyBloodNet bloodNet) {
-        this.bloodNet.resetData(bloodNet);
+    public void setPersonList(ReadOnlyPersonList personList) {
+        this.personList.resetData(personList);
     }
 
     @Override
-    public ReadOnlyBloodNet getBloodNet() {
-        return bloodNet;
+    public ReadOnlyPersonList getPersonList() {
+        return personList;
     }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return bloodNet.hasPerson(person);
+        return personList.hasPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        bloodNet.removePerson(target);
+        personList.removePerson(target);
     }
 
     @Override
     public void addPerson(Person person) {
-        bloodNet.addPerson(person);
+        personList.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -108,14 +108,14 @@ public class ModelManager implements Model {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        bloodNet.setPerson(target, editedPerson);
+        personList.setPerson(target, editedPerson);
     }
 
     //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedBloodNet}
+     * {@code versionedPersonList}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -140,7 +140,7 @@ public class ModelManager implements Model {
         }
 
         ModelManager otherModelManager = (ModelManager) other;
-        return bloodNet.equals(otherModelManager.bloodNet)
+        return personList.equals(otherModelManager.personList)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }
