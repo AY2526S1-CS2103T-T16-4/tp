@@ -19,16 +19,19 @@ public class Person {
 
     // Data fields
     private final BloodType bloodType;
+    private final DateOfBirth dateOfBirth;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, BloodType bloodType) {
+    public Person(Name name, Phone phone, Email email, BloodType bloodType,
+                  DateOfBirth dateOfBirth) {
         requireAllNonNull(name, phone, email, bloodType);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.bloodType = bloodType;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public Name getName() {
@@ -46,6 +49,11 @@ public class Person {
     public BloodType getBloodType() {
         return bloodType;
     }
+
+    public DateOfBirth getDateOfBirth() {
+        return dateOfBirth;
+    }
+
 
     /**
      * Returns true if both persons have the same name and phone number.
@@ -79,13 +87,14 @@ public class Person {
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
-                && bloodType.equals(otherPerson.bloodType);
+                && bloodType.equals(otherPerson.bloodType)
+                && dateOfBirth.equals(otherPerson.dateOfBirth);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, bloodType);
+        return Objects.hash(name, phone, email, bloodType, dateOfBirth);
     }
 
     @Override
@@ -95,6 +104,7 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("bloodType", bloodType)
+                .add("dateOfBirth", dateOfBirth)
                 .toString();
     }
 

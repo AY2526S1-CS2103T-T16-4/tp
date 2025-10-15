@@ -2,6 +2,8 @@ package bloodnet.testutil;
 
 import static bloodnet.logic.commands.CommandTestUtil.VALID_BLOOD_TYPE_AMY;
 import static bloodnet.logic.commands.CommandTestUtil.VALID_BLOOD_TYPE_BOB;
+import static bloodnet.logic.commands.CommandTestUtil.VALID_DATE_OF_BIRTH_AMY;
+import static bloodnet.logic.commands.CommandTestUtil.VALID_DATE_OF_BIRTH_BOB;
 import static bloodnet.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static bloodnet.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static bloodnet.logic.commands.CommandTestUtil.VALID_NAME_AMY;
@@ -23,34 +25,38 @@ public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withBloodType("A+").withEmail("alice@example.com")
-            .withPhone("94351253")
+            .withPhone("94351253").withDateOfBirth("17-03-2000")
             .build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
-            .withBloodType("A-")
+            .withBloodType("A-").withDateOfBirth("20-04-1996")
             .withEmail("johnd@example.com").withPhone("98765432")
             .build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withBloodType("B+").build();
+            .withEmail("heinz@example.com").withDateOfBirth("04-05-1994").withBloodType("B+").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withBloodType("B-").build();
+            .withEmail("cornelia@example.com").withDateOfBirth("12-12-1992")
+            .withBloodType("B-").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("94822242")
-            .withEmail("werner@example.com").withBloodType("O-").build();
+            .withEmail("werner@example.com").withBloodType("O-").withDateOfBirth("03-04-1998").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("94824271")
-            .withEmail("lydia@example.com").withBloodType("O+").build();
-    public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("94824422")
+            .withEmail("lydia@example.com").withBloodType("O+").withDateOfBirth("01-02-1996").build();
+    public static final Person GEORGE = new PersonBuilder().withName("George Best").withDateOfBirth("01-01-2002")
+            .withPhone("94824422")
             .withEmail("anna@example.com").withBloodType("AB+").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("84842424")
-            .withEmail("stefan@example.com").withBloodType("B+").build();
+            .withDateOfBirth("17-07-2004").withEmail("stefan@example.com").withBloodType("B+").build();
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("84842131")
-            .withEmail("hans@example.com").withBloodType("B+").build();
+            .withDateOfBirth("11-08-1980").withEmail("hans@example.com").withBloodType("B+").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withBloodType(VALID_BLOOD_TYPE_AMY).build();
+            .withEmail(VALID_EMAIL_AMY).withBloodType(VALID_BLOOD_TYPE_AMY)
+            .withDateOfBirth(VALID_DATE_OF_BIRTH_AMY).build();
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB).withBloodType(VALID_BLOOD_TYPE_BOB)
+            .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

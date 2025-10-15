@@ -34,6 +34,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label bloodType;
     @FXML
+    private Label dateOfBirth;
+    @FXML
     private Label email;
 
     /**
@@ -46,6 +48,7 @@ public class PersonCard extends UiPart<Region> {
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
         bloodType.setText(person.getBloodType().value);
+        dateOfBirth.setText(person.getDateOfBirth().toString());
         email.setText(person.getEmail().value);
     }
 }

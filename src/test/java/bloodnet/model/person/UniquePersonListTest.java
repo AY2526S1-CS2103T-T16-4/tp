@@ -1,6 +1,7 @@
 package bloodnet.model.person;
 
 import static bloodnet.logic.commands.CommandTestUtil.VALID_BLOOD_TYPE_BOB;
+import static bloodnet.logic.commands.CommandTestUtil.VALID_DATE_OF_BIRTH_BOB;
 import static bloodnet.testutil.Assert.assertThrows;
 import static bloodnet.testutil.TypicalPersons.ALICE;
 import static bloodnet.testutil.TypicalPersons.BOB;
@@ -41,7 +42,8 @@ public class UniquePersonListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniquePersonList.add(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withBloodType(VALID_BLOOD_TYPE_BOB)
+        Person editedAlice = new PersonBuilder(ALICE)
+                .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).withBloodType(VALID_BLOOD_TYPE_BOB)
                 .build();
         assertTrue(uniquePersonList.contains(editedAlice));
     }
@@ -84,7 +86,8 @@ public class UniquePersonListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniquePersonList.add(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withBloodType(VALID_BLOOD_TYPE_BOB)
+        Person editedAlice = new PersonBuilder(ALICE)
+                .withBloodType(VALID_BLOOD_TYPE_BOB).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
                 .build();
         uniquePersonList.setPerson(ALICE, editedAlice);
         UniquePersonList expectedUniquePersonList = new UniquePersonList();

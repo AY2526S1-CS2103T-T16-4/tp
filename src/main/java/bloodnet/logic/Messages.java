@@ -42,7 +42,9 @@ public class Messages {
                 .append("; Email: ")
                 .append(person.getEmail())
                 .append("; Blood Type: ")
-                .append(person.getBloodType());
+                .append(person.getBloodType())
+                .append("; Date Of Birth: ")
+                .append(person.getDateOfBirth());
         return builder.toString();
     }
 

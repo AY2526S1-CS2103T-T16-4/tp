@@ -2,6 +2,7 @@ package bloodnet.testutil;
 
 import bloodnet.logic.commands.EditCommand.EditPersonDescriptor;
 import bloodnet.model.person.BloodType;
+import bloodnet.model.person.DateOfBirth;
 import bloodnet.model.person.Email;
 import bloodnet.model.person.Name;
 import bloodnet.model.person.Person;
@@ -31,6 +32,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setBloodType(person.getBloodType());
+        descriptor.setDateOfBirth(person.getDateOfBirth());
     }
 
     /**
@@ -65,7 +67,18 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code DateOfBirth} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withDateOfBirth(String dateOfBirth) {
+        descriptor.setDateOfBirth(new DateOfBirth(dateOfBirth));
+        return this;
+    }
+
+
     public EditPersonDescriptor build() {
         return descriptor;
     }
+
+
 }

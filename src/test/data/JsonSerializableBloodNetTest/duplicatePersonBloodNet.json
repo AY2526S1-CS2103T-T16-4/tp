@@ -3,11 +3,13 @@
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "alice@example.com",
-    "bloodType": "B+"
+    "bloodType": "B+",
+    "dateOfBirth": "17-03-2000"
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
+    "dateOfBirth": "17-03-2000",
     "bloodType": "B+"
   } ]
 }

@@ -3,11 +3,13 @@
     "name": "Valid Person",
     "phone": "94824242",
     "email": "hans@example.com",
+    "dateOfBirth": "11-08-1980",
     "bloodType": "A+"
   }, {
     "name": "Person With Invalid Phone Field",
     "phone": "948asdf2424",
     "email": "hans@example.com",
+    "dateOfBirth": "11-08-1980",
     "bloodType": "O-"
   } ]
 }

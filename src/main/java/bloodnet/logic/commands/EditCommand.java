@@ -1,6 +1,7 @@
 package bloodnet.logic.commands;
 
 import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_TYPE;
+import static bloodnet.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_NAME;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -20,6 +21,7 @@ import bloodnet.logic.commands.commandsessions.ConfirmationCommandSession;
 import bloodnet.logic.commands.exceptions.CommandException;
 import bloodnet.model.Model;
 import bloodnet.model.person.BloodType;
+import bloodnet.model.person.DateOfBirth;
 import bloodnet.model.person.Email;
 import bloodnet.model.person.Name;
 import bloodnet.model.person.Person;
@@ -40,6 +42,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_BLOOD_TYPE + "BLOOD_TYPE] "
+            + "[" + PREFIX_DATE_OF_BIRTH + "DATE_OF_BIRTH] "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -66,7 +69,8 @@ public class EditCommand extends Command {
     @Override
     public CommandSession createSession(Model model) throws CommandException {
         Person personToEdit = getPersonToEdit(model);
-        return new ConfirmationCommandSession(COMMAND_WORD + " " + personToEdit.getName(), () -> this.execute(model));
+        return new ConfirmationCommandSession(COMMAND_WORD + " "
+                + personToEdit.getName(), () -> this.execute(model));
     }
 
     @Override
@@ -93,8 +97,9 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         BloodType updatedBloodType = editPersonDescriptor.getBloodType().orElse(personToEdit.getBloodType());
+        DateOfBirth updatedDateOfBirth = editPersonDescriptor.getDateOfBirth().orElse(personToEdit.getDateOfBirth());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedBloodType);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedBloodType, updatedDateOfBirth);
     }
 
     private Person getPersonToEdit(Model model) throws CommandException {
@@ -144,6 +149,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private BloodType bloodType;
+        private DateOfBirth dateOfBirth;
 
         public EditPersonDescriptor() {
         }
@@ -156,13 +162,14 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setBloodType(toCopy.bloodType);
+            setDateOfBirth(toCopy.dateOfBirth);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, bloodType);
+            return CollectionUtil.isAnyNonNull(name, phone, email, bloodType, dateOfBirth);
         }
 
         public void setName(Name name) {
@@ -197,6 +204,13 @@ public class EditCommand extends Command {
             return Optional.ofNullable(bloodType);
         }
 
+        public void setDateOfBirth(DateOfBirth dateOfBirth) {
+            this.dateOfBirth = dateOfBirth;
+        }
+
+        public Optional<DateOfBirth> getDateOfBirth() {
+            return Optional.ofNullable(dateOfBirth);
+        }
 
         @Override
         public boolean equals(Object other) {
@@ -213,7 +227,8 @@ public class EditCommand extends Command {
             return Objects.equals(name, otherEditPersonDescriptor.name)
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
-                    && Objects.equals(bloodType, otherEditPersonDescriptor.bloodType);
+                    && Objects.equals(bloodType, otherEditPersonDescriptor.bloodType)
+                    && Objects.equals(dateOfBirth, otherEditPersonDescriptor.dateOfBirth);
         }
 
         @Override
@@ -223,7 +238,10 @@ public class EditCommand extends Command {
                     .add("phone", phone)
                     .add("email", email)
                     .add("bloodType", bloodType)
+                    .add("dateOfBirth", dateOfBirth)
                     .toString();
         }
+
+
     }
 }
