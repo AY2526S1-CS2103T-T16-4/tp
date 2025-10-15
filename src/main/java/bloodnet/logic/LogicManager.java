@@ -70,6 +70,8 @@ public class LogicManager implements Logic {
             this.currentSession = command.createSession(model);
         }
 
+        assert this.currentSession != null;
+
         return advanceCurrentSession(commandText);
     }
 
