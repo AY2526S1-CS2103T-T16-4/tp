@@ -2,13 +2,9 @@ package bloodnet.model.person;
 
 import static bloodnet.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import bloodnet.commons.util.ToStringBuilder;
-import bloodnet.model.tag.Tag;
 
 /**
  * Represents a Person in the bloodnet.
@@ -24,20 +20,18 @@ public class Person {
     // Data fields
     private final BloodType bloodType;
     private final DateOfBirth dateOfBirth;
-    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, BloodType bloodType,
-                  DateOfBirth dateOfBirth, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, bloodType, tags);
+                  DateOfBirth dateOfBirth) {
+        requireAllNonNull(name, phone, email, bloodType);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.bloodType = bloodType;
         this.dateOfBirth = dateOfBirth;
-        this.tags.addAll(tags);
     }
 
     public Name getName() {
@@ -60,13 +54,6 @@ public class Person {
         return dateOfBirth;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
 
     /**
      * Returns true if both persons have the same name and phone number.
@@ -101,14 +88,13 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && bloodType.equals(otherPerson.bloodType)
-                && dateOfBirth.equals(otherPerson.dateOfBirth)
-                && tags.equals(otherPerson.tags);
+                && dateOfBirth.equals(otherPerson.dateOfBirth);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, bloodType, dateOfBirth, tags);
+        return Objects.hash(name, phone, email, bloodType, dateOfBirth);
     }
 
     @Override
@@ -119,7 +105,6 @@ public class Person {
                 .add("email", email)
                 .add("bloodType", bloodType)
                 .add("dateOfBirth", dateOfBirth)
-                .add("tags", tags)
                 .toString();
     }
 

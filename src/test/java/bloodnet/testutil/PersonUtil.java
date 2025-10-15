@@ -5,14 +5,10 @@ import static bloodnet.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_NAME;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_PHONE;
-import static bloodnet.logic.parser.CliSyntax.PREFIX_TAG;
-
-import java.util.Set;
 
 import bloodnet.logic.commands.AddCommand;
 import bloodnet.logic.commands.EditCommand.EditPersonDescriptor;
 import bloodnet.model.person.Person;
-import bloodnet.model.tag.Tag;
 
 /**
  * A utility class for Person.
@@ -36,9 +32,7 @@ public class PersonUtil {
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_BLOOD_TYPE + person.getBloodType().value + " ");
         sb.append(PREFIX_DATE_OF_BIRTH + person.getDateOfBirth().toString() + " ");
-        person.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
-        );
+
         return sb.toString();
     }
 
@@ -54,14 +48,6 @@ public class PersonUtil {
                                             sb.append(PREFIX_DATE_OF_BIRTH).append(dateOfBirth.toString()).append(" "));
         descriptor.getBloodType().ifPresent(bloodType ->
                                             sb.append(PREFIX_BLOOD_TYPE).append(bloodType.value).append(" "));
-        if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
-            if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG);
-            } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
-            }
-        }
         return sb.toString();
     }
 }

@@ -5,49 +5,42 @@
     "phone" : "94351253",
     "email" : "alice@example.com",
     "bloodType": "A+",
-    "dateOfBirth": "17-03-2000",
-    "tags" : [ "friends" ]
+    "dateOfBirth": "17-03-2000"
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "dateOfBirth": "20-04-1996",
-    "bloodType": "A-",
-    "tags" : [ "owesMoney", "friends" ]
+    "bloodType": "A-"
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
     "email" : "heinz@example.com",
     "dateOfBirth": "04-05-1994",
-    "bloodType": "B+",
-    "tags" : [ ]
+    "bloodType": "B+"
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
     "dateOfBirth": "12-12-1992",
-    "bloodType": "B-",
-    "tags" : [ "friends" ]
+    "bloodType": "B-"
   }, {
     "name" : "Elle Meyer",
     "phone" : "94822242",
     "email" : "werner@example.com",
     "bloodType": "O-",
-    "dateOfBirth": "03-04-1998",
-    "tags" : [ ]
+    "dateOfBirth": "03-04-1998"
   }, {
     "name" : "Fiona Kunz",
     "phone" : "94824271",
     "email" : "lydia@example.com",
     "bloodType": "O+",
-    "dateOfBirth": "01-02-1996",
-    "tags" : [ ]
+    "dateOfBirth": "01-02-1996"
   }, {
     "name" : "George Best",
     "phone" : "94824422",
     "email" : "anna@example.com",
     "bloodType": "AB+",
-    "dateOfBirth": "01-01-2002",
-    "tags" : [ ]
+    "dateOfBirth": "01-01-2002"
   } ]
 }

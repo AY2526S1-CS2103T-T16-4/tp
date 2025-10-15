@@ -44,9 +44,7 @@ public class Messages {
                 .append("; Blood Type: ")
                 .append(person.getBloodType())
                 .append("; Date Of Birth: ")
-                .append(person.getDateOfBirth())
-                .append("; Tags: ");
-        person.getTags().forEach(builder::append);
+                .append(person.getDateOfBirth());
         return builder.toString();
     }
 

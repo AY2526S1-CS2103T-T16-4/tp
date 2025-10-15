@@ -19,7 +19,6 @@ Class "<<interface>>\nBloodNetStorage" as BloodNetStorage
 Class JsonBloodNetStorage
 Class JsonSerializableBloodNet
 Class JsonAdaptedPerson
-Class JsonAdaptedTag
 }
 
 }
@@ -38,6 +37,5 @@ JsonUserPrefsStorage .up.|> UserPrefsStorage
 JsonBloodNetStorage .up.|> BloodNetStorage
 JsonBloodNetStorage ..> JsonSerializableBloodNet
 JsonSerializableBloodNet --> "*" JsonAdaptedPerson
-JsonAdaptedPerson --> "*" JsonAdaptedTag
 
 @enduml

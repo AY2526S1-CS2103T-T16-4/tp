@@ -7,7 +7,6 @@ import static bloodnet.logic.commands.CommandTestUtil.VALID_DATE_OF_BIRTH_BOB;
 import static bloodnet.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static bloodnet.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static bloodnet.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static bloodnet.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -57,9 +56,6 @@ public class EditPersonDescriptorTest {
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
     }
 
     @Test
@@ -70,8 +66,7 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getPhone().orElse(null) + ", email="
                 + editPersonDescriptor.getEmail().orElse(null) + ", bloodType="
                 + editPersonDescriptor.getBloodType().orElse(null) + ", dateOfBirth="
-                + editPersonDescriptor.getDateOfBirth().orElse(null) + ", tags="
-                + editPersonDescriptor.getTags().orElse(null) + "}";
+                + editPersonDescriptor.getDateOfBirth().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
     }
 }
