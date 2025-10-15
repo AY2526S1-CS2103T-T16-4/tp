@@ -22,7 +22,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String bloodType;
-    private final String dateofBirth;
+    private final String dateOfBirth;
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
