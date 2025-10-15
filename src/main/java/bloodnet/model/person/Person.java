@@ -11,8 +11,11 @@ import bloodnet.commons.util.ToStringBuilder;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
+    // Used to autoincrement the id
+    static private Integer nextId = 1;
 
     // Identity fields
+    private final Integer id;
     private final Name name;
     private final Phone phone;
     private final Email email;
@@ -27,12 +30,17 @@ public class Person {
     public Person(Name name, Phone phone, Email email, BloodType bloodType,
                   DateOfBirth dateOfBirth) {
         requireAllNonNull(name, phone, email, bloodType);
+        this.id = nextId;
+        nextId++;
+
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.bloodType = bloodType;
         this.dateOfBirth = dateOfBirth;
     }
+
+    public Integer getId() {return id; }
 
     public Name getName() {
         return name;
@@ -84,7 +92,8 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return name.equals(otherPerson.name)
+        return id.equals(otherPerson.id)
+                && name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && bloodType.equals(otherPerson.bloodType)
@@ -94,12 +103,13 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, bloodType, dateOfBirth);
+        return Objects.hash(id, name, phone, email, bloodType, dateOfBirth);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
+                .add("id", id)
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)
