@@ -15,8 +15,8 @@ import java.util.List;
 
 import bloodnet.commons.core.index.Index;
 import bloodnet.logic.commands.exceptions.CommandException;
-import bloodnet.model.PersonList;
 import bloodnet.model.Model;
+import bloodnet.model.PersonList;
 import bloodnet.model.person.NameContainsKeywordsPredicate;
 import bloodnet.model.person.Person;
 import bloodnet.testutil.EditPersonDescriptorBuilder;
@@ -53,7 +53,7 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_BLOOD_TYPE_DESC = " " + PREFIX_BLOOD_TYPE; // " " not allowed for blood types
     public static final String INVALID_DATE_OF_BIRTH_DESC = " "
-            + PREFIX_DATE_OF_BIRTH; // " " not allowed for date of births
+        + PREFIX_DATE_OF_BIRTH; // " " not allowed for date of births
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -63,11 +63,11 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withBloodType(VALID_BLOOD_TYPE_AMY)
-                .withDateOfBirth(VALID_DATE_OF_BIRTH_AMY).build();
+            .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withBloodType(VALID_BLOOD_TYPE_AMY)
+            .withDateOfBirth(VALID_DATE_OF_BIRTH_AMY).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withBloodType(VALID_BLOOD_TYPE_BOB)
-                .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
+            .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withBloodType(VALID_BLOOD_TYPE_BOB)
+            .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
     }
 
     /**
@@ -76,7 +76,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-            Model expectedModel) {
+                                            Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
@@ -91,7 +91,7 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+                                            Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
@@ -112,6 +112,7 @@ public class CommandTestUtil {
         assertEquals(expectedPersonList, actualModel.getPersonList());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
      * {@code model}'s bloodnet.

@@ -2,26 +2,29 @@ package bloodnet.logic.commands;
 
 import static bloodnet.testutil.Assert.assertThrows;
 import static bloodnet.testutil.TypicalPersons.ALICE;
-import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import bloodnet.model.*;
-import bloodnet.model.donationrecord.DonationRecord;
-import org.junit.jupiter.api.Test;
-
 import bloodnet.commons.core.GuiSettings;
 import bloodnet.logic.Messages;
 import bloodnet.logic.commands.exceptions.CommandException;
+import bloodnet.model.Model;
+import bloodnet.model.PersonList;
+import bloodnet.model.ReadOnlyDonationRecordList;
+import bloodnet.model.ReadOnlyPersonList;
+import bloodnet.model.ReadOnlyUserPrefs;
+import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.Person;
 import bloodnet.testutil.PersonBuilder;
 import javafx.collections.ObservableList;
+import org.junit.jupiter.api.Test;
 
 public class AddCommandTest {
 
@@ -38,7 +41,7 @@ public class AddCommandTest {
         CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
-                commandResult.getFeedbackToUser());
+            commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
     }
 

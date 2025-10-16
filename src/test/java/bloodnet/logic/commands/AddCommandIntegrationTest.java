@@ -5,15 +5,14 @@ import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static bloodnet.testutil.TypicalDonationRecords.getTypicalDonationRecordList;
 import static bloodnet.testutil.TypicalPersons.getTypicalPersonList;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import bloodnet.logic.Messages;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
 import bloodnet.model.person.Person;
 import bloodnet.testutil.PersonBuilder;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -35,15 +34,15 @@ public class AddCommandIntegrationTest {
         expectedModel.addPerson(validPerson);
 
         assertCommandSuccess(new AddCommand(validPerson), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
-                expectedModel);
+            String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
+            expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person personInList = model.getPersonList().getPersonList().get(0);
         assertCommandFailure(new AddCommand(personInList), model,
-                AddCommand.MESSAGE_DUPLICATE_PERSON);
+            AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
 }

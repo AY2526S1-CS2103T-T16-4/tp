@@ -5,9 +5,8 @@ import static bloodnet.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static bloodnet.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static bloodnet.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import org.junit.jupiter.api.Test;
-
 import bloodnet.logic.commands.DeleteCommand;
+import org.junit.jupiter.api.Test;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

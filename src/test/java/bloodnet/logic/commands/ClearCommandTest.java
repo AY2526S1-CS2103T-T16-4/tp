@@ -7,15 +7,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import bloodnet.model.PersonList;
-import org.junit.jupiter.api.Test;
-
 import bloodnet.logic.commands.commandsessions.CommandSession;
 import bloodnet.logic.commands.commandsessions.ConfirmationCommandSession;
 import bloodnet.logic.commands.exceptions.CommandException;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
+import bloodnet.model.PersonList;
 import bloodnet.model.UserPrefs;
+import org.junit.jupiter.api.Test;
 
 public class ClearCommandTest {
 

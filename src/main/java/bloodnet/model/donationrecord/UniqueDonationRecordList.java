@@ -1,8 +1,7 @@
 package bloodnet.model.donationrecord;
 
-import static java.util.Objects.requireNonNull;
-
 import static bloodnet.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 import java.util.List;
@@ -30,7 +29,7 @@ public class UniqueDonationRecordList implements Iterable<DonationRecord> {
 
     private final ObservableList<DonationRecord> internalList = FXCollections.observableArrayList();
     private final ObservableList<DonationRecord> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+        FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent donationRecord as the given argument.

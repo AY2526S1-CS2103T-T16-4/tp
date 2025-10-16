@@ -14,13 +14,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
-
 import bloodnet.model.person.Person;
 import bloodnet.model.person.exceptions.DuplicatePersonException;
 import bloodnet.testutil.PersonBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.junit.jupiter.api.Test;
 
 public class PersonListTest {
 
@@ -47,8 +46,8 @@ public class PersonListTest {
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
         Person editedAlice = new PersonBuilder(ALICE)
-                .withBloodType(VALID_BLOOD_TYPE_BOB)
-                .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
+            .withBloodType(VALID_BLOOD_TYPE_BOB)
+            .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         PersonListStub newData = new PersonListStub(newPersons);
 
@@ -75,8 +74,8 @@ public class PersonListTest {
     public void hasPerson_personWithSameIdentityFieldsInPersonList_returnsTrue() {
         personList.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE)
-                .withBloodType(VALID_BLOOD_TYPE_BOB)
-                .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
+            .withBloodType(VALID_BLOOD_TYPE_BOB)
+            .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
         assertTrue(personList.hasPerson(editedAlice));
     }
 

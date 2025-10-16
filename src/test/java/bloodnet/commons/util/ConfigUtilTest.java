@@ -10,11 +10,10 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Level;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
 import bloodnet.commons.core.Config;
 import bloodnet.commons.exceptions.DataLoadingException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 public class ConfigUtilTest {
 
@@ -108,8 +107,8 @@ public class ConfigUtilTest {
 
     private Path addToTestDataPathIfNotNull(String configFileInTestDataFolder) {
         return configFileInTestDataFolder != null
-                                  ? TEST_DATA_FOLDER.resolve(configFileInTestDataFolder)
-                                  : null;
+            ? TEST_DATA_FOLDER.resolve(configFileInTestDataFolder)
+            : null;
     }
 
 

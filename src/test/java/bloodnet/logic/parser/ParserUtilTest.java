@@ -5,14 +5,13 @@ import static bloodnet.testutil.Assert.assertThrows;
 import static bloodnet.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
 import bloodnet.logic.parser.exceptions.ParseException;
 import bloodnet.model.person.BloodType;
 import bloodnet.model.person.DateOfBirth;
 import bloodnet.model.person.Email;
 import bloodnet.model.person.Name;
 import bloodnet.model.person.Phone;
+import org.junit.jupiter.api.Test;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";

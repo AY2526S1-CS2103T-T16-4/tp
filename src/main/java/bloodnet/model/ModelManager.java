@@ -1,7 +1,6 @@
 package bloodnet.model;
 
 import static bloodnet.commons.util.CollectionUtil.requireAllNonNull;
-
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
@@ -212,10 +211,10 @@ public class ModelManager implements Model {
 
         ModelManager otherModelManager = (ModelManager) other;
         return personList.equals(otherModelManager.personList)
-                && donationRecordList.equals(otherModelManager.donationRecordList)
-                && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons)
-                && filteredDonationRecords.equals(otherModelManager.filteredDonationRecords);
+            && donationRecordList.equals(otherModelManager.donationRecordList)
+            && userPrefs.equals(otherModelManager.userPrefs)
+            && filteredPersons.equals(otherModelManager.filteredPersons)
+            && filteredDonationRecords.equals(otherModelManager.filteredDonationRecords);
     }
 
 }

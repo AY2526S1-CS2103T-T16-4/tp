@@ -3,10 +3,9 @@ package bloodnet.logic.commands;
 import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static bloodnet.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
 
-import org.junit.jupiter.api.Test;
-
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
+import org.junit.jupiter.api.Test;
 
 public class HelpCommandTest {
     private Model model = new ModelManager();

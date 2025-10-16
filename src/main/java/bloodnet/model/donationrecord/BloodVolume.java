@@ -1,8 +1,7 @@
 package bloodnet.model.donationrecord;
 
-import static java.util.Objects.requireNonNull;
-
 import static bloodnet.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents the volume of blood donated during a blood donation session in the bloodnet.
@@ -11,7 +10,7 @@ import static bloodnet.commons.util.AppUtil.checkArgument;
 public class BloodVolume {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Blood volume should be a whole number, in millilitres";
+        "Blood volume should be a whole number, in millilitres";
 
     public final Integer volume;
 

@@ -11,10 +11,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
-
 import bloodnet.logic.commands.EditCommand.EditPersonDescriptor;
 import bloodnet.testutil.EditPersonDescriptorBuilder;
+import org.junit.jupiter.api.Test;
 
 public class EditPersonDescriptorTest {
 
@@ -62,11 +61,11 @@ public class EditPersonDescriptorTest {
     public void toStringMethod() {
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         String expected = EditPersonDescriptor.class.getCanonicalName() + "{name="
-                + editPersonDescriptor.getName().orElse(null) + ", phone="
-                + editPersonDescriptor.getPhone().orElse(null) + ", email="
-                + editPersonDescriptor.getEmail().orElse(null) + ", bloodType="
-                + editPersonDescriptor.getBloodType().orElse(null) + ", dateOfBirth="
-                + editPersonDescriptor.getDateOfBirth().orElse(null) + "}";
+            + editPersonDescriptor.getName().orElse(null) + ", phone="
+            + editPersonDescriptor.getPhone().orElse(null) + ", email="
+            + editPersonDescriptor.getEmail().orElse(null) + ", bloodType="
+            + editPersonDescriptor.getBloodType().orElse(null) + ", dateOfBirth="
+            + editPersonDescriptor.getDateOfBirth().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
     }
 }

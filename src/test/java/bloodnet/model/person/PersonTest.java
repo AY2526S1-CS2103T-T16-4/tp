@@ -12,9 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
-
 import bloodnet.testutil.PersonBuilder;
+import org.junit.jupiter.api.Test;
 
 public class PersonTest {
 
@@ -28,20 +27,20 @@ public class PersonTest {
 
         // same name, all other attributes different -> returns false
         Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withBloodType(VALID_BLOOD_TYPE_BOB).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
-                .build();
+            .withBloodType(VALID_BLOOD_TYPE_BOB).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
+            .build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
         // same number, all other attributes different -> returns false
         editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).withEmail(VALID_EMAIL_BOB)
-                .withBloodType(VALID_BLOOD_TYPE_BOB).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
-                .build();
+            .withBloodType(VALID_BLOOD_TYPE_BOB).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
+            .build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
         // same name and same number, all other attributes different -> return true
         editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB)
-                .withBloodType(VALID_BLOOD_TYPE_BOB).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
-                .build();
+            .withBloodType(VALID_BLOOD_TYPE_BOB).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
+            .build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
         // different name and number, all other attributes same -> return false
@@ -50,7 +49,7 @@ public class PersonTest {
 
         // name differs in case and different number, all other attributes same -> returns false
         Person editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase())
-                .withPhone(VALID_PHONE_BOB).build();
+            .withPhone(VALID_PHONE_BOB).build();
         assertFalse(BOB.isSamePerson(editedBob));
 
         // name has trailing spaces and different number, all other attributes same -> returns false
@@ -109,13 +108,13 @@ public class PersonTest {
     @Test
     public void toStringMethod() {
         String expected = Person.class.getCanonicalName()
-                + "{"
-                + "id=" + ALICE.getId()
-                + ", name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
-                + ", email=" + ALICE.getEmail()
-                + ", bloodType=" + ALICE.getBloodType()
-                + ", dateOfBirth=" + ALICE.getDateOfBirth()
-                + "}";
+            + "{"
+            + "id=" + ALICE.getId()
+            + ", name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
+            + ", email=" + ALICE.getEmail()
+            + ", bloodType=" + ALICE.getBloodType()
+            + ", dateOfBirth=" + ALICE.getDateOfBirth()
+            + "}";
         assertEquals(expected, ALICE.toString());
     }
 }

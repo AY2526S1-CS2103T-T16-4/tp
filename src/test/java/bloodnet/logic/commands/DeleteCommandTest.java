@@ -12,8 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
-
 import bloodnet.commons.core.index.Index;
 import bloodnet.logic.Messages;
 import bloodnet.logic.commands.commandsessions.CommandSession;
@@ -23,6 +21,7 @@ import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
 import bloodnet.model.person.Person;
+import org.junit.jupiter.api.Test;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -38,7 +37,7 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
-                Messages.format(personToDelete));
+            Messages.format(personToDelete));
 
         ModelManager expectedModel = new ModelManager(model.getPersonList(), model.getDonationRecordList(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
@@ -62,7 +61,7 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
-                Messages.format(personToDelete));
+            Messages.format(personToDelete));
 
         Model expectedModel = new ModelManager(model.getPersonList(), model.getDonationRecordList(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);

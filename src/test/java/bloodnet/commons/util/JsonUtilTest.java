@@ -5,10 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import org.junit.jupiter.api.Test;
-
 import bloodnet.testutil.SerializableTestClass;
 import bloodnet.testutil.TestUtil;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests JSON Read and Write
@@ -32,7 +31,7 @@ public class JsonUtilTest {
         FileUtil.writeToFile(SERIALIZATION_FILE, SerializableTestClass.JSON_STRING_REPRESENTATION);
 
         SerializableTestClass serializableTestClass = JsonUtil
-                .deserializeObjectFromJsonFile(SERIALIZATION_FILE, SerializableTestClass.class);
+            .deserializeObjectFromJsonFile(SERIALIZATION_FILE, SerializableTestClass.class);
 
         assertEquals(serializableTestClass.getName(), SerializableTestClass.getNameTestValue());
         assertEquals(serializableTestClass.getListOfLocalDateTimes(), SerializableTestClass.getListTestValues());

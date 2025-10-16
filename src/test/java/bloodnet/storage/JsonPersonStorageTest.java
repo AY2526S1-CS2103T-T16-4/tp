@@ -12,12 +12,11 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import bloodnet.commons.exceptions.DataLoadingException;
 import bloodnet.model.PersonList;
 import bloodnet.model.ReadOnlyPersonList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-
-import bloodnet.commons.exceptions.DataLoadingException;
 
 public class JsonPersonStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonPersonStorageTest");
@@ -36,8 +35,8 @@ public class JsonPersonStorageTest {
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
         return prefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER.resolve(prefsFileInTestDataFolder)
-                : null;
+            ? TEST_DATA_FOLDER.resolve(prefsFileInTestDataFolder)
+            : null;
     }
 
     @Test
@@ -97,7 +96,7 @@ public class JsonPersonStorageTest {
     private void savePersonList(ReadOnlyPersonList bloodNet, String filePath) {
         try {
             new JsonPersonStorage(Paths.get(filePath))
-                    .savePersonList(bloodNet, addToTestDataPathIfNotNull(filePath));
+                .savePersonList(bloodNet, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

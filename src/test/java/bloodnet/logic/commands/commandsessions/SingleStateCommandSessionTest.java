@@ -3,8 +3,6 @@ package bloodnet.logic.commands.commandsessions;
 import static bloodnet.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
-
 import bloodnet.logic.commands.Command;
 import bloodnet.logic.commands.CommandResult;
 import bloodnet.logic.commands.ExitCommand;
@@ -12,6 +10,7 @@ import bloodnet.logic.commands.commandsessions.exceptions.TerminalSessionStateEx
 import bloodnet.logic.commands.exceptions.CommandException;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
+import org.junit.jupiter.api.Test;
 
 public class SingleStateCommandSessionTest {
     private Model model = new ModelManager();
@@ -19,7 +18,7 @@ public class SingleStateCommandSessionTest {
     @Test
     public void handle_userInput_isDone() throws CommandException, TerminalSessionStateException {
         SingleStepCommandSession session = new SingleStepCommandSession(
-                new CommandStub(), model);
+            new CommandStub(), model);
 
         session.handle("");
         assertTrue(session.isDone());
@@ -27,9 +26,9 @@ public class SingleStateCommandSessionTest {
 
     @Test
     public void handle_terminalState_throwTerminalSessionStateException()
-            throws CommandException, TerminalSessionStateException {
+        throws CommandException, TerminalSessionStateException {
         SingleStepCommandSession session = new SingleStepCommandSession(
-                new ExitCommand(), model);
+            new ExitCommand(), model);
 
         session.handle("");
 

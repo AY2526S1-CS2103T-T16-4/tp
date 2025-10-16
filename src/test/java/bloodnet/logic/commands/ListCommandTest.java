@@ -6,12 +6,11 @@ import static bloodnet.testutil.TypicalDonationRecords.getTypicalDonationRecordL
 import static bloodnet.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static bloodnet.testutil.TypicalPersons.getTypicalPersonList;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
