@@ -12,7 +12,9 @@ import javafx.collections.ObservableList;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<DonationRecord> PREDICATE_SHOW_ALL_DONATION_RECORDS = unused -> true;
 
@@ -52,7 +54,9 @@ public interface Model {
      */
     void setPersonList(ReadOnlyPersonList personList);
 
-    /** Returns the PersonList */
+    /**
+     * Returns the PersonList
+     */
     ReadOnlyPersonList getPersonList();
 
     /**
@@ -79,11 +83,14 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
     ObservableList<Person> getFilteredPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
@@ -104,7 +111,9 @@ public interface Model {
      */
     void setDonationRecordList(ReadOnlyDonationRecordList donationRecordList);
 
-    /** Returns the DonationRecordList */
+    /**
+     * Returns the DonationRecordList
+     */
     ReadOnlyDonationRecordList getDonationRecordList();
 
     /**
@@ -127,15 +136,19 @@ public interface Model {
     /**
      * Replaces the given donationRecord {@code target} with {@code editedDonationRecord}.
      * {@code target} must exist in the bloodnet.
-     * The donationRecord identity of {@code editedDonationRecord} must not be the same as another existing donationRecord in the bloodnet.
+     * The donationRecord identity of {@code editedDonationRecord} must not be the same as another existing
+     * donationRecord in the bloodnet.
      */
     void setDonationRecord(DonationRecord target, DonationRecord editedDonationRecord);
 
-    /** Returns an unmodifiable view of the filtered donationRecord list */
+    /**
+     * Returns an unmodifiable view of the filtered donationRecord list
+     */
     ObservableList<DonationRecord> getFilteredDonationRecordList();
 
     /**
      * Updates the filter of the filtered donationRecord list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredDonationRecordList(Predicate<DonationRecord> predicate);
