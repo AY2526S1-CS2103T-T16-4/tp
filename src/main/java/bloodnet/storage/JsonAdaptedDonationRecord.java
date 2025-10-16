@@ -3,7 +3,10 @@ package bloodnet.storage;
 import java.util.UUID;
 
 import bloodnet.commons.exceptions.IllegalValueException;
-import bloodnet.model.donationrecord.*;
+import bloodnet.model.donationrecord.BloodVolume;
+import bloodnet.model.donationrecord.DonationDate;
+import bloodnet.model.donationrecord.DonationRecord;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -23,7 +26,8 @@ class JsonAdaptedDonationRecord {
      * Constructs a {@code JsonAdaptedDonationRecord} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedDonationRecord(@JsonProperty("id") String id, @JsonProperty("personId") String personId, @JsonProperty("donationDate") String donationDate,
+    public JsonAdaptedDonationRecord(@JsonProperty("id") String id, @JsonProperty("personId") String personId,
+                                     @JsonProperty("donationDate") String donationDate,
                                      @JsonProperty("bloodVolume") String bloodVolume) {
         this.id = id;
         this.personId = personId;
@@ -60,7 +64,8 @@ class JsonAdaptedDonationRecord {
         final UUID modelPersonId = UUID.fromString(personId);
 
         if (donationDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DonationDate.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                DonationDate.class.getSimpleName()));
         }
         if (!DonationDate.isValidDonationDate(donationDate)) {
             throw new IllegalValueException(DonationDate.MESSAGE_CONSTRAINTS);
@@ -68,7 +73,8 @@ class JsonAdaptedDonationRecord {
         final DonationDate modelDonationDate = new DonationDate(donationDate);
 
         if (bloodVolume == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, BloodVolume.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                BloodVolume.class.getSimpleName()));
         }
         if (!BloodVolume.isValidBloodVolume(bloodVolume)) {
             throw new IllegalValueException(BloodVolume.MESSAGE_CONSTRAINTS);

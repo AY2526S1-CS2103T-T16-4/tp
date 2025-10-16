@@ -26,13 +26,15 @@ class JsonAdaptedPerson {
     private final String email;
     private final String bloodType;
     private final String dateOfBirth;
+
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("id") String id, @JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("bloodType") String bloodType,
-            @JsonProperty("dateOfBirth") String dateOfBirth) {
+    public JsonAdaptedPerson(@JsonProperty("id") String id, @JsonProperty("name") String name,
+                             @JsonProperty("phone") String phone,
+                             @JsonProperty("email") String email, @JsonProperty("bloodType") String bloodType,
+                             @JsonProperty("dateOfBirth") String dateOfBirth) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -90,7 +92,7 @@ class JsonAdaptedPerson {
 
         if (bloodType == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    BloodType.class.getSimpleName()));
+                BloodType.class.getSimpleName()));
         }
         if (!BloodType.isValidBloodType(bloodType)) {
             throw new IllegalValueException(BloodType.MESSAGE_CONSTRAINTS);
@@ -99,7 +101,7 @@ class JsonAdaptedPerson {
 
         if (dateOfBirth == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    DateOfBirth.class.getSimpleName()));
+                DateOfBirth.class.getSimpleName()));
         }
         if (!DateOfBirth.isValidDateOfBirth(dateOfBirth)) {
             throw new IllegalValueException(DateOfBirth.MESSAGE_CONSTRAINTS);

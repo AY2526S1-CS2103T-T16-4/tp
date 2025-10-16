@@ -1,12 +1,12 @@
 package bloodnet.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Logger;
-
-import static java.util.Objects.requireNonNull;
 
 import bloodnet.commons.core.LogsCenter;
 import bloodnet.commons.exceptions.DataLoadingException;
@@ -49,7 +49,7 @@ public class JsonDonationRecordStorage implements DonationRecordStorage {
         requireNonNull(filePath);
 
         Optional<JsonSerializableDonationRecordList> jsonDonationRecordList = JsonUtil.readJsonFile(
-                filePath, JsonSerializableDonationRecordList.class);
+            filePath, JsonSerializableDonationRecordList.class);
         if (!jsonDonationRecordList.isPresent()) {
             return Optional.empty();
         }
@@ -72,7 +72,8 @@ public class JsonDonationRecordStorage implements DonationRecordStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveDonationRecordList(ReadOnlyDonationRecordList donationRecordList, Path filePath) throws IOException {
+    public void saveDonationRecordList(ReadOnlyDonationRecordList donationRecordList, Path filePath)
+        throws IOException {
         requireNonNull(donationRecordList);
         requireNonNull(filePath);
 

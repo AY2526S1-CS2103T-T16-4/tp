@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
 import bloodnet.commons.exceptions.IllegalValueException;
 import bloodnet.model.DonationRecordList;
 import bloodnet.model.ReadOnlyDonationRecordList;
 import bloodnet.model.donationrecord.DonationRecord;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 
 /**
  * An Immutable DonationRecordList that is serializable to JSON format.
@@ -26,7 +27,8 @@ class JsonSerializableDonationRecordList {
      * Constructs a {@code JsonSerializableDonationRecordList} with the given donationRecords.
      */
     @JsonCreator
-    public JsonSerializableDonationRecordList(@JsonProperty("donationRecords") List<JsonAdaptedDonationRecord> donationRecords) {
+    public JsonSerializableDonationRecordList(@JsonProperty("donationRecords") List<JsonAdaptedDonationRecord>
+                                                  donationRecords) {
         this.donationRecords.addAll(donationRecords);
     }
 
@@ -36,7 +38,8 @@ class JsonSerializableDonationRecordList {
      * @param source future changes to this will not affect the created {@code JsonSerializableDonationRecordList}.
      */
     public JsonSerializableDonationRecordList(ReadOnlyDonationRecordList source) {
-        donationRecords.addAll(source.getDonationRecordList().stream().map(JsonAdaptedDonationRecord::new).collect(Collectors.toList()));
+        donationRecords.addAll(source.getDonationRecordList().stream().map(JsonAdaptedDonationRecord::new)
+            .collect(Collectors.toList()));
     }
 
     /**

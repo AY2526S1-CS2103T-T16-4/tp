@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import bloodnet.model.PersonList;
-import bloodnet.model.ReadOnlyPersonList;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import bloodnet.commons.exceptions.IllegalValueException;
+import bloodnet.model.PersonList;
+import bloodnet.model.ReadOnlyPersonList;
 import bloodnet.model.person.Person;
 
 /**
