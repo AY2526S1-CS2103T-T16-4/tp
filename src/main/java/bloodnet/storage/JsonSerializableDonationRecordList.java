@@ -19,7 +19,7 @@ import bloodnet.model.donationrecord.DonationRecord;
 @JsonRootName(value = "donationRecords")
 class JsonSerializableDonationRecordList {
 
-    public static final String MESSAGE_DUPLICATE_DONATION_RECORD = "DonationRecords list contains duplicate donationRecord(s).";
+    public static final String MESSAGE_DUPLICATE_DONATION_RECORD = "DonationRecords list contains duplicate records.";
 
     private final List<JsonAdaptedDonationRecord> donationRecords = new ArrayList<>();
 
