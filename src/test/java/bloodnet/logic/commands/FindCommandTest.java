@@ -26,7 +26,8 @@ import bloodnet.model.person.NameContainsKeywordsPredicate;
  */
 public class FindCommandTest {
     private Model model = new ModelManager(getTypicalPersonList(), getTypicalDonationRecordList(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalPersonList(), getTypicalDonationRecordList(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalPersonList(),
+        getTypicalDonationRecordList(), new UserPrefs());
 
     @Test
     public void equals() {

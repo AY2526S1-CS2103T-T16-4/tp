@@ -40,7 +40,8 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
             Messages.format(personToDelete));
 
-        ModelManager expectedModel = new ModelManager(model.getPersonList(), model.getDonationRecordList(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getPersonList(),
+            model.getDonationRecordList(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -125,7 +126,8 @@ public class DeleteCommandTest {
 
     @Test
     public void createSession_nullModel_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> (new DeleteCommand(Index.fromZeroBased(0))).createSession(null));
+        assertThrows(NullPointerException.class, () -> (new DeleteCommand(Index.fromZeroBased(0)))
+            .createSession(null));
     }
 
     @Test
