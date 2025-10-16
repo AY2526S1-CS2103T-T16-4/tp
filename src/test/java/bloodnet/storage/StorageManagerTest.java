@@ -1,6 +1,6 @@
 package bloodnet.storage;
 
-import static bloodnet.testutil.TypicalPersons.getTypicalBloodNet;
+import static bloodnet.testutil.TypicalPersons.getTypicalPersonList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import bloodnet.commons.core.GuiSettings;
-import bloodnet.model.BloodNet;
-import bloodnet.model.ReadOnlyBloodNet;
+import bloodnet.model.PersonList;
+import bloodnet.model.ReadOnlyPersonList;
 import bloodnet.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,9 +24,11 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonBloodNetStorage bloodNetStorage = new JsonBloodNetStorage(getTempFilePath("ab"));
+        JsonPersonStorage personStorage = new JsonPersonStorage(getTempFilePath("ab"));
+        JsonDonationRecordStorage donationRecordStorage = new JsonDonationRecordStorage(
+            getTempFilePath("donationRecords"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(bloodNetStorage, userPrefsStorage);
+        storageManager = new StorageManager(personStorage, donationRecordStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -48,21 +50,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void bloodNetReadSave() throws Exception {
+    public void personReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonBloodNetStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonBloodNetStorageTest} class.
+         * {@link JsonPersonStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonPersonStorageTest} class.
          */
-        BloodNet original = getTypicalBloodNet();
-        storageManager.saveBloodNet(original);
-        ReadOnlyBloodNet retrieved = storageManager.readBloodNet().get();
-        assertEquals(original, new BloodNet(retrieved));
+        PersonList original = getTypicalPersonList();
+        storageManager.savePersonList(original);
+        ReadOnlyPersonList retrieved = storageManager.readPersonList().get();
+        assertEquals(original, new PersonList(retrieved));
     }
 
     @Test
-    public void getBloodNetFilePath() {
-        assertNotNull(storageManager.getBloodNetFilePath());
+    public void getPersonListFilePath() {
+        assertNotNull(storageManager.getPersonListFilePath());
     }
 
 }

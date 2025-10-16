@@ -46,7 +46,7 @@ import bloodnet.testutil.EditPersonDescriptorBuilder;
 public class EditCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+        String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser();
 
@@ -83,9 +83,9 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
         assertParseFailure(parser, "1" + INVALID_BLOOD_TYPE_DESC,
-                BloodType.MESSAGE_CONSTRAINTS); // invalid blood type
+            BloodType.MESSAGE_CONSTRAINTS); // invalid blood type
         assertParseFailure(parser, "1" + INVALID_DATE_OF_BIRTH_DESC,
-                DateOfBirth.MESSAGE_CONSTRAINTS); // invalid date of birth
+            DateOfBirth.MESSAGE_CONSTRAINTS); // invalid date of birth
 
         // invalid phone followed by valid email
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
@@ -93,22 +93,22 @@ public class EditCommandParserTest {
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC
-                        + INVALID_EMAIL_DESC + VALID_DATE_OF_BIRTH_AMY
-                        + VALID_BLOOD_TYPE_AMY + VALID_PHONE_AMY,
-                Name.MESSAGE_CONSTRAINTS);
+                + INVALID_EMAIL_DESC + VALID_DATE_OF_BIRTH_AMY
+                + VALID_BLOOD_TYPE_AMY + VALID_PHONE_AMY,
+            Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB
-                + EMAIL_DESC_AMY + BLOOD_TYPE_DESC_AMY
-                + DATE_OF_BIRTH_DESC_AMY + NAME_DESC_AMY;
+            + EMAIL_DESC_AMY + BLOOD_TYPE_DESC_AMY
+            + DATE_OF_BIRTH_DESC_AMY + NAME_DESC_AMY;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY)
-                .withBloodType(VALID_BLOOD_TYPE_AMY).withDateOfBirth(VALID_DATE_OF_BIRTH_AMY)
-                .build();
+            .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY)
+            .withBloodType(VALID_BLOOD_TYPE_AMY).withDateOfBirth(VALID_DATE_OF_BIRTH_AMY)
+            .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -120,7 +120,7 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + EMAIL_DESC_AMY;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
-                .withEmail(VALID_EMAIL_AMY).build();
+            .withEmail(VALID_EMAIL_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -179,24 +179,24 @@ public class EditCommandParserTest {
 
         // mulltiple valid fields repeated
         userInput = targetIndex.getOneBased() + DATE_OF_BIRTH_DESC_AMY + PHONE_DESC_AMY + BLOOD_TYPE_DESC_AMY
-                + EMAIL_DESC_AMY + PHONE_DESC_AMY + BLOOD_TYPE_DESC_AMY
-                + EMAIL_DESC_AMY + PHONE_DESC_BOB + BLOOD_TYPE_DESC_BOB
-                + EMAIL_DESC_BOB
-                + DATE_OF_BIRTH_DESC_AMY;
+            + EMAIL_DESC_AMY + PHONE_DESC_AMY + BLOOD_TYPE_DESC_AMY
+            + EMAIL_DESC_AMY + PHONE_DESC_BOB + BLOOD_TYPE_DESC_BOB
+            + EMAIL_DESC_BOB
+            + DATE_OF_BIRTH_DESC_AMY;
 
         assertParseFailure(parser, userInput,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DATE_OF_BIRTH,
-                        PREFIX_PHONE, PREFIX_EMAIL, PREFIX_BLOOD_TYPE));
+            Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DATE_OF_BIRTH,
+                PREFIX_PHONE, PREFIX_EMAIL, PREFIX_BLOOD_TYPE));
 
         // multiple invalid values
         userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + INVALID_DATE_OF_BIRTH_DESC
-                + INVALID_BLOOD_TYPE_DESC + INVALID_EMAIL_DESC
-                + INVALID_PHONE_DESC + INVALID_BLOOD_TYPE_DESC + INVALID_EMAIL_DESC
-                + INVALID_DATE_OF_BIRTH_DESC;
+            + INVALID_BLOOD_TYPE_DESC + INVALID_EMAIL_DESC
+            + INVALID_PHONE_DESC + INVALID_BLOOD_TYPE_DESC + INVALID_EMAIL_DESC
+            + INVALID_DATE_OF_BIRTH_DESC;
 
         assertParseFailure(parser, userInput,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_BLOOD_TYPE,
-                        PREFIX_DATE_OF_BIRTH));
+            Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_BLOOD_TYPE,
+                PREFIX_DATE_OF_BIRTH));
     }
 
 }

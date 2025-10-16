@@ -2,8 +2,9 @@ package bloodnet.logic.commands;
 
 import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static bloodnet.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static bloodnet.testutil.TypicalDonationRecords.getTypicalDonationRecordList;
 import static bloodnet.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static bloodnet.testutil.TypicalPersons.getTypicalBloodNet;
+import static bloodnet.testutil.TypicalPersons.getTypicalPersonList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,8 +23,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
-        expectedModel = new ModelManager(model.getBloodNet(), new UserPrefs());
+        model = new ModelManager(getTypicalPersonList(), getTypicalDonationRecordList(), new UserPrefs());
+        expectedModel = new ModelManager(model.getPersonList(), model.getDonationRecordList(), new UserPrefs());
     }
 
     @Test

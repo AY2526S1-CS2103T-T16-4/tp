@@ -13,9 +13,9 @@ public class UserPrefsTest {
     }
 
     @Test
-    public void setBloodNetFilePath_nullPath_throwsNullPointerException() {
+    public void setPersonListFilePath_nullPath_throwsNullPointerException() {
         UserPrefs userPrefs = new UserPrefs();
-        assertThrows(NullPointerException.class, () -> userPrefs.setBloodNetFilePath(null));
+        assertThrows(NullPointerException.class, () -> userPrefs.setPersonListFilePath(null));
     }
 
 }

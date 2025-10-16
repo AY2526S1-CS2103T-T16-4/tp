@@ -9,5 +9,5 @@
       "z" : 99
     }
   },
-  "bloodNetFilePath" : "bloodnet.json"
+  "personListFilePath" : "persons.json"
 }

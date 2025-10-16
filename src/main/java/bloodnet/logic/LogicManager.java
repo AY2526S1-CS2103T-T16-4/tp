@@ -12,10 +12,10 @@ import bloodnet.logic.commands.CommandResult;
 import bloodnet.logic.commands.commandsessions.CommandSession;
 import bloodnet.logic.commands.commandsessions.exceptions.TerminalSessionStateException;
 import bloodnet.logic.commands.exceptions.CommandException;
-import bloodnet.logic.parser.BloodNetParser;
+import bloodnet.logic.parser.PersonListParser;
 import bloodnet.logic.parser.exceptions.ParseException;
 import bloodnet.model.Model;
-import bloodnet.model.ReadOnlyBloodNet;
+import bloodnet.model.ReadOnlyPersonList;
 import bloodnet.model.person.Person;
 import bloodnet.storage.Storage;
 import javafx.collections.ObservableList;
@@ -27,17 +27,17 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_FORMAT = "Could not save data due to the following error: %s";
 
     public static final String FILE_OPS_PERMISSION_ERROR_FORMAT =
-            "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
+        "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
 
     public static final String TERMINAL_COMMAND_SESSION_STATE_ERROR_MESSAGE =
-            "An error has occured under the hood! \n"
+        "An error has occured under the hood! \n"
             + "Your previous command was likely not properly captured. Please try again.";
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
     private final Storage storage;
-    private final BloodNetParser bloodNetParser;
+    private final PersonListParser personListParser;
 
     private CommandSession currentSession = null;
 
@@ -48,17 +48,17 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        bloodNetParser = new BloodNetParser();
+        personListParser = new PersonListParser();
     }
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model},
-     * {@code Storage} and {@code BloodNetParser}.
+     * {@code Storage} and {@code PersonListParser}.
      */
-    public LogicManager(Model model, Storage storage, BloodNetParser bloodNetParser) {
+    public LogicManager(Model model, Storage storage, PersonListParser personListParser) {
         this.model = model;
         this.storage = storage;
-        this.bloodNetParser = bloodNetParser;
+        this.personListParser = personListParser;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         if (currentSession == null) {
-            Command command = bloodNetParser.parseCommand(commandText);
+            Command command = personListParser.parseCommand(commandText);
             this.currentSession = command.createSession(model);
         }
 
@@ -85,14 +85,14 @@ public class LogicManager implements Logic {
         }
         if (currentSession != null && currentSession.isDone()) {
             currentSession = null;
-            saveBloodNetSafely();
+            savePersonListSafely();
         }
         return result;
     }
 
-    private void saveBloodNetSafely() throws CommandException {
+    private void savePersonListSafely() throws CommandException {
         try {
-            storage.saveBloodNet(model.getBloodNet());
+            storage.savePersonList(model.getPersonList());
         } catch (AccessDeniedException e) {
             throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
         } catch (IOException ioe) {
@@ -101,8 +101,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyBloodNet getBloodNet() {
-        return model.getBloodNet();
+    public ReadOnlyPersonList getPersonList() {
+        return model.getPersonList();
     }
 
     @Override
@@ -111,8 +111,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getBloodNetFilePath() {
-        return model.getBloodNetFilePath();
+    public Path getPersonListFilePath() {
+        return model.getPersonListFilePath();
     }
 
     @Override

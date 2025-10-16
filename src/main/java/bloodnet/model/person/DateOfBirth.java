@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 
 
 /**
- * Represents a Person's birthdate (DD-MM-YYYY) in BloodNet
+ * Represents a Person's birthdate (DD-MM-YYYY) in PersonList
  * Guarantees: immutable; is valid as declared in {@link #isValidDateOfBirth(String)}
  */
 public class DateOfBirth {

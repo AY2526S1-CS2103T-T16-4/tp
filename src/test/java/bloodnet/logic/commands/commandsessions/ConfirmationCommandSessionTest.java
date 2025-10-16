@@ -25,8 +25,8 @@ public class ConfirmationCommandSessionTest {
         CommandResult result = session.handle("");
 
         assertEquals(
-                String.format(ConfirmationCommandSession.MESSAGE_SEEK_CONFIRMATION, "action"),
-                result.getFeedbackToUser());
+            String.format(ConfirmationCommandSession.MESSAGE_SEEK_CONFIRMATION, "action"),
+            result.getFeedbackToUser());
 
         assertEquals(false, session.isDone());
     }
@@ -64,14 +64,14 @@ public class ConfirmationCommandSessionTest {
         CommandResult result = session.handle("");
 
         assertEquals(
-                String.format(ConfirmationCommandSession.MESSAGE_INVALID_INPUT, "action"),
-                result.getFeedbackToUser());
+            String.format(ConfirmationCommandSession.MESSAGE_INVALID_INPUT, "action"),
+            result.getFeedbackToUser());
         assertFalse(session.isDone());
     }
 
     @Test
-    public void handle_terminalState_throwTerminalSessionStateException()
-            throws CommandException, TerminalSessionStateException {
+    public void handle_terminalState_throwTerminalSessionStateException(
+    ) throws CommandException, TerminalSessionStateException {
         Command commandStub = new CommandStub();
         ConfirmationCommandSession session = new ConfirmationCommandSession("action", () -> commandStub.execute(model));
 
