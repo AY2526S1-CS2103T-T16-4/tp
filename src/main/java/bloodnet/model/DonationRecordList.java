@@ -18,13 +18,7 @@ public class DonationRecordList implements ReadOnlyDonationRecordList {
 
     private final UniqueDonationRecordList donationRecords;
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */ {
+    {
         donationRecords = new UniqueDonationRecordList();
     }
 
@@ -79,7 +73,8 @@ public class DonationRecordList implements ReadOnlyDonationRecordList {
     /**
      * Replaces the given donationRecord {@code target} in the list with {@code editedDonationRecord}.
      * {@code target} must exist in the bloodnet.
-     * The donationRecord identity of {@code editedDonationRecord} must not be the same as another existing donationRecord in the bloodnet.
+     * The donationRecord identity of {@code editedDonationRecord} must not be the same as another existing
+     * donationRecord in the bloodnet.
      */
     public void setDonationRecord(DonationRecord target, DonationRecord editedDonationRecord) {
         requireNonNull(editedDonationRecord);
@@ -100,8 +95,8 @@ public class DonationRecordList implements ReadOnlyDonationRecordList {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("donationRecords", donationRecords)
-                .toString();
+            .add("donationRecords", donationRecords)
+            .toString();
     }
 
     @Override

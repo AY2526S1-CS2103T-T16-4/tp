@@ -1,13 +1,13 @@
 package bloodnet.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
 import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_TYPE;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_NAME;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_PHONE;
 import static bloodnet.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Objects;
@@ -36,17 +36,17 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_BLOOD_TYPE + "BLOOD_TYPE] "
-            + "[" + PREFIX_DATE_OF_BIRTH + "DATE_OF_BIRTH] "
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+        + "by the index number used in the displayed person list. "
+        + "Existing values will be overwritten by the input values.\n"
+        + "Parameters: INDEX (must be a positive integer) "
+        + "[" + PREFIX_NAME + "NAME] "
+        + "[" + PREFIX_PHONE + "PHONE] "
+        + "[" + PREFIX_EMAIL + "EMAIL] "
+        + "[" + PREFIX_BLOOD_TYPE + "BLOOD_TYPE] "
+        + "[" + PREFIX_DATE_OF_BIRTH + "DATE_OF_BIRTH] "
+        + "Example: " + COMMAND_WORD + " 1 "
+        + PREFIX_PHONE + "91234567 "
+        + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -71,7 +71,7 @@ public class EditCommand extends Command {
     public CommandSession createSession(Model model) throws CommandException {
         Person personToEdit = getPersonToEdit(model);
         return new ConfirmationCommandSession(COMMAND_WORD + " "
-                + personToEdit.getName(), () -> this.execute(model));
+            + personToEdit.getName(), () -> this.execute(model));
     }
 
     @Override
@@ -101,7 +101,7 @@ public class EditCommand extends Command {
         DateOfBirth updatedDateOfBirth = editPersonDescriptor.getDateOfBirth().orElse(personToEdit.getDateOfBirth());
 
         return new Person(personToEdit.getId(), updatedName, updatedPhone, updatedEmail, updatedBloodType,
-                updatedDateOfBirth);
+            updatedDateOfBirth);
     }
 
     private Person getPersonToEdit(Model model) throws CommandException {
@@ -130,15 +130,15 @@ public class EditCommand extends Command {
 
         EditCommand otherEditCommand = (EditCommand) other;
         return index.equals(otherEditCommand.index)
-                && editPersonDescriptor.equals(otherEditCommand.editPersonDescriptor);
+            && editPersonDescriptor.equals(otherEditCommand.editPersonDescriptor);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("index", index)
-                .add("editPersonDescriptor", editPersonDescriptor)
-                .toString();
+            .add("index", index)
+            .add("editPersonDescriptor", editPersonDescriptor)
+            .toString();
     }
 
     /**
@@ -227,21 +227,21 @@ public class EditCommand extends Command {
 
             EditPersonDescriptor otherEditPersonDescriptor = (EditPersonDescriptor) other;
             return Objects.equals(name, otherEditPersonDescriptor.name)
-                    && Objects.equals(phone, otherEditPersonDescriptor.phone)
-                    && Objects.equals(email, otherEditPersonDescriptor.email)
-                    && Objects.equals(bloodType, otherEditPersonDescriptor.bloodType)
-                    && Objects.equals(dateOfBirth, otherEditPersonDescriptor.dateOfBirth);
+                && Objects.equals(phone, otherEditPersonDescriptor.phone)
+                && Objects.equals(email, otherEditPersonDescriptor.email)
+                && Objects.equals(bloodType, otherEditPersonDescriptor.bloodType)
+                && Objects.equals(dateOfBirth, otherEditPersonDescriptor.dateOfBirth);
         }
 
         @Override
         public String toString() {
             return new ToStringBuilder(this)
-                    .add("name", name)
-                    .add("phone", phone)
-                    .add("email", email)
-                    .add("bloodType", bloodType)
-                    .add("dateOfBirth", dateOfBirth)
-                    .toString();
+                .add("name", name)
+                .add("phone", phone)
+                .add("email", email)
+                .add("bloodType", bloodType)
+                .add("dateOfBirth", dateOfBirth)
+                .toString();
         }
 
 
