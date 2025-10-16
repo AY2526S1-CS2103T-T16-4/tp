@@ -15,10 +15,14 @@ import bloodnet.testutil.TypicalDonationRecords;
 
 public class JsonSerializableDonationRecordListTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableDonationRecordListTest");
-    private static final Path TYPICAL_DONATION_RECORDS_FILE = TEST_DATA_FOLDER.resolve("typicalDonationRecordList.json");
-    private static final Path INVALID_DONATION_RECORD_FILE = TEST_DATA_FOLDER.resolve("invalidDonationRecordList.json");
-    private static final Path DUPLICATE_DONATION_RECORD_FILE = TEST_DATA_FOLDER.resolve("duplicateDonationRecordList.json");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+        "JsonSerializableDonationRecordListTest");
+    private static final Path TYPICAL_DONATION_RECORDS_FILE = TEST_DATA_FOLDER.resolve(
+        "typicalDonationRecordList.json");
+    private static final Path INVALID_DONATION_RECORD_FILE = TEST_DATA_FOLDER.resolve(
+        "invalidDonationRecordList.json");
+    private static final Path DUPLICATE_DONATION_RECORD_FILE = TEST_DATA_FOLDER.resolve(
+        "duplicateDonationRecordList.json");
 
     @Test
     public void toModelType_typicalDonationRecordsFile_success() throws Exception {

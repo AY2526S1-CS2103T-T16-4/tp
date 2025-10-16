@@ -2,7 +2,6 @@ package bloodnet.storage;
 
 import static bloodnet.testutil.Assert.assertThrows;
 import static bloodnet.testutil.TypicalDonationRecords.ALICE_DONATION_RECORDS;
-import static bloodnet.testutil.TypicalDonationRecords.BENSON_DONATION_RECORDS;
 import static bloodnet.testutil.TypicalDonationRecords.CARL_DONATION_RECORDS;
 import static bloodnet.testutil.TypicalDonationRecords.getTypicalDonationRecordList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,7 +30,8 @@ public class JsonDonationRecordStorageTest {
     }
 
     private java.util.Optional<ReadOnlyDonationRecordList> readDonationRecordList(String filePath) throws Exception {
-        return new JsonDonationRecordStorage(Paths.get(filePath)).readDonationRecordList(addToTestDataPathIfNotNull(filePath));
+        return new JsonDonationRecordStorage(Paths.get(filePath))
+            .readDonationRecordList(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -57,7 +57,8 @@ public class JsonDonationRecordStorageTest {
 
     @Test
     public void readDonationRecordList_invalidAndValidDonationRecordDonationRecordList_throwDataLoadingException() {
-        assertThrows(DataLoadingException.class, () -> readDonationRecordList("invalidAndValidDonationRecordList.json"));
+        assertThrows(DataLoadingException.class, () -> readDonationRecordList(
+            "invalidAndValidDonationRecordList.json"));
     }
 
     @Test
