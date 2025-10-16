@@ -65,25 +65,17 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
-
-        if (currentSession != null) {
-            return handleSessionInput(commandText);
+        if (currentSession == null) {
+            Command command = bloodNetParser.parseCommand(commandText);
+            this.currentSession = command.createSession(model);
         }
 
-        Command command = bloodNetParser.parseCommand(commandText);
-        currentSession = command.createSession(model);
+        assert this.currentSession != null;
 
-        if (currentSession != null) {
-            return handleSessionInput(commandText);
-        }
-        commandResult = command.execute(model);
-        saveBloodNetSafely();
-
-        return commandResult;
+        return advanceCurrentSession(commandText);
     }
 
-    private CommandResult handleSessionInput(String input) throws CommandException {
+    private CommandResult advanceCurrentSession(String input) throws CommandException {
         CommandResult result;
         try {
             result = currentSession.handle(input);
