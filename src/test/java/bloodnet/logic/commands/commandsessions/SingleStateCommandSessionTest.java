@@ -26,8 +26,8 @@ public class SingleStateCommandSessionTest {
     }
 
     @Test
-    public void handle_terminalState_throwTerminalSessionStateException()
-        throws CommandException, TerminalSessionStateException {
+    public void handle_terminalState_throwTerminalSessionStateException(
+    ) throws CommandException, TerminalSessionStateException {
         SingleStepCommandSession session = new SingleStepCommandSession(
             new ExitCommand(), model);
 

@@ -70,8 +70,8 @@ public class ConfirmationCommandSessionTest {
     }
 
     @Test
-    public void handle_terminalState_throwTerminalSessionStateException()
-        throws CommandException, TerminalSessionStateException {
+    public void handle_terminalState_throwTerminalSessionStateException(
+    ) throws CommandException, TerminalSessionStateException {
         Command commandStub = new CommandStub();
         ConfirmationCommandSession session = new ConfirmationCommandSession("action", () -> commandStub.execute(model));
 
