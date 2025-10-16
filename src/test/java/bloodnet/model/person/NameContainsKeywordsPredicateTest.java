@@ -8,8 +8,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import bloodnet.testutil.PersonBuilder;
 import org.junit.jupiter.api.Test;
+
+import bloodnet.testutil.PersonBuilder;
 
 public class NameContainsKeywordsPredicateTest {
 

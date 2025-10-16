@@ -30,6 +30,8 @@ import static bloodnet.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static bloodnet.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static bloodnet.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
+import org.junit.jupiter.api.Test;
+
 import bloodnet.commons.core.index.Index;
 import bloodnet.logic.Messages;
 import bloodnet.logic.commands.EditCommand;
@@ -40,7 +42,6 @@ import bloodnet.model.person.Email;
 import bloodnet.model.person.Name;
 import bloodnet.model.person.Phone;
 import bloodnet.testutil.EditPersonDescriptorBuilder;
-import org.junit.jupiter.api.Test;
 
 public class EditCommandParserTest {
 

@@ -32,6 +32,8 @@ import static bloodnet.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static bloodnet.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static bloodnet.testutil.TypicalPersons.BOB;
 
+import org.junit.jupiter.api.Test;
+
 import bloodnet.logic.Messages;
 import bloodnet.logic.commands.AddCommand;
 import bloodnet.model.person.BloodType;
@@ -41,7 +43,6 @@ import bloodnet.model.person.Name;
 import bloodnet.model.person.Person;
 import bloodnet.model.person.Phone;
 import bloodnet.testutil.PersonBuilder;
-import org.junit.jupiter.api.Test;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();

@@ -6,13 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.nio.file.Path;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
 import bloodnet.commons.core.GuiSettings;
 import bloodnet.model.PersonList;
 import bloodnet.model.ReadOnlyPersonList;
 import bloodnet.model.UserPrefs;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 public class StorageManagerTest {
 
@@ -24,7 +25,8 @@ public class StorageManagerTest {
     @BeforeEach
     public void setUp() {
         JsonPersonStorage personStorage = new JsonPersonStorage(getTempFilePath("ab"));
-        JsonDonationRecordStorage donationRecordStorage = new JsonDonationRecordStorage(getTempFilePath("donationRecords"));
+        JsonDonationRecordStorage donationRecordStorage = new JsonDonationRecordStorage(
+            getTempFilePath("donationRecords"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(personStorage, donationRecordStorage, userPrefsStorage);
     }

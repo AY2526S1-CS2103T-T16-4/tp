@@ -12,8 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import bloodnet.testutil.PersonBuilder;
 import org.junit.jupiter.api.Test;
+
+import bloodnet.testutil.PersonBuilder;
 
 public class PersonTest {
 

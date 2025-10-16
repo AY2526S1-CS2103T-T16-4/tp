@@ -18,18 +18,12 @@ public class PersonList implements ReadOnlyPersonList {
 
     private final UniquePersonList persons;
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
     {
         persons = new UniquePersonList();
     }
 
-    public PersonList() {}
+    public PersonList() {
+    }
 
     /**
      * Creates an PersonList using the Persons in the {@code toBeCopied}
@@ -100,8 +94,8 @@ public class PersonList implements ReadOnlyPersonList {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("persons", persons)
-                .toString();
+            .add("persons", persons)
+            .toString();
     }
 
     @Override

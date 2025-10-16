@@ -13,10 +13,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import bloodnet.model.person.exceptions.DuplicatePersonException;
 import bloodnet.model.person.exceptions.PersonNotFoundException;
 import bloodnet.testutil.PersonBuilder;
-import org.junit.jupiter.api.Test;
 
 public class UniquePersonListTest {
 

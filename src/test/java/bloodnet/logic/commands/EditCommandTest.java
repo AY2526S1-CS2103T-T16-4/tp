@@ -16,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
 import bloodnet.commons.core.index.Index;
 import bloodnet.logic.Messages;
 import bloodnet.logic.commands.EditCommand.EditPersonDescriptor;
@@ -30,7 +32,6 @@ import bloodnet.model.UserPrefs;
 import bloodnet.model.person.Person;
 import bloodnet.testutil.EditPersonDescriptorBuilder;
 import bloodnet.testutil.PersonBuilder;
-import org.junit.jupiter.api.Test;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
@@ -47,7 +48,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
-        Model expectedModel = new ModelManager(new PersonList(model.getPersonList()), new DonationRecordList(model.getDonationRecordList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new PersonList(model.getPersonList()),
+            new DonationRecordList(model.getDonationRecordList()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -68,7 +70,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
-        Model expectedModel = new ModelManager(new PersonList(model.getPersonList()), new DonationRecordList(model.getDonationRecordList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new PersonList(model.getPersonList()),
+            new DonationRecordList(model.getDonationRecordList()), new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -81,7 +84,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
-        Model expectedModel = new ModelManager(new PersonList(model.getPersonList()), new DonationRecordList(model.getDonationRecordList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new PersonList(model.getPersonList()),
+            new DonationRecordList(model.getDonationRecordList()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -97,7 +101,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
-        Model expectedModel = new ModelManager(new PersonList(model.getPersonList()), new DonationRecordList(model.getDonationRecordList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new PersonList(model.getPersonList()),
+            new DonationRecordList(model.getDonationRecordList()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);

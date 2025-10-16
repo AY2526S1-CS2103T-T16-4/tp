@@ -15,6 +15,10 @@ import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
 import bloodnet.logic.commands.AddCommand;
 import bloodnet.logic.commands.Command;
 import bloodnet.logic.commands.CommandResult;
@@ -34,9 +38,6 @@ import bloodnet.storage.JsonPersonStorage;
 import bloodnet.storage.JsonUserPrefsStorage;
 import bloodnet.storage.StorageManager;
 import bloodnet.testutil.PersonBuilder;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy IO exception");
@@ -50,12 +51,12 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonPersonStorage PersonStorage =
+        JsonPersonStorage personStorage =
             new JsonPersonStorage(temporaryFolder.resolve("persons.json"));
-        JsonDonationRecordStorage DonationRecordStorage =
+        JsonDonationRecordStorage donationRecordStorage =
             new JsonDonationRecordStorage(temporaryFolder.resolve("donationRecords.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(PersonStorage, DonationRecordStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(personStorage, donationRecordStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -91,12 +92,12 @@ public class LogicManagerTest {
 
     @Test
     public void execute_multiStateCommand_success() throws CommandException, ParseException {
-        JsonPersonStorage PersonStorage =
+        JsonPersonStorage personStorage =
             new JsonPersonStorage(temporaryFolder.resolve("persons.json"));
-        JsonDonationRecordStorage DonationRecordStorage =
+        JsonDonationRecordStorage donationRecordStorage =
             new JsonDonationRecordStorage(temporaryFolder.resolve("donationRecords.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(PersonStorage, DonationRecordStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(personStorage, donationRecordStorage, userPrefsStorage);
         Logic logic = new LogicManager(model, storage, new PersonListParserStub());
 
 
@@ -116,12 +117,12 @@ public class LogicManagerTest {
 
     @Test
     public void execute_terminalSessionStateException_resetsSession() throws CommandException, ParseException {
-        JsonPersonStorage PersonStorage =
+        JsonPersonStorage personStorage =
             new JsonPersonStorage(temporaryFolder.resolve("persons.json"));
-        JsonDonationRecordStorage DonationRecordStorage =
+        JsonDonationRecordStorage donationRecordStorage =
             new JsonDonationRecordStorage(temporaryFolder.resolve("donationRecords.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(PersonStorage, DonationRecordStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(personStorage, donationRecordStorage, userPrefsStorage);
         Logic logic = new LogicManager(model, storage, new PersonListParserStub());
 
         CommandResult result = logic.execute("throw terminal");
@@ -207,21 +208,20 @@ public class LogicManagerTest {
     private void assertCommandFailureForExceptionFromStorage(IOException e, String expectedMessage) {
         Path prefPath = temporaryFolder.resolve("ExceptionUserPrefs.json");
 
-        // Inject LogicManager with an PersonStorage that throws the IOException e when saving
-        JsonPersonStorage PersonStorage = new JsonPersonStorage(prefPath) {
+        // Inject LogicManager with an personStorage that throws the IOException e when saving
+        JsonPersonStorage personStorage = new JsonPersonStorage(prefPath) {
             @Override
-            public void savePersonList(ReadOnlyPersonList Person, Path filePath)
-                throws IOException {
+            public void savePersonList(ReadOnlyPersonList person, Path filePath) throws IOException {
                 throw e;
             }
         };
 
-        JsonDonationRecordStorage DonationRecordStorage =
+        JsonDonationRecordStorage donationRecordStorage =
             new JsonDonationRecordStorage(temporaryFolder.resolve("donationRecords.json"));
 
         JsonUserPrefsStorage userPrefsStorage =
             new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(PersonStorage, DonationRecordStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(personStorage, donationRecordStorage, userPrefsStorage);
 
         logic = new LogicManager(model, storage);
 

@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.Test;
+
 import bloodnet.logic.commands.AddCommand;
 import bloodnet.logic.commands.ClearCommand;
 import bloodnet.logic.commands.DeleteCommand;
@@ -26,7 +28,6 @@ import bloodnet.model.person.Person;
 import bloodnet.testutil.EditPersonDescriptorBuilder;
 import bloodnet.testutil.PersonBuilder;
 import bloodnet.testutil.PersonUtil;
-import org.junit.jupiter.api.Test;
 
 public class PersonListParserTest {
 

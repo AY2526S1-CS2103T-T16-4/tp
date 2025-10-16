@@ -6,9 +6,10 @@ import static bloodnet.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
 
+import org.junit.jupiter.api.Test;
+
 import bloodnet.logic.commands.FindCommand;
 import bloodnet.model.person.NameContainsKeywordsPredicate;
-import org.junit.jupiter.api.Test;
 
 public class FindCommandParserTest {
 

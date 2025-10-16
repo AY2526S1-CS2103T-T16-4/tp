@@ -13,10 +13,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import org.junit.jupiter.api.Test;
+
 import bloodnet.commons.core.GuiSettings;
 import bloodnet.model.person.NameContainsKeywordsPredicate;
 import bloodnet.testutil.PersonListBuilder;
-import org.junit.jupiter.api.Test;
 
 public class ModelManagerTest {
 

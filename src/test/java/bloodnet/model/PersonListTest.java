@@ -14,12 +14,13 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import bloodnet.model.person.Person;
 import bloodnet.model.person.exceptions.DuplicatePersonException;
 import bloodnet.testutil.PersonBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.junit.jupiter.api.Test;
 
 public class PersonListTest {
 

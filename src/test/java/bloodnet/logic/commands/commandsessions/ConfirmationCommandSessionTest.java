@@ -5,13 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
 import bloodnet.logic.commands.Command;
 import bloodnet.logic.commands.CommandResult;
 import bloodnet.logic.commands.commandsessions.exceptions.TerminalSessionStateException;
 import bloodnet.logic.commands.exceptions.CommandException;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
-import org.junit.jupiter.api.Test;
 
 public class ConfirmationCommandSessionTest {
     private Model model = new ModelManager();

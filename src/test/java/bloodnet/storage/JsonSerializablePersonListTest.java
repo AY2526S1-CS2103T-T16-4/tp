@@ -6,11 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.jupiter.api.Test;
+
 import bloodnet.commons.exceptions.IllegalValueException;
 import bloodnet.commons.util.JsonUtil;
 import bloodnet.model.PersonList;
 import bloodnet.testutil.TypicalPersons;
-import org.junit.jupiter.api.Test;
 
 public class JsonSerializablePersonListTest {
 

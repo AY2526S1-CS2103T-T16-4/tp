@@ -63,7 +63,7 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         PersonStorage personStorage = new JsonPersonStorage(userPrefs.getPersonListFilePath());
         DonationRecordStorage donationRecordtorage = new JsonDonationRecordStorage(
-                userPrefs.getDonationRecordListFilePath());
+            userPrefs.getDonationRecordListFilePath());
         storage = new StorageManager(personStorage, donationRecordtorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
@@ -87,12 +87,12 @@ public class MainApp extends Application {
             personListOptional = storage.readPersonList();
             if (!personListOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getPersonListFilePath()
-                        + " populated with a sample PersonList.");
+                    + " populated with a sample PersonList.");
             }
             initialPersonData = personListOptional.orElseGet(SampleDataUtil::getSamplePersonList);
         } catch (DataLoadingException e) {
             logger.warning("Data file at " + storage.getPersonListFilePath() + " could not be loaded."
-                    + " Will be starting with an empty PersonList.");
+                + " Will be starting with an empty PersonList.");
             initialPersonData = new PersonList();
         }
 
@@ -104,13 +104,13 @@ public class MainApp extends Application {
             donationRecordListOptional = storage.readDonationRecordList();
             if (!donationRecordListOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getDonationRecordListFilePath()
-                        + " populated with a sample DonationRecordList.");
+                    + " populated with a sample DonationRecordList.");
             }
             initialDonationRecordData = donationRecordListOptional.orElseGet(
-                    SampleDataUtil::getSampleDonationRecordList);
+                SampleDataUtil::getSampleDonationRecordList);
         } catch (DataLoadingException e) {
             logger.warning("Data file at " + storage.getDonationRecordListFilePath() + " could not be loaded."
-                    + " Will be starting with an empty DonationRecordList.");
+                + " Will be starting with an empty DonationRecordList.");
             initialDonationRecordData = new DonationRecordList();
         }
 
@@ -147,7 +147,7 @@ public class MainApp extends Application {
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataLoadingException e) {
             logger.warning("Config file at " + configFilePathUsed + " could not be loaded."
-                    + " Using default config properties.");
+                + " Using default config properties.");
             initializedConfig = new Config();
         }
 
@@ -178,7 +178,7 @@ public class MainApp extends Application {
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataLoadingException e) {
             logger.warning("Preference file at " + prefsFilePath + " could not be loaded."
-                    + " Using default preferences.");
+                + " Using default preferences.");
             initializedPrefs = new UserPrefs();
         }
 

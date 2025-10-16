@@ -5,14 +5,15 @@ import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static bloodnet.testutil.TypicalDonationRecords.getTypicalDonationRecordList;
 import static bloodnet.testutil.TypicalPersons.getTypicalPersonList;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import bloodnet.logic.Messages;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
 import bloodnet.model.person.Person;
 import bloodnet.testutil.PersonBuilder;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.

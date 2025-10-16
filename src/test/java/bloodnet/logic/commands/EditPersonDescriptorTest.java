@@ -11,9 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
 import bloodnet.logic.commands.EditCommand.EditPersonDescriptor;
 import bloodnet.testutil.EditPersonDescriptorBuilder;
-import org.junit.jupiter.api.Test;
 
 public class EditPersonDescriptorTest {
 

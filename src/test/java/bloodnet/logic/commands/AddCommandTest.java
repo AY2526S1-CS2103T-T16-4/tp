@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import org.junit.jupiter.api.Test;
+
 import bloodnet.commons.core.GuiSettings;
 import bloodnet.logic.Messages;
 import bloodnet.logic.commands.exceptions.CommandException;
@@ -24,7 +26,6 @@ import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.Person;
 import bloodnet.testutil.PersonBuilder;
 import javafx.collections.ObservableList;
-import org.junit.jupiter.api.Test;
 
 public class AddCommandTest {
 

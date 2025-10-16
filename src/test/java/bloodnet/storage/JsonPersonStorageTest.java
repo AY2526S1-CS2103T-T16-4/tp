@@ -12,11 +12,12 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
 import bloodnet.commons.exceptions.DataLoadingException;
 import bloodnet.model.PersonList;
 import bloodnet.model.ReadOnlyPersonList;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 public class JsonPersonStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonPersonStorageTest");

@@ -10,10 +10,11 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Level;
 
-import bloodnet.commons.core.Config;
-import bloodnet.commons.exceptions.DataLoadingException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+
+import bloodnet.commons.core.Config;
+import bloodnet.commons.exceptions.DataLoadingException;
 
 public class ConfigUtilTest {
 
