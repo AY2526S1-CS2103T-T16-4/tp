@@ -47,7 +47,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         BloodType bloodType = ParserUtil.parseBloodType(argMultimap.getValue(PREFIX_BLOOD_TYPE).get());
         DateOfBirth dateOfBirth = ParserUtil.parseDateOfBirth(argMultimap.getValue(PREFIX_DATE_OF_BIRTH).get());
 
-        Person person = new Person(name, phone, email, bloodType, dateOfBirth);
+        Person person = new Person(null, name, phone, email, bloodType, dateOfBirth);
 
         return new AddCommand(person);
     }

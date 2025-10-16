@@ -13,16 +13,20 @@ import bloodnet.commons.util.ConfigUtil;
 import bloodnet.commons.util.StringUtil;
 import bloodnet.logic.Logic;
 import bloodnet.logic.LogicManager;
-import bloodnet.model.BloodNet;
+import bloodnet.model.DonationRecordList;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
-import bloodnet.model.ReadOnlyBloodNet;
+import bloodnet.model.PersonList;
+import bloodnet.model.ReadOnlyDonationRecordList;
+import bloodnet.model.ReadOnlyPersonList;
 import bloodnet.model.ReadOnlyUserPrefs;
 import bloodnet.model.UserPrefs;
 import bloodnet.model.util.SampleDataUtil;
-import bloodnet.storage.BloodNetStorage;
-import bloodnet.storage.JsonBloodNetStorage;
+import bloodnet.storage.DonationRecordStorage;
+import bloodnet.storage.JsonDonationRecordStorage;
+import bloodnet.storage.JsonPersonStorage;
 import bloodnet.storage.JsonUserPrefsStorage;
+import bloodnet.storage.PersonStorage;
 import bloodnet.storage.Storage;
 import bloodnet.storage.StorageManager;
 import bloodnet.storage.UserPrefsStorage;
@@ -57,8 +61,10 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        BloodNetStorage bloodNetStorage = new JsonBloodNetStorage(userPrefs.getBloodNetFilePath());
-        storage = new StorageManager(bloodNetStorage, userPrefsStorage);
+        PersonStorage personStorage = new JsonPersonStorage(userPrefs.getPersonListFilePath());
+        DonationRecordStorage donationRecordtorage = new JsonDonationRecordStorage(
+            userPrefs.getDonationRecordListFilePath());
+        storage = new StorageManager(personStorage, donationRecordtorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
 
@@ -73,24 +79,42 @@ public class MainApp extends Application {
      * or an empty bloodnet will be used instead if errors occur when reading {@code storage}'s bloodnet.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        logger.info("Using data file : " + storage.getBloodNetFilePath());
+        logger.info("Using person data file : " + storage.getPersonListFilePath());
 
-        Optional<ReadOnlyBloodNet> bloodNetOptional;
-        ReadOnlyBloodNet initialData;
+        Optional<ReadOnlyPersonList> personListOptional;
+        ReadOnlyPersonList initialPersonData;
         try {
-            bloodNetOptional = storage.readBloodNet();
-            if (!bloodNetOptional.isPresent()) {
-                logger.info("Creating a new data file " + storage.getBloodNetFilePath()
-                        + " populated with a sample BloodNet.");
+            personListOptional = storage.readPersonList();
+            if (!personListOptional.isPresent()) {
+                logger.info("Creating a new data file " + storage.getPersonListFilePath()
+                    + " populated with a sample PersonList.");
             }
-            initialData = bloodNetOptional.orElseGet(SampleDataUtil::getSampleBloodNet);
+            initialPersonData = personListOptional.orElseGet(SampleDataUtil::getSamplePersonList);
         } catch (DataLoadingException e) {
-            logger.warning("Data file at " + storage.getBloodNetFilePath() + " could not be loaded."
-                    + " Will be starting with an empty BloodNet.");
-            initialData = new BloodNet();
+            logger.warning("Data file at " + storage.getPersonListFilePath() + " could not be loaded."
+                + " Will be starting with an empty PersonList.");
+            initialPersonData = new PersonList();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        logger.info("Using donation record data file : " + storage.getDonationRecordListFilePath());
+
+        Optional<ReadOnlyDonationRecordList> donationRecordListOptional;
+        ReadOnlyDonationRecordList initialDonationRecordData;
+        try {
+            donationRecordListOptional = storage.readDonationRecordList();
+            if (!donationRecordListOptional.isPresent()) {
+                logger.info("Creating a new data file " + storage.getDonationRecordListFilePath()
+                    + " populated with a sample DonationRecordList.");
+            }
+            initialDonationRecordData = donationRecordListOptional.orElseGet(
+                SampleDataUtil::getSampleDonationRecordList);
+        } catch (DataLoadingException e) {
+            logger.warning("Data file at " + storage.getDonationRecordListFilePath() + " could not be loaded."
+                + " Will be starting with an empty DonationRecordList.");
+            initialDonationRecordData = new DonationRecordList();
+        }
+
+        return new ModelManager(initialPersonData, initialDonationRecordData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -123,7 +147,7 @@ public class MainApp extends Application {
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataLoadingException e) {
             logger.warning("Config file at " + configFilePathUsed + " could not be loaded."
-                    + " Using default config properties.");
+                + " Using default config properties.");
             initializedConfig = new Config();
         }
 
@@ -154,7 +178,7 @@ public class MainApp extends Application {
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataLoadingException e) {
             logger.warning("Preference file at " + prefsFilePath + " could not be loaded."
-                    + " Using default preferences.");
+                + " Using default preferences.");
             initializedPrefs = new UserPrefs();
         }
 
@@ -170,13 +194,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting BloodNet " + MainApp.VERSION);
+        logger.info("Starting PersonList " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping BloodNet ] =============================");
+        logger.info("============================ [ Stopping PersonList ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

@@ -7,5 +7,5 @@
       "y" : 100
     }
   },
-  "bloodNetFilePath" : "bloodnet.json"
+  "personListFilePath" : "persons.json"
 }

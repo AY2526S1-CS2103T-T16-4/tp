@@ -11,30 +11,24 @@ import javafx.collections.ObservableList;
 
 
 /**
- * Wraps all data at the blood-net level
+ * Wrapper for list of persons
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class BloodNet implements ReadOnlyBloodNet {
+public class PersonList implements ReadOnlyPersonList {
 
     private final UniquePersonList persons;
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
     {
         persons = new UniquePersonList();
     }
 
-    public BloodNet() {}
+    public PersonList() {
+    }
 
     /**
-     * Creates an BloodNet using the Persons in the {@code toBeCopied}
+     * Creates an PersonList using the Persons in the {@code toBeCopied}
      */
-    public BloodNet(ReadOnlyBloodNet toBeCopied) {
+    public PersonList(ReadOnlyPersonList toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -50,9 +44,9 @@ public class BloodNet implements ReadOnlyBloodNet {
     }
 
     /**
-     * Resets the existing data of this {@code BloodNet} with {@code newData}.
+     * Resets the existing data of this {@code PersonList} with {@code newData}.
      */
-    public void resetData(ReadOnlyBloodNet newData) {
+    public void resetData(ReadOnlyPersonList newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
@@ -88,7 +82,7 @@ public class BloodNet implements ReadOnlyBloodNet {
     }
 
     /**
-     * Removes {@code key} from this {@code BloodNet}.
+     * Removes {@code key} from this {@code PersonList}.
      * {@code key} must exist in the bloodnet.
      */
     public void removePerson(Person key) {
@@ -100,8 +94,8 @@ public class BloodNet implements ReadOnlyBloodNet {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("persons", persons)
-                .toString();
+            .add("persons", persons)
+            .toString();
     }
 
     @Override
@@ -116,11 +110,11 @@ public class BloodNet implements ReadOnlyBloodNet {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof BloodNet)) {
+        if (!(other instanceof PersonList)) {
             return false;
         }
 
-        BloodNet otherBloodNet = (BloodNet) other;
+        PersonList otherBloodNet = (PersonList) other;
         return persons.equals(otherBloodNet.persons);
     }
 

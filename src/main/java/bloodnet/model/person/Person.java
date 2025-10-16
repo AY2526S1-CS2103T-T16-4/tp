@@ -3,6 +3,7 @@ package bloodnet.model.person;
 import static bloodnet.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import bloodnet.commons.util.ToStringBuilder;
 
@@ -11,8 +12,8 @@ import bloodnet.commons.util.ToStringBuilder;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
-
     // Identity fields
+    private UUID id;
     private final Name name;
     private final Phone phone;
     private final Email email;
@@ -22,16 +23,26 @@ public class Person {
     private final DateOfBirth dateOfBirth;
 
     /**
-     * Every field must be present and not null.
+     * Every field other than must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, BloodType bloodType,
+    public Person(UUID id, Name name, Phone phone, Email email, BloodType bloodType,
                   DateOfBirth dateOfBirth) {
         requireAllNonNull(name, phone, email, bloodType);
+
+        this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.bloodType = bloodType;
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public Name getName() {
@@ -100,6 +111,7 @@ public class Person {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
+                .add("id", id)
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)

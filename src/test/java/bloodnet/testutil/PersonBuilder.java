@@ -1,5 +1,7 @@
 package bloodnet.testutil;
 
+import java.util.UUID;
+
 import bloodnet.model.person.BloodType;
 import bloodnet.model.person.DateOfBirth;
 import bloodnet.model.person.Email;
@@ -18,6 +20,7 @@ public class PersonBuilder {
     public static final String DEFAULT_BLOOD_TYPE = "B+";
     public static final String DEFAULT_DATE_OF_BIRTH = "14-02-2000";
 
+    private UUID id;
     private Name name;
     private Phone phone;
     private Email email;
@@ -39,11 +42,20 @@ public class PersonBuilder {
      * Initializes the PersonBuilder with the data of {@code personToCopy}.
      */
     public PersonBuilder(Person personToCopy) {
+        id = personToCopy.getId();
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         bloodType = personToCopy.getBloodType();
         dateOfBirth = personToCopy.getDateOfBirth();
+    }
+
+    /**
+     * Sets the {@code ID} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withId(UUID id) {
+        this.id = id;
+        return this;
     }
 
     /**
@@ -88,7 +100,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, bloodType, dateOfBirth);
+        return new Person(id, name, phone, email, bloodType, dateOfBirth);
     }
 
 }

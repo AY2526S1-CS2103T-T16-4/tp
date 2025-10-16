@@ -19,17 +19,17 @@ public class SingleStateCommandSessionTest {
     @Test
     public void handle_userInput_isDone() throws CommandException, TerminalSessionStateException {
         SingleStepCommandSession session = new SingleStepCommandSession(
-                new CommandStub(), model);
+            new CommandStub(), model);
 
         session.handle("");
         assertTrue(session.isDone());
     }
 
     @Test
-    public void handle_terminalState_throwTerminalSessionStateException()
-            throws CommandException, TerminalSessionStateException {
+    public void handle_terminalState_throwTerminalSessionStateException(
+    ) throws CommandException, TerminalSessionStateException {
         SingleStepCommandSession session = new SingleStepCommandSession(
-                new ExitCommand(), model);
+            new ExitCommand(), model);
 
         session.handle("");
 

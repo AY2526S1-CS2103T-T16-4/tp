@@ -9,52 +9,52 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import bloodnet.commons.exceptions.IllegalValueException;
-import bloodnet.model.BloodNet;
-import bloodnet.model.ReadOnlyBloodNet;
+import bloodnet.model.PersonList;
+import bloodnet.model.ReadOnlyPersonList;
 import bloodnet.model.person.Person;
 
 /**
- * An Immutable BloodNet that is serializable to JSON format.
+ * An Immutable PersonList that is serializable to JSON format.
  */
-@JsonRootName(value = "bloodnet")
-class JsonSerializableBloodNet {
+@JsonRootName(value = "persons")
+class JsonSerializablePersonList {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableBloodNet} with the given persons.
+     * Constructs a {@code JsonSerializablePersonList} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableBloodNet(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializablePersonList(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
         this.persons.addAll(persons);
     }
 
     /**
-     * Converts a given {@code ReadOnlyBloodNet} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyPersonList} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableBloodNet}.
+     * @param source future changes to this will not affect the created {@code JsonSerializablePersonList}.
      */
-    public JsonSerializableBloodNet(ReadOnlyBloodNet source) {
+    public JsonSerializablePersonList(ReadOnlyPersonList source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this bloodnet into the model's {@code BloodNet} object.
+     * Converts this bloodnet into the model's {@code PersonList} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public BloodNet toModelType() throws IllegalValueException {
-        BloodNet bloodNet = new BloodNet();
+    public PersonList toModelType() throws IllegalValueException {
+        PersonList personList = new PersonList();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Person person = jsonAdaptedPerson.toModelType();
-            if (bloodNet.hasPerson(person)) {
+            if (personList.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            bloodNet.addPerson(person);
+            personList.addPerson(person);
         }
-        return bloodNet;
+        return personList;
     }
 
 }

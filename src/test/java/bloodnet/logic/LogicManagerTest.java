@@ -26,14 +26,15 @@ import bloodnet.logic.commands.ListCommand;
 import bloodnet.logic.commands.commandsessions.CommandSession;
 import bloodnet.logic.commands.commandsessions.exceptions.TerminalSessionStateException;
 import bloodnet.logic.commands.exceptions.CommandException;
-import bloodnet.logic.parser.BloodNetParser;
+import bloodnet.logic.parser.PersonListParser;
 import bloodnet.logic.parser.exceptions.ParseException;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
-import bloodnet.model.ReadOnlyBloodNet;
+import bloodnet.model.ReadOnlyPersonList;
 import bloodnet.model.UserPrefs;
 import bloodnet.model.person.Person;
-import bloodnet.storage.JsonBloodNetStorage;
+import bloodnet.storage.JsonDonationRecordStorage;
+import bloodnet.storage.JsonPersonStorage;
 import bloodnet.storage.JsonUserPrefsStorage;
 import bloodnet.storage.StorageManager;
 import bloodnet.testutil.PersonBuilder;
@@ -50,10 +51,12 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonBloodNetStorage bloodNetStorage =
-                new JsonBloodNetStorage(temporaryFolder.resolve("bloodnet.json"));
+        JsonPersonStorage personStorage =
+            new JsonPersonStorage(temporaryFolder.resolve("persons.json"));
+        JsonDonationRecordStorage donationRecordStorage =
+            new JsonDonationRecordStorage(temporaryFolder.resolve("donationRecords.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(bloodNetStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(personStorage, donationRecordStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -78,22 +81,24 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         assertCommandFailureForExceptionFromStorage(DUMMY_IO_EXCEPTION, String.format(
-                LogicManager.FILE_OPS_ERROR_FORMAT, DUMMY_IO_EXCEPTION.getMessage()));
+            LogicManager.FILE_OPS_ERROR_FORMAT, DUMMY_IO_EXCEPTION.getMessage()));
     }
 
     @Test
     public void execute_storageThrowsAdException_throwsCommandException() {
         assertCommandFailureForExceptionFromStorage(DUMMY_AD_EXCEPTION, String.format(
-                LogicManager.FILE_OPS_PERMISSION_ERROR_FORMAT, DUMMY_AD_EXCEPTION.getMessage()));
+            LogicManager.FILE_OPS_PERMISSION_ERROR_FORMAT, DUMMY_AD_EXCEPTION.getMessage()));
     }
 
     @Test
     public void execute_multiStateCommand_success() throws CommandException, ParseException {
-        JsonBloodNetStorage bloodNetStorage =
-                new JsonBloodNetStorage(temporaryFolder.resolve("bloodnet.json"));
+        JsonPersonStorage personStorage =
+            new JsonPersonStorage(temporaryFolder.resolve("persons.json"));
+        JsonDonationRecordStorage donationRecordStorage =
+            new JsonDonationRecordStorage(temporaryFolder.resolve("donationRecords.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(bloodNetStorage, userPrefsStorage);
-        Logic logic = new LogicManager(model, storage, new BloodNetParserStub());
+        StorageManager storage = new StorageManager(personStorage, donationRecordStorage, userPrefsStorage);
+        Logic logic = new LogicManager(model, storage, new PersonListParserStub());
 
 
         CommandResult result;
@@ -112,11 +117,13 @@ public class LogicManagerTest {
 
     @Test
     public void execute_terminalSessionStateException_resetsSession() throws CommandException, ParseException {
-        JsonBloodNetStorage bloodNetStorage =
-                new JsonBloodNetStorage(temporaryFolder.resolve("bloodnet.json"));
+        JsonPersonStorage personStorage =
+            new JsonPersonStorage(temporaryFolder.resolve("persons.json"));
+        JsonDonationRecordStorage donationRecordStorage =
+            new JsonDonationRecordStorage(temporaryFolder.resolve("donationRecords.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(bloodNetStorage, userPrefsStorage);
-        Logic logic = new LogicManager(model, storage, new BloodNetParserStub());
+        StorageManager storage = new StorageManager(personStorage, donationRecordStorage, userPrefsStorage);
+        Logic logic = new LogicManager(model, storage, new PersonListParserStub());
 
         CommandResult result = logic.execute("throw terminal");
 
@@ -139,10 +146,11 @@ public class LogicManagerTest {
      * - no exceptions are thrown <br>
      * - the feedback message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
-            Model expectedModel) throws CommandException, ParseException {
+                                      Model expectedModel) throws CommandException, ParseException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
@@ -150,6 +158,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a ParseException is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertParseException(String inputCommand, String expectedMessage) {
@@ -158,6 +167,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandException(String inputCommand, String expectedMessage) {
@@ -166,11 +176,12 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that the exception is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getBloodNet(), new UserPrefs());
+                                      String expectedMessage) {
+        Model expectedModel = new ModelManager(model.getPersonList(), model.getDonationRecordList(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -179,10 +190,11 @@ public class LogicManagerTest {
      * - the {@code expectedException} is thrown <br>
      * - the resulting error message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
+     *
      * @see #assertCommandSuccess(String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage, Model expectedModel) {
+                                      String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
     }
@@ -190,30 +202,32 @@ public class LogicManagerTest {
     /**
      * Tests the Logic component's handling of an {@code IOException} thrown by the Storage component.
      *
-     * @param e the exception to be thrown by the Storage component
+     * @param e               the exception to be thrown by the Storage component
      * @param expectedMessage the message expected inside exception thrown by the Logic component
      */
     private void assertCommandFailureForExceptionFromStorage(IOException e, String expectedMessage) {
         Path prefPath = temporaryFolder.resolve("ExceptionUserPrefs.json");
 
-        // Inject LogicManager with an BloodNetStorage that throws the IOException e when saving
-        JsonBloodNetStorage bloodNetStorage = new JsonBloodNetStorage(prefPath) {
+        // Inject LogicManager with an personStorage that throws the IOException e when saving
+        JsonPersonStorage personStorage = new JsonPersonStorage(prefPath) {
             @Override
-            public void saveBloodNet(ReadOnlyBloodNet bloodNet, Path filePath)
-                    throws IOException {
+            public void savePersonList(ReadOnlyPersonList person, Path filePath) throws IOException {
                 throw e;
             }
         };
 
+        JsonDonationRecordStorage donationRecordStorage =
+            new JsonDonationRecordStorage(temporaryFolder.resolve("donationRecords.json"));
+
         JsonUserPrefsStorage userPrefsStorage =
-                new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(bloodNetStorage, userPrefsStorage);
+            new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
+        StorageManager storage = new StorageManager(personStorage, donationRecordStorage, userPrefsStorage);
 
         logic = new LogicManager(model, storage);
 
-        // Triggers the saveBloodNet method by executing an add command
+        // Triggers the savePersonList method by executing an add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + BLOOD_TYPE_DESC_AMY + DATE_OF_BIRTH_DESC_AMY;
+            + EMAIL_DESC_AMY + BLOOD_TYPE_DESC_AMY + DATE_OF_BIRTH_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
@@ -234,6 +248,7 @@ public class LogicManagerTest {
             return false;
         }
     }
+
     /**
      * A Command stub that creates a session that throws TerminalSessionStateException
      */
@@ -298,10 +313,10 @@ public class LogicManagerTest {
     }
 
     /**
-     * A BloodNetParser stub that allows for parsing of command text to
+     * A PersonListParser stub that allows for parsing of command text to
      * return the Command stubs defined within this enclosing test class.
      */
-    private class BloodNetParserStub extends BloodNetParser {
+    private class PersonListParserStub extends PersonListParser {
         @Override
         public Command parseCommand(String userInput) {
             if (userInput == "throw terminal") {
