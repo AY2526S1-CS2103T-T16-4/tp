@@ -1,11 +1,11 @@
 package bloodnet.model.person;
 
 import static bloodnet.testutil.Assert.assertThrows;
+import static java.time.format.ResolverStyle.STRICT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static java.time.format.ResolverStyle.STRICT;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
