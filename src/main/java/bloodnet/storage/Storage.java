@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import bloodnet.commons.exceptions.DataLoadingException;
+import bloodnet.model.ReadOnlyDonationRecordList;
 import bloodnet.model.ReadOnlyPersonList;
 import bloodnet.model.ReadOnlyUserPrefs;
 import bloodnet.model.UserPrefs;
@@ -12,7 +13,7 @@ import bloodnet.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends PersonStorage, UserPrefsStorage {
+public interface Storage extends PersonStorage, DonationRecordStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataLoadingException;
@@ -28,5 +29,14 @@ public interface Storage extends PersonStorage, UserPrefsStorage {
 
     @Override
     void savePersonList(ReadOnlyPersonList bloodNet) throws IOException;
+
+    @Override
+    Path getDonationRecordListFilePath();
+
+    @Override
+    Optional<ReadOnlyDonationRecordList> readDonationRecordList() throws DataLoadingException;
+
+    @Override
+    void saveDonationRecordList(ReadOnlyDonationRecordList bloodNet) throws IOException;
 
 }

@@ -1,6 +1,7 @@
 package bloodnet.model.donationrecord;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import static bloodnet.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -11,12 +12,9 @@ import bloodnet.commons.util.ToStringBuilder;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class DonationRecord {
-    // Used to determine the id of the next record
-    static private Integer nextId = 1;
-
     // Identity fields
-    private final Integer id;
-    private final Integer personId;
+    private UUID id;
+    private final UUID personId;
     private final DonationDate donationDate;
 
     // Data fields
@@ -25,17 +23,20 @@ public class DonationRecord {
     /**
      * Every field must be present and not null.
      */
-    public DonationRecord(Integer personId, DonationDate donationDate, BloodVolume bloodVolume) {
+    public DonationRecord(UUID id, UUID personId, DonationDate donationDate, BloodVolume bloodVolume) {
         requireAllNonNull(personId, donationDate, bloodVolume);
-        this.id = nextId;
-        nextId++;
+        this.id = id;
 
         this.personId = personId;
         this.donationDate = donationDate;
         this.bloodVolume = bloodVolume;
     }
 
-    public Integer getPersonId() { return personId; }
+    public void setId(UUID id) {this.id = id; }
+
+    public UUID getId() {return id; }
+
+    public UUID getPersonId() { return personId; }
 
     public DonationDate getDonationDate() {
         return donationDate;

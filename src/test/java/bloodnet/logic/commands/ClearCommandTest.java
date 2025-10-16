@@ -1,6 +1,7 @@
 package bloodnet.logic.commands;
 
 import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static bloodnet.testutil.TypicalDonationRecords.getTypicalDonationRecordList;
 import static bloodnet.testutil.TypicalPersons.getTypicalPersonList;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -28,8 +29,8 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyPersonList_success() {
-        Model model = new ModelManager(getTypicalPersonList(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalPersonList(), new UserPrefs());
+        Model model = new ModelManager(getTypicalPersonList(), getTypicalDonationRecordList(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalPersonList(), getTypicalDonationRecordList(), new UserPrefs());
         expectedModel.setPersonList(new PersonList());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
@@ -42,7 +43,7 @@ public class ClearCommandTest {
 
     @Test
     public void createSession_validModel_returnsConfirmationCommandSession() throws CommandException {
-        Model model = new ModelManager(getTypicalPersonList(), new UserPrefs());
+        Model model = new ModelManager(getTypicalPersonList(), getTypicalDonationRecordList(), new UserPrefs());
         CommandSession session = (new ClearCommand()).createSession(model);
 
         assertTrue(session instanceof ConfirmationCommandSession);

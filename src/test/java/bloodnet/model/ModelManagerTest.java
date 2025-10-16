@@ -2,6 +2,7 @@ package bloodnet.model;
 
 import static bloodnet.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static bloodnet.testutil.Assert.assertThrows;
+import static bloodnet.testutil.TypicalDonationRecords.getTypicalDonationRecordList;
 import static bloodnet.testutil.TypicalPersons.ALICE;
 import static bloodnet.testutil.TypicalPersons.BENSON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -95,13 +96,14 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        PersonList bloodNet = new PersonListBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        PersonList personList = new PersonListBuilder().withPerson(ALICE).withPerson(BENSON).build();
         PersonList differentPersonList = new PersonList();
+        DonationRecordList donationRecordList = getTypicalDonationRecordList();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(bloodNet, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(bloodNet, userPrefs);
+        modelManager = new ModelManager(personList, donationRecordList, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(personList, donationRecordList, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -113,13 +115,13 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different bloodNet -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentPersonList, userPrefs)));
+        // different personList -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentPersonList, donationRecordList, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(bloodNet, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(personList, donationRecordList, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -127,6 +129,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setPersonListFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(bloodNet, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(personList, donationRecordList, differentUserPrefs)));
     }
 }

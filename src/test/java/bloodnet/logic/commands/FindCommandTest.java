@@ -2,6 +2,7 @@ package bloodnet.logic.commands;
 
 import static bloodnet.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static bloodnet.testutil.TypicalDonationRecords.getTypicalDonationRecordList;
 import static bloodnet.testutil.TypicalPersons.CARL;
 import static bloodnet.testutil.TypicalPersons.ELLE;
 import static bloodnet.testutil.TypicalPersons.FIONA;
@@ -24,8 +25,8 @@ import bloodnet.model.person.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalPersonList(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalPersonList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalPersonList(), getTypicalDonationRecordList(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalPersonList(), getTypicalDonationRecordList(), new UserPrefs());
 
     @Test
     public void equals() {

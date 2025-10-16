@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 
 
 /**
- * Wraps all data at the blood-net level
+ * Wrapper for list of persons
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
 public class PersonList implements ReadOnlyPersonList {

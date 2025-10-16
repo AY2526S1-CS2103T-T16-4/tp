@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import bloodnet.commons.core.GuiSettings;
 import bloodnet.commons.core.LogsCenter;
+import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.Person;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -20,24 +21,28 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final PersonList personList;
+    private final DonationRecordList donationRecordList;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<DonationRecord> filteredDonationRecords;
 
     /**
      * Initializes a ModelManager with the given personList and userPrefs.
      */
-    public ModelManager(ReadOnlyPersonList personList, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyPersonList personList, ReadOnlyDonationRecordList donationRecordList, ReadOnlyUserPrefs userPrefs) {
         requireAllNonNull(personList, userPrefs);
 
         logger.fine("Initializing with bloodnet: " + personList + " and user prefs " + userPrefs);
 
         this.personList = new PersonList(personList);
+        this.donationRecordList = new DonationRecordList(donationRecordList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.personList.getPersonList());
+        filteredDonationRecords = new FilteredList<>(this.donationRecordList.getDonationRecordList());
     }
 
     public ModelManager() {
-        this(new PersonList(), new UserPrefs());
+        this(new PersonList(), new DonationRecordList(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -73,6 +78,17 @@ public class ModelManager implements Model {
     public void setPersonListFilePath(Path personListFilePath) {
         requireNonNull(personListFilePath);
         userPrefs.setPersonListFilePath(personListFilePath);
+    }
+
+    @Override
+    public Path getDonationRecordListFilePath() {
+        return userPrefs.getDonationRecordListFilePath();
+    }
+
+    @Override
+    public void setDonationRecordListFilePath(Path donationRecordListFilePath) {
+        requireNonNull(donationRecordListFilePath);
+        userPrefs.setPersonListFilePath(donationRecordListFilePath);
     }
 
     //=========== PersonList ================================================================================
@@ -128,6 +144,59 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //=========== Donation Record List ================================================================================
+
+    @Override
+    public void setDonationRecordList(ReadOnlyDonationRecordList personList) {
+        this.donationRecordList.resetData(donationRecordList);
+    }
+
+    @Override
+    public ReadOnlyDonationRecordList getDonationRecordList() {
+        return donationRecordList;
+    }
+
+    @Override
+    public boolean hasDonationRecord(DonationRecord donationRecord) {
+        requireNonNull(donationRecord);
+        return donationRecordList.hasDonationRecord(donationRecord);
+    }
+
+    @Override
+    public void deleteDonationRecord(DonationRecord target) {
+        donationRecordList.removeDonationRecord(target);
+    }
+
+    @Override
+    public void addDonationRecord(DonationRecord donationRecord) {
+        donationRecordList.addDonationRecord(donationRecord);
+        updateFilteredDonationRecordList(PREDICATE_SHOW_ALL_DONATION_RECORDS);
+    }
+
+    @Override
+    public void setDonationRecord(DonationRecord target, DonationRecord editedDonationRecord) {
+        requireAllNonNull(target, editedDonationRecord);
+
+        donationRecordList.setDonationRecord(target, editedDonationRecord);
+    }
+
+    //=========== Filtered Donation Record List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code DonationRecord} backed by the internal list of
+     * {@code versionedDonationRecordList}
+     */
+    @Override
+    public ObservableList<DonationRecord> getFilteredDonationRecordList() {
+        return filteredDonationRecords;
+    }
+
+    @Override
+    public void updateFilteredDonationRecordList(Predicate<DonationRecord> predicate) {
+        requireNonNull(predicate);
+        filteredDonationRecords.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -141,8 +210,10 @@ public class ModelManager implements Model {
 
         ModelManager otherModelManager = (ModelManager) other;
         return personList.equals(otherModelManager.personList)
+                && donationRecordList.equals(otherModelManager.donationRecordList)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+                && filteredPersons.equals(otherModelManager.filteredPersons)
+                && filteredDonationRecords.equals(otherModelManager.filteredDonationRecords);
     }
 
 }

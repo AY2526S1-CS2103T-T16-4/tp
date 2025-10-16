@@ -24,9 +24,10 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonPersonStorage bloodNetStorage = new JsonPersonStorage(getTempFilePath("ab"));
+        JsonPersonStorage personStorage = new JsonPersonStorage(getTempFilePath("ab"));
+        JsonDonationRecordStorage donationRecordStorage = new JsonDonationRecordStorage(getTempFilePath("donationRecords"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(bloodNetStorage, userPrefsStorage);
+        storageManager = new StorageManager(personStorage, donationRecordStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -48,7 +49,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void bloodNetReadSave() throws Exception {
+    public void personReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonPersonStorage} class.

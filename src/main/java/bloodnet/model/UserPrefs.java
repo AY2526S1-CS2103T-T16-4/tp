@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path personListFilePath = Paths.get("data" , "persons.json");
+    private Path donationRecordListFilePath = Paths.get("data" , "donationRecords.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -56,6 +57,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.personListFilePath = personListFilePath;
     }
 
+    public Path getDonationRecordListFilePath() {
+        return donationRecordListFilePath;
+    }
+
+    public void setDonationRecordListFilePath(Path donationRecordListFilePath) {
+        requireNonNull(donationRecordListFilePath);
+        this.donationRecordListFilePath = donationRecordListFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -69,19 +79,21 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         UserPrefs otherUserPrefs = (UserPrefs) other;
         return guiSettings.equals(otherUserPrefs.guiSettings)
-                && personListFilePath.equals(otherUserPrefs.personListFilePath);
+                && personListFilePath.equals(otherUserPrefs.personListFilePath)
+                && donationRecordListFilePath.equals(otherUserPrefs.donationRecordListFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, personListFilePath);
+        return Objects.hash(guiSettings, personListFilePath, donationRecordListFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + personListFilePath);
+        sb.append("\nPersons local data file location : " + personListFilePath);
+        sb.append("\nDonation Records local data file location : " + donationRecordListFilePath);
         return sb.toString();
     }
 

@@ -2,6 +2,7 @@ package bloodnet.logic.commands;
 
 import static bloodnet.logic.commands.CommandTestUtil.assertCommandFailure;
 import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static bloodnet.testutil.TypicalDonationRecords.getTypicalDonationRecordList;
 import static bloodnet.testutil.TypicalPersons.getTypicalPersonList;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -23,14 +24,14 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalPersonList(), new UserPrefs());
+        model = new ModelManager(getTypicalPersonList(), getTypicalDonationRecordList(), new UserPrefs());
     }
 
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getPersonList(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getPersonList(), model.getDonationRecordList(), new UserPrefs());
         expectedModel.addPerson(validPerson);
 
         assertCommandSuccess(new AddCommand(validPerson), model,
