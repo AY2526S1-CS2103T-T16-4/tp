@@ -60,7 +60,9 @@ public class TypicalDonationRecords {
         List<DonationRecord> list = new ArrayList<>();
         list.addAll(ALICE_DONATION_RECORDS);
         list.addAll(BENSON_DONATION_RECORDS);
-        list.addAll(CARL_DONATION_RECORDS);
+
+        // Carl's donation records are left out so that they can be added to the list in tests
+
         return list;
     }
 }

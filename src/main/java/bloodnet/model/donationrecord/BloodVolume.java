@@ -46,7 +46,7 @@ public class BloodVolume {
 
     @Override
     public String toString() {
-        return volume.toString() + " ml";
+        return volume.toString();
     }
 
     @Override

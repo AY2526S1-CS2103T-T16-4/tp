@@ -19,7 +19,7 @@ import bloodnet.model.donationrecord.DonationRecord;
 @JsonRootName(value = "donationRecords")
 class JsonSerializableDonationRecordList {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "DonationRecords list contains duplicate donationRecord(s).";
+    public static final String MESSAGE_DUPLICATE_DONATION_RECORD = "DonationRecords list contains duplicate donationRecord(s).";
 
     private final List<JsonAdaptedDonationRecord> donationRecords = new ArrayList<>();
 
@@ -52,7 +52,7 @@ class JsonSerializableDonationRecordList {
         for (JsonAdaptedDonationRecord jsonAdaptedDonationRecord : donationRecords) {
             DonationRecord donationRecord = jsonAdaptedDonationRecord.toModelType();
             if (donationRecordList.hasDonationRecord(donationRecord)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_DONATION_RECORD);
             }
             donationRecordList.addDonationRecord(donationRecord);
         }
