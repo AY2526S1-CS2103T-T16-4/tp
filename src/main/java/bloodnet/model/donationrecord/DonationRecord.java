@@ -1,9 +1,9 @@
 package bloodnet.model.donationrecord;
 
+import static bloodnet.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Objects;
 import java.util.UUID;
-
-import static bloodnet.commons.util.CollectionUtil.requireAllNonNull;
 
 import bloodnet.commons.util.ToStringBuilder;
 
@@ -32,11 +32,17 @@ public class DonationRecord {
         this.bloodVolume = bloodVolume;
     }
 
-    public void setId(UUID id) {this.id = id; }
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
-    public UUID getId() {return id; }
+    public UUID getId() {
+        return id;
+    }
 
-    public UUID getPersonId() { return personId; }
+    public UUID getPersonId() {
+        return personId;
+    }
 
     public DonationDate getDonationDate() {
         return donationDate;
@@ -56,7 +62,8 @@ public class DonationRecord {
         }
 
         return otherDonationRecord != null
-                && (otherDonationRecord.getDonationDate().equals(getDonationDate()) && otherDonationRecord.getPersonId().equals(getPersonId()));
+                && (otherDonationRecord.getDonationDate().equals(getDonationDate())
+                && otherDonationRecord.getPersonId().equals(getPersonId()));
     }
 
     /**

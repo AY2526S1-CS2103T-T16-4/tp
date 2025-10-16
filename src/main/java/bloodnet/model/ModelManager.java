@@ -1,6 +1,7 @@
 package bloodnet.model;
 
 import static bloodnet.commons.util.CollectionUtil.requireAllNonNull;
+
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
@@ -29,7 +30,8 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given personList and userPrefs.
      */
-    public ModelManager(ReadOnlyPersonList personList, ReadOnlyDonationRecordList donationRecordList, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyPersonList personList, ReadOnlyDonationRecordList donationRecordList,
+                        ReadOnlyUserPrefs userPrefs) {
         requireAllNonNull(personList, userPrefs);
 
         logger.fine("Initializing with bloodnet: " + personList + " and user prefs " + userPrefs);

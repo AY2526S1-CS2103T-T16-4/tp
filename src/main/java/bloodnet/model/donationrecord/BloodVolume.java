@@ -1,7 +1,8 @@
 package bloodnet.model.donationrecord;
 
-import static bloodnet.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
+
+import static bloodnet.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the volume of blood donated during a blood donation session in the bloodnet.
@@ -33,8 +34,7 @@ public class BloodVolume {
         // Check that the string can be parsed into an integer
         try {
             Integer.parseInt(test);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
         }
 

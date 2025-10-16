@@ -1,12 +1,13 @@
 package bloodnet.model.donationrecord;
 
+import static java.time.format.ResolverStyle.STRICT;
+import static java.util.Objects.requireNonNull;
+
+import static bloodnet.commons.util.AppUtil.checkArgument;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
-import static bloodnet.commons.util.AppUtil.checkArgument;
-import static java.time.format.ResolverStyle.STRICT;
-import static java.util.Objects.requireNonNull;
 
 
 /**
@@ -54,6 +55,7 @@ public class DonationDate {
 
     /**
      * Formats the date as the same format as inputted ie: DD-MM-YYYY
+     *
      * @return
      */
     @Override
@@ -63,6 +65,7 @@ public class DonationDate {
 
     /**
      * Compares two dates of birth with one another.
+     *
      * @param other date
      */
     @Override

@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import bloodnet.logic.commands.commandsessions.CommandSession;
 import bloodnet.logic.commands.commandsessions.ConfirmationCommandSession;
 import bloodnet.logic.commands.exceptions.CommandException;
-import bloodnet.model.PersonList;
 import bloodnet.model.Model;
+import bloodnet.model.PersonList;
 
 /**
  * Clears the bloodnet.

@@ -1,12 +1,13 @@
 package bloodnet.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_TYPE;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_NAME;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_PHONE;
 import static bloodnet.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Objects;
@@ -99,7 +100,8 @@ public class EditCommand extends Command {
         BloodType updatedBloodType = editPersonDescriptor.getBloodType().orElse(personToEdit.getBloodType());
         DateOfBirth updatedDateOfBirth = editPersonDescriptor.getDateOfBirth().orElse(personToEdit.getDateOfBirth());
 
-        return new Person(personToEdit.getId(), updatedName, updatedPhone, updatedEmail, updatedBloodType, updatedDateOfBirth);
+        return new Person(personToEdit.getId(), updatedName, updatedPhone, updatedEmail, updatedBloodType,
+                updatedDateOfBirth);
     }
 
     private Person getPersonToEdit(Model model) throws CommandException {

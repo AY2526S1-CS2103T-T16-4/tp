@@ -1,23 +1,27 @@
 package bloodnet.model.donationrecord;
 
+import static java.util.Objects.requireNonNull;
+
+import static bloodnet.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Iterator;
 import java.util.List;
 
-import static bloodnet.commons.util.CollectionUtil.requireAllNonNull;
-import static java.util.Objects.requireNonNull;
-
-import bloodnet.model.donationrecord.exceptions.DuplicateDonationRecordException;
 import bloodnet.model.donationrecord.exceptions.DonationRecordNotFoundException;
+import bloodnet.model.donationrecord.exceptions.DuplicateDonationRecordException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
  * A list of donationRecords that enforces uniqueness between its elements and does not allow nulls.
- * A donationRecord is considered unique by comparing using {@code DonationRecord#isSameDonationRecord(DonationRecord)}. As such, adding and updating of
- * donationRecords uses DonationRecord#isSameDonationRecord(DonationRecord) for equality so as to ensure that the donationRecord being added or updated is
- * unique in terms of identity in the UniqueDonationRecordList. However, the removal of a donationRecord uses DonationRecord#equals(Object) so
+ * A donationRecord is considered unique by comparing using
+ * {@code DonationRecord#isSameDonationRecord(DonationRecord)}. As such, adding and updating of
+ * donationRecords uses DonationRecord#isSameDonationRecord(DonationRecord) for equality so as to ensure that the
+ * donationRecord being added or updated is
+ * unique in terms of identity in the UniqueDonationRecordList. However, the removal of a donationRecord uses
+ * DonationRecord#equals(Object) so
  * as to ensure that the donationRecord with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see DonationRecord#isSameDonationRecord(DonationRecord)
@@ -51,7 +55,8 @@ public class UniqueDonationRecordList implements Iterable<DonationRecord> {
     /**
      * Replaces the donationRecord {@code target} in the list with {@code editedDonationRecord}.
      * {@code target} must exist in the list.
-     * The donationRecord identity of {@code editedDonationRecord} must not be the same as another existing donationRecord in the list.
+     * The donationRecord identity of {@code editedDonationRecord} must not be the same as another existing
+     * donationRecord in the list.
      */
     public void setDonationRecord(DonationRecord target, DonationRecord editedDonationRecord) {
         requireAllNonNull(target, editedDonationRecord);

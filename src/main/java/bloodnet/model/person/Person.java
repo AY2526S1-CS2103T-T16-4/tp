@@ -37,9 +37,13 @@ public class Person {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public void setId(UUID id) { this.id = id; }
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
-    public UUID getId() {return id; }
+    public UUID getId() {
+        return id;
+    }
 
     public Name getName() {
         return name;

@@ -1,8 +1,8 @@
 package bloodnet.model;
 
-import java.util.List;
-
 import static java.util.Objects.requireNonNull;
+
+import java.util.List;
 
 import bloodnet.commons.util.ToStringBuilder;
 import bloodnet.model.donationrecord.DonationRecord;
@@ -24,12 +24,12 @@ public class DonationRecordList implements ReadOnlyDonationRecordList {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         donationRecords = new UniqueDonationRecordList();
     }
 
-    public DonationRecordList() {}
+    public DonationRecordList() {
+    }
 
     /**
      * Creates an DonationRecordList using the DonationRecords in the {@code toBeCopied}

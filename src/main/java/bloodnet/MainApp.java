@@ -13,10 +13,23 @@ import bloodnet.commons.util.ConfigUtil;
 import bloodnet.commons.util.StringUtil;
 import bloodnet.logic.Logic;
 import bloodnet.logic.LogicManager;
-import bloodnet.model.*;
+import bloodnet.model.DonationRecordList;
+import bloodnet.model.Model;
+import bloodnet.model.ModelManager;
+import bloodnet.model.PersonList;
+import bloodnet.model.ReadOnlyDonationRecordList;
+import bloodnet.model.ReadOnlyPersonList;
+import bloodnet.model.ReadOnlyUserPrefs;
+import bloodnet.model.UserPrefs;
 import bloodnet.model.util.SampleDataUtil;
-import bloodnet.storage.*;
+import bloodnet.storage.DonationRecordStorage;
+import bloodnet.storage.JsonDonationRecordStorage;
+import bloodnet.storage.JsonPersonStorage;
+import bloodnet.storage.JsonUserPrefsStorage;
 import bloodnet.storage.PersonStorage;
+import bloodnet.storage.Storage;
+import bloodnet.storage.StorageManager;
+import bloodnet.storage.UserPrefsStorage;
 import bloodnet.ui.Ui;
 import bloodnet.ui.UiManager;
 import javafx.application.Application;
@@ -49,7 +62,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         PersonStorage personStorage = new JsonPersonStorage(userPrefs.getPersonListFilePath());
-        DonationRecordStorage donationRecordtorage = new JsonDonationRecordStorage(userPrefs.getDonationRecordListFilePath());
+        DonationRecordStorage donationRecordtorage = new JsonDonationRecordStorage(
+                userPrefs.getDonationRecordListFilePath());
         storage = new StorageManager(personStorage, donationRecordtorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
@@ -92,7 +106,8 @@ public class MainApp extends Application {
                 logger.info("Creating a new data file " + storage.getDonationRecordListFilePath()
                         + " populated with a sample DonationRecordList.");
             }
-            initialDonationRecordData = donationRecordListOptional.orElseGet(SampleDataUtil::getSampleDonationRecordList);
+            initialDonationRecordData = donationRecordListOptional.orElseGet(
+                    SampleDataUtil::getSampleDonationRecordList);
         } catch (DataLoadingException e) {
             logger.warning("Data file at " + storage.getDonationRecordListFilePath() + " could not be loaded."
                     + " Will be starting with an empty DonationRecordList.");
