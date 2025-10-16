@@ -72,8 +72,8 @@ public class JsonDonationRecordStorage implements DonationRecordStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveDonationRecordList(ReadOnlyDonationRecordList donationRecordList, Path filePath)
-        throws IOException {
+    public void saveDonationRecordList(ReadOnlyDonationRecordList donationRecordList,
+                                       Path filePath) throws IOException {
         requireNonNull(donationRecordList);
         requireNonNull(filePath);
 

@@ -103,8 +103,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveDonationRecordList(ReadOnlyDonationRecordList donationRecordList, Path filePath)
-        throws IOException {
+    public void saveDonationRecordList(ReadOnlyDonationRecordList donationRecordList,
+                                       Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         donationRecordStorage.saveDonationRecordList(donationRecordList, filePath);
     }
