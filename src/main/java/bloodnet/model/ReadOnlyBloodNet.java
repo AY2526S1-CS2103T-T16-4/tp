@@ -1,5 +1,6 @@
 package bloodnet.model;
 
+import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.Person;
 import javafx.collections.ObservableList;
 
@@ -13,5 +14,11 @@ public interface ReadOnlyBloodNet {
      * This list will not contain any duplicate persons.
      */
     ObservableList<Person> getPersonList();
+
+    /**
+     * Returns an unmodifiable view of the donationRecords list.
+     * This list will not contain any duplicate persons.
+     */
+    ObservableList<DonationRecord> getDonationRecordList();
 
 }
