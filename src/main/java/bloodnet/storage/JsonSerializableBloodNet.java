@@ -27,7 +27,8 @@ class JsonSerializableBloodNet {
      * Constructs a {@code JsonSerializableBloodNet} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableBloodNet(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableBloodNet(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+                                    @JsonProperty("donationRecords") List<JsonAdaptedPerson> donationRecords) {
         this.persons.addAll(persons);
     }
 
