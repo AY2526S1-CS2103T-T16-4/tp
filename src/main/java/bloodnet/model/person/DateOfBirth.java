@@ -19,9 +19,9 @@ public class DateOfBirth {
      * Blood donation requiremenets taken from: https://www.hsa.gov.sg/blood-donation/can-i-donate
      */
     public static final String MESSAGE_CONSTRAINTS =
-            "The date of birth should be of the format DD-MM-YYYY and not more than 130 years ago.";
+        "The date of birth should be of the format DD-MM-YYYY and not more than 130 years ago.";
     public static final DateTimeFormatter DATE_FORMATTER =
-            DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(STRICT);
+        DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(STRICT);
     /**
      * This is stored as a LocalDate for easier parsing purposes.
      */
@@ -49,15 +49,14 @@ public class DateOfBirth {
             LocalDate date = LocalDate.parse(test, DATE_FORMATTER);
             LocalDate current = LocalDate.now();
             return !date.isAfter(current)
-                    && !date.isBefore(current.minusYears(130));
+                && !date.isBefore(current.minusYears(130));
         } catch (DateTimeParseException e) {
             return false;
         }
     }
 
     /**
-     * Formats the date as the same format as inputted ie: DD-MM-YYYY
-     * @return
+     * Formats the date as the same format as inputted ie: DD-MM-YYY
      */
     @Override
     public String toString() {
@@ -66,6 +65,7 @@ public class DateOfBirth {
 
     /**
      * Compares two dates of birth with one another.
+     *
      * @param other date
      */
     @Override

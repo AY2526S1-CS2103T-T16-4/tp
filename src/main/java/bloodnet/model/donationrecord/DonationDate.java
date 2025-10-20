@@ -54,8 +54,6 @@ public class DonationDate {
 
     /**
      * Formats the date as the same format as inputted ie: DD-MM-YYYY
-     *
-     * @return
      */
     @Override
     public String toString() {
@@ -82,9 +80,6 @@ public class DonationDate {
         return value.equals(otherDonationDate.value);
     }
 
-    /**
-     * This returns the same hashCode if the values are equal to one another.
-     */
     @Override
     public int hashCode() {
         return value.hashCode();
