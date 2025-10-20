@@ -1,5 +1,7 @@
 package bloodnet.testutil;
 
+import static bloodnet.testutil.TypicalPersons.getTypicalPersons;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -8,6 +10,7 @@ import bloodnet.model.BloodNet;
 import bloodnet.model.donationrecord.BloodVolume;
 import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.donationrecord.DonationRecord;
+import bloodnet.model.person.Person;
 
 /**
  * A utility class containing a list of {@code DonationRecord} objects to be used in tests.
@@ -46,10 +49,14 @@ public class TypicalDonationRecords {
     } // prevents instantiation
 
     /**
-     * Returns an {@code BloodNet} with all the typical persons.
+     * Returns an {@code BloodNet} with all the typical donation records and their corresponding persons.
      */
     public static BloodNet getTypicalBloodNet() {
         BloodNet ab = new BloodNet();
+        for (Person person : getTypicalPersons()) {
+            ab.addPerson(person);
+        }
+
         for (DonationRecord donationRecord : getTypicalDonationRecords()) {
             ab.addDonationRecord(donationRecord);
         }

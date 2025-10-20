@@ -1,9 +1,12 @@
 {
-  "persons": [ {
-    "name": "Hans Muster",
-    "phone": "94782424",
-    "email": "invalid@email!3e",
-    "dateOfBirth": "11-08-1980",
-    "bloodType": "O-"
-  } ]
+  "persons": [
+    {
+      "name": "Hans Muster",
+      "phone": "94782424",
+      "email": "invalid@email!3e",
+      "dateOfBirth": "11-08-1980",
+      "bloodType": "O-"
+    }
+  ],
+  "donationRecords": []
 }
