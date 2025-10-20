@@ -21,6 +21,7 @@ import bloodnet.model.BloodNet;
 import bloodnet.model.Model;
 import bloodnet.model.ReadOnlyBloodNet;
 import bloodnet.model.ReadOnlyUserPrefs;
+import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.Person;
 import bloodnet.testutil.PersonBuilder;
 import javafx.collections.ObservableList;
@@ -40,7 +41,7 @@ public class AddCommandTest {
         CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
-                commandResult.getFeedbackToUser());
+            commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
     }
 
@@ -124,6 +125,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addDonationRecord(DonationRecord donationRecord) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setBloodNet(ReadOnlyBloodNet newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -155,6 +161,31 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasDonationRecord(DonationRecord donationRecord) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteDonationRecord(DonationRecord target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDonationRecord(DonationRecord target, DonationRecord editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<DonationRecord> getFilteredDonationRecordList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredDonationRecordList(Predicate<DonationRecord> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -1,4 +1,4 @@
-package bloodnet.model.person;
+package bloodnet.model.donationrecord;
 
 import static bloodnet.commons.util.AppUtil.checkArgument;
 import static java.time.format.ResolverStyle.STRICT;
@@ -10,16 +10,13 @@ import java.time.format.DateTimeParseException;
 
 
 /**
- * Represents a Person's birthdate (DD-MM-YYYY) in BloodNet
- * Guarantees: immutable; is valid as declared in {@link #isValidDateOfBirth(String)}
+ * Represents a Donation Date (DD-MM-YYYY) in PersonList
+ * Guarantees: immutable; is valid as declared in {@link #isValidDonationDate(String)}
  */
-public class DateOfBirth {
+public class DonationDate {
 
-    /**
-     * Blood donation requiremenets taken from: https://www.hsa.gov.sg/blood-donation/can-i-donate
-     */
     public static final String MESSAGE_CONSTRAINTS =
-        "The date of birth should be of the format DD-MM-YYYY and not more than 130 years ago.";
+        "The donation date should be of the format DD-MM-YYYY and not more than 130 years ago.";
     public static final DateTimeFormatter DATE_FORMATTER =
         DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(STRICT);
     /**
@@ -29,21 +26,21 @@ public class DateOfBirth {
 
 
     /**
-     * Constructs a {@code DateOfBirth}.
+     * Constructs a {@code DonationDate}.
      *
-     * @param dateOfBirth A valid date of birth.
+     * @param donationDate A valid donation date.
      */
-    public DateOfBirth(String dateOfBirth) {
-        requireNonNull(dateOfBirth);
-        checkArgument(isValidDateOfBirth(dateOfBirth), MESSAGE_CONSTRAINTS);
-        value = LocalDate.parse(dateOfBirth, DATE_FORMATTER);
+    public DonationDate(String donationDate) {
+        requireNonNull(donationDate);
+        checkArgument(isValidDonationDate(donationDate), MESSAGE_CONSTRAINTS);
+        value = LocalDate.parse(donationDate, DATE_FORMATTER);
     }
 
     /**
      * Returns true if a given string is a valid date of birth.
      * Checks to see if it can be parsed as a valid date of birth.
      */
-    public static boolean isValidDateOfBirth(String test) {
+    public static boolean isValidDonationDate(String test) {
 
         try {
             LocalDate date = LocalDate.parse(test, DATE_FORMATTER);
@@ -56,7 +53,7 @@ public class DateOfBirth {
     }
 
     /**
-     * Formats the date as the same format as inputted ie: DD-MM-YYY
+     * Formats the date as the same format as inputted ie: DD-MM-YYYY
      */
     @Override
     public String toString() {
@@ -75,17 +72,14 @@ public class DateOfBirth {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DateOfBirth)) {
+        if (!(other instanceof DonationDate)) {
             return false;
         }
 
-        DateOfBirth otherDateOfBirth = (DateOfBirth) other;
-        return value.equals(otherDateOfBirth.value);
+        DonationDate otherDonationDate = (DonationDate) other;
+        return value.equals(otherDonationDate.value);
     }
 
-    /**
-     * This returns the same hashCode if the values are equal to one another.
-     */
     @Override
     public int hashCode() {
         return value.hashCode();
