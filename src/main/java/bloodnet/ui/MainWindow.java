@@ -32,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private DonationRecordListPanel donationRecordListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -116,9 +117,9 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        // empty placeholder for now
-        StackPane donationRecordListPanel = new StackPane();
-        donationRecordListPanelPlaceholder.getChildren().add(donationRecordListPanel);
+        donationRecordListPanel = new DonationRecordListPanel(logic.getFilteredDonationRecordList());
+        System.out.print(logic.getFilteredDonationRecordList());
+        donationRecordListPanelPlaceholder.getChildren().add(donationRecordListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -172,6 +173,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
+    }
+
+    public DonationRecordListPanel getDonationRecordListPanel() {
+        return donationRecordListPanel;
     }
 
     /**
