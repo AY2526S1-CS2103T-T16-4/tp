@@ -6,7 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
-
+/**
+ * An UI component that displays information of a {@code DonationRecord}.
+ */
 public class DonationRecordCard extends UiPart<Region> {
 
     private static final String FXML = "DonationRecordCard.fxml";
@@ -25,7 +27,9 @@ public class DonationRecordCard extends UiPart<Region> {
     @FXML
     private Label bloodVolume;
 
-
+    /**
+     * Creates a {@code DonationRecordCard} with the given {@code DonationRecord} and index to display.
+     */
     public DonationRecordCard(DonationRecord record, int displayedIndex) {
         super(FXML);
         this.record = record;

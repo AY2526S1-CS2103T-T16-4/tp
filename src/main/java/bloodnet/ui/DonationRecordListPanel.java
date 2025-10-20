@@ -10,6 +10,9 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 
+/**
+ * Panel containing the list of donation records.
+ */
 public class DonationRecordListPanel extends UiPart<Region> {
     private static final String FXML = "DonationRecordListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(DonationRecordListPanel.class);
@@ -17,12 +20,19 @@ public class DonationRecordListPanel extends UiPart<Region> {
     @FXML
     private ListView<DonationRecord> donationRecordListView;
 
+    /**
+     * Creates a {@code DonationRecordListPanel} with the given {@code ObservableList}.
+     */
     public DonationRecordListPanel(ObservableList<DonationRecord> donationRecordList) {
         super(FXML);
         donationRecordListView.setItems(donationRecordList);
         donationRecordListView.setCellFactory(listView -> new DonationRecordListViewCell());
     }
 
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code DonationRecord} using a
+     * {@code DonationRecordCard}.
+     */
     class DonationRecordListViewCell extends ListCell<DonationRecord> {
         @Override
         protected void updateItem(DonationRecord record, boolean empty) {
