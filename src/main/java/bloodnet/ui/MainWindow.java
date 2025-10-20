@@ -118,7 +118,6 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         donationRecordListPanel = new DonationRecordListPanel(logic.getFilteredDonationRecordList());
-        System.out.print(logic.getFilteredDonationRecordList());
         donationRecordListPanelPlaceholder.getChildren().add(donationRecordListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
