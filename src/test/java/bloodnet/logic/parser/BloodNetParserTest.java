@@ -80,8 +80,8 @@ public class BloodNetParserTest {
     @Test
     public void parseCommand_finddonations() throws Exception {
         FindDonationsCommand command = (FindDonationsCommand) parser.parseCommand(
-                FindDonationsCommand.COMMAND_WORD + " " +
-                INDEX_FIRST_PERSON.getOneBased());
+                FindDonationsCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new FindDonationsCommand(INDEX_FIRST_PERSON), command);
     }
 
