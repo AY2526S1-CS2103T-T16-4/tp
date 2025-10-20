@@ -38,13 +38,13 @@ public class FindDonationsCommandTest {
         FindDonationsCommand findDonationsFirstCommandCopy = new FindDonationsCommand(INDEX_FIRST_PERSON);
         assertTrue(findDonationsFirstCommand.equals(findDonationsFirstCommandCopy));
 
-        // differet types -> returnss false
+        // differet types -> returns false
         assertFalse(findDonationsFirstCommand.equals(1));
 
         // null -> returns false
         assertFalse(findDonationsFirstCommand.equals(null));
 
-        //different index -> return false
+        //different index -> returns false
         assertFalse(findDonationsFirstCommand.equals(findDonationsSecondCommand));
     }
 
