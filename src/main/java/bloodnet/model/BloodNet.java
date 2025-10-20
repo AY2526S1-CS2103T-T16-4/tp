@@ -71,6 +71,7 @@ public class BloodNet implements ReadOnlyBloodNet {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setDonationRecords(newData.getDonationRecordList());
     }
 
     //// person-level operations
