@@ -35,7 +35,7 @@ public class FindDonationsCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         Person personToFindRecordsOf = getPersonToFindRecordsOf(model);
         DonorIsSamePersonPredicate predicate = new DonorIsSamePersonPredicate(personToFindRecordsOf);
-        model.updateFilteredDonationRecordList(predicate);;
+        model.updateFilteredDonationRecordList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_DONATIONS_LISTED_OVERVIEW,
                 model.getFilteredDonationRecordList().size(),
