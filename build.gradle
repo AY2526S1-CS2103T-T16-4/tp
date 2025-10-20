@@ -23,6 +23,9 @@ checkstyle {
 test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
+    testLogging {
+        showStandardStreams = true
+    }
 }
 
 task coverage(type: JacocoReport) {
