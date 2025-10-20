@@ -1,6 +1,5 @@
 package bloodnet.model;
 
-import static java.util.Objects.hash;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -130,7 +129,8 @@ public class BloodNet implements ReadOnlyBloodNet {
     /**
      * Replaces the given donationRecord {@code target} in the list with {@code editedDonationRecord}.
      * {@code target} must exist in the bloodnet.
-     * The donationRecord identity of {@code editedDonationRecord} must not be the same as another existing donationRecord in the bloodnet.
+     * The donationRecord identity of {@code editedDonationRecord} must not be the same as another existing
+     * donationRecord in the bloodnet.
      */
     public void setDonationRecord(DonationRecord target, DonationRecord editedDonationRecord) {
         requireNonNull(editedDonationRecord);

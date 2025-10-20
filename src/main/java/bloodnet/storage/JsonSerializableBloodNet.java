@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import bloodnet.commons.exceptions.IllegalValueException;
 import bloodnet.model.BloodNet;
 import bloodnet.model.ReadOnlyBloodNet;
+import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.Person;
 
 /**
@@ -22,14 +23,16 @@ class JsonSerializableBloodNet {
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedDonationRecord> donationRecords = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableBloodNet} with the given persons.
      */
     @JsonCreator
     public JsonSerializableBloodNet(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
-                                    @JsonProperty("donationRecords") List<JsonAdaptedPerson> donationRecords) {
+                                    @JsonProperty("donationRecords") List<JsonAdaptedDonationRecord> donationRecords) {
         this.persons.addAll(persons);
+        this.donationRecords.addAll(donationRecords);
     }
 
     /**
@@ -39,6 +42,8 @@ class JsonSerializableBloodNet {
      */
     public JsonSerializableBloodNet(ReadOnlyBloodNet source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        donationRecords.addAll(source.getDonationRecordList().stream().map(JsonAdaptedDonationRecord::new)
+            .collect(Collectors.toList()));
     }
 
     /**
@@ -48,6 +53,7 @@ class JsonSerializableBloodNet {
      */
     public BloodNet toModelType() throws IllegalValueException {
         BloodNet bloodNet = new BloodNet();
+
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Person person = jsonAdaptedPerson.toModelType();
             if (bloodNet.hasPerson(person)) {
@@ -55,6 +61,15 @@ class JsonSerializableBloodNet {
             }
             bloodNet.addPerson(person);
         }
+
+        for (JsonAdaptedDonationRecord jsonAdaptedDonationRecord : donationRecords) {
+            DonationRecord donationRecord = jsonAdaptedDonationRecord.toModelType();
+            if (bloodNet.hasDonationRecord(donationRecord)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            }
+            bloodNet.addDonationRecord(donationRecord);
+        }
+
         return bloodNet;
     }
 
