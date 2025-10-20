@@ -38,7 +38,7 @@ public class FindDonationsCommandTest {
         FindDonationsCommand findDonationsFirstCommandCopy = new FindDonationsCommand(INDEX_FIRST_PERSON);
         assertTrue(findDonationsFirstCommand.equals(findDonationsFirstCommandCopy));
 
-        // differet types -> returns false
+        // different types -> returns false
         assertFalse(findDonationsFirstCommand.equals(1));
 
         // null -> returns false
