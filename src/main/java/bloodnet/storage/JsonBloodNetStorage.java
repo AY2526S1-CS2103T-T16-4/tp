@@ -86,10 +86,11 @@ public class JsonBloodNetStorage implements BloodNetStorage {
         // where duplicating a model for the purposes of computation would result in
         // 2 models representing the same person but having different IDs
 
-        // In fact, my original approach was to add the IDs during the construction stage, but it caused many a test cases
-        // to fail as a result of the reason mentioned above. The only way we could add IDs during the
-        // construction stage without causes test cases to fail is to remove the "id" field from
-        // the equals() function, but that also kind of doesn't make sense.
+        // In fact, my original approach was to add the IDs during the construction stage,
+        // but it caused many a test cases to fail as a result of the reason mentioned above.
+        // The only way we could add IDs during the construction stage without
+        // causing test cases to fail is to remove the "id" field from the equals() function,
+        // but that also kind of doesn't make sense.
 
         BloodNet updatedBloodNet = new BloodNet();
 
