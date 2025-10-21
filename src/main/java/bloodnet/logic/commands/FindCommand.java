@@ -34,7 +34,7 @@ public class FindCommand extends Command {
         return new CommandResult(
                 String.format(Messages.MESSAGE_PEOPLE_LISTED_OVERVIEW,
                         filteredPersonListSize,
-                        filteredPersonListSize > 1 ? "people" : "person"));
+                        filteredPersonListSize > 1 ? "s" : ""));
     }
 
     @Override
