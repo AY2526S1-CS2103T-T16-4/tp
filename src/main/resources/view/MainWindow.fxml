@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Label?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
          title="BloodNet" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -48,8 +49,16 @@
 
         <SplitPane VBox.vgrow="ALWAYS" dividerPositions="0.5">
           <items>
-            <StackPane fx:id="personListPanelPlaceholder" styleClass="pane-with-border" />
-            <StackPane fx:id="donationRecordListPanelPlaceholder" styleClass="pane-with-border" />
+            <VBox>
+              <Label text="Donors" styleClass="label-bright" />
+              <StackPane fx:id="personListPanelPlaceholder" styleClass="pane-with-border" />
+            </VBox>
+            <VBox>
+              <Label text="Donation Records" styleClass="label-bright" />
+              <StackPane fx:id="donationRecordListPanelPlaceholder" styleClass="pane-with-border" />
+            </VBox>
+
+
           </items>
         </SplitPane>
 
