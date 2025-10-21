@@ -18,6 +18,7 @@ import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.Person;
 import bloodnet.testutil.TypicalPersons;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class AddDonationCommandTest {
@@ -60,7 +61,7 @@ public class AddDonationCommandTest {
     }
 
     @Test
-    public void execute_validIndexAndDonationRecord_success() throws Exception {
+    public void execute_validArguments_success() throws Exception {
         ModelStub modelStub = new ModelStubWithPerson();
         Index indexStub = Index.fromZeroBased(0);
         DonationDate donationDateStub = new DonationDate("01-01-2025");
@@ -84,6 +85,7 @@ public class AddDonationCommandTest {
         AddDonationCommand addDonationCommand =
                 new AddDonationCommand(indexStub, donationDateStub, bloodVolumeStub);
 
+        // call to ModelStubWithPerson::getFilteredPersonList will return an ObservableArrayList containing 1 person only
         assertThrows(CommandException.class, () -> addDonationCommand.execute(modelStub));
     }
 
@@ -263,7 +265,7 @@ public class AddDonationCommandTest {
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {
-            return javafx.collections.FXCollections.observableArrayList(person);
+            return FXCollections.observableArrayList(person);
         }
 
         @Override
