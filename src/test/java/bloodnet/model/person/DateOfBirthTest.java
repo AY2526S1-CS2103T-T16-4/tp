@@ -44,19 +44,19 @@ public class DateOfBirthTest {
 
         LocalDate earliestDateNotAccepted = LocalDate.now().minusYears(130).minusDays(1);
         assertFalse(DateOfBirth.isValidDateOfBirth(earliestDateNotAccepted
-                .format(formatter))); // the earliest day not accepted
+            .format(formatter))); // the earliest day not accepted
         LocalDate latestDateNotAccepted = LocalDate.now().plusDays(1);
         assertFalse(DateOfBirth.isValidDateOfBirth(latestDateNotAccepted.format(formatter))); // latest day not accepted
         assertFalse(DateOfBirth.isValidDateOfBirth(
-                "XX-DD-YY11")); // contains alphanumeric characters and with the date range
+            "XX-DD-YY11")); // contains alphanumeric characters and with the date range
         assertFalse(DateOfBirth.isValidDateOfBirth(
-                "31-02-2010")); // contains an invalid day (February 31)
+            "31-02-2010")); // contains an invalid day (February 31)
         assertFalse(DateOfBirth.isValidDateOfBirth(
-                "33-01-2010")); // contains an invalid date
+            "33-01-2010")); // contains an invalid date
         assertFalse(DateOfBirth.isValidDateOfBirth(
-                "30-13-2010")); // contains an invalid month
+            "30-13-2010")); // contains an invalid month
         assertFalse(DateOfBirth.isValidDateOfBirth(
-                "30-01-1800")); // contains an invalid year
+            "30-01-1800")); // contains an invalid year
 
         // valid date of births that are accepted
         LocalDate earliestDateAccepted = LocalDate.now().minusYears(130);

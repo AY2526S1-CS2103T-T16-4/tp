@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.Person;
 import bloodnet.model.person.exceptions.DuplicatePersonException;
 import bloodnet.testutil.PersonBuilder;
@@ -47,10 +48,11 @@ public class BloodNetTest {
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
         Person editedAlice = new PersonBuilder(ALICE)
-                .withBloodType(VALID_BLOOD_TYPE_BOB)
-                .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
+            .withBloodType(VALID_BLOOD_TYPE_BOB)
+            .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        BloodNetStub newData = new BloodNetStub(newPersons);
+        List<DonationRecord> newDonationRecords = List.of();
+        BloodNetStub newData = new BloodNetStub(newPersons, newDonationRecords);
 
         assertThrows(DuplicatePersonException.class, () -> bloodNet.resetData(newData));
     }
@@ -75,8 +77,8 @@ public class BloodNetTest {
     public void hasPerson_personWithSameIdentityFieldsInBloodNet_returnsTrue() {
         bloodNet.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE)
-                .withBloodType(VALID_BLOOD_TYPE_BOB)
-                .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
+            .withBloodType(VALID_BLOOD_TYPE_BOB)
+            .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
         assertTrue(bloodNet.hasPerson(editedAlice));
     }
 
@@ -87,7 +89,11 @@ public class BloodNetTest {
 
     @Test
     public void toStringMethod() {
-        String expected = BloodNet.class.getCanonicalName() + "{persons=" + bloodNet.getPersonList() + "}";
+        String expected = BloodNet.class.getCanonicalName()
+            + "{"
+            + "persons=" + bloodNet.getPersonList()
+            + ", donationRecords=" + bloodNet.getDonationRecordList()
+            + "}";
         assertEquals(expected, bloodNet.toString());
     }
 
@@ -96,14 +102,21 @@ public class BloodNetTest {
      */
     private static class BloodNetStub implements ReadOnlyBloodNet {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<DonationRecord> donationRecords = FXCollections.observableArrayList();
 
-        BloodNetStub(Collection<Person> persons) {
+        BloodNetStub(Collection<Person> persons, Collection<DonationRecord> donationRecords) {
             this.persons.setAll(persons);
+            this.donationRecords.setAll(donationRecords);
         }
 
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public ObservableList<DonationRecord> getDonationRecordList() {
+            return donationRecords;
         }
     }
 

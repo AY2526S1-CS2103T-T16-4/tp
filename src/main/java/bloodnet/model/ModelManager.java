@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import bloodnet.commons.core.GuiSettings;
 import bloodnet.commons.core.LogsCenter;
+import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.Person;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -22,6 +23,7 @@ public class ModelManager implements Model {
     private final BloodNet bloodNet;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<DonationRecord> filteredDonationRecords;
 
     /**
      * Initializes a ModelManager with the given bloodNet and userPrefs.
@@ -34,6 +36,7 @@ public class ModelManager implements Model {
         this.bloodNet = new BloodNet(bloodNet);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.bloodNet.getPersonList());
+        filteredDonationRecords = new FilteredList<>(this.bloodNet.getDonationRecordList());
     }
 
     public ModelManager() {
@@ -87,6 +90,8 @@ public class ModelManager implements Model {
         return bloodNet;
     }
 
+    //=========== Person methods =============================================================
+
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -128,6 +133,49 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //=========== DonationRecord methods =============================================================
+
+    @Override
+    public boolean hasDonationRecord(DonationRecord person) {
+        requireNonNull(person);
+        return bloodNet.hasDonationRecord(person);
+    }
+
+    @Override
+    public void deleteDonationRecord(DonationRecord target) {
+        bloodNet.removeDonationRecord(target);
+    }
+
+    @Override
+    public void addDonationRecord(DonationRecord person) {
+        bloodNet.addDonationRecord(person);
+        updateFilteredDonationRecordList(PREDICATE_SHOW_ALL_DONATION_RECORDS);
+    }
+
+    @Override
+    public void setDonationRecord(DonationRecord target, DonationRecord editedDonationRecord) {
+        requireAllNonNull(target, editedDonationRecord);
+
+        bloodNet.setDonationRecord(target, editedDonationRecord);
+    }
+
+    //=========== Filtered DonationRecord List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code DonationRecord} backed by the internal list of
+     * {@code versionedBloodNet}
+     */
+    @Override
+    public ObservableList<DonationRecord> getFilteredDonationRecordList() {
+        return filteredDonationRecords;
+    }
+
+    @Override
+    public void updateFilteredDonationRecordList(Predicate<DonationRecord> predicate) {
+        requireNonNull(predicate);
+        filteredDonationRecords.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -141,8 +189,9 @@ public class ModelManager implements Model {
 
         ModelManager otherModelManager = (ModelManager) other;
         return bloodNet.equals(otherModelManager.bloodNet)
-                && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+            && userPrefs.equals(otherModelManager.userPrefs)
+            && filteredPersons.equals(otherModelManager.filteredPersons)
+            && filteredDonationRecords.equals(otherModelManager.filteredDonationRecords);
     }
 
 }
