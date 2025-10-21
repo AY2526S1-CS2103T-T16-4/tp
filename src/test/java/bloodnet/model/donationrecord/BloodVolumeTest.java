@@ -28,11 +28,6 @@ public class BloodVolumeTest {
         assertFalse(BloodVolume.isValidBloodVolume("")); // empty string
         assertFalse(BloodVolume.isValidBloodVolume(" ")); // spaces only
 
-        // missing parts
-        assertFalse(BloodVolume.isValidBloodVolume("@example.com")); // missing local part
-        assertFalse(BloodVolume.isValidBloodVolume("peterjackexample.com")); // missing '@' symbol
-        assertFalse(BloodVolume.isValidBloodVolume("peterjack@")); // missing domain name
-
         // invalid volumes (not integers)
         assertFalse(BloodVolume.isValidBloodVolume("400.0")); // not integer
         assertFalse(BloodVolume.isValidBloodVolume("qddewr2")); // letters
