@@ -8,6 +8,7 @@ import bloodnet.logic.commands.exceptions.CommandException;
 import bloodnet.logic.parser.exceptions.ParseException;
 import bloodnet.model.Model;
 import bloodnet.model.ReadOnlyBloodNet;
+import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.Person;
 import javafx.collections.ObservableList;
 
@@ -33,6 +34,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of donation records */
+    ObservableList<DonationRecord> getFilteredDonationRecordList();
 
     /**
      * Returns the user prefs' bloodnet file path.

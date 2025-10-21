@@ -17,6 +17,7 @@ import bloodnet.logic.parser.BloodNetParser;
 import bloodnet.logic.parser.exceptions.ParseException;
 import bloodnet.model.Model;
 import bloodnet.model.ReadOnlyBloodNet;
+import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.Person;
 import bloodnet.storage.Storage;
 import javafx.collections.ObservableList;
@@ -118,6 +119,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<DonationRecord> getFilteredDonationRecordList() {
+        return model.getFilteredDonationRecordList();
     }
 
     @Override
