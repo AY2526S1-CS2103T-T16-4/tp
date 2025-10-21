@@ -42,6 +42,7 @@ public class DonationDateTest {
 
         LocalDate tomorrow = LocalDate.now().plusDays(1);
         assertFalse(DonationDate.isValidDonationDate(tomorrow.format(formatter)));
+
         assertFalse(DonationDate.isValidDonationDate(
             "XX-DD-YY11")); // contains alphanumeric characters and with the date range
         assertFalse(DonationDate.isValidDonationDate(
