@@ -35,7 +35,7 @@ public class DonationRecordCard extends UiPart<Region> {
         this.record = record;
         id.setText(displayedIndex + ". ");
         donationDate.setText(record.getDonationDate().toString());
-        bloodVolume.setText(record.getBloodVolume().toString());
+        bloodVolume.setText(record.getBloodVolume().toString() + " ml");
 
     }
 }
