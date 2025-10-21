@@ -70,9 +70,8 @@ public class EditDonationsCommand extends Command {
         DonationRecord editedDonationRecord = createEditedPersonRecord(recordToEdit, editDonationRecordDescriptor);
         System.out.println("here");
 
-        if (model.hasDonationRecord(editedDonationRecord)) {
-            System.out.println("here");
-
+        if (model.hasDonationRecord(editedDonationRecord) && !recordToEdit.isSameDonationRecord(editedDonationRecord)) {
+            System.out.println("HIII");
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
         System.out.println("here");
@@ -110,13 +109,13 @@ public class EditDonationsCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditDonationsCommand)) {
             return false;
         }
 
-        EditDonationsCommand otherEditCommand = (EditDonationsCommand) other;
-        return index.equals(otherEditCommand.index)
-                && editDonationRecordDescriptor.equals(otherEditCommand.editDonationRecordDescriptor);
+        EditDonationsCommand otherEditDonationsCommand = (EditDonationsCommand) other;
+        return index.equals(otherEditDonationsCommand.index)
+                && editDonationRecordDescriptor.equals(otherEditDonationsCommand.editDonationRecordDescriptor);
     }
 
     @Override

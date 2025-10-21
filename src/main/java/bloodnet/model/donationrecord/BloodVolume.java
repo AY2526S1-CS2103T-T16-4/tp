@@ -10,7 +10,7 @@ import static java.util.Objects.requireNonNull;
 public class BloodVolume {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Blood volume should be a whole number, in millilitres";
+        "Blood volume should be a whole number, in millilitres, in the range 0 to (2^31)-1.";
 
     public final Integer volume;
 
@@ -35,7 +35,10 @@ public class BloodVolume {
 
         // Check that the string can be parsed into an integer
         try {
-            Integer.parseInt(test);
+            Integer i = Integer.parseInt(test);
+            if (i < 0) {
+                return false;
+            }
         } catch (NumberFormatException e) {
             return false;
         }
