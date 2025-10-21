@@ -116,11 +116,11 @@ public class ParserUtil {
      */
     public static DonationDate parseDonationDate(String donationDate) throws ParseException {
         requireNonNull(donationDate);
-        String trimmedDonatioNDate = donationDate.trim();
-        if (!DonationDate.isValidDonationDate(trimmedDonatioNDate)) {
+        String trimmedDonationDate = donationDate.trim();
+        if (!DonationDate.isValidDonationDate(trimmedDonationDate)) {
             throw new ParseException(DonationDate.MESSAGE_CONSTRAINTS);
         }
-        return new DonationDate(donationDate);
+        return new DonationDate(trimmedDonationDate);
     }
 
     /**
@@ -135,6 +135,6 @@ public class ParserUtil {
         if (!BloodVolume.isValidBloodVolume(trimmedBloodVolume)) {
             throw new ParseException(BloodVolume.MESSAGE_CONSTRAINTS);
         }
-        return new BloodVolume(bloodVolume);
+        return new BloodVolume(trimmedBloodVolume);
     }
 }
