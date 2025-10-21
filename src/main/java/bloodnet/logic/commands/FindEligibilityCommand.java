@@ -2,9 +2,15 @@ package bloodnet.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import bloodnet.commons.util.ToStringBuilder;
 import bloodnet.logic.Messages;
 import bloodnet.model.Model;
+import bloodnet.model.donationrecord.DonationRecord;
+import bloodnet.model.person.BloodType;
 import bloodnet.model.person.MatchingBloodType;
 
 /**
@@ -26,16 +32,17 @@ public class FindEligibilityCommand extends Command {
             + "Parameters: KEYWORD [BLOOD_TYPE]...\n"
             + "Example: " + COMMAND_WORD + " O+";
 
-    private final MatchingBloodType enteredBloodType;
+    private final List<String> enteredBloodType;
 
-    public FindEligibilityCommand(MatchingBloodType enteredBloodType) {
+    public FindEligibilityCommand(List<String> enteredBloodType) {
         this.enteredBloodType = enteredBloodType;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(enteredBloodType);
+        model.updateFilteredPersonList(new MatchingBloodType(enteredBloodType,
+                model.getFilteredDonationRecordList()));
         int filteredPersonListSize = model.getFilteredPersonList().size();
         return new CommandResult(
                 String.format(Messages.MESSAGE_PEOPLE_LISTED_OVERVIEW,

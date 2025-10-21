@@ -29,7 +29,7 @@ public class FindEligibilityParserCommand implements Parser<FindEligibilityComma
 
         String[] statedBloodType = trimmedArgs.split("\\s+");
 
-        return new FindEligibilityCommand(new MatchingBloodType(Arrays.asList(statedBloodType)));
+        return new FindEligibilityCommand(Arrays.asList(statedBloodType));
     }
 
 }
