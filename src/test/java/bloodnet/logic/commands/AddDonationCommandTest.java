@@ -3,8 +3,6 @@ package bloodnet.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.nio.file.Path;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -27,12 +25,7 @@ public class AddDonationCommandTest {
     @Test
     public void constructor_nullBloodVolume_throwsNullPointerException() {
         Index indexStub = Index.fromZeroBased(0);
-
-        // get today's date and format into a dd-MM-yyyy string
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String formattedDateString = currentDate.format(formatter);
-        DonationDate donationDateStub = new DonationDate(formattedDateString);
+        DonationDate donationDateStub = new DonationDate("01-01-2025");
 
         assertThrows(NullPointerException.class, () -> new AddDonationCommand(indexStub, donationDateStub, null));
     }
@@ -48,12 +41,7 @@ public class AddDonationCommandTest {
     @Test
     public void constructor_validArguments_success() {
         Index indexStub = Index.fromZeroBased(0);
-
-        // get today's date and format into a dd-MM-yyyy string
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String formattedDateString = currentDate.format(formatter);
-        DonationDate donationDateStub = new DonationDate(formattedDateString);
+        DonationDate donationDateStub = new DonationDate("01-01-2025");
         BloodVolume bloodVolumeStub = new BloodVolume("200");
 
         new AddDonationCommand(indexStub, donationDateStub, bloodVolumeStub);
@@ -62,12 +50,7 @@ public class AddDonationCommandTest {
     @Test
     public void execute_nullModel_throwsNullPointerException() {
         Index indexStub = Index.fromZeroBased(0);
-
-        // get today's date and format into a dd-MM-yyyy string
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String formattedDateString = currentDate.format(formatter);
-        DonationDate donationDateStub = new DonationDate(formattedDateString);
+        DonationDate donationDateStub = new DonationDate("01-01-2025");
         BloodVolume bloodVolumeStub = new BloodVolume("450");
 
         AddDonationCommand addDonationCommand =
@@ -80,11 +63,7 @@ public class AddDonationCommandTest {
     public void execute_validIndexAndDonationRecord_success() throws Exception {
         ModelStub modelStub = new ModelStubWithPerson();
         Index indexStub = Index.fromZeroBased(0);
-
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String formattedDateString = currentDate.format(formatter);
-        DonationDate donationDateStub = new DonationDate(formattedDateString);
+        DonationDate donationDateStub = new DonationDate("01-01-2025");
         BloodVolume bloodVolumeStub = new BloodVolume("450");
 
         AddDonationCommand addDonationCommand =
@@ -99,11 +78,7 @@ public class AddDonationCommandTest {
     public void execute_invalidPersonIndex_throwsCommandException() {
         ModelStub modelStub = new ModelStubWithPerson();
         Index indexStub = Index.fromZeroBased(10); // Invalid index
-
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String formattedDateString = currentDate.format(formatter);
-        DonationDate donationDateStub = new DonationDate(formattedDateString);
+        DonationDate donationDateStub = new DonationDate("01-01-2025");
         BloodVolume bloodVolumeStub = new BloodVolume("450");
 
         AddDonationCommand addDonationCommand =
