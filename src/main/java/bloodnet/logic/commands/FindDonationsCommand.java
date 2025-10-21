@@ -36,9 +36,11 @@ public class FindDonationsCommand extends Command {
         Person personToFindRecordsOf = getPersonToFindRecordsOf(model);
         DonorIsSamePersonPredicate predicate = new DonorIsSamePersonPredicate(personToFindRecordsOf);
         model.updateFilteredDonationRecordList(predicate);
+        int filteredDonationRecordListSize = model.getFilteredDonationRecordList().size();
         return new CommandResult(
                 String.format(Messages.MESSAGE_DONATIONS_LISTED_OVERVIEW,
-                model.getFilteredDonationRecordList().size(),
+                filteredDonationRecordListSize,
+                filteredDonationRecordListSize > 1 ? "s" : "",
                 personToFindRecordsOf.getName()));
     }
 

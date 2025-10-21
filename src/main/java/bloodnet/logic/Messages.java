@@ -15,8 +15,11 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
-    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
-    public static final String MESSAGE_DONATIONS_LISTED_OVERVIEW = "%d donation records related to %s found!";
+    // Should find a more elegant way to handle plurality.
+    // For the second placeholder, pass in person if singular, people if plural
+    public static final String MESSAGE_PEOPLE_LISTED_OVERVIEW = "%1$d %s listed!";
+    // For the second placeholder, pass in '' if singular, 's' if plural
+    public static final String MESSAGE_DONATIONS_LISTED_OVERVIEW = "%d donation record%s related to %s found!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
 

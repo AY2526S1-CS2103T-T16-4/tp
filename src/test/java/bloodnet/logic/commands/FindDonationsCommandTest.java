@@ -50,7 +50,7 @@ public class FindDonationsCommandTest {
 
     @Test
     public void execute_validIndex_success() {
-        String expectedMessage = String.format(MESSAGE_DONATIONS_LISTED_OVERVIEW, 2, ALICE.getName());
+        String expectedMessage = String.format(MESSAGE_DONATIONS_LISTED_OVERVIEW, 2, "s", ALICE.getName());
 
         Person personToFindRecordsOf = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
