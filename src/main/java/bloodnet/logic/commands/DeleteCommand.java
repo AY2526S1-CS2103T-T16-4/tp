@@ -7,12 +7,14 @@ import java.util.List;
 import bloodnet.commons.core.index.Index;
 import bloodnet.commons.util.ToStringBuilder;
 import bloodnet.logic.Messages;
+import bloodnet.logic.commands.commandsessions.CommandSession;
+import bloodnet.logic.commands.commandsessions.ConfirmationCommandSession;
 import bloodnet.logic.commands.exceptions.CommandException;
 import bloodnet.model.Model;
 import bloodnet.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a person identified using it's displayed index from the bloodnet.
  */
 public class DeleteCommand extends Command {
 
@@ -32,15 +34,14 @@ public class DeleteCommand extends Command {
     }
 
     @Override
+    public CommandSession createSession(Model model) throws CommandException {
+        Person personToDelete = getPersonToDelete(model);
+        return new ConfirmationCommandSession(COMMAND_WORD + " " + personToDelete.getName(), () -> this.execute(model));
+    }
+
+    @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
-
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        Person personToDelete = getPersonToDelete(model);
         model.deletePerson(personToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
     }
@@ -65,5 +66,16 @@ public class DeleteCommand extends Command {
         return new ToStringBuilder(this)
                 .add("targetIndex", targetIndex)
                 .toString();
+    }
+
+    private Person getPersonToDelete(Model model) throws CommandException {
+        requireNonNull(model);
+        List<Person> lastShownList = model.getFilteredPersonList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        return lastShownList.get(targetIndex.getZeroBased());
     }
 }

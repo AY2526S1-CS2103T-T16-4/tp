@@ -3,6 +3,7 @@ package bloodnet.logic;
 import static bloodnet.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static bloodnet.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static bloodnet.logic.commands.CommandTestUtil.BLOOD_TYPE_DESC_AMY;
+import static bloodnet.logic.commands.CommandTestUtil.DATE_OF_BIRTH_DESC_AMY;
 import static bloodnet.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static bloodnet.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static bloodnet.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
@@ -19,16 +20,20 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import bloodnet.logic.commands.AddCommand;
+import bloodnet.logic.commands.Command;
 import bloodnet.logic.commands.CommandResult;
 import bloodnet.logic.commands.ListCommand;
+import bloodnet.logic.commands.commandsessions.CommandSession;
+import bloodnet.logic.commands.commandsessions.exceptions.TerminalSessionStateException;
 import bloodnet.logic.commands.exceptions.CommandException;
+import bloodnet.logic.parser.BloodNetParser;
 import bloodnet.logic.parser.exceptions.ParseException;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
-import bloodnet.model.ReadOnlyAddressBook;
+import bloodnet.model.ReadOnlyBloodNet;
 import bloodnet.model.UserPrefs;
 import bloodnet.model.person.Person;
-import bloodnet.storage.JsonAddressBookStorage;
+import bloodnet.storage.JsonBloodNetStorage;
 import bloodnet.storage.JsonUserPrefsStorage;
 import bloodnet.storage.StorageManager;
 import bloodnet.testutil.PersonBuilder;
@@ -45,10 +50,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonBloodNetStorage bloodNetStorage =
+                new JsonBloodNetStorage(temporaryFolder.resolve("bloodnet.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(bloodNetStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -83,8 +88,55 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void execute_multiStateCommand_success() throws CommandException, ParseException {
+        JsonBloodNetStorage bloodNetStorage =
+                new JsonBloodNetStorage(temporaryFolder.resolve("bloodnet.json"));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        StorageManager storage = new StorageManager(bloodNetStorage, userPrefsStorage);
+        Logic logic = new LogicManager(model, storage, new BloodNetParserStub());
+
+
+        CommandResult result;
+        for (int i = 1; i <= 3; i++) {
+            result = logic.execute("multi state");
+            // Verify that session is still ongoing
+            assertEquals(Integer.toString(i), result.getFeedbackToUser());
+        }
+
+        // Verify that upon reaching the terminal state for 'multi state' command,
+        // the session is cleaned up and subsequent execute behaves as a fresh
+        // command, not session input
+        result = logic.execute("");
+        assertEquals("Success", result.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_terminalSessionStateException_resetsSession() throws CommandException, ParseException {
+        JsonBloodNetStorage bloodNetStorage =
+                new JsonBloodNetStorage(temporaryFolder.resolve("bloodnet.json"));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        StorageManager storage = new StorageManager(bloodNetStorage, userPrefsStorage);
+        Logic logic = new LogicManager(model, storage, new BloodNetParserStub());
+
+        CommandResult result = logic.execute("throw terminal");
+
+        assertEquals(LogicManager.TERMINAL_COMMAND_SESSION_STATE_ERROR_MESSAGE, result.getFeedbackToUser());
+
+        // Verify that session is cleaned up after terminalSessionStateException and
+        // subsequent execute behaves as a fresh command, not session input
+        result = logic.execute("");
+        assertEquals("Success", result.getFeedbackToUser());
+    }
+
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void getFilteredDonationRecordsList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredDonationRecordList().remove(0));
     }
 
     /**
@@ -123,7 +175,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getBloodNet(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -149,10 +201,10 @@ public class LogicManagerTest {
     private void assertCommandFailureForExceptionFromStorage(IOException e, String expectedMessage) {
         Path prefPath = temporaryFolder.resolve("ExceptionUserPrefs.json");
 
-        // Inject LogicManager with an AddressBookStorage that throws the IOException e when saving
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(prefPath) {
+        // Inject LogicManager with an BloodNetStorage that throws the IOException e when saving
+        JsonBloodNetStorage bloodNetStorage = new JsonBloodNetStorage(prefPath) {
             @Override
-            public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath)
+            public void saveBloodNet(ReadOnlyBloodNet bloodNet, Path filePath)
                     throws IOException {
                 throw e;
             }
@@ -160,16 +212,110 @@ public class LogicManagerTest {
 
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(bloodNetStorage, userPrefsStorage);
 
         logic = new LogicManager(model, storage);
 
-        // Triggers the saveAddressBook method by executing an add command
+        // Triggers the saveBloodNet method by executing an add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + BLOOD_TYPE_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+                + EMAIL_DESC_AMY + BLOOD_TYPE_DESC_AMY + DATE_OF_BIRTH_DESC_AMY;
+        Person expectedPerson = new PersonBuilder(AMY).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+    }
+
+    /**
+     * A CommandSession stub that throws TerminalSessionStateException
+     */
+    private class TerminalExceptionSessionStub implements CommandSession {
+        @Override
+        public CommandResult handle(String input) throws TerminalSessionStateException {
+            throw new TerminalSessionStateException();
+        }
+
+        @Override
+        public boolean isDone() {
+            return false;
+        }
+    }
+    /**
+     * A Command stub that creates a session that throws TerminalSessionStateException
+     */
+    private class TerminalExceptionCommandStub extends Command {
+        @Override
+        public CommandSession createSession(Model model) {
+            return new TerminalExceptionSessionStub();
+        }
+
+        @Override
+        public CommandResult execute(Model model) {
+            throw new AssertionError("This method should not be called.");
+        }
+    }
+
+    /**
+     * A CommandSession stub involving multiple states.
+     * <p>
+     * Upon each {@code handle} call, it returns the number of times
+     * {@code handle} has been invoked. When it has invoked {@code handle}
+     * 3 or more times, the session is done.
+     * </p>
+     */
+    private class MultiStateCommandSessionStub implements CommandSession {
+        private int currentState = 0;
+
+        @Override
+        public CommandResult handle(String input) throws CommandException, TerminalSessionStateException {
+            currentState += 1;
+            return new CommandResult(Integer.toString(currentState));
+        }
+
+        @Override
+        public boolean isDone() {
+            return this.currentState >= 3;
+        }
+    }
+
+    /**
+     * A Command stub to create a command session involving multiple states.
+     */
+    private class MultiStateCommandStub extends Command {
+        @Override
+        public CommandSession createSession(Model model) {
+            return new MultiStateCommandSessionStub();
+        }
+
+        @Override
+        public CommandResult execute(Model model) {
+            throw new AssertionError("This method should not be called.");
+        }
+    }
+
+    /**
+     * A Command stub that always succeeds.
+     */
+    private class SuccessCommandStub extends Command {
+        @Override
+        public CommandResult execute(Model model) {
+            return new CommandResult("Success");
+        }
+    }
+
+    /**
+     * A BloodNetParser stub that allows for parsing of command text to
+     * return the Command stubs defined within this enclosing test class.
+     */
+    private class BloodNetParserStub extends BloodNetParser {
+        @Override
+        public Command parseCommand(String userInput) {
+            if (userInput == "throw terminal") {
+                return new TerminalExceptionCommandStub();
+            } else if (userInput == "multi state") {
+                return new MultiStateCommandStub();
+            } else {
+                return new SuccessCommandStub();
+            }
+        }
     }
 }

@@ -2,39 +2,47 @@ package bloodnet.model.person;
 
 import static bloodnet.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
+import java.util.UUID;
 
 import bloodnet.commons.util.ToStringBuilder;
-import bloodnet.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Person in the bloodnet.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
-
     // Identity fields
+    private UUID id;
     private final Name name;
     private final Phone phone;
     private final Email email;
 
     // Data fields
     private final BloodType bloodType;
-    private final Set<Tag> tags = new HashSet<>();
+    private final DateOfBirth dateOfBirth;
 
     /**
-     * Every field must be present and not null.
+     * Every field other than ID must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, BloodType bloodType, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, bloodType, tags);
+    public Person(UUID id, Name name, Phone phone, Email email, BloodType bloodType,
+                  DateOfBirth dateOfBirth) {
+        requireAllNonNull(name, phone, email, bloodType);
+
+        this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.bloodType = bloodType;
-        this.tags.addAll(tags);
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public Name getName() {
@@ -53,13 +61,10 @@ public class Person {
         return bloodType;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public DateOfBirth getDateOfBirth() {
+        return dateOfBirth;
     }
+
 
     /**
      * Returns true if both persons have the same name and phone number.
@@ -71,7 +76,7 @@ public class Person {
         }
 
         return otherPerson != null
-                && (otherPerson.getName().equals(getName()) && otherPerson.getPhone().equals(getPhone()));
+            && (otherPerson.getName().equals(getName()) && otherPerson.getPhone().equals(getPhone()));
     }
 
     /**
@@ -91,27 +96,28 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
-                && phone.equals(otherPerson.phone)
-                && email.equals(otherPerson.email)
-                && bloodType.equals(otherPerson.bloodType)
-                && tags.equals(otherPerson.tags);
+            && phone.equals(otherPerson.phone)
+            && email.equals(otherPerson.email)
+            && bloodType.equals(otherPerson.bloodType)
+            && dateOfBirth.equals(otherPerson.dateOfBirth);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, bloodType, tags);
+        return Objects.hash(name, phone, email, bloodType, dateOfBirth);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("name", name)
-                .add("phone", phone)
-                .add("email", email)
-                .add("bloodType", bloodType)
-                .add("tags", tags)
-                .toString();
+            .add("id", id)
+            .add("name", name)
+            .add("phone", phone)
+            .add("email", email)
+            .add("bloodType", bloodType)
+            .add("dateOfBirth", dateOfBirth)
+            .toString();
     }
 
 }

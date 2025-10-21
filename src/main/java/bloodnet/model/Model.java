@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import bloodnet.commons.core.GuiSettings;
+import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.Person;
 import javafx.collections.ObservableList;
 
@@ -11,8 +12,11 @@ import javafx.collections.ObservableList;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<DonationRecord> PREDICATE_SHOW_ALL_DONATION_RECORDS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -35,53 +39,95 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' bloodnet file path.
      */
-    Path getAddressBookFilePath();
+    Path getBloodNetFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' bloodnet file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setBloodNetFilePath(Path bloodNetFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces bloodnet data with the data in {@code bloodNet}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    void setBloodNet(ReadOnlyBloodNet bloodNet);
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns the BloodNet
+     */
+    ReadOnlyBloodNet getBloodNet();
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the bloodnet.
      */
     boolean hasPerson(Person person);
 
     /**
      * Deletes the given person.
-     * The person must exist in the address book.
+     * The person must exist in the bloodnet.
      */
     void deletePerson(Person target);
 
     /**
      * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * {@code person} must not already exist in the bloodnet.
      */
     void addPerson(Person person);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in the bloodnet.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the bloodnet.
      */
     void setPerson(Person target, Person editedPerson);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
     ObservableList<Person> getFilteredPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Returns true if a donationRecord with the same identity as {@code donationRecord} exists in the bloodnet.
+     */
+    boolean hasDonationRecord(DonationRecord donationRecord);
+
+    /**
+     * Deletes the given donationRecord.
+     * The donationRecord must exist in the bloodnet.
+     */
+    void deleteDonationRecord(DonationRecord target);
+
+    /**
+     * Adds the given donationRecord.
+     * {@code donationRecord} must not already exist in the bloodnet.
+     */
+    void addDonationRecord(DonationRecord donationRecord);
+
+    /**
+     * Replaces the given donationRecord {@code target} with {@code editedDonationRecord}.
+     * {@code target} must exist in the bloodnet.
+     * The donationRecord identity of {@code editedDonationRecord} must not be the same as another existing
+     * donationRecord in the bloodnet.
+     */
+    void setDonationRecord(DonationRecord target, DonationRecord editedDonationRecord);
+
+    /**
+     * Returns an unmodifiable view of the filtered donationRecord list
+     */
+    ObservableList<DonationRecord> getFilteredDonationRecordList();
+
+    /**
+     * Updates the filter of the filtered donationRecord list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredDonationRecordList(Predicate<DonationRecord> predicate);
 }

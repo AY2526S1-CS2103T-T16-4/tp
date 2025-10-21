@@ -11,10 +11,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Label?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
          title="BloodNet" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/blood_net_logo.png" />
   </icons>
   <scene>
     <Scene>
@@ -46,12 +47,21 @@
           </padding>
         </StackPane>
 
-        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
+        <SplitPane VBox.vgrow="ALWAYS" dividerPositions="0.5">
+          <items>
+            <VBox>
+              <Label text="Donors" styleClass="label-bright" />
+              <StackPane fx:id="personListPanelPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS"/>
+            </VBox>
+            <VBox>
+              <Label text="Donation Records" styleClass="label-bright" />
+              <StackPane fx:id="donationRecordListPanelPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
+            </VBox>
+
+
+          </items>
+        </SplitPane>
+
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

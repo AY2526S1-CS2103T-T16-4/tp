@@ -1,11 +1,8 @@
 package bloodnet.ui;
 
-import java.util.Comparator;
-
 import bloodnet.model.person.Person;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
@@ -37,9 +34,9 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label bloodType;
     @FXML
-    private Label email;
+    private Label dateOfBirth;
     @FXML
-    private FlowPane tags;
+    private Label email;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -51,9 +48,7 @@ public class PersonCard extends UiPart<Region> {
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
         bloodType.setText(person.getBloodType().value);
+        dateOfBirth.setText(person.getDateOfBirth().toString());
         email.setText(person.getEmail().value);
-        person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 }

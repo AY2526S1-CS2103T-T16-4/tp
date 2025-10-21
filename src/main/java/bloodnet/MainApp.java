@@ -13,15 +13,15 @@ import bloodnet.commons.util.ConfigUtil;
 import bloodnet.commons.util.StringUtil;
 import bloodnet.logic.Logic;
 import bloodnet.logic.LogicManager;
-import bloodnet.model.AddressBook;
+import bloodnet.model.BloodNet;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
-import bloodnet.model.ReadOnlyAddressBook;
+import bloodnet.model.ReadOnlyBloodNet;
 import bloodnet.model.ReadOnlyUserPrefs;
 import bloodnet.model.UserPrefs;
 import bloodnet.model.util.SampleDataUtil;
-import bloodnet.storage.AddressBookStorage;
-import bloodnet.storage.JsonAddressBookStorage;
+import bloodnet.storage.BloodNetStorage;
+import bloodnet.storage.JsonBloodNetStorage;
 import bloodnet.storage.JsonUserPrefsStorage;
 import bloodnet.storage.Storage;
 import bloodnet.storage.StorageManager;
@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing BloodNet ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -57,8 +57,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        BloodNetStorage bloodNetStorage = new JsonBloodNetStorage(userPrefs.getBloodNetFilePath());
+        storage = new StorageManager(bloodNetStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
 
@@ -68,26 +68,26 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s bloodnet and {@code userPrefs}. <br>
+     * The data from the sample bloodnet will be used instead if {@code storage}'s bloodnet is not found,
+     * or an empty bloodnet will be used instead if errors occur when reading {@code storage}'s bloodnet.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        logger.info("Using data file : " + storage.getAddressBookFilePath());
+        logger.info("Using data file : " + storage.getBloodNetFilePath());
 
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyBloodNet> bloodNetOptional;
+        ReadOnlyBloodNet initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Creating a new data file " + storage.getAddressBookFilePath()
-                        + " populated with a sample AddressBook.");
+            bloodNetOptional = storage.readBloodNet();
+            if (!bloodNetOptional.isPresent()) {
+                logger.info("Creating a new data file " + storage.getBloodNetFilePath()
+                        + " populated with a sample BloodNet.");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = bloodNetOptional.orElseGet(SampleDataUtil::getSampleBloodNet);
         } catch (DataLoadingException e) {
-            logger.warning("Data file at " + storage.getAddressBookFilePath() + " could not be loaded."
-                    + " Will be starting with an empty AddressBook.");
-            initialData = new AddressBook();
+            logger.warning("Data file at " + storage.getBloodNetFilePath() + " could not be loaded."
+                    + " Will be starting with an empty BloodNet.");
+            initialData = new BloodNet();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -170,13 +170,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting BloodNet " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping AddressBook ] =============================");
+        logger.info("============================ [ Stopping BloodNet ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
