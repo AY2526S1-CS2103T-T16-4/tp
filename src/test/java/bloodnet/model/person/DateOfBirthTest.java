@@ -34,10 +34,10 @@ public class DateOfBirthTest {
     @Test
     public void isValidDateOfBirth() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(STRICT);
-        // null name
+        // null date of birth
         assertThrows(NullPointerException.class, () -> DateOfBirth.isValidDateOfBirth(null));
 
-        // invalid name
+        // invalid date of birth
         assertFalse(DateOfBirth.isValidDateOfBirth("")); // empty string
         assertFalse(DateOfBirth.isValidDateOfBirth(" ")); // spaces only, not accepted
         assertFalse(DateOfBirth.isValidDateOfBirth("\n\n\t")); // only non-alphanumeric characters

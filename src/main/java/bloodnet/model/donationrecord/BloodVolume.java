@@ -29,6 +29,9 @@ public class BloodVolume {
      * Returns true if the blood volume is valid.
      */
     public static boolean isValidBloodVolume(String test) {
+        if (test == null) {
+            throw new NullPointerException();
+        }
 
         // Check that the string can be parsed into an integer
         try {
