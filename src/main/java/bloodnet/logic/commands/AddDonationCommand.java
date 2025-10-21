@@ -39,7 +39,6 @@ public class AddDonationCommand extends Command {
     public static final String MESSAGE_DUPLICATE_DONATION_RECORD =
                                                 "This donation record already exists in the bloodnet";
 
-    // consider encapsulating donationDate and bloodVolume into a temporary object
     private final Index targetPersonIndex;
     private final DonationDate donationDate;
     private final BloodVolume bloodVolume;
