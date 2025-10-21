@@ -17,8 +17,6 @@ public class DonationRecordBuilder {
     public static final Person DEFAULT_PERSON = ALICE;
     public static final String DEFAULT_DONATION_DATE = "19-10-2025";
     public static final String DEFAULT_BLOOD_VOLUME = "450";
-    public static final String DEFAULT_BLOOD_TYPE = "B+";
-    public static final String DEFAULT_DATE_OF_BIRTH = "14-02-2000";
 
     private UUID id;
     private UUID personId;
