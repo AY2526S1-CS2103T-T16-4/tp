@@ -85,7 +85,8 @@ public class AddDonationCommandTest {
         AddDonationCommand addDonationCommand =
                 new AddDonationCommand(indexStub, donationDateStub, bloodVolumeStub);
 
-        // call to ModelStubWithPerson::getFilteredPersonList will return an ObservableArrayList containing 1 person only
+        // call to ModelStubWithPerson::getFilteredPersonList will return
+        // an ObservableArrayList containing 1 person only, hence throwing an Exception
         assertThrows(CommandException.class, () -> addDonationCommand.execute(modelStub));
     }
 
