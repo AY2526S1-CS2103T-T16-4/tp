@@ -1,7 +1,6 @@
 package bloodnet.logic.parser;
 
 import bloodnet.logic.commands.Command;
-import bloodnet.logic.commands.EditDonationsCommand;
 import bloodnet.logic.parser.exceptions.ParseException;
 
 /**

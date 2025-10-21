@@ -11,7 +11,6 @@ import static java.util.Objects.requireNonNull;
 import bloodnet.commons.core.index.Index;
 import bloodnet.logic.commands.EditCommand;
 import bloodnet.logic.commands.EditCommand.EditPersonDescriptor;
-import bloodnet.logic.commands.EditDonationsCommand;
 import bloodnet.logic.parser.exceptions.ParseException;
 
 /**

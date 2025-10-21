@@ -10,7 +10,6 @@ import static bloodnet.logic.parser.CliSyntax.PREFIX_PHONE;
 import java.util.stream.Stream;
 
 import bloodnet.logic.commands.AddCommand;
-import bloodnet.logic.commands.EditDonationsCommand;
 import bloodnet.logic.parser.exceptions.ParseException;
 import bloodnet.model.person.BloodType;
 import bloodnet.model.person.DateOfBirth;

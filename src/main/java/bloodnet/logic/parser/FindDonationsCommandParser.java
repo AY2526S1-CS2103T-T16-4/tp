@@ -3,7 +3,6 @@ package bloodnet.logic.parser;
 import static bloodnet.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import bloodnet.commons.core.index.Index;
-import bloodnet.logic.commands.EditDonationsCommand;
 import bloodnet.logic.commands.FindDonationsCommand;
 import bloodnet.logic.parser.exceptions.ParseException;
 

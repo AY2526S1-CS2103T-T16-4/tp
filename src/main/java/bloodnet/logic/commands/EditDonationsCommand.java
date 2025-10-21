@@ -2,7 +2,6 @@ package bloodnet.logic.commands;
 
 import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_VOLUME;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_DONATION_DATE;
-import static bloodnet.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -84,12 +83,16 @@ public class EditDonationsCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static DonationRecord createEditedPersonRecord(DonationRecord personToEdit, EditDonationRecordDescriptor editDonationRecordDescriptor) {
+    private static DonationRecord createEditedPersonRecord(
+            DonationRecord personToEdit, EditDonationRecordDescriptor editDonationRecordDescriptor) {
 
-        DonationDate updatedDonationDate  = editDonationRecordDescriptor.getDonationDate().orElse(personToEdit.getDonationDate());
-        BloodVolume updatedBloodVolume = editDonationRecordDescriptor.getBloodVolume().orElse(personToEdit.getBloodVolume());
+        DonationDate updatedDonationDate =
+                editDonationRecordDescriptor.getDonationDate().orElse(personToEdit.getDonationDate());
+        BloodVolume updatedBloodVolume =
+                editDonationRecordDescriptor.getBloodVolume().orElse(personToEdit.getBloodVolume());
 
-        return new DonationRecord(personToEdit.getId(), personToEdit.getPersonId(), updatedDonationDate, updatedBloodVolume);
+        return new DonationRecord(personToEdit.getId(),
+                personToEdit.getPersonId(), updatedDonationDate, updatedBloodVolume);
     }
 
     private DonationRecord getDonationRecordToEdit(Model model) throws CommandException {

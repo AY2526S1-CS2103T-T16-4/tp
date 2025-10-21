@@ -4,7 +4,6 @@ import static bloodnet.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import bloodnet.commons.core.index.Index;
 import bloodnet.logic.commands.DeleteCommand;
-import bloodnet.logic.commands.EditDonationsCommand;
 import bloodnet.logic.parser.exceptions.ParseException;
 
 /**

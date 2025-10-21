@@ -6,7 +6,6 @@ import static bloodnet.logic.parser.CliSyntax.PREFIX_DONATION_DATE;
 import static java.util.Objects.requireNonNull;
 
 import bloodnet.commons.core.index.Index;
-import bloodnet.logic.commands.EditCommand;
 import bloodnet.logic.commands.EditDonationsCommand;
 import bloodnet.logic.parser.exceptions.ParseException;
 
@@ -31,20 +30,24 @@ public class EditDonationsCommandParser implements Parser<EditDonationsCommand> 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditDonationsCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT, EditDonationsCommand.MESSAGE_USAGE), pe);
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_BLOOD_VOLUME, PREFIX_DONATION_DATE);
 
-        EditDonationsCommand.EditDonationRecordDescriptor editDonationRecordDescriptor = new EditDonationsCommand.EditDonationRecordDescriptor();
+        EditDonationsCommand.EditDonationRecordDescriptor editDonationRecordDescriptor =
+                new EditDonationsCommand.EditDonationRecordDescriptor();
 
         if (argMultimap.getValue(PREFIX_BLOOD_VOLUME).isPresent()) {
-            editDonationRecordDescriptor.setBloodVolume(ParserUtil.parseBloodVolume(argMultimap.getValue(PREFIX_BLOOD_VOLUME).get()));
+            editDonationRecordDescriptor.setBloodVolume(
+                    ParserUtil.parseBloodVolume(argMultimap.getValue(PREFIX_BLOOD_VOLUME).get()));
             System.out.println("Parsing blood volume: "); // debug
         }
 
         if (argMultimap.getValue(PREFIX_DONATION_DATE).isPresent()) {
-            editDonationRecordDescriptor.setDonationDate(ParserUtil.parseDonationDate(argMultimap.getValue(PREFIX_DONATION_DATE).get()));
+            editDonationRecordDescriptor.setDonationDate(
+                    ParserUtil.parseDonationDate(argMultimap.getValue(PREFIX_DONATION_DATE).get()));
         }
 
         if (!editDonationRecordDescriptor.isAnyFieldEdited()) {
