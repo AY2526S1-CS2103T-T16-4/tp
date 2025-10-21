@@ -10,15 +10,15 @@ import bloodnet.commons.util.ToStringBuilder;
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
 public class MatchingBloodType implements Predicate<Person> {
-    private final String[] bloodType;
+    private final List<String> bloodType;
 
-    public MatchingBloodType(String[] bloodtype) {
+    public MatchingBloodType(List<String> bloodtype) {
         this.bloodType = bloodtype;
     }
 
-    @Override
     public boolean test(Person person) {
-        return person.getBloodType().equals(bloodType);
+        return bloodType.stream()
+                .anyMatch(bloodType -> bloodType.equalsIgnoreCase(person.getBloodType().value));
     }
 
     @Override
