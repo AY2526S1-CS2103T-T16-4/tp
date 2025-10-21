@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import bloodnet.logic.parser.Prefix;
+import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.Person;
 
 /**
@@ -51,5 +52,20 @@ public class Messages {
                 .append(person.getDateOfBirth());
         return builder.toString();
     }
+
+
+    /**
+     * Overloaded method, formats the {@code donationRecord} for display to the user.
+     */
+    public static String format(DonationRecord donationRecord) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("; Donation Date: ")
+                .append(donationRecord.getDonationDate())
+                .append("; Blood Volume: ")
+                .append(donationRecord.getBloodVolume());
+        return builder.toString();
+    }
+
+
 
 }

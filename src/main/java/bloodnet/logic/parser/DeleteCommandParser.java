@@ -4,6 +4,7 @@ import static bloodnet.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import bloodnet.commons.core.index.Index;
 import bloodnet.logic.commands.DeleteCommand;
+import bloodnet.logic.commands.EditDonationsCommand;
 import bloodnet.logic.parser.exceptions.ParseException;
 
 /**
@@ -14,6 +15,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns a DeleteCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteCommand parse(String args) throws ParseException {

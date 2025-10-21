@@ -11,6 +11,7 @@ import static java.util.Objects.requireNonNull;
 import bloodnet.commons.core.index.Index;
 import bloodnet.logic.commands.EditCommand;
 import bloodnet.logic.commands.EditCommand.EditPersonDescriptor;
+import bloodnet.logic.commands.EditDonationsCommand;
 import bloodnet.logic.parser.exceptions.ParseException;
 
 /**
@@ -21,6 +22,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditCommand parse(String args) throws ParseException {

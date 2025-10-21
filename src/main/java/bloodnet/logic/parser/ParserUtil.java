@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import bloodnet.commons.core.index.Index;
 import bloodnet.commons.util.StringUtil;
 import bloodnet.logic.parser.exceptions.ParseException;
+import bloodnet.model.donationrecord.BloodVolume;
+import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.person.BloodType;
 import bloodnet.model.person.DateOfBirth;
 import bloodnet.model.person.Email;
@@ -106,4 +108,33 @@ public class ParserUtil {
         return new Email(trimmedEmail);
     }
 
+    /**
+     * Parses a {@code String bloodVolume} into an {@code bloodVolume}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code email} is invalid.
+     */
+    public static BloodVolume parseBloodVolume(String bloodVolume) throws ParseException {
+        requireNonNull(bloodVolume);
+        String trimmedBloodVolume = bloodVolume.trim();
+        if (!BloodVolume.isValidBloodVolume(trimmedBloodVolume)) {
+            throw new ParseException(BloodVolume.MESSAGE_CONSTRAINTS);
+        }
+        return new BloodVolume(trimmedBloodVolume);
+    }
+
+    /**
+     * Parses a {@code String donation date} into a {@code Donation Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code donation date} is invalid.
+     */
+    public static DonationDate parseDonationDate(String donationDate) throws ParseException {
+        requireNonNull(donationDate);
+        String trimmedDonationDate = donationDate.trim();
+        if (!DonationDate.isValidDonationDate(trimmedDonationDate)) {
+            throw new ParseException(DonationDate.MESSAGE_CONSTRAINTS);
+        }
+        return new DonationDate(trimmedDonationDate);
+    }
 }

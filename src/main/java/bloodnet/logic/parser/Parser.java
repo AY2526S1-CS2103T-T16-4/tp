@@ -1,6 +1,7 @@
 package bloodnet.logic.parser;
 
 import bloodnet.logic.commands.Command;
+import bloodnet.logic.commands.EditDonationsCommand;
 import bloodnet.logic.parser.exceptions.ParseException;
 
 /**
@@ -10,7 +11,8 @@ public interface Parser<T extends Command> {
 
     /**
      * Parses {@code userInput} into a command and returns it.
+     *
      * @throws ParseException if {@code userInput} does not conform the expected format
      */
-    T parse(String userInput) throws ParseException;
+    Command parse(String userInput) throws ParseException;
 }
