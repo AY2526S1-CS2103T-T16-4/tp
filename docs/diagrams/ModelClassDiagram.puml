@@ -14,10 +14,16 @@ Class UserPrefs
 
 Class UniquePersonList
 Class Person
-Class BloodType
-Class Email
 Class Name
 Class Phone
+Class Email
+Class BloodType
+Class DateOfBirth
+
+Class UniqueDonationRecordList
+Class DonationRecord
+Class DonationDate
+Class BloodVolume
 
 Class I #FFFFFF
 }
@@ -40,13 +46,19 @@ Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> BloodType
+Person *--> DateOfBirth
+
+BloodNet *--> "1" UniqueDonationRecordList
+UniqueDonationRecordList --> "~* all" DonationRecord
+DonationRecord *--> DonationDate
+DonationRecord *--> BloodVolume
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> BloodType
-BloodType -[hidden]right-> Email
+DonationRecord -[hidden]up--> I
+UniqueDonationRecordList -[hidden]right-> I
 
 ModelManager --> "~* filtered" Person
+ModelManager --> "~* filtered" DonationRecord
 @enduml
