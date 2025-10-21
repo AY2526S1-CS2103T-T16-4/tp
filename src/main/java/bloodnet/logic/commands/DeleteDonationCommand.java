@@ -15,7 +15,7 @@ import bloodnet.model.donationrecord.DonationRecord;
 
 
 /**
- * Deletes a donation record identified using it's displayed index from the bloodnet.
+ * Deletes a donation record identified using its displayed index.
  */
 public class DeleteDonationCommand extends Command {
 
@@ -39,7 +39,7 @@ public class DeleteDonationCommand extends Command {
     @Override
     public CommandSession createSession(Model model) throws CommandException {
         DonationRecord donationToDelete = getDonationToDelete(model);
-        return new ConfirmationCommandSession(COMMAND_WORD + " " + donationToDelete.getPersonId(), ()
+        return new ConfirmationCommandSession("delete donation record with " + Messages.format(donationToDelete), ()
                 -> this.execute(model));
     }
 

@@ -60,8 +60,7 @@ public class Messages {
      */
     public static String format(DonationRecord record) {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Person ID: ").append(record.getPersonId())
-                .append("; Donation Date: ").append(record.getDonationDate())
+        builder.append("Donation Date: ").append(record.getDonationDate())
                 .append("; Blood Volume: ").append(record.getBloodVolume()).append(" ml");
         return builder.toString();
     }
