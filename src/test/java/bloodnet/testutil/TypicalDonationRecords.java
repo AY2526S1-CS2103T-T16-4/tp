@@ -25,6 +25,7 @@ public class TypicalDonationRecords {
             UUID.fromString("a7460411-cc1f-4b17-a75c-3009a766679a"),
             new DonationDate("15-10-2025"), new BloodVolume("450"))
     );
+    public static final DonationRecord ALICE_DONATION_RECORD = ALICE_DONATION_RECORDS.get(0);
 
     public static final List<DonationRecord> BENSON_DONATION_RECORDS = List.of(
         new DonationRecord(UUID.fromString("8e84ac9b-da7d-4da2-af22-d713a6337098"),
@@ -34,6 +35,7 @@ public class TypicalDonationRecords {
             UUID.fromString("74227cde-d5d3-455e-8852-7bbe6e15e351"),
             new DonationDate("25-07-2025"), new BloodVolume("400"))
     );
+    public static final DonationRecord BENSON_DONATION_RECORD = BENSON_DONATION_RECORDS.get(0);
 
     public static final List<DonationRecord> CARL_DONATION_RECORDS = List.of(
         new DonationRecord(UUID.fromString("35c36cfb-e4c9-4411-a5b6-36ac5b19489b"),
@@ -43,6 +45,7 @@ public class TypicalDonationRecords {
             UUID.fromString("0bd76fb4-244b-41ee-b220-b4f03b12d6c7"),
             new DonationDate("15-10-2025"), new BloodVolume("500"))
     );
+    public static final DonationRecord CARL_DONATION_RECORD = CARL_DONATION_RECORDS.get(0);
 
 
     private TypicalDonationRecords() {
