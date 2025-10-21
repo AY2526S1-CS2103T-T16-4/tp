@@ -37,12 +37,11 @@ public class DonationDateTest {
         assertFalse(DonationDate.isValidDonationDate(" ")); // spaces only, not accepted
         assertFalse(DonationDate.isValidDonationDate("\n\n\t")); // only non-alphanumeric characters
 
-        LocalDate earliestDateNotAccepted = LocalDate.now().minusYears(130).minusDays(1);
-        assertFalse(DonationDate.isValidDonationDate(earliestDateNotAccepted
-            .format(formatter))); // the earliest day not accepted
-        LocalDate latestDateNotAccepted = LocalDate.now().plusDays(1);
-        // latest day not accepted
-        assertFalse(DonationDate.isValidDonationDate(latestDateNotAccepted.format(formatter)));
+        LocalDate date130yearsAnd1DayAgo = LocalDate.now().minusYears(130).minusDays(1);
+        assertFalse(DonationDate.isValidDonationDate(date130yearsAnd1DayAgo.format(formatter)));
+
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        assertFalse(DonationDate.isValidDonationDate(tomorrow.format(formatter)));
         assertFalse(DonationDate.isValidDonationDate(
             "XX-DD-YY11")); // contains alphanumeric characters and with the date range
         assertFalse(DonationDate.isValidDonationDate(
