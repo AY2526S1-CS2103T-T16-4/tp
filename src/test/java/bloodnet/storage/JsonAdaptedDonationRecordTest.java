@@ -2,7 +2,7 @@ package bloodnet.storage;
 
 import static bloodnet.storage.JsonAdaptedDonationRecord.MISSING_FIELD_MESSAGE_FORMAT;
 import static bloodnet.testutil.Assert.assertThrows;
-import static bloodnet.testutil.TypicalDonationRecords.BENSON_DONATION_RECORDS;
+import static bloodnet.testutil.TypicalDonationRecords.BENSON_DONATION_RECORD;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -15,15 +15,15 @@ public class JsonAdaptedDonationRecordTest {
     private static final String INVALID_DONATION_DATE = "20/20/2222";
     private static final String INVALID_BLOOD_VOLUME = "example.com";
 
-    private static final String VALID_UUID = BENSON_DONATION_RECORDS.get(0).getId().toString();
-    private static final String VALID_PERSON_ID = BENSON_DONATION_RECORDS.get(0).getPersonId().toString();
-    private static final String VALID_DONATION_DATE = BENSON_DONATION_RECORDS.get(0).getDonationDate().toString();
-    private static final String VALID_BLOOD_VOLUME = BENSON_DONATION_RECORDS.get(0).getBloodVolume().toString();
+    private static final String VALID_UUID = BENSON_DONATION_RECORD.getId().toString();
+    private static final String VALID_PERSON_ID = BENSON_DONATION_RECORD.getPersonId().toString();
+    private static final String VALID_DONATION_DATE = BENSON_DONATION_RECORD.getDonationDate().toString();
+    private static final String VALID_BLOOD_VOLUME = BENSON_DONATION_RECORD.getBloodVolume().toString();
 
     @Test
     public void toModelType_validDonationRecordDetails_returnsDonationRecord() throws Exception {
-        JsonAdaptedDonationRecord donationRecord = new JsonAdaptedDonationRecord(BENSON_DONATION_RECORDS.get(0));
-        assertEquals(BENSON_DONATION_RECORDS.get(0), donationRecord.toModelType());
+        JsonAdaptedDonationRecord donationRecord = new JsonAdaptedDonationRecord(BENSON_DONATION_RECORD);
+        assertEquals(BENSON_DONATION_RECORD, donationRecord.toModelType());
     }
 
     @Test
