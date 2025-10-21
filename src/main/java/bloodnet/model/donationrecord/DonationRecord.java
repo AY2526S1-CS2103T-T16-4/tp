@@ -15,9 +15,9 @@ public class DonationRecord {
     // Identity fields
     private UUID id;
     private final UUID personId;
+    private final DonationDate donationDate;
 
     // Data fields
-    private final DonationDate donationDate;
     private final BloodVolume bloodVolume;
 
     /**
