@@ -42,7 +42,7 @@ public class EditCommand extends Command {
         + "[" + PREFIX_PHONE + "PHONE] "
         + "[" + PREFIX_EMAIL + "EMAIL] "
         + "[" + PREFIX_BLOOD_TYPE + "BLOOD_TYPE] "
-        + "[" + PREFIX_DATE_OF_BIRTH + "DATE_OF_BIRTH] "
+        + "[" + PREFIX_DATE_OF_BIRTH + "DATE_OF_BIRTH (DD-MM-YYYY)] "
         + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_PHONE + "91234567 "
         + PREFIX_EMAIL + "johndoe@example.com";
