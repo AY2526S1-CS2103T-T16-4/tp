@@ -32,7 +32,7 @@ public class FindCommand extends Command {
         model.updateFilteredPersonList(predicate);
         int filteredPersonListSize = model.getFilteredPersonList().size();
         return new CommandResult(
-                String.format(Messages.MESSAGE_PEOPLE_LISTED_OVERVIEW, 
+                String.format(Messages.MESSAGE_PEOPLE_LISTED_OVERVIEW,
                         filteredPersonListSize,
                         filteredPersonListSize > 1 ? "people" : "person"));
     }
