@@ -20,6 +20,7 @@ import bloodnet.logic.commands.EditCommand;
 import bloodnet.logic.commands.EditCommand.EditPersonDescriptor;
 import bloodnet.logic.commands.ExitCommand;
 import bloodnet.logic.commands.FindCommand;
+import bloodnet.logic.commands.FindDonationsCommand;
 import bloodnet.logic.commands.HelpCommand;
 import bloodnet.logic.commands.ListCommand;
 import bloodnet.logic.parser.exceptions.ParseException;
@@ -74,6 +75,14 @@ public class BloodNetParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_finddonations() throws Exception {
+        FindDonationsCommand command = (FindDonationsCommand) parser.parseCommand(
+                FindDonationsCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new FindDonationsCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
