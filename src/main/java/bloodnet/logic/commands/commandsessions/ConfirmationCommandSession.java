@@ -61,9 +61,9 @@ public class ConfirmationCommandSession implements CommandSession {
     }
 
     public static final String MESSAGE_SEEK_CONFIRMATION =
-        "Are you sure you want to %s? This action is not reversible.\nKey in either 'yes' or 'no'";
+        "Are you sure you want to %s? This action is not reversible.\nKey in either 'yes' or 'no'.";
     public static final String MESSAGE_INVALID_INPUT =
-        "Please response with 'yes' or 'no'. Are you sure you want to %s?";
+        "Please respond with either 'yes' or 'no'. Are you sure you want to %s?";
     public static final String MESSAGE_CANCELLED = "Operation cancelled. Did not %s.";
 
     private State currentState = State.INITIAL;
