@@ -70,6 +70,15 @@ public class EditDonationCommandTest {
     }
 
     @Test
+    public void execute_personIdIsNull_failure() throws Exception {
+        Model modelStub = new ModelManager();
+        assertThrows(NullPointerException.class, () -> modelStub.addDonationRecord(new DonationRecord(UUID.fromString(
+               "3a8590f5-c86b-418a-82b5-7d65fc5602e4"),
+               UUID.fromString(null), new DonationDate("02-02-2020") ,
+               new BloodVolume("500"))));
+    }
+
+    @Test
     public void equals_sameObject_returnsTrue() {
         Index indexStub = Index.fromZeroBased(0);
         BloodVolume bloodVolumeStub = new BloodVolume("300");
@@ -95,21 +104,6 @@ public class EditDonationCommandTest {
 
     @Test
     public void equals_sameValuesInDescriptor_returnsTrue() {
-        BloodVolume bloodVolumeStub = new BloodVolume("300");
-        DonationDate donationDateStub = new DonationDate("01-01-2025");
-        EditDonationCommand.EditDonationRecordDescriptor descriptorStub =
-                new EditDonationCommand.EditDonationRecordDescriptor();
-        descriptorStub.setBloodVolume(bloodVolumeStub);
-        descriptorStub.setDonationDate(donationDateStub);
-        EditDonationCommand.EditDonationRecordDescriptor secondDescriptorStub =
-                new EditDonationCommand.EditDonationRecordDescriptor();
-        secondDescriptorStub.setBloodVolume(bloodVolumeStub);
-        secondDescriptorStub.setDonationDate(donationDateStub);
-        assert(descriptorStub.equals(secondDescriptorStub));
-    }
-
-    @Test
-    public void test_correctPerson_forDonationRecord() {
         BloodVolume bloodVolumeStub = new BloodVolume("300");
         DonationDate donationDateStub = new DonationDate("01-01-2025");
         EditDonationCommand.EditDonationRecordDescriptor descriptorStub =

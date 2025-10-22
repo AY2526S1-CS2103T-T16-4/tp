@@ -78,14 +78,12 @@ public class EditDonationCommandParserTest {
 
         // invalid followed by valid
         userInput = targetIndex.getOneBased() + " v/1x0" + " " + "v/330";
-        System.out.println("userInput: \"" + userInput + "\"");
 
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_BLOOD_VOLUME));
 
         // mulltiple valid fields repeated
         userInput = targetIndex.getOneBased() + " d/01-01-2022" + " d/01-01-2023"
                 + " v/100" + " v/1000";
-        System.out.println("userInput: \"" + userInput + "\"");
 
         assertParseFailure(parser, userInput,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_BLOOD_VOLUME,

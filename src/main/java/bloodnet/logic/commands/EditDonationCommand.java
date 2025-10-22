@@ -96,7 +96,6 @@ public class EditDonationCommand extends Command {
         List<DonationRecord> lastShownList = model.getFilteredDonationRecordList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            System.out.println("is it here");
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         return lastShownList.get(index.getZeroBased());
