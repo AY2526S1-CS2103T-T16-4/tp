@@ -136,8 +136,12 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredPersonList().size());
     }
 
-
-
+    /**
+     * Updates {@code model}'s filtered list to show only the donation record at the given {@code targetIndex} in the
+     * {@code model}'s bloodnet.
+     * @param model
+     * @param targetIndex
+     */
     public static void showDonationRecordAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredDonationRecordList().size());
 
