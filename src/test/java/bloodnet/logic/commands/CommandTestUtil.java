@@ -17,6 +17,7 @@ import bloodnet.commons.core.index.Index;
 import bloodnet.logic.commands.exceptions.CommandException;
 import bloodnet.model.BloodNet;
 import bloodnet.model.Model;
+import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.NameContainsKeywordsPredicate;
 import bloodnet.model.person.Person;
 import bloodnet.testutil.EditPersonDescriptorBuilder;
@@ -133,6 +134,17 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+
+
+    public static void showDonationRecordAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredDonationRecordList().size());
+
+        DonationRecord donationRecord = model.getFilteredDonationRecordList().get(targetIndex.getZeroBased());
+        model.updateFilteredDonationRecordList(d -> d.equals(donationRecord));
+
+        assertEquals(1, model.getFilteredDonationRecordList().size());
     }
 
 }
