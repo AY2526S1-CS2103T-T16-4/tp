@@ -42,9 +42,9 @@ public class DeleteDonationCommand extends Command {
     public CommandSession createSession(Model model) throws CommandException {
         DonationRecord donationToDelete = getDonationToDelete(model);
         Person relatedPerson = getPersonForDonation(model, donationToDelete, targetIndex);
-        return new ConfirmationCommandSession("delete donation record for " +
-                relatedPerson.getName() + " (" + Messages.format(donationToDelete, relatedPerson) + ")",
-                () -> this.execute(model)
+        return new ConfirmationCommandSession("delete donation record for "
+                + relatedPerson.getName() + " (" + Messages.format(donationToDelete, relatedPerson) + ")", () ->
+                this.execute(model)
         );
     }
 
@@ -93,7 +93,8 @@ public class DeleteDonationCommand extends Command {
     /**
      * Retrieves the {@code Person} corresponding to the {@code targetPersonIndex} of this {@code AddDonationCommand}
      */
-    private Person getPersonForDonation(Model model, DonationRecord donationRecord, Index targetIndex) throws CommandException {
+    private Person getPersonForDonation(Model model, DonationRecord donationRecord, Index targetIndex)
+            throws CommandException {
         requireNonNull(model);
         requireNonNull(donationRecord);
 
