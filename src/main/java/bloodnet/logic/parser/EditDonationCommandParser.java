@@ -6,13 +6,13 @@ import static bloodnet.logic.parser.CliSyntax.PREFIX_DONATION_DATE;
 import static java.util.Objects.requireNonNull;
 
 import bloodnet.commons.core.index.Index;
-import bloodnet.logic.commands.EditDonationsCommand;
+import bloodnet.logic.commands.EditDonationCommand;
 import bloodnet.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new EditCommand object
  */
-public class EditDonationsCommandParser implements Parser<EditDonationsCommand> {
+public class EditDonationCommandParser implements Parser<EditDonationCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -20,7 +20,7 @@ public class EditDonationsCommandParser implements Parser<EditDonationsCommand> 
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditDonationsCommand parse(String args) throws ParseException {
+    public EditDonationCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_BLOOD_VOLUME, PREFIX_DONATION_DATE);
@@ -31,13 +31,13 @@ public class EditDonationsCommandParser implements Parser<EditDonationsCommand> 
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(
-                    MESSAGE_INVALID_COMMAND_FORMAT, EditDonationsCommand.MESSAGE_USAGE), pe);
+                    MESSAGE_INVALID_COMMAND_FORMAT, EditDonationCommand.MESSAGE_USAGE), pe);
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_BLOOD_VOLUME, PREFIX_DONATION_DATE);
 
-        EditDonationsCommand.EditDonationRecordDescriptor editDonationRecordDescriptor =
-                new EditDonationsCommand.EditDonationRecordDescriptor();
+        EditDonationCommand.EditDonationRecordDescriptor editDonationRecordDescriptor =
+                new EditDonationCommand.EditDonationRecordDescriptor();
 
         if (argMultimap.getValue(PREFIX_BLOOD_VOLUME).isPresent()) {
             editDonationRecordDescriptor.setBloodVolume(
@@ -50,10 +50,10 @@ public class EditDonationsCommandParser implements Parser<EditDonationsCommand> 
         }
 
         if (!editDonationRecordDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditDonationsCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(EditDonationCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditDonationsCommand(index, editDonationRecordDescriptor);
+        return new EditDonationCommand(index, editDonationRecordDescriptor);
     }
 
 

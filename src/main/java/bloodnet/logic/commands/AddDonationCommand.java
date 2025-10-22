@@ -38,7 +38,7 @@ public class AddDonationCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New donation record added: %1$s";
     public static final String MESSAGE_DUPLICATE_DONATION_RECORD =
-                                                "This donation record already exists in the bloodnet";
+                                                "This donation record already exists in BloodNet";
 
     private final Index targetPersonIndex;
     private final DonationDate donationDate;

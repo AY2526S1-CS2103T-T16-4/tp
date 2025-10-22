@@ -45,8 +45,6 @@ public class BloodVolumeTest {
         // same values -> returns true
         assertTrue(bloodVolume.equals(new BloodVolume("420")));
 
-        // same values -> returns true
-
         // same object -> returns true
         assertTrue(bloodVolume.equals(bloodVolume));
 

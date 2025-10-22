@@ -132,7 +132,4 @@ public interface Model {
      */
     void updateFilteredDonationRecordList(Predicate<DonationRecord> predicate);
 
-    Person getPersonById(DonationRecord originalDonationRecord);
-
-    List<DonationRecord> getAllDonationRecordsBasedOnPerson(Person originalPerson);
 }

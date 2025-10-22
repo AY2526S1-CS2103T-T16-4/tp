@@ -3,7 +3,7 @@ package bloodnet.testutil;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_VOLUME;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_DONATION_DATE;
 
-import bloodnet.logic.commands.EditDonationsCommand;
+import bloodnet.logic.commands.EditDonationCommand;
 import bloodnet.model.donationrecord.DonationRecord;
 
 /**
@@ -25,7 +25,7 @@ public class DonationRecordUtil {
     /**
      * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
      */
-    public static String getEditDonationRecordDescriptorDetails(EditDonationsCommand.EditDonationRecordDescriptor
+    public static String getEditDonationRecordDescriptorDetails(EditDonationCommand.EditDonationRecordDescriptor
                                                                         descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getBloodVolume().ifPresent(bloodVolume -> sb.append(PREFIX_BLOOD_VOLUME)

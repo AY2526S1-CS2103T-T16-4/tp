@@ -26,9 +26,9 @@ import bloodnet.model.person.Person;
 /**
  * Allows users to edit the blood donation records of an existing person in BloodNet.
  */
-public class EditDonationsCommand extends Command {
+public class EditDonationCommand extends Command {
 
-    public static final String COMMAND_WORD = "editdonations";
+    public static final String COMMAND_WORD = "editdonation";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the blood donation records of the person "
             + "identified by the index number used in the displayed person list. "
@@ -39,7 +39,7 @@ public class EditDonationsCommand extends Command {
 
     public static final String MESSAGE_EDIT_DONATION_RECORD_SUCCESS = "Edited Donation Record: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_DONATION_RECORD = "This person already exists in the BloodNet.";
+    public static final String MESSAGE_DUPLICATE_DONATION_RECORD = "This donation record already exists in the BloodNet.";
 
     private final Index index;
     private final EditDonationRecordDescriptor editDonationRecordDescriptor;
@@ -48,7 +48,7 @@ public class EditDonationsCommand extends Command {
      * @param index                of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
-    public EditDonationsCommand(Index index, EditDonationRecordDescriptor editPersonDescriptor) {
+    public EditDonationCommand(Index index, EditDonationRecordDescriptor editPersonDescriptor) {
         requireNonNull(index);
         requireNonNull(editPersonDescriptor);
         this.index = index;
@@ -56,27 +56,24 @@ public class EditDonationsCommand extends Command {
     }
 
     @Override
-    public CommandSession createSession(Model model) throws CommandException {
-        DonationRecord recordToEdit = getDonationRecordToEdit(model);
-        return new ConfirmationCommandSession("edit donations for "
-                + model.getPersonById(recordToEdit).getName() + " at index "
-                + index.toDisplayUser(), () -> this.execute(model));
-    }
-
-    @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         DonationRecord recordToEdit = getDonationRecordToEdit(model);
-        UUID thePersonId = recordToEdit.getId();
-        Person personRelated = model.getPersonById(recordToEdit);
+        Person personToAddRecordFor = getPersonToEditRecordFor(model, recordToEdit);
+        UUID personId = personToAddRecordFor.getId();
+
+        assert personId != null;
+
         DonationRecord editedDonationRecord = createEditedPersonRecord(recordToEdit, editDonationRecordDescriptor);
 
-        if (model.hasDonationRecord(editedDonationRecord) && !recordToEdit.isSameDonationRecord(editedDonationRecord)) {
+        if (model.hasDonationRecord(editedDonationRecord) && recordToEdit.equals(editedDonationRecord)) {
             throw new CommandException(MESSAGE_DUPLICATE_DONATION_RECORD);
         }
 
         model.setDonationRecord(recordToEdit, editedDonationRecord);
+
         return new CommandResult(String.format(MESSAGE_EDIT_DONATION_RECORD_SUCCESS, Messages.format(editedDonationRecord,
-                personRelated)));
+                personToAddRecordFor)));
     }
 
     /**
@@ -91,7 +88,7 @@ public class EditDonationsCommand extends Command {
         BloodVolume updatedBloodVolume =
                 editDonationRecordDescriptor.getBloodVolume().orElse(personToEdit.getBloodVolume());
 
-        return new DonationRecord(personToEdit.getId(),
+        return new DonationRecord(null,
                 personToEdit.getPersonId(), updatedDonationDate, updatedBloodVolume);
     }
 
@@ -100,9 +97,26 @@ public class EditDonationsCommand extends Command {
         List<DonationRecord> lastShownList = model.getFilteredDonationRecordList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
+            System.out.println("is it here");
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         return lastShownList.get(index.getZeroBased());
+    }
+
+    /**
+     * Retrieves the {@code Person} corresponding to the {@code targetPersonIndex} of this {@code AddDonationCommand}
+     */
+    private Person getPersonToEditRecordFor(Model model, DonationRecord donationRecord) throws CommandException {
+        requireNonNull(model);
+        List<Person> lastShownList = model.getFilteredPersonList();
+
+        Optional<Person> optionalPerson = lastShownList.stream()
+                .filter(person -> person.getId().equals(donationRecord.getPersonId())).findFirst();
+
+        if (optionalPerson != null) {
+            return optionalPerson.get();
+        }
+        return null;
     }
 
     @Override
@@ -112,13 +126,13 @@ public class EditDonationsCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditDonationsCommand)) {
+        if (!(other instanceof EditDonationCommand)) {
             return false;
         }
 
-        EditDonationsCommand otherEditDonationsCommand = (EditDonationsCommand) other;
-        return index.equals(otherEditDonationsCommand.index)
-                && editDonationRecordDescriptor.equals(otherEditDonationsCommand.editDonationRecordDescriptor);
+        EditDonationCommand otherEditDonationCommand = (EditDonationCommand) other;
+        return index.equals(otherEditDonationCommand.index)
+                && editDonationRecordDescriptor.equals(otherEditDonationCommand.editDonationRecordDescriptor);
     }
 
     @Override
@@ -196,8 +210,6 @@ public class EditDonationsCommand extends Command {
                     .add("donationDate", getDonationDate())
                     .toString();
         }
-
-
 
     }
 }

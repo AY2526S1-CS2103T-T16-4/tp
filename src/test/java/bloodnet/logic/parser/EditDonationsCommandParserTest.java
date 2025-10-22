@@ -16,16 +16,16 @@ import org.junit.jupiter.api.Test;
 
 import bloodnet.commons.core.index.Index;
 import bloodnet.logic.Messages;
-import bloodnet.logic.commands.EditDonationsCommand;
+import bloodnet.logic.commands.EditDonationCommand;
 import bloodnet.model.donationrecord.BloodVolume;
 import bloodnet.model.donationrecord.DonationDate;
 
-public class EditDonationsCommandParserTest {
+public class EditDonationCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditDonationsCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditDonationCommand.MESSAGE_USAGE);
 
-    private EditDonationsCommandParser parser = new EditDonationsCommandParser();
+    private EditDonationCommandParser parser = new EditDonationCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
@@ -33,7 +33,7 @@ public class EditDonationsCommandParserTest {
         assertParseFailure(parser, BLOOD_VOLUME_DESC_AMY, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditDonationsCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", EditDonationCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);

@@ -1,7 +1,7 @@
 package bloodnet.testutil;
 
 
-import bloodnet.logic.commands.EditDonationsCommand;
+import bloodnet.logic.commands.EditDonationCommand;
 import bloodnet.model.donationrecord.BloodVolume;
 import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.donationrecord.DonationRecord;
@@ -11,21 +11,21 @@ import bloodnet.model.donationrecord.DonationRecord;
  */
 public class EditDonationRecordsDescriptorBuilder {
 
-    private EditDonationsCommand.EditDonationRecordDescriptor descriptor;
+    private EditDonationCommand.EditDonationRecordDescriptor descriptor;
 
     public EditDonationRecordsDescriptorBuilder() {
-        descriptor = new EditDonationsCommand.EditDonationRecordDescriptor();
+        descriptor = new EditDonationCommand.EditDonationRecordDescriptor();
     }
 
-    public EditDonationRecordsDescriptorBuilder(EditDonationsCommand.EditDonationRecordDescriptor descriptor) {
-        this.descriptor = new EditDonationsCommand.EditDonationRecordDescriptor(descriptor);
+    public EditDonationRecordsDescriptorBuilder(EditDonationCommand.EditDonationRecordDescriptor descriptor) {
+        this.descriptor = new EditDonationCommand.EditDonationRecordDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
      */
     public EditDonationRecordsDescriptorBuilder(DonationRecord donationRecord) {
-        descriptor = new EditDonationsCommand.EditDonationRecordDescriptor();
+        descriptor = new EditDonationCommand.EditDonationRecordDescriptor();
         descriptor.setBloodVolume(donationRecord.getBloodVolume());
         descriptor.setDonationDate(donationRecord.getDonationDate());
     }
@@ -46,7 +46,7 @@ public class EditDonationRecordsDescriptorBuilder {
         return this;
     }
 
-    public EditDonationsCommand.EditDonationRecordDescriptor build() {
+    public EditDonationCommand.EditDonationRecordDescriptor build() {
         return descriptor;
     }
 
