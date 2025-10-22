@@ -42,8 +42,8 @@ public class DeleteDonationCommand extends Command {
     public CommandSession createSession(Model model) throws CommandException {
         DonationRecord donationToDelete = getDonationToDelete(model);
         Person relatedPerson = getPersonForDonation(model, donationToDelete, targetIndex);
-        return new ConfirmationCommandSession("delete donation record for "
-                + relatedPerson.getName() + " (" + Messages.format(donationToDelete, relatedPerson) + ")", () ->
+        return new ConfirmationCommandSession("delete donation record for: "
+                + Messages.format(donationToDelete, relatedPerson), () ->
                 this.execute(model)
         );
     }
