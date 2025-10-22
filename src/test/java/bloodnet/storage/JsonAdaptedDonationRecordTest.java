@@ -29,7 +29,7 @@ public class JsonAdaptedDonationRecordTest {
     @Test
     public void toModelType_nullPersonId_throwsIllegalValueException() {
         JsonAdaptedDonationRecord donationRecord = new JsonAdaptedDonationRecord(VALID_UUID, null,
-            VALID_DONATION_DATE, VALID_BLOOD_VOLUME);
+                VALID_DONATION_DATE, VALID_BLOOD_VOLUME);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "PersonID");
         assertThrows(IllegalValueException.class, expectedMessage, donationRecord::toModelType);
     }
@@ -37,7 +37,7 @@ public class JsonAdaptedDonationRecordTest {
     @Test
     public void toModelType_invalidDonationDate_throwsIllegalValueException() {
         JsonAdaptedDonationRecord donationRecord =
-            new JsonAdaptedDonationRecord(VALID_UUID, VALID_PERSON_ID, INVALID_DONATION_DATE, VALID_BLOOD_VOLUME);
+                new JsonAdaptedDonationRecord(VALID_UUID, VALID_PERSON_ID, INVALID_DONATION_DATE, VALID_BLOOD_VOLUME);
         String expectedMessage = DonationDate.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, donationRecord::toModelType);
     }
@@ -45,7 +45,7 @@ public class JsonAdaptedDonationRecordTest {
     @Test
     public void toModelType_nullDonationDate_throwsIllegalValueException() {
         JsonAdaptedDonationRecord donationRecord = new JsonAdaptedDonationRecord(VALID_UUID, VALID_PERSON_ID,
-            null, VALID_BLOOD_VOLUME);
+                null, VALID_BLOOD_VOLUME);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, DonationDate.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, donationRecord::toModelType);
     }
@@ -53,7 +53,7 @@ public class JsonAdaptedDonationRecordTest {
     @Test
     public void toModelType_invalidBloodVolume_throwsIllegalValueException() {
         JsonAdaptedDonationRecord donationRecord =
-            new JsonAdaptedDonationRecord(VALID_UUID, VALID_PERSON_ID, VALID_DONATION_DATE, INVALID_BLOOD_VOLUME);
+                new JsonAdaptedDonationRecord(VALID_UUID, VALID_PERSON_ID, VALID_DONATION_DATE, INVALID_BLOOD_VOLUME);
         String expectedMessage = BloodVolume.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, donationRecord::toModelType);
     }
@@ -61,7 +61,7 @@ public class JsonAdaptedDonationRecordTest {
     @Test
     public void toModelType_nullBloodVolume_throwsIllegalValueException() {
         JsonAdaptedDonationRecord donationRecord = new JsonAdaptedDonationRecord(VALID_UUID, VALID_PERSON_ID,
-            VALID_DONATION_DATE, null);
+                VALID_DONATION_DATE, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, BloodVolume.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, donationRecord::toModelType);
     }

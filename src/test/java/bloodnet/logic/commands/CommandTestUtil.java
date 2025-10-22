@@ -54,7 +54,7 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_BLOOD_TYPE_DESC = " " + PREFIX_BLOOD_TYPE; // " " not allowed for blood types
     public static final String INVALID_DATE_OF_BIRTH_DESC = " "
-        + PREFIX_DATE_OF_BIRTH; // " " not allowed for date of births
+            + PREFIX_DATE_OF_BIRTH; // " " not allowed for date of births
 
     // Donation Record Test Values
     public static final String VALID_DONATION_DATE_AMY = "12-12-2024";
@@ -71,11 +71,11 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-            .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withBloodType(VALID_BLOOD_TYPE_AMY)
-            .withDateOfBirth(VALID_DATE_OF_BIRTH_AMY).build();
+                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withBloodType(VALID_BLOOD_TYPE_AMY)
+                .withDateOfBirth(VALID_DATE_OF_BIRTH_AMY).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-            .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withBloodType(VALID_BLOOD_TYPE_BOB)
-            .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withBloodType(VALID_BLOOD_TYPE_BOB)
+                .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
     }
 
     /**
