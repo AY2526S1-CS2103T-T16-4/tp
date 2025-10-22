@@ -8,12 +8,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
+import bloodnet.model.donationrecord.BloodVolume;
+import bloodnet.model.donationrecord.DonationDate;
+import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.testutil.PersonBuilder;
 
 public class MatchingBloodTypeTest {
@@ -60,7 +64,7 @@ public class MatchingBloodTypeTest {
     }
 
     @Test
-    public void test_personDoesNotHaveBloodType_returnsFalse() {
+    public void test_personDoesNotHaveBloodTypeOrHasInvalidDateOfBirth_returnsFalse() {
         // Zero keywords
         MatchingBloodType predicate = new MatchingBloodType(Collections.emptyList(),
                 model.getFilteredDonationRecordList());
@@ -71,6 +75,18 @@ public class MatchingBloodTypeTest {
                 model.getFilteredDonationRecordList());
         assertFalse(predicate.test(new PersonBuilder().withBloodType("A+").build()));
 
+        //individual too young
+        predicate = new MatchingBloodType(Arrays.asList("O+"),
+                model.getFilteredDonationRecordList());
+        assertFalse(predicate.test(new PersonBuilder().withBloodType("O+").withDateOfBirth(
+                "08-08-2012").build()));
+
+        // individual too old and never donated before
+        //individual too young
+        predicate = new MatchingBloodType(Arrays.asList("O+"),
+                model.getFilteredDonationRecordList());
+        assertFalse(predicate.test(new PersonBuilder().withBloodType("O+").withDateOfBirth(
+                "20-10-1964").build()));
     }
 
     @Test

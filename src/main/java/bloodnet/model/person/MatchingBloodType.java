@@ -61,7 +61,7 @@ public class MatchingBloodType implements Predicate<Person> {
 
                     if (latestDate.isPresent()) {
                         LocalDate lastDate = latestDate.get().getDonationDate().value;
-                        return !lastDate.isAfter(currentDate.minusYears(3));
+                        return !lastDate.isBefore(currentDate.minusYears(3));
                     }
                 }
 
