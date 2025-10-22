@@ -135,9 +135,13 @@ public class LogicManagerTest {
         StorageManager storage = new StorageManager(bloodNetStorage, userPrefsStorage);
         Logic logic = new LogicManager(model, storage, new BloodNetParserStub());
 
-        CommandResult result = logic.execute("throw command exception");
-
-        assertEquals("Command exception occurred", result.getFeedbackToUser());
+        CommandResult result;
+        try {
+            result = logic.execute("throw command exception");
+            throw new AssertionError("Should throw a CommandException");
+        } catch (CommandException e) {
+            assertEquals("Command exception occurred", e.getMessage());
+        }
 
         // Verify that session is cleaned up after CommandException and
         // subsequent execute behaves as a fresh command, not session input
