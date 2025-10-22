@@ -42,7 +42,6 @@ public class EditDonationsCommandParser implements Parser<EditDonationsCommand> 
         if (argMultimap.getValue(PREFIX_BLOOD_VOLUME).isPresent()) {
             editDonationRecordDescriptor.setBloodVolume(
                     ParserUtil.parseBloodVolume(argMultimap.getValue(PREFIX_BLOOD_VOLUME).get()));
-            System.out.println("Parsing blood volume: "); // debug
         }
 
         if (argMultimap.getValue(PREFIX_DONATION_DATE).isPresent()) {
@@ -51,7 +50,6 @@ public class EditDonationsCommandParser implements Parser<EditDonationsCommand> 
         }
 
         if (!editDonationRecordDescriptor.isAnyFieldEdited()) {
-            System.out.println("Not here idt: "); // debug
             throw new ParseException(EditDonationsCommand.MESSAGE_NOT_EDITED);
         }
 
