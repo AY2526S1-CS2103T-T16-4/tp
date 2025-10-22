@@ -10,21 +10,28 @@ import bloodnet.commons.util.ToStringBuilder;
 import bloodnet.model.donationrecord.DonationRecord;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Person}'s {@code BloodType} matches any of the people's blood types.
  */
 public class MatchingBloodType implements Predicate<Person> {
     private final List<String> bloodType;
     private final List<DonationRecord> donationRecords;
 
-    public MatchingBloodType(List<String> bloodtype, List<DonationRecord> donationRecords) {
-        this.bloodType = bloodtype;
+    /**
+     * Constructs a {@code MatchingBloodType}.
+     *
+     * @param bloodType A list of blood types to be matched.
+     * @param donationRecords A list of donation records that are in the model.
+     */
+    public MatchingBloodType(List<String> bloodType, List<DonationRecord> donationRecords) {
+        this.bloodType = bloodType;
         this.donationRecords = donationRecords;
     }
 
+    // Very well aware that it is not the most elegant thing.
     /**
      * This is the predicate that does the filtering. Basically, the user will
      * provide whatever blood types that they would like. Then, filtering will be done
-     * both on date of birth and blood type in order to note down eligibility.
+     * both on date of birth and blood type in order to note down eligibility
      * @param person the input argument
      * @return
      */
@@ -39,18 +46,18 @@ public class MatchingBloodType implements Predicate<Person> {
             LocalDate oldestRepeatDonor = currentDate.minusYears(66).plusDays(1);
 
             if (!person.getDateOfBirth().value.isAfter(earliestDate)) {
-
                 if (!person.getDateOfBirth().value.isBefore(oldestFirstTimeBloodDonors)) {
                     return true;
                 }
-
-                else if (!person.getDateOfBirth().value.isBefore(oldestRepeatDonor) &&
-                    donationRecords.stream().anyMatch(id -> id.getPersonId().equals(person.getId()))) {
+                else if (!person.getDateOfBirth().value.isBefore(oldestRepeatDonor)
+                        && donationRecords.stream().anyMatch(id ->
+                        id.getPersonId().equals(person.getId()))) {
                     return true;
                 }
                 else {
                     Optional<DonationRecord> latestDate = donationRecords.stream().max(
-                            Comparator.comparing(donationRecord -> donationRecord.getDonationDate().value));
+                            Comparator.comparing(donationRecord ->
+                                    donationRecord.getDonationDate().value));
 
                     if (latestDate.isPresent()) {
                         LocalDate lastDate = latestDate.get().getDonationDate().value;
