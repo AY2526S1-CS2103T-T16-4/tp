@@ -57,9 +57,11 @@ public class Messages {
     /**
      * Overloaded method, formats the {@code donationRecord} for display to the user.
      */
-    public static String format(DonationRecord donationRecord) {
+    public static String format(DonationRecord donationRecord, Person person) {
         final StringBuilder builder = new StringBuilder();
-        builder.append("; Donation Date: ")
+        builder.append("Name of Person: ")
+                .append(person.getName())
+                .append("; Donation Date: ")
                 .append(donationRecord.getDonationDate())
                 .append("; Blood Volume: ")
                 .append(donationRecord.getBloodVolume());

@@ -4,8 +4,12 @@ import static bloodnet.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import bloodnet.commons.core.GuiSettings;
 import bloodnet.commons.core.LogsCenter;
@@ -175,6 +179,38 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredDonationRecords.setPredicate(predicate);
     }
+
+    /**
+     * Given a donation record, get the Person object that it is associated with.
+     * @param originalDonationRecord the donation record that you originally get
+     * @return the Person object you are working with
+     */
+    @Override
+    public Person getPersonById(DonationRecord originalDonationRecord) {
+        requireNonNull(originalDonationRecord);
+        UUID personId = originalDonationRecord.getPersonId();
+        Optional<Person> thePerson = filteredPersons.stream().filter(person
+                -> person.getId().equals(personId)).findFirst();
+        if (thePerson.isPresent()) {
+            return thePerson.get();
+        }
+        return null;
+    }
+
+    /**
+     * Given a person, it provides all the donation records the person has.
+     * @param originalPerson the person provided
+     * @return the donation records related to that person
+     */
+    @Override
+    public List<DonationRecord> getAllDonationRecordsBasedOnPerson(Person originalPerson) {
+        requireNonNull(originalPerson);
+        UUID personId = originalPerson.getId();
+        List<DonationRecord> theList = filteredDonationRecords.stream().filter(donationRecord
+                -> donationRecord.getId().equals(personId)).toList();
+        return theList;
+    }
+
 
     @Override
     public boolean equals(Object other) {

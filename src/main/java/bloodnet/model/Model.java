@@ -1,6 +1,7 @@
 package bloodnet.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import bloodnet.commons.core.GuiSettings;
@@ -130,4 +131,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredDonationRecordList(Predicate<DonationRecord> predicate);
+
+    Person getPersonById(DonationRecord originalDonationRecord);
+
+    List<DonationRecord> getAllDonationRecordsBasedOnPerson(Person originalPerson);
 }

@@ -20,6 +20,7 @@ import bloodnet.model.Model;
 import bloodnet.model.donationrecord.BloodVolume;
 import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.donationrecord.DonationRecord;
+import bloodnet.model.person.Person;
 
 
 /**
@@ -57,26 +58,25 @@ public class EditDonationsCommand extends Command {
     @Override
     public CommandSession createSession(Model model) throws CommandException {
         DonationRecord recordToEdit = getDonationRecordToEdit(model);
-        return new ConfirmationCommandSession(COMMAND_WORD + " "
-                + recordToEdit.getId(), () -> this.execute(model));
+        return new ConfirmationCommandSession("edit donations for "
+                + model.getPersonById(recordToEdit).getName() + " at index " + index.toDisplayUser(),
+                () -> this.execute(model));
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         DonationRecord recordToEdit = getDonationRecordToEdit(model);
         UUID thePersonId = recordToEdit.getId();
-        System.out.println("here");
+        Person personRelated = model.getPersonById(recordToEdit);
         DonationRecord editedDonationRecord = createEditedPersonRecord(recordToEdit, editDonationRecordDescriptor);
-        System.out.println("here");
 
         if (model.hasDonationRecord(editedDonationRecord) && !recordToEdit.isSameDonationRecord(editedDonationRecord)) {
-            System.out.println("HIII");
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
-        System.out.println("here");
 
         model.setDonationRecord(recordToEdit, editedDonationRecord);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(recordToEdit)));
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(recordToEdit,
+                personRelated)));
     }
 
     /**
