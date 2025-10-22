@@ -44,15 +44,15 @@ public class DonationDateTest {
         assertFalse(DonationDate.isValidDonationDate(tomorrow.format(formatter)));
 
         assertFalse(DonationDate.isValidDonationDate(
-            "XX-DD-YY11")); // contains alphanumeric characters and with the date range
+                "XX-DD-YY11")); // contains alphanumeric characters and with the date range
         assertFalse(DonationDate.isValidDonationDate(
-            "31-02-2010")); // contains an invalid day (February 31)
+                "31-02-2010")); // contains an invalid day (February 31)
         assertFalse(DonationDate.isValidDonationDate(
-            "33-01-2010")); // contains an invalid date
+                "33-01-2010")); // contains an invalid date
         assertFalse(DonationDate.isValidDonationDate(
-            "30-13-2010")); // contains an invalid month
+                "30-13-2010")); // contains an invalid month
         assertFalse(DonationDate.isValidDonationDate(
-            "30-01-1800")); // contains an invalid year
+                "30-01-1800")); // contains an invalid year
 
         // valid donation dates that are accepted
         LocalDate earliestDateAccepted = LocalDate.now().minusYears(130);

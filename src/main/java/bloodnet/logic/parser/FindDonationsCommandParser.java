@@ -14,6 +14,7 @@ public class FindDonationsCommandParser implements Parser<FindDonationsCommand> 
     /**
      * Parses the given {@code String} of arguments in the context of the FindDonationsCommand
      * and returns a FindDonationsCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindDonationsCommand parse(String args) throws ParseException {

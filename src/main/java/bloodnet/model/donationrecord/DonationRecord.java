@@ -62,8 +62,8 @@ public class DonationRecord {
         }
 
         return otherDonationRecord != null
-            && (otherDonationRecord.getDonationDate().equals(getDonationDate())
-            && otherDonationRecord.getPersonId().equals(getPersonId()));
+                && (otherDonationRecord.getDonationDate().equals(getDonationDate())
+                && otherDonationRecord.getPersonId().equals(getPersonId()));
     }
 
     /**
@@ -83,9 +83,9 @@ public class DonationRecord {
 
         DonationRecord otherDonationRecord = (DonationRecord) other;
         return id.equals(otherDonationRecord.id)
-            && personId.equals(otherDonationRecord.personId)
-            && donationDate.equals(otherDonationRecord.donationDate)
-            && bloodVolume.equals(otherDonationRecord.bloodVolume);
+                && personId.equals(otherDonationRecord.personId)
+                && donationDate.equals(otherDonationRecord.donationDate)
+                && bloodVolume.equals(otherDonationRecord.bloodVolume);
     }
 
     @Override
@@ -97,11 +97,11 @@ public class DonationRecord {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-            .add("id", id)
-            .add("personId", personId)
-            .add("donationDate", donationDate)
-            .add("bloodVolume", bloodVolume)
-            .toString();
+                .add("id", id)
+                .add("personId", personId)
+                .add("donationDate", donationDate)
+                .add("bloodVolume", bloodVolume)
+                .toString();
     }
 
 }

@@ -623,7 +623,7 @@ Use case ends.
 5. User guide should be written with easy-to-understand English that is comprehensible to users without technical background.
 6. The user interface should be intuitive enough for users who are not IT-saavy.
 7. Should not be required to have beautiful visual design or animations since it is for administrative use.
-8. Should have user confirmation for _irreversible operations_.
+8. Should have user confirmation for _destructive operations_.
 9. Should provide error message, in response to an invalid operation, that details what went wrong and how to fix it for a non-technical user.
 10. Should be designed for a single user within a single computer.
 11. Should backup contacts data within a human-editable file such that it persists across instances of the program.
@@ -635,7 +635,7 @@ Use case ends.
 
 * **Blood Type**: The blood types suppported are A+, A-, B+, B-, AB+, AB-, O+ and O-
 * **Donor**: People who donate blood to others
-* **Irreversible operation**: An action that leads to permanent data loss
+* **Destructive operation**: An action that leads to permanent removal of data
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A Singaporean (+65) contact detail that is not meant to be shared with others
 

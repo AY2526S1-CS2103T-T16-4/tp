@@ -189,9 +189,9 @@ public class ModelManager implements Model {
 
         ModelManager otherModelManager = (ModelManager) other;
         return bloodNet.equals(otherModelManager.bloodNet)
-            && userPrefs.equals(otherModelManager.userPrefs)
-            && filteredPersons.equals(otherModelManager.filteredPersons)
-            && filteredDonationRecords.equals(otherModelManager.filteredDonationRecords);
+                && userPrefs.equals(otherModelManager.userPrefs)
+                && filteredPersons.equals(otherModelManager.filteredPersons)
+                && filteredDonationRecords.equals(otherModelManager.filteredDonationRecords);
     }
 
 }
