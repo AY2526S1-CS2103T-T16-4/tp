@@ -1,12 +1,6 @@
 package bloodnet.logic.parser;
 
 import static bloodnet.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static bloodnet.logic.commands.CommandTestUtil.BLOOD_VOLUME_DESC_AMY;
-import static bloodnet.logic.commands.CommandTestUtil.BLOOD_VOLUME_DESC_BOB;
-import static bloodnet.logic.commands.CommandTestUtil.DONATION_DATE_DESC_AMY;
-import static bloodnet.logic.commands.CommandTestUtil.DONATION_DATE_DESC_BOB;
-import static bloodnet.logic.commands.CommandTestUtil.INVALID_BLOOD_VOLUME_DESC;
-import static bloodnet.logic.commands.CommandTestUtil.INVALID_DONATION_DATE_DESC;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_VOLUME;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_DONATION_DATE;
 import static bloodnet.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -30,7 +24,7 @@ public class EditDonationCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, BLOOD_VOLUME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, " v/400", MESSAGE_INVALID_FORMAT);
 
         // no field specified
         assertParseFailure(parser, "1", EditDonationCommand.MESSAGE_NOT_EDITED);
@@ -42,10 +36,10 @@ public class EditDonationCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + BLOOD_VOLUME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + " v/400", MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + BLOOD_VOLUME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + " v/100", MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
@@ -56,19 +50,18 @@ public class EditDonationCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_BLOOD_VOLUME_DESC, BloodVolume.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_DONATION_DATE_DESC, DonationDate.MESSAGE_CONSTRAINTS); // invalid phone
+        assertParseFailure(parser, "1" + " v/400x", BloodVolume.MESSAGE_CONSTRAINTS); // invalid blood volume
+        assertParseFailure(parser, "1" + " d/01-20-xxxx", DonationDate.MESSAGE_CONSTRAINTS); // invalid donation date
 
         // invalid blood volume followed by donation date
-        assertParseFailure(parser, "1" + INVALID_BLOOD_VOLUME_DESC + INVALID_DONATION_DATE_DESC,
+        assertParseFailure(parser, "1" + " v/x00" + " d/05-25-2020",
                 BloodVolume.MESSAGE_CONSTRAINTS);
 
         // both fields are invalid, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_BLOOD_VOLUME_DESC
-                        + INVALID_DONATION_DATE_DESC,
+        assertParseFailure(parser, "1" + " v/xx"
+                        + "d/02-10-xxxx",
                 BloodVolume.MESSAGE_CONSTRAINTS);
     }
-
 
 
     @Test
@@ -78,24 +71,25 @@ public class EditDonationCommandParserTest {
 
         // valid followed by invalid
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + BLOOD_VOLUME_DESC_AMY + BLOOD_VOLUME_DESC_BOB;
+        String userInput = targetIndex.getOneBased() + " v/200" + " v/200";
 
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_BLOOD_VOLUME));
 
         // invalid followed by valid
-        userInput = targetIndex.getOneBased() + BLOOD_VOLUME_DESC_AMY + " " + INVALID_BLOOD_VOLUME_DESC;
+        userInput = targetIndex.getOneBased() + " v/1x0" + " " + "v/330";
         System.out.println("userInput: \"" + userInput + "\"");
 
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_BLOOD_VOLUME));
 
         // mulltiple valid fields repeated
-        userInput = targetIndex.getOneBased() + DONATION_DATE_DESC_AMY + DONATION_DATE_DESC_BOB
-                + BLOOD_VOLUME_DESC_AMY + BLOOD_VOLUME_DESC_BOB;
+        userInput = targetIndex.getOneBased() + " d/01-01-2022" + " d/01-01-2023"
+                + " v/100" + " v/1000";
         System.out.println("userInput: \"" + userInput + "\"");
 
         assertParseFailure(parser, userInput,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_BLOOD_VOLUME,
                         PREFIX_DONATION_DATE));
     }
+
 
 }

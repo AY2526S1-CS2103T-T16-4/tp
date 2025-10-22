@@ -171,10 +171,12 @@ public class EditDonationCommand extends Command {
         }
 
         public void setBloodVolume(BloodVolume bloodVolume) {
+            requireNonNull(bloodVolume);
             this.bloodVolume = bloodVolume;
         }
 
         public void setDonationDate(DonationDate donationDate) {
+            requireNonNull(donationDate);
             this.donationDate = donationDate;
         }
 
