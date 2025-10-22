@@ -28,7 +28,7 @@ public class AddDonationCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a donation record for "
             + "the person identified by their index number in the displayed person list.\n"
             + "Parameters: "
-            + PREFIX_PERSON_INDEX_ONE_BASED + "PERSON INDEX ONE BASED "
+            + PREFIX_PERSON_INDEX_ONE_BASED + "PERSON INDEX (must be positive integer) "
             + PREFIX_DONATION_DATE + "DONATION DATE (DD-MM-YYYY) "
             + PREFIX_BLOOD_VOLUME + "BLOOD VOLUME (IN MILLILITERS) "
             + "Example: " + COMMAND_WORD + " "
