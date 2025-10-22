@@ -9,7 +9,7 @@ import bloodnet.commons.core.GuiSettings;
 import bloodnet.commons.core.LogsCenter;
 import bloodnet.commons.exceptions.DataLoadingException;
 import bloodnet.logic.commands.Command;
-import bloodnet.logic.commands.CommandResult;
+import bloodnet.logic.commands.InputResponse;
 import bloodnet.logic.commands.commandsessions.CommandSession;
 import bloodnet.logic.commands.commandsessions.exceptions.TerminalSessionStateException;
 import bloodnet.logic.commands.exceptions.CommandException;
@@ -64,32 +64,32 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
+    public InputResponse handle(String input) throws CommandException, ParseException {
+        logger.info("----------------[USER COMMAND][" + input + "]");
 
         if (currentSession == null) {
-            Command command = bloodNetParser.parseCommand(commandText);
+            Command command = bloodNetParser.parseCommand(input);
             this.currentSession = command.createSession(model);
         }
 
         assert this.currentSession != null;
 
-        return advanceCurrentSession(commandText);
+        return advanceCurrentSession(input);
     }
 
-    private CommandResult advanceCurrentSession(String input) throws CommandException {
-        CommandResult result;
+    private InputResponse advanceCurrentSession(String input) throws CommandException {
+        InputResponse response;
         try {
-            result = currentSession.handle(input);
+            response = currentSession.handle(input);
         } catch (TerminalSessionStateException e) {
             currentSession = null;
-            result = new CommandResult(TERMINAL_COMMAND_SESSION_STATE_ERROR_MESSAGE);
+            response = new InputResponse(TERMINAL_COMMAND_SESSION_STATE_ERROR_MESSAGE);
         }
         if (currentSession != null && currentSession.isDone()) {
             currentSession = null;
             saveBloodNetSafely();
         }
-        return result;
+        return response;
     }
 
     private void saveBloodNetSafely() throws CommandException {

@@ -66,7 +66,7 @@ public class EditCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public InputResponse execute(Model model) throws CommandException {
         Person personToEdit = getPersonToEdit(model);
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
@@ -76,7 +76,7 @@ public class EditCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
+        return new InputResponse(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
 
     /**
