@@ -15,8 +15,7 @@ public abstract class Command {
      * Create a command session to handle this command.
      *
      * @param model {@code Model} which the command should operate on.
-     * @return a {@code CommandSession} that will manage user interaction of the
-     *         command.
+     * @return a {@code CommandSession} that will manage user interaction of the command.
      * @throws CommandException If an error occurs during session creation.
      */
     public CommandSession createSession(Model model) throws CommandException {

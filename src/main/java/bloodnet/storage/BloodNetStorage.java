@@ -33,6 +33,7 @@ public interface BloodNetStorage {
 
     /**
      * Saves the given {@link ReadOnlyBloodNet} to the storage.
+     *
      * @param bloodNet cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */

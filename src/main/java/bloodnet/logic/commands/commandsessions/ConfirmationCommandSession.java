@@ -47,24 +47,23 @@ public class ConfirmationCommandSession implements CommandSession {
         },
         DONE {
             @Override
-            Response handle(ConfirmationCommandSession session, String action, String input)
-                    throws TerminalSessionStateException {
+            Response handle(ConfirmationCommandSession session, String action,
+                            String input) throws TerminalSessionStateException {
                 throw new TerminalSessionStateException();
             }
         };
 
-        abstract Response handle(ConfirmationCommandSession session, String action, String input)
-                throws CommandException, TerminalSessionStateException;
-
+        abstract Response handle(ConfirmationCommandSession session,
+                                 String action, String input) throws CommandException, TerminalSessionStateException;
     }
 
     private record Response(State nextState, CommandResult result) {
-    };
+    }
 
     public static final String MESSAGE_SEEK_CONFIRMATION =
-            "Are you sure you want to %s? This action is not reversible.";
+            "Are you sure you want to %s? This action is not reversible.\nKey in either 'yes' or 'no'.";
     public static final String MESSAGE_INVALID_INPUT =
-            "Please response with 'yes' or 'no'. Are you sure you want to %s?";
+            "Please respond with either 'yes' or 'no'. Are you sure you want to %s?";
     public static final String MESSAGE_CANCELLED = "Operation cancelled. Did not %s.";
 
     private State currentState = State.INITIAL;

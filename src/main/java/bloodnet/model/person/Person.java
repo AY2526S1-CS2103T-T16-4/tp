@@ -76,7 +76,7 @@ public class Person {
         }
 
         return otherPerson != null
-            && (otherPerson.getName().equals(getName()) && otherPerson.getPhone().equals(getPhone()));
+                && (otherPerson.getName().equals(getName()) && otherPerson.getPhone().equals(getPhone()));
     }
 
     /**
@@ -96,10 +96,10 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
-            && phone.equals(otherPerson.phone)
-            && email.equals(otherPerson.email)
-            && bloodType.equals(otherPerson.bloodType)
-            && dateOfBirth.equals(otherPerson.dateOfBirth);
+                && phone.equals(otherPerson.phone)
+                && email.equals(otherPerson.email)
+                && bloodType.equals(otherPerson.bloodType)
+                && dateOfBirth.equals(otherPerson.dateOfBirth);
     }
 
     @Override
@@ -111,13 +111,13 @@ public class Person {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-            .add("id", id)
-            .add("name", name)
-            .add("phone", phone)
-            .add("email", email)
-            .add("bloodType", bloodType)
-            .add("dateOfBirth", dateOfBirth)
-            .toString();
+                .add("id", id)
+                .add("name", name)
+                .add("phone", phone)
+                .add("email", email)
+                .add("bloodType", bloodType)
+                .add("dateOfBirth", dateOfBirth)
+                .toString();
     }
 
 }

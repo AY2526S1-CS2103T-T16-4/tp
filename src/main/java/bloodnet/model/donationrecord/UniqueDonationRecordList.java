@@ -29,7 +29,7 @@ public class UniqueDonationRecordList implements Iterable<DonationRecord> {
 
     private final ObservableList<DonationRecord> internalList = FXCollections.observableArrayList();
     private final ObservableList<DonationRecord> internalUnmodifiableList =
-        FXCollections.unmodifiableObservableList(internalList);
+            FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent donationRecord as the given argument.
