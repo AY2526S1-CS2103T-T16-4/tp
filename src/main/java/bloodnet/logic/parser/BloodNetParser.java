@@ -13,6 +13,7 @@ import bloodnet.logic.commands.AddDonationCommand;
 import bloodnet.logic.commands.ClearCommand;
 import bloodnet.logic.commands.Command;
 import bloodnet.logic.commands.DeleteCommand;
+import bloodnet.logic.commands.DeleteDonationCommand;
 import bloodnet.logic.commands.EditCommand;
 import bloodnet.logic.commands.EditDonationCommand;
 import bloodnet.logic.commands.ExitCommand;
@@ -67,6 +68,9 @@ public class BloodNetParser {
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
+        case DeleteDonationCommand.COMMAND_WORD:
+            return new DeleteDonationCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

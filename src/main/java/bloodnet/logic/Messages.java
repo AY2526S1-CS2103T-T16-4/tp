@@ -17,6 +17,8 @@ public class Messages {
             + " which contains a list of valid commands";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
+    public static final String MESSAGE_INVALID_DONATION_DISPLAYED_INDEX =
+            "The donation record index provided is invalid";
     // Should find a more elegant way to handle plurality.
     // For the second placeholder, pass in '' if singular, 's' if plural
     public static final String MESSAGE_PEOPLE_LISTED_OVERVIEW = "%d person%s listed!";
@@ -24,6 +26,8 @@ public class Messages {
     public static final String MESSAGE_DONATIONS_LISTED_OVERVIEW = "%d donation record%s related to %s found!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
             "Multiple values specified for the following single-valued field(s): ";
+    public static final String MESSAGE_PERSON_NOT_FOUND =
+            "No person found for the given donation record.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -51,6 +55,16 @@ public class Messages {
                 .append(person.getBloodType())
                 .append("; Date Of Birth: ")
                 .append(person.getDateOfBirth());
+        return builder.toString();
+    }
+
+    /**
+     * Formats the {@code donation record} for display to the user.
+     */
+    public static String format(DonationRecord record) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Donation Date: ").append(record.getDonationDate())
+                .append("; Blood Volume: ").append(record.getBloodVolume()).append(" ml");
         return builder.toString();
     }
 
