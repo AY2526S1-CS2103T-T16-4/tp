@@ -37,9 +37,9 @@ public class EditDonationsCommand extends Command {
             + "[" + PREFIX_DONATION_DATE + "DONATION_DATE] "
             + "[" + PREFIX_BLOOD_VOLUME + "BLOOD_VOLUME] ";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_DONATION_RECORD_SUCCESS = "Edited Donation Record: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the BloodNet.";
+    public static final String MESSAGE_DUPLICATE_DONATION_RECORD = "This person already exists in the BloodNet.";
 
     private final Index index;
     private final EditDonationRecordDescriptor editDonationRecordDescriptor;
@@ -71,11 +71,11 @@ public class EditDonationsCommand extends Command {
         DonationRecord editedDonationRecord = createEditedPersonRecord(recordToEdit, editDonationRecordDescriptor);
 
         if (model.hasDonationRecord(editedDonationRecord) && !recordToEdit.isSameDonationRecord(editedDonationRecord)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_DONATION_RECORD);
         }
 
         model.setDonationRecord(recordToEdit, editedDonationRecord);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(recordToEdit,
+        return new CommandResult(String.format(MESSAGE_EDIT_DONATION_RECORD_SUCCESS, Messages.format(editedDonationRecord,
                 personRelated)));
     }
 
@@ -192,8 +192,8 @@ public class EditDonationsCommand extends Command {
         @Override
         public String toString() {
             return new ToStringBuilder(this)
-                    .add("bloodVolume", bloodVolume)
-                    .add("donationDate", donationDate)
+                    .add("bloodVolume", getBloodVolume())
+                    .add("donationDate", getDonationDate())
                     .toString();
         }
 
