@@ -20,7 +20,7 @@ import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.testutil.PersonBuilder;
 
-public class MatchingBloodTypeTest {
+public class HasBloodTypePredicateTest {
     private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
 
     @Test
@@ -28,16 +28,16 @@ public class MatchingBloodTypeTest {
         List<String> firstBloodType = Collections.singletonList("A+");
         List<String> listOfBloodTypes = Arrays.asList("B+", "O+");
 
-        MatchingBloodType firstPredicate = new MatchingBloodType(firstBloodType,
+        HasBloodTypePredicate firstPredicate = new HasBloodTypePredicate(firstBloodType,
                 model.getFilteredDonationRecordList());
-        MatchingBloodType secondPredicate = new MatchingBloodType(listOfBloodTypes,
+        HasBloodTypePredicate secondPredicate = new HasBloodTypePredicate(listOfBloodTypes,
                 model.getFilteredDonationRecordList());
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        MatchingBloodType firstPredicateCopy = new MatchingBloodType(firstBloodType,
+        HasBloodTypePredicate firstPredicateCopy = new HasBloodTypePredicate(firstBloodType,
                 model.getFilteredDonationRecordList());
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
@@ -57,7 +57,7 @@ public class MatchingBloodTypeTest {
     @Test
     public void test_personHasBloodType_returnsTrue() {
         // One keyword
-        MatchingBloodType predicate = new MatchingBloodType(Collections.singletonList("O+"),
+        HasBloodTypePredicate predicate = new HasBloodTypePredicate(Collections.singletonList("O+"),
                 model.getFilteredDonationRecordList());
         assertTrue(predicate.test(new PersonBuilder().withBloodType("O+").build()));
 
@@ -66,24 +66,24 @@ public class MatchingBloodTypeTest {
     @Test
     public void test_personDoesNotHaveBloodTypeOrHasInvalidDateOfBirth_returnsFalse() {
         // Zero keywords
-        MatchingBloodType predicate = new MatchingBloodType(Collections.emptyList(),
+        HasBloodTypePredicate predicate = new HasBloodTypePredicate(Collections.emptyList(),
                 model.getFilteredDonationRecordList());
         assertFalse(predicate.test(new PersonBuilder().withBloodType("O+").build()));
 
         // Non-matching keyword
-        predicate = new MatchingBloodType(Arrays.asList("O+"),
+        predicate = new HasBloodTypePredicate(Arrays.asList("O+"),
                 model.getFilteredDonationRecordList());
         assertFalse(predicate.test(new PersonBuilder().withBloodType("A+").build()));
 
         //individual too young
-        predicate = new MatchingBloodType(Arrays.asList("O+"),
+        predicate = new HasBloodTypePredicate(Arrays.asList("O+"),
                 model.getFilteredDonationRecordList());
         assertFalse(predicate.test(new PersonBuilder().withBloodType("O+").withDateOfBirth(
                 "08-08-2012").build()));
 
         // individual too old and never donated before
         //individual too young
-        predicate = new MatchingBloodType(Arrays.asList("O+"),
+        predicate = new HasBloodTypePredicate(Arrays.asList("O+"),
                 model.getFilteredDonationRecordList());
         assertFalse(predicate.test(new PersonBuilder().withBloodType("O+").withDateOfBirth(
                 "20-10-1964").build()));
@@ -92,10 +92,10 @@ public class MatchingBloodTypeTest {
     @Test
     public void toStringMethod() {
         List<String> keywords = List.of("bloodtype1", "bloodtype2");
-        MatchingBloodType predicate = new MatchingBloodType(keywords,
+        HasBloodTypePredicate predicate = new HasBloodTypePredicate(keywords,
                 model.getFilteredDonationRecordList());
 
-        String expected = MatchingBloodType.class.getCanonicalName() + "{bloodType=" + keywords + "}";
+        String expected = HasBloodTypePredicate.class.getCanonicalName() + "{bloodType=" + keywords + "}";
         assertEquals(expected, predicate.toString());
     }
 }

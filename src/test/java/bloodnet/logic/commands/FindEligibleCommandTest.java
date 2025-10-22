@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
-import bloodnet.model.person.MatchingBloodType;
+import bloodnet.model.person.HasBloodTypePredicate;
 import bloodnet.model.person.NameContainsKeywordsPredicate;
 
 /**
@@ -31,8 +31,8 @@ public class FindEligibleCommandTest {
     @Test
     public void equals() {
 
-        FindEligibilityCommand findFirstCommand = new FindEligibilityCommand(Collections.singletonList("O+"));
-        FindEligibilityCommand findSecondCommand = new FindEligibilityCommand(Collections.singletonList("A+"));
+        FindEligibleCommand findFirstCommand = new FindEligibleCommand(Collections.singletonList("O+"));
+        FindEligibleCommand findSecondCommand = new FindEligibleCommand(Collections.singletonList("A+"));
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));

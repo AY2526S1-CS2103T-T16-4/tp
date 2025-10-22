@@ -6,39 +6,40 @@ import java.util.List;
 
 import bloodnet.commons.util.ToStringBuilder;
 import bloodnet.logic.Messages;
+import bloodnet.model.BloodNet;
 import bloodnet.model.Model;
-import bloodnet.model.person.MatchingBloodType;
+import bloodnet.model.ReadOnlyBloodNet;
+import bloodnet.model.person.HasBloodTypePredicate;
 
 /**
  * Finds and lists all persons in BloodNet whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindEligibilityCommand extends Command {
+public class FindEligibleCommand extends Command {
 
     public static final String COMMAND_WORD = "findeligible";
+    private final BloodNet bloodNet;
+
 
     // This message will definitely be altered.
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all people who are eligible to donate "
-            + "given the provided blood type. According to the Health Sources Authority, the authority in "
-            + "charge of blood donations, states that eligible blood donors must be at least 16 years old. "
-            + "The maximum age for first-time blood donors is 1 day before their 61st birthday but users "
-            + "who have donated before can donate up to 1 day before their 66th birthday. "
-            + "Donors who have donated in the last three years are can continue donating beyond 66 years old. "
-            + "Furthermore, blood donors can only donate once every 12 weeks. \n"
+            + "given the provided blood type. Eligible first-time blood donors must be between 16 and 60 (1 day before" +
+            "their 61st birthday. "
             + "Parameters: KEYWORD [BLOOD_TYPE]...\n"
             + "Example: " + COMMAND_WORD + " O+";
 
     private final List<String> enteredBloodType;
 
-    public FindEligibilityCommand(List<String> enteredBloodType) {
+    public FindEligibleCommand(List<String> enteredBloodType, ReadOnlyBloodNet bloodNet) {
         this.enteredBloodType = enteredBloodType;
+        this.bloodNet = new BloodNet(bloodNet);
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(new MatchingBloodType(enteredBloodType,
-                model.getFilteredDonationRecordList()));
+        model.updateFilteredPersonList(new HasBloodTypePredicate(enteredBloodType,
+                this.bloodNet.getDonationRecordList()));
         int filteredPersonListSize = model.getFilteredPersonList().size();
         return new CommandResult(
                 String.format(Messages.MESSAGE_PEOPLE_LISTED_OVERVIEW,
@@ -57,7 +58,7 @@ public class FindEligibilityCommand extends Command {
             return false;
         }
 
-        FindEligibilityCommand otherFindCommand = (FindEligibilityCommand) other;
+        FindEligibleCommand otherFindCommand = (FindEligibleCommand) other;
         return enteredBloodType.equals(otherFindCommand.enteredBloodType);
     }
 

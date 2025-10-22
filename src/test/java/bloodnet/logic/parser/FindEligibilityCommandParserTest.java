@@ -10,22 +10,22 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import bloodnet.logic.commands.FindCommand;
-import bloodnet.logic.commands.FindEligibilityCommand;
+import bloodnet.logic.commands.FindEligibleCommand;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
-import bloodnet.model.person.MatchingBloodType;
+import bloodnet.model.person.HasBloodTypePredicate;
 import bloodnet.model.person.NameContainsKeywordsPredicate;
 
-public class FindEligibilityCommandParserTest {
+public class FindEligibleCommandParserTest {
     private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
 
-    private FindEligibilityCommandParser parser = new FindEligibilityCommandParser();
+    private FindEligibleCommandParser parser = new FindEligibleCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                FindEligibilityCommand.MESSAGE_USAGE));
+                FindEligibleCommand.MESSAGE_USAGE));
     }
 
 
