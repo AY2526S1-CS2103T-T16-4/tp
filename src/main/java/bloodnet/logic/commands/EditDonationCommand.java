@@ -13,8 +13,6 @@ import bloodnet.commons.core.index.Index;
 import bloodnet.commons.util.CollectionUtil;
 import bloodnet.commons.util.ToStringBuilder;
 import bloodnet.logic.Messages;
-import bloodnet.logic.commands.commandsessions.CommandSession;
-import bloodnet.logic.commands.commandsessions.ConfirmationCommandSession;
 import bloodnet.logic.commands.exceptions.CommandException;
 import bloodnet.model.Model;
 import bloodnet.model.donationrecord.BloodVolume;
@@ -39,7 +37,8 @@ public class EditDonationCommand extends Command {
 
     public static final String MESSAGE_EDIT_DONATION_RECORD_SUCCESS = "Edited Donation Record: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_DONATION_RECORD = "This donation record already exists in the BloodNet.";
+    public static final String MESSAGE_DUPLICATE_DONATION_RECORD =
+            "This donation record already exists in the BloodNet.";
 
     private final Index index;
     private final EditDonationRecordDescriptor editDonationRecordDescriptor;
@@ -72,8 +71,8 @@ public class EditDonationCommand extends Command {
 
         model.setDonationRecord(recordToEdit, editedDonationRecord);
 
-        return new CommandResult(String.format(MESSAGE_EDIT_DONATION_RECORD_SUCCESS, Messages.format(editedDonationRecord,
-                personToAddRecordFor)));
+        return new CommandResult(String.format(MESSAGE_EDIT_DONATION_RECORD_SUCCESS,
+                Messages.format(editedDonationRecord, personToAddRecordFor)));
     }
 
     /**

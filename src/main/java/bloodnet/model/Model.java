@@ -1,7 +1,6 @@
 package bloodnet.model;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.function.Predicate;
 
 import bloodnet.commons.core.GuiSettings;
