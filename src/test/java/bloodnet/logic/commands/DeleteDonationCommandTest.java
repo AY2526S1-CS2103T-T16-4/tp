@@ -22,6 +22,7 @@ import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
 import bloodnet.model.donationrecord.DonationRecord;
+import bloodnet.model.person.Person;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -33,18 +34,24 @@ public class DeleteDonationCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        DonationRecord donationToDelete = model.getFilteredDonationRecordList().get(
-                INDEX_FIRST_DONATION.getZeroBased());
+        DonationRecord donationToDelete = model.getFilteredDonationRecordList()
+                .get(INDEX_FIRST_DONATION.getZeroBased());
         DeleteDonationCommand deleteDonationCommand = new DeleteDonationCommand(INDEX_FIRST_DONATION);
 
+        Person relatedPerson = model.getFilteredPersonList().stream()
+                .filter(p -> p.getId().equals(donationToDelete.getPersonId()))
+                .findFirst()
+                .orElseThrow();
+
         String expectedMessage = String.format(DeleteDonationCommand.MESSAGE_DELETE_DONATION_SUCCESS,
-                Messages.format(donationToDelete));
+                Messages.format(donationToDelete, relatedPerson));
 
         ModelManager expectedModel = new ModelManager(model.getBloodNet(), new UserPrefs());
         expectedModel.deleteDonationRecord(donationToDelete);
 
         assertCommandSuccess(deleteDonationCommand, model, expectedMessage, expectedModel);
     }
+
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
@@ -54,23 +61,30 @@ public class DeleteDonationCommandTest {
         assertCommandFailure(deleteDonationCommand, model, Messages.MESSAGE_INVALID_DONATION_DISPLAYED_INDEX);
     }
 
+
     @Test
     public void execute_validIndexFilteredList_success() {
         showDonationRecordAtIndex(model, INDEX_FIRST_DONATION);
 
-        DonationRecord donationToDelete = model.getFilteredDonationRecordList().get(
-                INDEX_FIRST_DONATION.getZeroBased());
+        DonationRecord donationToDelete = model.getFilteredDonationRecordList()
+                .get(INDEX_FIRST_DONATION.getZeroBased());
         DeleteDonationCommand deleteDonationCommand = new DeleteDonationCommand(INDEX_FIRST_DONATION);
 
+        Person relatedPerson = model.getFilteredPersonList().stream()
+                .filter(p -> p.getId().equals(donationToDelete.getPersonId()))
+                .findFirst()
+                .orElseThrow();
+
         String expectedMessage = String.format(DeleteDonationCommand.MESSAGE_DELETE_DONATION_SUCCESS,
-                Messages.format(donationToDelete));
+                Messages.format(donationToDelete, relatedPerson));
 
         Model expectedModel = new ModelManager(model.getBloodNet(), new UserPrefs());
         expectedModel.deleteDonationRecord(donationToDelete);
-        showNoDonationRecord(expectedModel); // fix
+        showNoDonationRecord(expectedModel);
 
         assertCommandSuccess(deleteDonationCommand, model, expectedMessage, expectedModel);
     }
+
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
