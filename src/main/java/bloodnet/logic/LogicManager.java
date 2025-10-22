@@ -84,6 +84,14 @@ public class LogicManager implements Logic {
         } catch (TerminalSessionStateException e) {
             currentSession = null;
             result = new CommandResult(TERMINAL_COMMAND_SESSION_STATE_ERROR_MESSAGE);
+        } catch (CommandException e) {
+            // If a CommandException is thrown upon calling currentSession.handle(input),
+            // the current session should be ended.
+            // However, we still throw the CommandException,
+            // so that the CommandBox's text does not get reset to an empty String.
+            // Refer to CommandBox::handleCommandEntered to better understand this.
+            currentSession = null;
+            throw e;
         }
         if (currentSession != null && currentSession.isDone()) {
             currentSession = null;

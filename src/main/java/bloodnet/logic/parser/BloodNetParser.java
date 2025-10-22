@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import bloodnet.commons.core.LogsCenter;
 import bloodnet.logic.commands.AddCommand;
+import bloodnet.logic.commands.AddDonationCommand;
 import bloodnet.logic.commands.ClearCommand;
 import bloodnet.logic.commands.Command;
 import bloodnet.logic.commands.DeleteCommand;
@@ -78,6 +79,9 @@ public class BloodNetParser {
 
         case FindDonationsCommand.COMMAND_WORD:
             return new FindDonationsCommandParser().parse(arguments);
+
+        case AddDonationCommand.COMMAND_WORD:
+            return new AddDonationCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
