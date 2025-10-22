@@ -1,21 +1,14 @@
 package bloodnet.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.nio.file.Path;
-import java.util.List;
 import java.util.UUID;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import bloodnet.commons.core.GuiSettings;
 import bloodnet.commons.core.index.Index;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
-import bloodnet.model.ReadOnlyBloodNet;
-import bloodnet.model.ReadOnlyUserPrefs;
 import bloodnet.model.donationrecord.BloodVolume;
 import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.donationrecord.DonationRecord;
@@ -25,9 +18,6 @@ import bloodnet.model.person.Email;
 import bloodnet.model.person.Name;
 import bloodnet.model.person.Person;
 import bloodnet.model.person.Phone;
-import bloodnet.testutil.TypicalPersons;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class EditDonationCommandTest {
 
@@ -62,8 +52,9 @@ public class EditDonationCommandTest {
         Person p = new Person(UUID.fromString("d21831a7-8eec-4c33-ab00-fa74b8c822f1"),
                 new Name("Sally"), new Phone("12345678"), new Email("x@example.com"),
                 new BloodType("A+"), new DateOfBirth("02-02-2001"));
-        modelStub.addDonationRecord(new DonationRecord(UUID.fromString("3a8590f5-c86b-418a-82b5-7d65fc5602e4")
-        , UUID.fromString("d21831a7-8eec-4c33-ab00-fa74b8c822f1"), new DonationDate("02-02-2020") ,
+        modelStub.addDonationRecord(new DonationRecord(UUID.fromString(
+                "3a8590f5-c86b-418a-82b5-7d65fc5602e4"),
+                UUID.fromString("d21831a7-8eec-4c33-ab00-fa74b8c822f1"), new DonationDate("02-02-2020") ,
                 new BloodVolume("500")));
         modelStub.addPerson(p);
         Index indexStub = Index.fromZeroBased(0);
@@ -118,7 +109,7 @@ public class EditDonationCommandTest {
     }
 
     @Test
-    public void test_CorrectPerson_forDonationRecord() {
+    public void test_correctPerson_forDonationRecord() {
         BloodVolume bloodVolumeStub = new BloodVolume("300");
         DonationDate donationDateStub = new DonationDate("01-01-2025");
         EditDonationCommand.EditDonationRecordDescriptor descriptorStub =
@@ -205,5 +196,5 @@ public class EditDonationCommandTest {
     }
 
 
-   }
+}
 
