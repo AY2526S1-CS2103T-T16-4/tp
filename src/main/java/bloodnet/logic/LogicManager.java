@@ -84,6 +84,11 @@ public class LogicManager implements Logic {
         } catch (TerminalSessionStateException e) {
             currentSession = null;
             result = new CommandResult(TERMINAL_COMMAND_SESSION_STATE_ERROR_MESSAGE);
+        } catch (CommandException e) {
+            // if a CommandException is thrown upon calling currentSession.handle(input),
+            // it should be caught here, and the current session should be ended
+            currentSession = null;
+            result = new CommandResult(e.getMessage());
         }
         if (currentSession != null && currentSession.isDone()) {
             currentSession = null;
