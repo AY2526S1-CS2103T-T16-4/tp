@@ -19,6 +19,7 @@ Class "<<interface>>\nBloodNetStorage" as BloodNetStorage
 Class JsonBloodNetStorage
 Class JsonSerializableBloodNet
 Class JsonAdaptedPerson
+Class JsonAdaptedDonationRecord
 }
 
 }
@@ -37,5 +38,6 @@ JsonUserPrefsStorage .up.|> UserPrefsStorage
 JsonBloodNetStorage .up.|> BloodNetStorage
 JsonBloodNetStorage ..> JsonSerializableBloodNet
 JsonSerializableBloodNet --> "*" JsonAdaptedPerson
+JsonSerializableBloodNet --> "*" JsonAdaptedDonationRecord
 
 @enduml
