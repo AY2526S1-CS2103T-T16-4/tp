@@ -28,12 +28,12 @@ public class EditDonationCommand extends Command {
 
     public static final String COMMAND_WORD = "editdonation";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the blood donation records of the person "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the blood donation records of the donor "
             + "identified by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_DONATION_DATE + "DONATION_DATE] "
-            + "[" + PREFIX_BLOOD_VOLUME + "BLOOD_VOLUME] ";
+            + "[" + PREFIX_DONATION_DATE + "DONATION_DATE (dd-mm-yyyy) ] "
+            + "[" + PREFIX_BLOOD_VOLUME + "BLOOD_VOLUME] (in millimeters";
 
     public static final String MESSAGE_EDIT_DONATION_RECORD_SUCCESS = "Edited Donation Record: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -171,12 +171,10 @@ public class EditDonationCommand extends Command {
         }
 
         public void setBloodVolume(BloodVolume bloodVolume) {
-            requireNonNull(bloodVolume);
             this.bloodVolume = bloodVolume;
         }
 
         public void setDonationDate(DonationDate donationDate) {
-            requireNonNull(donationDate);
             this.donationDate = donationDate;
         }
 

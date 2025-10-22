@@ -23,26 +23,6 @@ import javafx.collections.ObservableList;
 public class EditDonationCommandTest {
 
     @Test
-    public void constructor_nullBloodVolume_throwsNullPointerException() {
-        Index indexStub = Index.fromZeroBased(0);
-        DonationDate donationDateStub = new DonationDate("01-01-2025");
-        EditDonationCommand.EditDonationRecordDescriptor descriptorStub =
-                new EditDonationCommand.EditDonationRecordDescriptor();
-        descriptorStub.setDonationDate(donationDateStub);
-        assertThrows(NullPointerException.class, () -> descriptorStub.setBloodVolume(null));
-    }
-
-    @Test
-    public void constructor_nullDonationDate_throwsNullPointerException() {
-        Index indexStub = Index.fromZeroBased(0);
-        BloodVolume bloodVolumeStub = new BloodVolume("300");
-        EditDonationCommand.EditDonationRecordDescriptor descriptorStub =
-                new EditDonationCommand.EditDonationRecordDescriptor();
-        descriptorStub.setBloodVolume(bloodVolumeStub);
-        assertThrows(NullPointerException.class, () -> descriptorStub.setDonationDate(null));
-    }
-
-    @Test
     public void constructor_validArguments_success() {
         Index indexStub = Index.fromZeroBased(0);
         BloodVolume bloodVolumeStub = new BloodVolume("300");
@@ -66,6 +46,7 @@ public class EditDonationCommandTest {
         EditDonationCommand edit = new EditDonationCommand(indexStub, descriptorStub);
         assertThrows(NullPointerException.class, () -> edit.execute(null));
     }
+
 
 
     @Test
@@ -141,6 +122,7 @@ public class EditDonationCommandTest {
         assert(result.contains("donationDate"));
         assert(result.contains("bloodVolume"));
     }
+
 
     /**
      * A default model stub that have all of the methods failing.
