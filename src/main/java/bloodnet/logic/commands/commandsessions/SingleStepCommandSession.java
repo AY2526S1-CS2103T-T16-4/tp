@@ -9,7 +9,7 @@ import bloodnet.model.Model;
 /**
  * A command session that executes a command in a single step without requiring
  * additional user input.
- *
+ * <p>
  * This is the default command session created for each command unless otherwise
  * specified.
  */

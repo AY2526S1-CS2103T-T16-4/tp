@@ -6,7 +6,7 @@ import bloodnet.model.person.Person;
 /**
  * A utility class to help with building bloodNet objects.
  * Example usage: <br>
- *     {@code BloodNet ab = new BloodNetBuilder().withPerson("John", "Doe").build();}
+ * {@code BloodNet ab = new BloodNetBuilder().withPerson("John", "Doe").build();}
  */
 public class BloodNetBuilder {
 

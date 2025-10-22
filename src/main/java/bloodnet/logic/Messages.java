@@ -13,7 +13,7 @@ import bloodnet.model.person.Person;
 public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command.\nKey in 'help' to access the user guide,"
-        + " which contains a list of valid commands";
+            + " which contains a list of valid commands";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     // Should find a more elegant way to handle plurality.
@@ -22,7 +22,7 @@ public class Messages {
     // For the second placeholder, pass in '' if singular, 's' if plural
     public static final String MESSAGE_DONATIONS_LISTED_OVERVIEW = "%d donation record%s related to %s found!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
-        "Multiple values specified for the following single-valued field(s): ";
+            "Multiple values specified for the following single-valued field(s): ";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -31,7 +31,7 @@ public class Messages {
         assert duplicatePrefixes.length > 0;
 
         Set<String> duplicateFields =
-            Stream.of(duplicatePrefixes).map(Prefix::toString).collect(Collectors.toSet());
+                Stream.of(duplicatePrefixes).map(Prefix::toString).collect(Collectors.toSet());
 
         return MESSAGE_DUPLICATE_FIELDS + String.join(" ", duplicateFields);
     }
@@ -42,14 +42,14 @@ public class Messages {
     public static String format(Person person) {
         final StringBuilder builder = new StringBuilder();
         builder.append(person.getName())
-            .append("; Phone: ")
-            .append(person.getPhone())
-            .append("; Email: ")
-            .append(person.getEmail())
-            .append("; Blood Type: ")
-            .append(person.getBloodType())
-            .append("; Date Of Birth: ")
-            .append(person.getDateOfBirth());
+                .append("; Phone: ")
+                .append(person.getPhone())
+                .append("; Email: ")
+                .append(person.getEmail())
+                .append("; Blood Type: ")
+                .append(person.getBloodType())
+                .append("; Date Of Birth: ")
+                .append(person.getDateOfBirth());
         return builder.toString();
     }
 

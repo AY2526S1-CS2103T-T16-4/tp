@@ -48,8 +48,8 @@ public class BloodNetTest {
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
         Person editedAlice = new PersonBuilder(ALICE)
-            .withBloodType(VALID_BLOOD_TYPE_BOB)
-            .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
+                .withBloodType(VALID_BLOOD_TYPE_BOB)
+                .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         List<DonationRecord> newDonationRecords = List.of();
         BloodNetStub newData = new BloodNetStub(newPersons, newDonationRecords);
@@ -77,8 +77,8 @@ public class BloodNetTest {
     public void hasPerson_personWithSameIdentityFieldsInBloodNet_returnsTrue() {
         bloodNet.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE)
-            .withBloodType(VALID_BLOOD_TYPE_BOB)
-            .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
+                .withBloodType(VALID_BLOOD_TYPE_BOB)
+                .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
         assertTrue(bloodNet.hasPerson(editedAlice));
     }
 
@@ -90,10 +90,10 @@ public class BloodNetTest {
     @Test
     public void toStringMethod() {
         String expected = BloodNet.class.getCanonicalName()
-            + "{"
-            + "persons=" + bloodNet.getPersonList()
-            + ", donationRecords=" + bloodNet.getDonationRecordList()
-            + "}";
+                + "{"
+                + "persons=" + bloodNet.getPersonList()
+                + ", donationRecords=" + bloodNet.getDonationRecordList()
+                + "}";
         assertEquals(expected, bloodNet.toString());
     }
 

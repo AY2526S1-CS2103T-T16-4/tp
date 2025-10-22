@@ -65,7 +65,7 @@ class JsonAdaptedDonationRecord {
 
         if (donationDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                DonationDate.class.getSimpleName()));
+                    DonationDate.class.getSimpleName()));
         }
         if (!DonationDate.isValidDonationDate(donationDate)) {
             throw new IllegalValueException(DonationDate.MESSAGE_CONSTRAINTS);
@@ -74,7 +74,7 @@ class JsonAdaptedDonationRecord {
 
         if (bloodVolume == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                BloodVolume.class.getSimpleName()));
+                    BloodVolume.class.getSimpleName()));
         }
         if (!BloodVolume.isValidBloodVolume(bloodVolume)) {
             throw new IllegalValueException(BloodVolume.MESSAGE_CONSTRAINTS);
