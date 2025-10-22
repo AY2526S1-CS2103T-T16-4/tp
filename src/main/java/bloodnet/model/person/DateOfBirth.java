@@ -19,7 +19,8 @@ public class DateOfBirth {
      * Blood donation requiremenets taken from: https://www.hsa.gov.sg/blood-donation/can-i-donate
      */
     public static final String MESSAGE_CONSTRAINTS =
-            "The date of birth should be of the format DD-MM-YYYY, not in the future, and not more than 130 years ago.";
+            "The date of birth should be of the format DD-MM-YYYY, not in the future, "
+                    + " and not more than 130 years ago from today.";
     public static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(STRICT);
     /**
