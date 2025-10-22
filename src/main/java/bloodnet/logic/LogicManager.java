@@ -29,11 +29,11 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_FORMAT = "Could not save data due to the following error: %s";
 
     public static final String FILE_OPS_PERMISSION_ERROR_FORMAT =
-        "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
+            "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
 
     public static final String TERMINAL_COMMAND_SESSION_STATE_ERROR_MESSAGE =
-        "An error has occured under the hood! \n"
-            + "Your previous command was likely not properly captured. Please try again.";
+            "An error has occured under the hood! \n"
+                    + "Your previous command was likely not properly captured. Please try again.";
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
@@ -84,6 +84,14 @@ public class LogicManager implements Logic {
         } catch (TerminalSessionStateException e) {
             currentSession = null;
             result = new CommandResult(TERMINAL_COMMAND_SESSION_STATE_ERROR_MESSAGE);
+        } catch (CommandException e) {
+            // If a CommandException is thrown upon calling currentSession.handle(input),
+            // the current session should be ended.
+            // However, we still throw the CommandException,
+            // so that the CommandBox's text does not get reset to an empty String.
+            // Refer to CommandBox::handleCommandEntered to better understand this.
+            currentSession = null;
+            throw e;
         }
         if (currentSession != null && currentSession.isDone()) {
             currentSession = null;

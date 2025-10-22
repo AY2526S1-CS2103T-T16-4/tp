@@ -128,6 +128,26 @@ public class LogicManagerTest {
         assertEquals("Success", result.getFeedbackToUser());
     }
 
+    @Test
+    public void execute_commandExceptionDuringSessionHandle_resetsSession() throws CommandException, ParseException {
+        JsonBloodNetStorage bloodNetStorage = new JsonBloodNetStorage(temporaryFolder.resolve("bloodnet.json"));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        StorageManager storage = new StorageManager(bloodNetStorage, userPrefsStorage);
+        Logic logic = new LogicManager(model, storage, new BloodNetParserStub());
+
+        CommandResult result;
+        try {
+            result = logic.execute("throw command exception");
+            throw new AssertionError("Should throw a CommandException");
+        } catch (CommandException e) {
+            assertEquals("Command exception occurred", e.getMessage());
+        }
+
+        // Verify that session is cleaned up after CommandException and
+        // subsequent execute behaves as a fresh command, not session input
+        result = logic.execute("");
+        assertEquals("Success", result.getFeedbackToUser());
+    }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
@@ -144,10 +164,11 @@ public class LogicManagerTest {
      * - no exceptions are thrown <br>
      * - the feedback message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
-            Model expectedModel) throws CommandException, ParseException {
+                                      Model expectedModel) throws CommandException, ParseException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
@@ -155,6 +176,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a ParseException is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertParseException(String inputCommand, String expectedMessage) {
@@ -163,6 +185,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandException(String inputCommand, String expectedMessage) {
@@ -171,10 +194,11 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that the exception is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage) {
+                                      String expectedMessage) {
         Model expectedModel = new ModelManager(model.getBloodNet(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
@@ -184,10 +208,11 @@ public class LogicManagerTest {
      * - the {@code expectedException} is thrown <br>
      * - the resulting error message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
+     *
      * @see #assertCommandSuccess(String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage, Model expectedModel) {
+                                      String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
     }
@@ -195,7 +220,7 @@ public class LogicManagerTest {
     /**
      * Tests the Logic component's handling of an {@code IOException} thrown by the Storage component.
      *
-     * @param e the exception to be thrown by the Storage component
+     * @param e               the exception to be thrown by the Storage component
      * @param expectedMessage the message expected inside exception thrown by the Logic component
      */
     private void assertCommandFailureForExceptionFromStorage(IOException e, String expectedMessage) {
@@ -239,6 +264,7 @@ public class LogicManagerTest {
             return false;
         }
     }
+
     /**
      * A Command stub that creates a session that throws TerminalSessionStateException
      */
@@ -313,9 +339,41 @@ public class LogicManagerTest {
                 return new TerminalExceptionCommandStub();
             } else if (userInput == "multi state") {
                 return new MultiStateCommandStub();
+            } else if (userInput == "throw command exception") {
+                return new CommandExceptionCommandStub();
             } else {
                 return new SuccessCommandStub();
             }
+        }
+    }
+
+    /**
+     * A CommandSession stub that throws CommandException
+     */
+    private class CommandExceptionSessionStub implements CommandSession {
+        @Override
+        public CommandResult handle(String input) throws CommandException {
+            throw new CommandException("Command exception occurred");
+        }
+
+        @Override
+        public boolean isDone() {
+            return false;
+        }
+    }
+
+    /**
+     * A Command stub that creates a session that throws CommandException
+     */
+    private class CommandExceptionCommandStub extends Command {
+        @Override
+        public CommandSession createSession(Model model) {
+            return new CommandExceptionSessionStub();
+        }
+
+        @Override
+        public CommandResult execute(Model model) {
+            throw new AssertionError("This method should not be called.");
         }
     }
 }

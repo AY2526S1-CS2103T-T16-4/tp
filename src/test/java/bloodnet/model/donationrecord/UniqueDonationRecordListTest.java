@@ -44,8 +44,8 @@ public class UniqueDonationRecordListTest {
     public void contains_donationRecordWithSameIdentityFieldsInList_returnsTrue() {
         uniqueDonationRecordList.add(ALICE_DONATION_RECORD);
         DonationRecord editedAlice = new DonationRecordBuilder(ALICE_DONATION_RECORD)
-            .withBloodVolume(VALID_BLOOD_VOLUME_AMY)
-            .build();
+                .withBloodVolume(VALID_BLOOD_VOLUME_AMY)
+                .build();
         assertTrue(uniqueDonationRecordList.contains(editedAlice));
     }
 
@@ -58,25 +58,25 @@ public class UniqueDonationRecordListTest {
     public void add_duplicateDonationRecord_throwsDuplicateDonationRecordException() {
         uniqueDonationRecordList.add(ALICE_DONATION_RECORD);
         assertThrows(DuplicateDonationRecordException.class, () -> uniqueDonationRecordList
-            .add(ALICE_DONATION_RECORD));
+                .add(ALICE_DONATION_RECORD));
     }
 
     @Test
     public void setDonationRecord_nullTargetDonationRecord_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueDonationRecordList
-            .setDonationRecord(null, ALICE_DONATION_RECORD));
+                .setDonationRecord(null, ALICE_DONATION_RECORD));
     }
 
     @Test
     public void setDonationRecord_nullEditedDonationRecord_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueDonationRecordList
-            .setDonationRecord(ALICE_DONATION_RECORD, null));
+                .setDonationRecord(ALICE_DONATION_RECORD, null));
     }
 
     @Test
     public void setDonationRecord_targetDonationRecordNotInList_throwsDonationRecordNotFoundException() {
         assertThrows(DonationRecordNotFoundException.class, () -> uniqueDonationRecordList
-            .setDonationRecord(ALICE_DONATION_RECORD, ALICE_DONATION_RECORD));
+                .setDonationRecord(ALICE_DONATION_RECORD, ALICE_DONATION_RECORD));
     }
 
     @Test
@@ -92,8 +92,8 @@ public class UniqueDonationRecordListTest {
     public void setDonationRecord_editedDonationRecordHasSameIdentity_success() {
         uniqueDonationRecordList.add(ALICE_DONATION_RECORD);
         DonationRecord editedAlice = new DonationRecordBuilder(ALICE_DONATION_RECORD)
-            .withDonationDate(VALID_DONATION_DATE_BOB).withBloodVolume(CommandTestUtil.VALID_BLOOD_VOLUME_BOB)
-            .build();
+                .withDonationDate(VALID_DONATION_DATE_BOB).withBloodVolume(CommandTestUtil.VALID_BLOOD_VOLUME_BOB)
+                .build();
         uniqueDonationRecordList.setDonationRecord(ALICE_DONATION_RECORD, editedAlice);
         UniqueDonationRecordList expectedUniqueDonationRecordList = new UniqueDonationRecordList();
         expectedUniqueDonationRecordList.add(editedAlice);
@@ -114,7 +114,7 @@ public class UniqueDonationRecordListTest {
         uniqueDonationRecordList.add(ALICE_DONATION_RECORD);
         uniqueDonationRecordList.add(BENSON_DONATION_RECORD);
         assertThrows(DuplicateDonationRecordException.class, () -> uniqueDonationRecordList.setDonationRecord(
-            ALICE_DONATION_RECORD, BENSON_DONATION_RECORD));
+                ALICE_DONATION_RECORD, BENSON_DONATION_RECORD));
     }
 
     @Test
@@ -125,7 +125,7 @@ public class UniqueDonationRecordListTest {
     @Test
     public void remove_donationRecordDoesNotExist_throwsDonationRecordNotFoundException() {
         assertThrows(DonationRecordNotFoundException.class, () -> uniqueDonationRecordList
-            .remove(ALICE_DONATION_RECORD));
+                .remove(ALICE_DONATION_RECORD));
     }
 
     @Test
@@ -139,7 +139,7 @@ public class UniqueDonationRecordListTest {
     @Test
     public void setDonationRecords_nullUniqueDonationRecordList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueDonationRecordList
-            .setDonationRecords((UniqueDonationRecordList) null));
+                .setDonationRecords((UniqueDonationRecordList) null));
     }
 
     @Test
@@ -154,7 +154,7 @@ public class UniqueDonationRecordListTest {
     @Test
     public void setDonationRecords_nullList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueDonationRecordList
-            .setDonationRecords((List<DonationRecord>) null));
+                .setDonationRecords((List<DonationRecord>) null));
     }
 
     @Test
@@ -170,20 +170,20 @@ public class UniqueDonationRecordListTest {
     @Test
     public void setDonationRecords_listWithDuplicateDonationRecords_throwsDuplicateDonationRecordException() {
         List<DonationRecord> listWithDuplicateDonationRecords = Arrays.asList(ALICE_DONATION_RECORD,
-            ALICE_DONATION_RECORD);
+                ALICE_DONATION_RECORD);
         assertThrows(DuplicateDonationRecordException.class, () -> uniqueDonationRecordList
-            .setDonationRecords(listWithDuplicateDonationRecords));
+                .setDonationRecords(listWithDuplicateDonationRecords));
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> uniqueDonationRecordList
-            .asUnmodifiableObservableList().remove(0));
+                .asUnmodifiableObservableList().remove(0));
     }
 
     @Test
     public void toStringMethod() {
         assertEquals(uniqueDonationRecordList.asUnmodifiableObservableList().toString(),
-            uniqueDonationRecordList.toString());
+                uniqueDonationRecordList.toString());
     }
 }

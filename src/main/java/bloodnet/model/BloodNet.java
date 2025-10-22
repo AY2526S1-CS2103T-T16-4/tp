@@ -154,9 +154,9 @@ public class BloodNet implements ReadOnlyBloodNet {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-            .add("persons", persons)
-            .add("donationRecords", donationRecords)
-            .toString();
+                .add("persons", persons)
+                .add("donationRecords", donationRecords)
+                .toString();
     }
 
     @Override
@@ -182,7 +182,7 @@ public class BloodNet implements ReadOnlyBloodNet {
 
         BloodNet otherBloodNet = (BloodNet) other;
         return persons.equals(otherBloodNet.persons)
-            && donationRecords.equals(otherBloodNet.donationRecords);
+                && donationRecords.equals(otherBloodNet.donationRecords);
     }
 
     @Override
