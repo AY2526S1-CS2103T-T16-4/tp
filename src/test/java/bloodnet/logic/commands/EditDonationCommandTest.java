@@ -1,8 +1,11 @@
 package bloodnet.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -10,12 +13,18 @@ import org.junit.jupiter.api.Test;
 import bloodnet.commons.core.GuiSettings;
 import bloodnet.commons.core.index.Index;
 import bloodnet.model.Model;
+import bloodnet.model.ModelManager;
 import bloodnet.model.ReadOnlyBloodNet;
 import bloodnet.model.ReadOnlyUserPrefs;
 import bloodnet.model.donationrecord.BloodVolume;
 import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.donationrecord.DonationRecord;
+import bloodnet.model.person.BloodType;
+import bloodnet.model.person.DateOfBirth;
+import bloodnet.model.person.Email;
+import bloodnet.model.person.Name;
 import bloodnet.model.person.Person;
+import bloodnet.model.person.Phone;
 import bloodnet.testutil.TypicalPersons;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,7 +56,27 @@ public class EditDonationCommandTest {
         assertThrows(NullPointerException.class, () -> edit.execute(null));
     }
 
-
+    @Test
+    public void execute_validArguments_success() throws Exception {
+        Model modelStub = new ModelManager();
+        Person p = new Person(UUID.fromString("d21831a7-8eec-4c33-ab00-fa74b8c822f1"),
+                new Name("Sally"), new Phone("12345678"), new Email("x@example.com"),
+                new BloodType("A+"), new DateOfBirth("02-02-2001"));
+        modelStub.addDonationRecord(new DonationRecord(UUID.fromString("3a8590f5-c86b-418a-82b5-7d65fc5602e4")
+        , UUID.fromString("d21831a7-8eec-4c33-ab00-fa74b8c822f1"), new DonationDate("02-02-2020") ,
+                new BloodVolume("500")));
+        modelStub.addPerson(p);
+        Index indexStub = Index.fromZeroBased(0);
+        DonationDate donationDateStub = new DonationDate("01-01-2025");
+        BloodVolume bloodVolumeStub = new BloodVolume("450");
+        EditDonationCommand.EditDonationRecordDescriptor edit =
+                new EditDonationCommand.EditDonationRecordDescriptor();
+        edit.setDonationDate(donationDateStub);
+        edit.setBloodVolume(bloodVolumeStub);
+        EditDonationCommand editDonationCommand =
+                new EditDonationCommand(indexStub, edit);
+        CommandResult commandResult = editDonationCommand.execute(modelStub);
+    }
 
     @Test
     public void equals_sameObject_returnsTrue() {
@@ -75,6 +104,21 @@ public class EditDonationCommandTest {
 
     @Test
     public void equals_sameValuesInDescriptor_returnsTrue() {
+        BloodVolume bloodVolumeStub = new BloodVolume("300");
+        DonationDate donationDateStub = new DonationDate("01-01-2025");
+        EditDonationCommand.EditDonationRecordDescriptor descriptorStub =
+                new EditDonationCommand.EditDonationRecordDescriptor();
+        descriptorStub.setBloodVolume(bloodVolumeStub);
+        descriptorStub.setDonationDate(donationDateStub);
+        EditDonationCommand.EditDonationRecordDescriptor secondDescriptorStub =
+                new EditDonationCommand.EditDonationRecordDescriptor();
+        secondDescriptorStub.setBloodVolume(bloodVolumeStub);
+        secondDescriptorStub.setDonationDate(donationDateStub);
+        assert(descriptorStub.equals(secondDescriptorStub));
+    }
+
+    @Test
+    public void test_CorrectPerson_forDonationRecord() {
         BloodVolume bloodVolumeStub = new BloodVolume("300");
         DonationDate donationDateStub = new DonationDate("01-01-2025");
         EditDonationCommand.EditDonationRecordDescriptor descriptorStub =
@@ -161,134 +205,5 @@ public class EditDonationCommandTest {
     }
 
 
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
+   }
 
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getBloodNetFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setBloodNetFilePath(Path bloodNetFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setBloodNet(ReadOnlyBloodNet newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyBloodNet getBloodNet() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addDonationRecord(DonationRecord donationRecord) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasDonationRecord(DonationRecord donationRecord) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteDonationRecord(DonationRecord target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setDonationRecord(DonationRecord target, DonationRecord editedDonationRecord) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<DonationRecord> getFilteredDonationRecordList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredDonationRecordList(Predicate<DonationRecord> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-    }
-
-    /**
-     * A Model stub that contains a single person.
-     */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
-
-        ModelStubWithPerson() {
-            this.person = TypicalPersons.ALICE;
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            return FXCollections.observableArrayList(person);
-        }
-
-        @Override
-        public boolean hasDonationRecord(DonationRecord donationRecord) {
-            return false;
-        }
-
-        @Override
-        public void addDonationRecord(DonationRecord donationRecord) {
-            // Do nothing
-        }
-    }
-}
