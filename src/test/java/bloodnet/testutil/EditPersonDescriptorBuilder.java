@@ -81,4 +81,7 @@ public class EditPersonDescriptorBuilder {
     }
 
 
+    public DonationRecordBuilder withBloodVolume(String validBloodVolumeAmy) {
+        return null;
+    }
 }

@@ -1,0 +1,153 @@
+package bloodnet.logic.parser;
+
+import static bloodnet.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static bloodnet.logic.commands.CommandTestUtil.DONATION_DATE_DESC_AMY;
+import static bloodnet.logic.commands.CommandTestUtil.DONATION_DATE_DESC_BOB;
+import static bloodnet.logic.commands.CommandTestUtil.BLOOD_VOLUME_DESC_AMY;
+import static bloodnet.logic.commands.CommandTestUtil.BLOOD_VOLUME_DESC_BOB;
+
+import static bloodnet.logic.commands.CommandTestUtil.INVALID_BLOOD_VOLUME_DESC;
+import static bloodnet.logic.commands.CommandTestUtil.INVALID_DONATION_DATE_DESC;
+import static bloodnet.logic.commands.CommandTestUtil.INVALID_BLOOD_VOLUME;
+import static bloodnet.logic.commands.CommandTestUtil.INVALID_DONATION_DATE;
+import static bloodnet.logic.commands.CommandTestUtil.VALID_BLOOD_TYPE_AMY;
+import static bloodnet.logic.commands.CommandTestUtil.VALID_BLOOD_VOLUME_AMY;
+import static bloodnet.logic.commands.CommandTestUtil.VALID_BLOOD_VOLUME_BOB;
+import static bloodnet.logic.commands.CommandTestUtil.VALID_DATE_OF_BIRTH_AMY;
+import static bloodnet.logic.commands.CommandTestUtil.VALID_DONATION_DATE_AMY;
+import static bloodnet.logic.commands.CommandTestUtil.VALID_DONATION_DATE_BOB;
+import static bloodnet.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static bloodnet.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static bloodnet.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static bloodnet.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_VOLUME;
+import static bloodnet.logic.parser.CliSyntax.PREFIX_DONATION_DATE;
+import static bloodnet.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static bloodnet.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static bloodnet.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static bloodnet.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+
+import org.junit.jupiter.api.Test;
+
+import bloodnet.commons.core.index.Index;
+import bloodnet.logic.Messages;
+import bloodnet.logic.commands.EditCommand;
+import bloodnet.logic.commands.EditCommand.EditPersonDescriptor;
+import bloodnet.logic.commands.EditDonationsCommand;
+import bloodnet.model.person.BloodType;
+import bloodnet.model.person.DateOfBirth;
+import bloodnet.model.person.Email;
+import bloodnet.model.person.Name;
+import bloodnet.model.person.Phone;
+import bloodnet.testutil.DonationRecordBuilder;
+import bloodnet.testutil.EditPersonDescriptorBuilder;
+
+public class EditDonationsCommandParserTest {
+
+    private static final String MESSAGE_INVALID_FORMAT =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditDonationsCommand.MESSAGE_USAGE);
+
+    private EditCommandParser parser = new EditCommandParser();
+
+    @Test
+    public void parse_missingParts_failure() {
+        // no index specified
+        assertParseFailure(parser, VALID_BLOOD_VOLUME_AMY, MESSAGE_INVALID_FORMAT);
+
+        // no field specified
+        assertParseFailure(parser, "1", EditDonationsCommand.MESSAGE_NOT_EDITED);
+
+        // no index and no field specified
+        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
+    public void parse_invalidPreamble_failure() {
+        // negative index
+        assertParseFailure(parser, "-5" + VALID_BLOOD_VOLUME_AMY, MESSAGE_INVALID_FORMAT);
+
+        // zero index
+        assertParseFailure(parser, "0" + VALID_BLOOD_VOLUME_AMY, MESSAGE_INVALID_FORMAT);
+
+        // invalid arguments being parsed as preamble
+        assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
+
+        // invalid prefix being parsed as preamble
+        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
+    public void parse_invalidValue_failure() {
+        assertParseFailure(parser, "1" + INVALID_BLOOD_VOLUME, Name.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, "1" + INVALID_DONATION_DATE, Phone.MESSAGE_CONSTRAINTS); // invalid phone
+
+        // invalid blood volume followed by donation date
+        assertParseFailure(parser, "1" + INVALID_BLOOD_VOLUME + VALID_DONATION_DATE_AMY,
+                Phone.MESSAGE_CONSTRAINTS);
+
+        // both fields are invalid, but only the first invalid value is captured
+        assertParseFailure(parser, "1" + INVALID_BLOOD_VOLUME
+                        + INVALID_DONATION_DATE,
+                Name.MESSAGE_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_allFieldsSpecified_success() {
+        Index targetIndex = INDEX_SECOND_PERSON;
+        String userInput = targetIndex.getOneBased() + BLOOD_VOLUME_DESC_BOB
+                + DONATION_DATE_DESC_AMY;
+//come back to this one
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY)
+                .withBloodType(VALID_BLOOD_TYPE_AMY).withDateOfBirth(VALID_DATE_OF_BIRTH_AMY)
+                .build();
+        //EditDonationsCommand expectedCommand = new EditDonationsCommand(targetIndex, descriptor);
+
+      //  assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_someFieldsSpecified_success() {
+        Index targetIndex = INDEX_FIRST_PERSON;
+        String userInput = targetIndex.getOneBased() + BLOOD_VOLUME_DESC_AMY + DONATION_DATE_DESC_BOB;
+        // same thing
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_AMY).build();
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+
+    @Test
+    public void parse_multipleRepeatedFields_failure() {
+        // More extensive testing of duplicate parameter detections is done in
+        // AddCommandParserTest#parse_repeatedNonTagValue_failure()
+
+        // valid followed by invalid
+        Index targetIndex = INDEX_FIRST_PERSON;
+        String userInput = targetIndex.getOneBased() + INVALID_BLOOD_VOLUME + VALID_DONATION_DATE_BOB;
+
+        assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_BLOOD_VOLUME));
+
+        // invalid followed by valid
+        userInput = targetIndex.getOneBased() + VALID_BLOOD_VOLUME_BOB + INVALID_DONATION_DATE;
+
+        assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DONATION_DATE));
+
+        // mulltiple valid fields repeated
+        userInput = targetIndex.getOneBased() + VALID_DONATION_DATE_BOB + VALID_DONATION_DATE_AMY
+                + VALID_BLOOD_VOLUME_BOB + VALID_DONATION_DATE_AMY;
+
+        assertParseFailure(parser, userInput,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_BLOOD_VOLUME,
+                        PREFIX_DONATION_DATE));
+
+        // multiple invalid values
+        userInput = targetIndex.getOneBased() + INVALID_BLOOD_VOLUME_DESC + INVALID_DONATION_DATE_DESC;
+
+        assertParseFailure(parser, userInput,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_BLOOD_VOLUME, PREFIX_DONATION_DATE));
+    }
+
+}

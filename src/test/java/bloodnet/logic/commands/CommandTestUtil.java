@@ -1,7 +1,9 @@
 package bloodnet.logic.commands;
 
 import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_TYPE;
+import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_VOLUME;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
+import static bloodnet.logic.parser.CliSyntax.PREFIX_DONATION_DATE;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_NAME;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -37,6 +39,10 @@ public class CommandTestUtil {
     public static final String VALID_BLOOD_TYPE_BOB = "B-";
     public static final String VALID_DATE_OF_BIRTH_AMY = "01-04-1995";
     public static final String VALID_DATE_OF_BIRTH_BOB = "12-12-1992";
+    public static final String VALID_DONATION_DATE_AMY = "12-12-2024";
+    public static final String VALID_DONATION_DATE_BOB = "15-09-2025";
+    public static final String VALID_BLOOD_VOLUME_AMY = "550";
+    public static final String VALID_BLOOD_VOLUME_BOB = "410";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -48,6 +54,10 @@ public class CommandTestUtil {
     public static final String BLOOD_TYPE_DESC_BOB = " " + PREFIX_BLOOD_TYPE + VALID_BLOOD_TYPE_BOB;
     public static final String DATE_OF_BIRTH_DESC_AMY = " " + PREFIX_DATE_OF_BIRTH + VALID_DATE_OF_BIRTH_AMY;
     public static final String DATE_OF_BIRTH_DESC_BOB = " " + PREFIX_DATE_OF_BIRTH + VALID_DATE_OF_BIRTH_BOB;
+    public static final String BLOOD_VOLUME_DESC_AMY = " " + PREFIX_BLOOD_VOLUME + VALID_BLOOD_VOLUME_AMY;
+    public static final String BLOOD_VOLUME_DESC_BOB = " " + PREFIX_BLOOD_VOLUME + VALID_BLOOD_VOLUME_BOB;
+    public static final String DONATION_DATE_DESC_AMY = " " + PREFIX_DONATION_DATE + VALID_DONATION_DATE_AMY;
+    public static final String DONATION_DATE_DESC_BOB = " " + PREFIX_DONATION_DATE + VALID_DONATION_DATE_BOB;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -55,12 +65,14 @@ public class CommandTestUtil {
     public static final String INVALID_BLOOD_TYPE_DESC = " " + PREFIX_BLOOD_TYPE; // " " not allowed for blood types
     public static final String INVALID_DATE_OF_BIRTH_DESC = " "
         + PREFIX_DATE_OF_BIRTH; // " " not allowed for date of births
+    public static final String INVALID_BLOOD_VOLUME_DESC  = " "
+            + PREFIX_BLOOD_VOLUME; // " " not allowed for blood volume
+    public static final String INVALID_DONATION_DATE_DESC  = " "
+            + PREFIX_DONATION_DATE; // " " not allowed for donation date
+    public static final String INVALID_BLOOD_VOLUME = " "; // spaces not allowed
+    public static final String INVALID_DONATION_DATE = "01-01-100x"; // spaces not allowed
 
-    // Donation Record Test Values
-    public static final String VALID_DONATION_DATE_AMY = "12-12-2024";
-    public static final String VALID_DONATION_DATE_BOB = "15-09-2025";
-    public static final String VALID_BLOOD_VOLUME_AMY = "550";
-    public static final String VALID_BLOOD_VOLUME_BOB = "410";
+
 
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
