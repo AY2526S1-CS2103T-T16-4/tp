@@ -16,8 +16,6 @@ import bloodnet.commons.core.index.Index;
 import bloodnet.commons.util.CollectionUtil;
 import bloodnet.commons.util.ToStringBuilder;
 import bloodnet.logic.Messages;
-import bloodnet.logic.commands.commandsessions.CommandSession;
-import bloodnet.logic.commands.commandsessions.ConfirmationCommandSession;
 import bloodnet.logic.commands.exceptions.CommandException;
 import bloodnet.model.Model;
 import bloodnet.model.person.BloodType;
@@ -66,12 +64,6 @@ public class EditCommand extends Command {
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
-    @Override
-    public CommandSession createSession(Model model) throws CommandException {
-        Person personToEdit = getPersonToEdit(model);
-        return new ConfirmationCommandSession(COMMAND_WORD + " "
-            + personToEdit.getName(), () -> this.execute(model));
-    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

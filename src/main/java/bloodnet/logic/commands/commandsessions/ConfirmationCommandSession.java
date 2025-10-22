@@ -8,8 +8,8 @@ import bloodnet.logic.commands.exceptions.CommandException;
  * Represents a command session that requires user confirmation before
  * proceeding with an action.
  * <p>
- * This session is typically used for commands that perform irreversible
- * operations, such as deleting data, where explicit user consent is needed
+ * This session is typically used for commands that perform high-destructive
+ * operations, such as deletion, where explicit user consent is needed
  * to continue.
  * </p>
  * <p>
