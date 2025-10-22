@@ -12,17 +12,17 @@ import bloodnet.model.donationrecord.DonationRecord;
 /**
  * Tests that a {@code Person}'s {@code BloodType} matches any of the people's blood types.
  */
-public class MatchingBloodType implements Predicate<Person> {
+public class HasBloodTypePredicate implements Predicate<Person> {
     private final List<String> bloodType;
     private final List<DonationRecord> donationRecords;
 
     /**
-     * Constructs a {@code MatchingBloodType}.
+     * Constructs a {@code HasBloodTypePredicate}.
      *
      * @param bloodType A list of blood types to be matched.
      * @param donationRecords A list of donation records that are in the model.
      */
-    public MatchingBloodType(List<String> bloodType, List<DonationRecord> donationRecords) {
+    public HasBloodTypePredicate(List<String> bloodType, List<DonationRecord> donationRecords) {
         this.bloodType = bloodType;
         this.donationRecords = donationRecords;
     }
@@ -85,12 +85,12 @@ public class MatchingBloodType implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof MatchingBloodType)) {
+        if (!(other instanceof HasBloodTypePredicate)) {
             return false;
         }
 
-        MatchingBloodType otherMatchingBloodType = (MatchingBloodType) other;
-        return bloodType.equals(otherMatchingBloodType.bloodType);
+        HasBloodTypePredicate otherHasBloodTypePredicate = (HasBloodTypePredicate) other;
+        return bloodType.equals(otherHasBloodTypePredicate.bloodType);
     }
 
     @Override
