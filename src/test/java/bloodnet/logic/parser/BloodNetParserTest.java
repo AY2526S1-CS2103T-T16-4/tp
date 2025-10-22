@@ -85,6 +85,8 @@ public class BloodNetParserTest {
         assertEquals(new FindDonationsCommand(INDEX_FIRST_PERSON), command);
     }
 
+
+
     @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);

@@ -64,4 +64,11 @@ public class IndexTest {
         String expected = Index.class.getCanonicalName() + "{zeroBasedIndex=" + index.getZeroBased() + "}";
         assertEquals(expected, index.toString());
     }
+
+    @Test
+    public void toDisplayUser() {
+        Index index = Index.fromZeroBased(0);
+        String expected = "1";
+        assertEquals(expected, index.toDisplayUser());
+    }
 }

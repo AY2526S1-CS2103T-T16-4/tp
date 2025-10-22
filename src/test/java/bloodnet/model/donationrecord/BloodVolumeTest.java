@@ -31,6 +31,8 @@ public class BloodVolumeTest {
         // invalid volumes (not integers)
         assertFalse(BloodVolume.isValidBloodVolume("400.0")); // not integer
         assertFalse(BloodVolume.isValidBloodVolume("qddewr2")); // letters
+        assertFalse(BloodVolume.isValidBloodVolume("-1")); // negative number
+
 
         // valid volumes
         assertTrue(BloodVolume.isValidBloodVolume("400"));
@@ -42,6 +44,8 @@ public class BloodVolumeTest {
 
         // same values -> returns true
         assertTrue(bloodVolume.equals(new BloodVolume("420")));
+
+        // same values -> returns true
 
         // same object -> returns true
         assertTrue(bloodVolume.equals(bloodVolume));
