@@ -17,21 +17,24 @@ import bloodnet.model.UserPrefs;
 import bloodnet.testutil.PersonBuilder;
 
 public class MatchingBloodTypeTest {
-    Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
 
     @Test
     public void equals() {
         List<String> firstBloodType = Collections.singletonList("A+");
         List<String> listOfBloodTypes = Arrays.asList("B+", "O+");
 
-        MatchingBloodType firstPredicate = new MatchingBloodType(firstBloodType, model.getFilteredDonationRecordList());
-        MatchingBloodType secondPredicate = new MatchingBloodType(listOfBloodTypes, model.getFilteredDonationRecordList());
+        MatchingBloodType firstPredicate = new MatchingBloodType(firstBloodType,
+                model.getFilteredDonationRecordList());
+        MatchingBloodType secondPredicate = new MatchingBloodType(listOfBloodTypes,
+                model.getFilteredDonationRecordList());
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        MatchingBloodType firstPredicateCopy = new MatchingBloodType(firstBloodType, model.getFilteredDonationRecordList());
+        MatchingBloodType firstPredicateCopy = new MatchingBloodType(firstBloodType,
+                model.getFilteredDonationRecordList());
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
