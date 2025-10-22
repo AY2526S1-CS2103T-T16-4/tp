@@ -4,6 +4,7 @@ import static bloodnet.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_VOLUME;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_DONATION_DATE;
 import static bloodnet.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static bloodnet.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static bloodnet.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
@@ -91,5 +92,18 @@ public class EditDonationCommandParserTest {
                         PREFIX_DONATION_DATE));
     }
 
+    @Test
+    public void parse_validValues_success() {
+        Index targetIndex = Index.fromOneBased(1);
+        EditDonationCommand.EditDonationRecordDescriptor edit = new EditDonationCommand.EditDonationRecordDescriptor();
+        edit.setBloodVolume(new BloodVolume("400"));
+        edit.setDonationDate(new DonationDate("01-01-2000"));
+
+        EditDonationCommand expectedCommand = new EditDonationCommand(
+                targetIndex, edit);
+
+        assertParseSuccess(parser, "1 d/01-01-2000 v/400", expectedCommand);
+
+    }
 
 }
