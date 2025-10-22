@@ -3,8 +3,8 @@ package bloodnet.testutil;
 
 import bloodnet.logic.commands.EditDonationsCommand;
 import bloodnet.model.donationrecord.BloodVolume;
-import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.donationrecord.DonationDate;
+import bloodnet.model.donationrecord.DonationRecord;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.

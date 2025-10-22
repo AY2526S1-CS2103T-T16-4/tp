@@ -59,8 +59,8 @@ public class EditDonationsCommand extends Command {
     public CommandSession createSession(Model model) throws CommandException {
         DonationRecord recordToEdit = getDonationRecordToEdit(model);
         return new ConfirmationCommandSession("edit donations for "
-                + model.getPersonById(recordToEdit).getName() + " at index " + index.toDisplayUser(),
-                () -> this.execute(model));
+                + model.getPersonById(recordToEdit).getName() + " at index "
+                + index.toDisplayUser(), () -> this.execute(model));
     }
 
     @Override

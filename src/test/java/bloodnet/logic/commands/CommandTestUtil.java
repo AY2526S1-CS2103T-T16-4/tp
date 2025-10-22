@@ -63,11 +63,9 @@ public class CommandTestUtil {
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_BLOOD_TYPE_DESC = " " + PREFIX_BLOOD_TYPE; // " " not allowed for blood types
-    public static final String INVALID_DATE_OF_BIRTH_DESC = " "
-        + PREFIX_DATE_OF_BIRTH; // " " not allowed for date of births
-    public static final String INVALID_BLOOD_VOLUME_DESC  = " "
-            + PREFIX_BLOOD_VOLUME; // " " not allowed for blood volume
-    public static final String INVALID_DONATION_DATE_DESC  = " "
+    public static final String INVALID_DATE_OF_BIRTH_DESC = " " + PREFIX_DATE_OF_BIRTH; // " " not allowed for dob
+    public static final String INVALID_BLOOD_VOLUME_DESC = " " + PREFIX_BLOOD_VOLUME; // " " not allowed for volume
+    public static final String INVALID_DONATION_DATE_DESC = " "
             + PREFIX_DONATION_DATE; // " " not allowed for donation date
     public static final String INVALID_BLOOD_VOLUME = " "; // spaces not allowed
     public static final String INVALID_DONATION_DATE = "01-01-100x"; // spaces not allowed

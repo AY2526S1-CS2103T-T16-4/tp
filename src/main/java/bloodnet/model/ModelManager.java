@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import bloodnet.commons.core.GuiSettings;
 import bloodnet.commons.core.LogsCenter;

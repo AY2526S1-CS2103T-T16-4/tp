@@ -1,49 +1,24 @@
 package bloodnet.logic.parser;
 
 import static bloodnet.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static bloodnet.logic.commands.CommandTestUtil.DONATION_DATE_DESC_AMY;
-import static bloodnet.logic.commands.CommandTestUtil.DONATION_DATE_DESC_BOB;
 import static bloodnet.logic.commands.CommandTestUtil.BLOOD_VOLUME_DESC_AMY;
 import static bloodnet.logic.commands.CommandTestUtil.BLOOD_VOLUME_DESC_BOB;
-
+import static bloodnet.logic.commands.CommandTestUtil.DONATION_DATE_DESC_AMY;
+import static bloodnet.logic.commands.CommandTestUtil.DONATION_DATE_DESC_BOB;
 import static bloodnet.logic.commands.CommandTestUtil.INVALID_BLOOD_VOLUME_DESC;
 import static bloodnet.logic.commands.CommandTestUtil.INVALID_DONATION_DATE_DESC;
-import static bloodnet.logic.commands.CommandTestUtil.INVALID_BLOOD_VOLUME;
-import static bloodnet.logic.commands.CommandTestUtil.INVALID_DONATION_DATE;
-import static bloodnet.logic.commands.CommandTestUtil.VALID_BLOOD_TYPE_AMY;
-import static bloodnet.logic.commands.CommandTestUtil.VALID_BLOOD_VOLUME_AMY;
-import static bloodnet.logic.commands.CommandTestUtil.VALID_BLOOD_VOLUME_BOB;
-import static bloodnet.logic.commands.CommandTestUtil.VALID_DATE_OF_BIRTH_AMY;
-import static bloodnet.logic.commands.CommandTestUtil.VALID_DONATION_DATE_AMY;
-import static bloodnet.logic.commands.CommandTestUtil.VALID_DONATION_DATE_BOB;
-import static bloodnet.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static bloodnet.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static bloodnet.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static bloodnet.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_VOLUME;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_DONATION_DATE;
 import static bloodnet.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static bloodnet.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static bloodnet.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static bloodnet.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
 import org.junit.jupiter.api.Test;
 
 import bloodnet.commons.core.index.Index;
 import bloodnet.logic.Messages;
-import bloodnet.logic.commands.EditCommand;
-import bloodnet.logic.commands.EditCommand.EditPersonDescriptor;
 import bloodnet.logic.commands.EditDonationsCommand;
 import bloodnet.model.donationrecord.BloodVolume;
 import bloodnet.model.donationrecord.DonationDate;
-import bloodnet.model.person.BloodType;
-import bloodnet.model.person.DateOfBirth;
-import bloodnet.model.person.Email;
-import bloodnet.model.person.Name;
-import bloodnet.model.person.Phone;
-import bloodnet.testutil.DonationRecordBuilder;
-import bloodnet.testutil.EditDonationRecordsDescriptorBuilder;
-import bloodnet.testutil.EditPersonDescriptorBuilder;
 
 public class EditDonationsCommandParserTest {
 
