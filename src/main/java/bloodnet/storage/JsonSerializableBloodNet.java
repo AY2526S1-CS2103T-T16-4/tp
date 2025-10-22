@@ -43,7 +43,7 @@ class JsonSerializableBloodNet {
     public JsonSerializableBloodNet(ReadOnlyBloodNet source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
         donationRecords.addAll(source.getDonationRecordList().stream().map(JsonAdaptedDonationRecord::new)
-            .collect(Collectors.toList()));
+                .collect(Collectors.toList()));
     }
 
     /**

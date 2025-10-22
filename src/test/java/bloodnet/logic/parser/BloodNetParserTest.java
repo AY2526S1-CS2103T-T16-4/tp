@@ -81,7 +81,7 @@ public class BloodNetParserTest {
     public void parseCommand_finddonations() throws Exception {
         FindDonationsCommand command = (FindDonationsCommand) parser.parseCommand(
                 FindDonationsCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased());
+                        + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new FindDonationsCommand(INDEX_FIRST_PERSON), command);
     }
 
@@ -100,7 +100,7 @@ public class BloodNetParserTest {
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+                -> parser.parseCommand(""));
     }
 
     @Test

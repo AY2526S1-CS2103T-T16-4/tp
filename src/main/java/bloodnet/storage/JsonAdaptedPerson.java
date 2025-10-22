@@ -92,7 +92,7 @@ class JsonAdaptedPerson {
 
         if (bloodType == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                BloodType.class.getSimpleName()));
+                    BloodType.class.getSimpleName()));
         }
         if (!BloodType.isValidBloodType(bloodType)) {
             throw new IllegalValueException(BloodType.MESSAGE_CONSTRAINTS);
@@ -101,7 +101,7 @@ class JsonAdaptedPerson {
 
         if (dateOfBirth == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                DateOfBirth.class.getSimpleName()));
+                    DateOfBirth.class.getSimpleName()));
         }
         if (!DateOfBirth.isValidDateOfBirth(dateOfBirth)) {
             throw new IllegalValueException(DateOfBirth.MESSAGE_CONSTRAINTS);

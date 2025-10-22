@@ -16,9 +16,10 @@ import java.time.format.DateTimeParseException;
 public class DonationDate {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "The donation date should be of the format DD-MM-YYYY and not more than 130 years ago.";
+            "The donation date should be of the format DD-MM-YYYY, not in the future,"
+                    + " and not more than 130 years ago from today.";
     public static final DateTimeFormatter DATE_FORMATTER =
-        DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(STRICT);
+            DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(STRICT);
     /**
      * This is stored as a LocalDate for easier parsing purposes.
      */
@@ -46,7 +47,7 @@ public class DonationDate {
             LocalDate date = LocalDate.parse(test, DATE_FORMATTER);
             LocalDate current = LocalDate.now();
             return !date.isAfter(current)
-                && !date.isBefore(current.minusYears(130));
+                    && !date.isBefore(current.minusYears(130));
         } catch (DateTimeParseException e) {
             return false;
         }

@@ -39,9 +39,9 @@ public class FindDonationsCommand extends Command {
         int filteredDonationRecordListSize = model.getFilteredDonationRecordList().size();
         return new CommandResult(
                 String.format(Messages.MESSAGE_DONATIONS_LISTED_OVERVIEW,
-                filteredDonationRecordListSize,
-                filteredDonationRecordListSize > 1 ? "s" : "",
-                personToFindRecordsOf.getName()));
+                        filteredDonationRecordListSize,
+                        filteredDonationRecordListSize > 1 ? "s" : "",
+                        personToFindRecordsOf.getName()));
     }
 
     @Override
