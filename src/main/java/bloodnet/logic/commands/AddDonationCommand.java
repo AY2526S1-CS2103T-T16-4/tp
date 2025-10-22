@@ -25,7 +25,8 @@ public class AddDonationCommand extends Command {
 
     public static final String COMMAND_WORD = "adddonation";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a donation record to the bloodnet. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a donation record for "
+            + "the person identified by their index number in the displayed person list.\n"
             + "Parameters: "
             + PREFIX_PERSON_INDEX_ONE_BASED + "PERSON INDEX ONE BASED "
             + PREFIX_DONATION_DATE + "DONATION DATE (DD-MM-YYYY) "
