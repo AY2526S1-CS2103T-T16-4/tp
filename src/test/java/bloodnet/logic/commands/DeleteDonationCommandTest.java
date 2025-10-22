@@ -2,10 +2,10 @@ package bloodnet.logic.commands;
 
 import static bloodnet.logic.commands.CommandTestUtil.assertCommandFailure;
 import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static bloodnet.logic.commands.CommandTestUtil.showDonationRecordAtIndex;
+import static bloodnet.testutil.TypicalDonationRecords.getTypicalBloodNet;
 import static bloodnet.testutil.TypicalIndexes.INDEX_FIRST_DONATION;
 import static bloodnet.testutil.TypicalIndexes.INDEX_SECOND_DONATION;
-import static bloodnet.testutil.TypicalDonationRecords.getTypicalBloodNet;;
-import static bloodnet.logic.commands.CommandTestUtil.showDonationRecordAtIndex;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -33,7 +33,8 @@ public class DeleteDonationCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        DonationRecord donationToDelete = model.getFilteredDonationRecordList().get(INDEX_FIRST_DONATION.getZeroBased());
+        DonationRecord donationToDelete = model.getFilteredDonationRecordList().get(
+                INDEX_FIRST_DONATION.getZeroBased());
         DeleteDonationCommand deleteDonationCommand = new DeleteDonationCommand(INDEX_FIRST_DONATION);
 
         String expectedMessage = String.format(DeleteDonationCommand.MESSAGE_DELETE_DONATION_SUCCESS,
@@ -57,7 +58,8 @@ public class DeleteDonationCommandTest {
     public void execute_validIndexFilteredList_success() {
         showDonationRecordAtIndex(model, INDEX_FIRST_DONATION);
 
-        DonationRecord donationToDelete = model.getFilteredDonationRecordList().get(INDEX_FIRST_DONATION.getZeroBased());
+        DonationRecord donationToDelete = model.getFilteredDonationRecordList().get(
+                INDEX_FIRST_DONATION.getZeroBased());
         DeleteDonationCommand deleteDonationCommand = new DeleteDonationCommand(INDEX_FIRST_DONATION);
 
         String expectedMessage = String.format(DeleteDonationCommand.MESSAGE_DELETE_DONATION_SUCCESS,
@@ -124,7 +126,8 @@ public class DeleteDonationCommandTest {
 
     @Test
     public void createSession_nullModel_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> (new DeleteDonationCommand(Index.fromZeroBased(0))).createSession(null));
+        assertThrows(NullPointerException.class, () -> (
+                new DeleteDonationCommand(Index.fromZeroBased(0))).createSession(null));
     }
 
     @Test
