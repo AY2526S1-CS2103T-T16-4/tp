@@ -63,6 +63,43 @@ public class EditDonationCommandTest {
     }
 
     @Test
+    public void equals_sameDescriptor_returnsTrue() {
+        BloodVolume bloodVolumeStub = new BloodVolume("300");
+        DonationDate donationDateStub = new DonationDate("01-01-2025");
+        EditDonationCommand.EditDonationRecordDescriptor descriptorStub =
+                new EditDonationCommand.EditDonationRecordDescriptor();
+        descriptorStub.setBloodVolume(bloodVolumeStub);
+        descriptorStub.setDonationDate(donationDateStub);
+        assert(descriptorStub.equals(descriptorStub));
+    }
+
+    @Test
+    public void equals_sameValuesInDescriptor_returnsTrue() {
+        BloodVolume bloodVolumeStub = new BloodVolume("300");
+        DonationDate donationDateStub = new DonationDate("01-01-2025");
+        EditDonationCommand.EditDonationRecordDescriptor descriptorStub =
+                new EditDonationCommand.EditDonationRecordDescriptor();
+        descriptorStub.setBloodVolume(bloodVolumeStub);
+        descriptorStub.setDonationDate(donationDateStub);
+        EditDonationCommand.EditDonationRecordDescriptor secondDescriptorStub =
+                new EditDonationCommand.EditDonationRecordDescriptor();
+        secondDescriptorStub.setBloodVolume(bloodVolumeStub);
+        secondDescriptorStub.setDonationDate(donationDateStub);
+        assert(descriptorStub.equals(secondDescriptorStub));
+    }
+
+
+    @Test
+    public void equals_compareNullDescriptor_returnsFalse() {
+        BloodVolume bloodVolumeStub = new BloodVolume("300");
+        DonationDate donationDateStub = new DonationDate("01-01-2025");
+        EditDonationCommand.EditDonationRecordDescriptor descriptorStub =
+                new EditDonationCommand.EditDonationRecordDescriptor();
+        descriptorStub.setBloodVolume(bloodVolumeStub);
+        descriptorStub.setDonationDate(donationDateStub);
+        assert(!descriptorStub.equals(null));
+    }
+    @Test
     public void equals_sameValues_returnsTrue() {
         Index indexStub = Index.fromZeroBased(0);
         BloodVolume bloodVolumeStub = new BloodVolume("300");
