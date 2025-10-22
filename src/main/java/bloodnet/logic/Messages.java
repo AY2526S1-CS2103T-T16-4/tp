@@ -26,6 +26,8 @@ public class Messages {
     public static final String MESSAGE_DONATIONS_LISTED_OVERVIEW = "%d donation record%s related to %s found!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
             "Multiple values specified for the following single-valued field(s): ";
+    public static final String MESSAGE_PERSON_NOT_FOUND =
+            "No person found for the given donation record.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -63,6 +65,20 @@ public class Messages {
         final StringBuilder builder = new StringBuilder();
         builder.append("Donation Date: ").append(record.getDonationDate())
                 .append("; Blood Volume: ").append(record.getBloodVolume()).append(" ml");
+        return builder.toString();
+    }
+
+    /**
+     * Overloaded method, formats the {@code donationRecord} for display to the user.
+     */
+    public static String format(DonationRecord donationRecord, Person person) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Donor Name: ")
+                .append(person.getName())
+                .append("; Donation Date: ")
+                .append(donationRecord.getDonationDate())
+                .append("; Blood Volume: ")
+                .append(donationRecord.getBloodVolume());
         return builder.toString();
     }
 
