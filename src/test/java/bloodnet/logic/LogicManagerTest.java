@@ -128,6 +128,26 @@ public class LogicManagerTest {
         assertEquals("Success", result.getFeedbackToUser());
     }
 
+    @Test
+    public void execute_commandExceptionDuringSessionHandle_resetsSession() throws CommandException, ParseException {
+        JsonBloodNetStorage bloodNetStorage = new JsonBloodNetStorage(temporaryFolder.resolve("bloodnet.json"));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        StorageManager storage = new StorageManager(bloodNetStorage, userPrefsStorage);
+        Logic logic = new LogicManager(model, storage, new BloodNetParserStub());
+
+        CommandResult result;
+        try {
+            result = logic.execute("throw command exception");
+            throw new AssertionError("Should throw a CommandException");
+        } catch (CommandException e) {
+            assertEquals("Command exception occurred", e.getMessage());
+        }
+
+        // Verify that session is cleaned up after CommandException and
+        // subsequent execute behaves as a fresh command, not session input
+        result = logic.execute("");
+        assertEquals("Success", result.getFeedbackToUser());
+    }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
@@ -319,9 +339,41 @@ public class LogicManagerTest {
                 return new TerminalExceptionCommandStub();
             } else if (userInput == "multi state") {
                 return new MultiStateCommandStub();
+            } else if (userInput == "throw command exception") {
+                return new CommandExceptionCommandStub();
             } else {
                 return new SuccessCommandStub();
             }
+        }
+    }
+
+    /**
+     * A CommandSession stub that throws CommandException
+     */
+    private class CommandExceptionSessionStub implements CommandSession {
+        @Override
+        public CommandResult handle(String input) throws CommandException {
+            throw new CommandException("Command exception occurred");
+        }
+
+        @Override
+        public boolean isDone() {
+            return false;
+        }
+    }
+
+    /**
+     * A Command stub that creates a session that throws CommandException
+     */
+    private class CommandExceptionCommandStub extends Command {
+        @Override
+        public CommandSession createSession(Model model) {
+            return new CommandExceptionSessionStub();
+        }
+
+        @Override
+        public CommandResult execute(Model model) {
+            throw new AssertionError("This method should not be called.");
         }
     }
 }
