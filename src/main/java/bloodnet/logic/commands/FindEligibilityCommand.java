@@ -2,15 +2,11 @@ package bloodnet.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import bloodnet.commons.util.ToStringBuilder;
 import bloodnet.logic.Messages;
 import bloodnet.model.Model;
-import bloodnet.model.donationrecord.DonationRecord;
-import bloodnet.model.person.BloodType;
 import bloodnet.model.person.MatchingBloodType;
 
 /**

@@ -4,11 +4,9 @@ import static bloodnet.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
 
-import bloodnet.logic.commands.FindCommand;
 import bloodnet.logic.commands.FindEligibilityCommand;
 import bloodnet.logic.parser.exceptions.ParseException;
-import bloodnet.model.person.MatchingBloodType;
-import bloodnet.model.person.NameContainsKeywordsPredicate;
+
 
 /**
  * Parses input arguments and creates a new FindCommand object
