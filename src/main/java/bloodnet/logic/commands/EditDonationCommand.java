@@ -31,20 +31,20 @@ public class EditDonationCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the donation record identified "
             + "by the index number used in the displayed donation record list. \n"
             + "Existing values will be overwritten by the input values. \n"
-            + "Parameters: PERSON index (must be positive integer) "
-            + "[" + PREFIX_DONATION_DATE + "DONATION DATE (DD-MM-YYYY) "
-            + "[" + PREFIX_BLOOD_VOLUME + "BLOOD VOLUME (IN MILLILITRES)\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_DONATION_DATE + "DONATION DATE (DD-MM-YYYY) "
+            + PREFIX_BLOOD_VOLUME + "BLOOD VOLUME (IN MILLILITRES)\n"
             + "Example: editdonation 1 v/100 d/02-02-2002";
 
     public static final String MESSAGE_EDIT_DONATION_RECORD_SUCCESS = "Edited Donation Record: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_DONATION_RECORD =
-            "No change to the original blood donation record.";
+            "No change to the donation record.";
     private final Index indexOfDonationRecord;
     private final EditDonationRecordDescriptor editDonationRecordDescriptor;
 
     /**
-     * @param indexOfDonationRecord of the donation record in the blood donation record list
+     * @param indexOfDonationRecord of the donation record in the donation record list
      * @param editDonationRecordDescriptor details related to the edits made to the donation record
      */
     public EditDonationCommand(Index indexOfDonationRecord,
