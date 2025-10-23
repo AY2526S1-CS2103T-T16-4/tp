@@ -18,12 +18,14 @@ import bloodnet.logic.commands.ClearCommand;
 import bloodnet.logic.commands.DeleteCommand;
 import bloodnet.logic.commands.EditCommand;
 import bloodnet.logic.commands.EditCommand.EditPersonDescriptor;
+import bloodnet.logic.commands.EditDonationCommand;
 import bloodnet.logic.commands.ExitCommand;
 import bloodnet.logic.commands.FindCommand;
 import bloodnet.logic.commands.FindDonationsCommand;
 import bloodnet.logic.commands.HelpCommand;
 import bloodnet.logic.commands.ListCommand;
 import bloodnet.logic.parser.exceptions.ParseException;
+import bloodnet.model.donationrecord.BloodVolume;
 import bloodnet.model.person.NameContainsKeywordsPredicate;
 import bloodnet.model.person.Person;
 import bloodnet.testutil.EditPersonDescriptorBuilder;
@@ -84,6 +86,18 @@ public class BloodNetParserTest {
                         + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new FindDonationsCommand(INDEX_FIRST_PERSON), command);
     }
+
+    @Test
+    public void parseCommand_editdonations() throws Exception {
+        EditDonationCommand command = (EditDonationCommand) parser.parseCommand(
+                EditDonationCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_PERSON.getOneBased() + " v/200");
+        EditDonationCommand.EditDonationRecordDescriptor edit = new EditDonationCommand.EditDonationRecordDescriptor();
+        edit.setBloodVolume(new BloodVolume("200"));
+        assertEquals(new EditDonationCommand(INDEX_FIRST_PERSON, edit), command);
+    }
+
+
 
     @Test
     public void parseCommand_help() throws Exception {

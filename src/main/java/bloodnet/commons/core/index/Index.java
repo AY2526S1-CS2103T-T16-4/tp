@@ -66,4 +66,12 @@ public class Index {
     public String toString() {
         return new ToStringBuilder(this).add("zeroBasedIndex", zeroBasedIndex).toString();
     }
+
+    /**
+     * Converts the index to be easily readable to the user.
+     * @return the user index
+     */
+    public String toDisplayUser() {
+        return Integer.toString(zeroBasedIndex + 1);
+    }
 }

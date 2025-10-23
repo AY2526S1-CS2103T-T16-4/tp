@@ -15,6 +15,7 @@ import bloodnet.logic.commands.Command;
 import bloodnet.logic.commands.DeleteCommand;
 import bloodnet.logic.commands.DeleteDonationCommand;
 import bloodnet.logic.commands.EditCommand;
+import bloodnet.logic.commands.EditDonationCommand;
 import bloodnet.logic.commands.ExitCommand;
 import bloodnet.logic.commands.FindCommand;
 import bloodnet.logic.commands.FindDonationsCommand;
@@ -58,6 +59,9 @@ public class BloodNetParser {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
+
+        case EditDonationCommand.COMMAND_WORD:
+            return new EditDonationCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
