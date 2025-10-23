@@ -184,7 +184,8 @@ public class EditDonationCommandTest {
         EditDonationCommand command = new EditDonationCommand(indexStub, descriptorStub);
         String result = command.toString();
 
-        assert(result.contains("donationDate") && result.contains("bloodVolume"));
+        assert(result.contains("donationDate"));
+        assert(result.contains("bloodVolume"));
     }
 }
 
