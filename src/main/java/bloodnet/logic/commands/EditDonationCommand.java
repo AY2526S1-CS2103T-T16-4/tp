@@ -28,30 +28,30 @@ public class EditDonationCommand extends Command {
 
     public static final String COMMAND_WORD = "editdonation";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the blood donation record of the donor "
-            + "identified by the index number used in the displayed donor list. \n"
-            + "Existing values will be overwritten by the input values.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the donation record identified "
+            + "by the index number used in the displayed donation record list. \n"
+            + "Existing values will be overwritten by the input values. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_DONATION_DATE + "DONATION_DATE (DD-MM-YYYY) ] "
-            + "[" + PREFIX_BLOOD_VOLUME + "BLOOD_VOLUME (in millilitres) ] \n"
+            + PREFIX_DONATION_DATE + "DONATION DATE (DD-MM-YYYY) "
+            + PREFIX_BLOOD_VOLUME + "BLOOD VOLUME (IN MILLILITRES)\n"
             + "Example: editdonation 1 v/100 d/02-02-2002";
 
     public static final String MESSAGE_EDIT_DONATION_RECORD_SUCCESS = "Edited Donation Record: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_DONATION_RECORD =
-            "No change to the original blood donation record.";
-
-    private final Index index;
+            "No change to the donation record.";
+    private final Index indexOfDonationRecord;
     private final EditDonationRecordDescriptor editDonationRecordDescriptor;
 
     /**
-     * @param index of the person in the filtered person list, whose donation record is to be edited
-     * @param editDonationRecordDescriptor details to edit the donation record with
+     * @param indexOfDonationRecord of the donation record in the donation record list
+     * @param editDonationRecordDescriptor details related to the edits made to the donation record
      */
-    public EditDonationCommand(Index index, EditDonationRecordDescriptor editDonationRecordDescriptor) {
-        requireNonNull(index);
+    public EditDonationCommand(Index indexOfDonationRecord,
+                               EditDonationRecordDescriptor editDonationRecordDescriptor) {
+        requireNonNull(indexOfDonationRecord);
         requireNonNull(editDonationRecordDescriptor);
-        this.index = index;
+        this.indexOfDonationRecord = indexOfDonationRecord;
         this.editDonationRecordDescriptor = new EditDonationRecordDescriptor(editDonationRecordDescriptor);
     }
 
@@ -61,17 +61,12 @@ public class EditDonationCommand extends Command {
         DonationRecord recordToEdit = getDonationRecordToEdit(model);
         Person personToEditRecordFor = getPersonToEditRecordFor(model, recordToEdit);
         UUID personId = personToEditRecordFor.getId();
-
         assert personId != null;
-
         DonationRecord editedDonationRecord = createEditedDonationRecord(recordToEdit, editDonationRecordDescriptor);
-
         if (recordToEdit.equals(editedDonationRecord)) {
             throw new CommandException(MESSAGE_DUPLICATE_DONATION_RECORD);
         }
-
         model.setDonationRecord(recordToEdit, editedDonationRecord);
-
         return new CommandResult(String.format(MESSAGE_EDIT_DONATION_RECORD_SUCCESS,
                 Messages.format(editedDonationRecord, personToEditRecordFor)));
     }
@@ -82,24 +77,21 @@ public class EditDonationCommand extends Command {
      */
     private static DonationRecord createEditedDonationRecord(
             DonationRecord donationRecordToEdit, EditDonationRecordDescriptor editDonationRecordDescriptor) {
-
         DonationDate updatedDonationDate =
                 editDonationRecordDescriptor.getDonationDate().orElse(donationRecordToEdit.getDonationDate());
         BloodVolume updatedBloodVolume =
                 editDonationRecordDescriptor.getBloodVolume().orElse(donationRecordToEdit.getBloodVolume());
-
         return new DonationRecord(donationRecordToEdit.getId(),
                 donationRecordToEdit.getPersonId(), updatedDonationDate, updatedBloodVolume);
     }
 
     private DonationRecord getDonationRecordToEdit(Model model) throws CommandException {
         requireNonNull(model);
-        List<DonationRecord> lastShownList = model.getFilteredDonationRecordList();
-
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        List<DonationRecord> donationRecordList = model.getFilteredDonationRecordList();
+        if (indexOfDonationRecord.getZeroBased() >= donationRecordList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_DONATION_DISPLAYED_INDEX);
         }
-        return lastShownList.get(index.getZeroBased());
+        return donationRecordList.get(indexOfDonationRecord.getZeroBased());
     }
 
     /**
@@ -107,9 +99,8 @@ public class EditDonationCommand extends Command {
      */
     private Person getPersonToEditRecordFor(Model model, DonationRecord donationRecord) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
-
-        Optional<Person> optionalPerson = lastShownList.stream()
+        List<Person> personList = model.getFilteredPersonList();
+        Optional<Person> optionalPerson = personList.stream()
                 .filter(person -> person.getId().equals(donationRecord.getPersonId())).findFirst();
 
         if (optionalPerson.isPresent()) {
@@ -130,27 +121,25 @@ public class EditDonationCommand extends Command {
         }
 
         EditDonationCommand otherEditDonationCommand = (EditDonationCommand) other;
-        return index.equals(otherEditDonationCommand.index)
+        return indexOfDonationRecord.equals(otherEditDonationCommand.indexOfDonationRecord)
                 && editDonationRecordDescriptor.equals(otherEditDonationCommand.editDonationRecordDescriptor);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("index", index)
+                .add("indexOfDonationRecord", indexOfDonationRecord)
                 .add("editDonationRecordDescriptor", editDonationRecordDescriptor)
                 .toString();
     }
 
     /**
      * Stores the details to edit the donation record with. Each non-empty field value will
-     * replace the
-     * corresponding field value of the donation record.
+     * replace the corresponding field value of the donation record.
      */
     public static class EditDonationRecordDescriptor {
         private BloodVolume bloodVolume;
         private DonationDate donationDate;
-
 
         public EditDonationRecordDescriptor() {
         }
@@ -209,6 +198,5 @@ public class EditDonationCommand extends Command {
                     .add("donationDate", getDonationDate())
                     .toString();
         }
-
     }
 }

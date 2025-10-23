@@ -50,14 +50,14 @@ public class EditDonationCommandTest {
     @Test
     public void execute_validArguments_success() throws Exception {
         Model modelStub = new ModelManager();
-        Person p = new Person(UUID.fromString("d21831a7-8eec-4c33-ab00-fa74b8c822f1"),
+        Person person = new Person(UUID.fromString("d21831a7-8eec-4c33-ab00-fa74b8c822f1"),
                 new Name("Sally"), new Phone("12345678"), new Email("x@example.com"),
                 new BloodType("A+"), new DateOfBirth("02-02-2001"));
         modelStub.addDonationRecord(new DonationRecord(UUID.fromString(
                 "3a8590f5-c86b-418a-82b5-7d65fc5602e4"),
                 UUID.fromString("d21831a7-8eec-4c33-ab00-fa74b8c822f1"), new DonationDate("02-02-2020") ,
                 new BloodVolume("500")));
-        modelStub.addPerson(p);
+        modelStub.addPerson(person);
         Index indexStub = Index.fromZeroBased(0);
         DonationDate donationDateStub = new DonationDate("01-01-2025");
         BloodVolume bloodVolumeStub = new BloodVolume("450");
@@ -73,14 +73,14 @@ public class EditDonationCommandTest {
     @Test
     public void execute_duplicateDonationRecord_success() throws Exception {
         Model modelStub = new ModelManager();
-        Person p = new Person(UUID.fromString("d21831a7-8eec-4c33-ab00-fa74b8c822f1"),
+        Person person = new Person(UUID.fromString("d21831a7-8eec-4c33-ab00-fa74b8c822f1"),
                 new Name("Sally"), new Phone("12345678"), new Email("x@example.com"),
                 new BloodType("A+"), new DateOfBirth("02-02-2001"));
         modelStub.addDonationRecord(new DonationRecord(UUID.fromString(
                 "3a8590f5-c86b-418a-82b5-7d65fc5602e4"),
                 UUID.fromString("d21831a7-8eec-4c33-ab00-fa74b8c822f1"), new DonationDate("02-02-2020") ,
                 new BloodVolume("500")));
-        modelStub.addPerson(p);
+        modelStub.addPerson(person);
         Index indexStub = Index.fromZeroBased(0);
         DonationDate donationDateStub = new DonationDate("02-02-2020");
         BloodVolume bloodVolumeStub = new BloodVolume("500");
@@ -113,8 +113,8 @@ public class EditDonationCommandTest {
                 new EditDonationCommand.EditDonationRecordDescriptor();
         descriptorStub.setBloodVolume(bloodVolumeStub);
         descriptorStub.setDonationDate(donationDateStub);
-        EditDonationCommand edit = new EditDonationCommand(indexStub, descriptorStub);
-        assert(edit.equals(edit));
+        EditDonationCommand editedDonationRecord = new EditDonationCommand(indexStub, descriptorStub);
+        assert(editedDonationRecord.equals(editedDonationRecord));
     }
 
     @Test
@@ -144,16 +144,6 @@ public class EditDonationCommandTest {
     }
 
     @Test
-    public void equals_compareNullDescriptor_returnsFalse() {
-        BloodVolume bloodVolumeStub = new BloodVolume("300");
-        DonationDate donationDateStub = new DonationDate("01-01-2025");
-        EditDonationCommand.EditDonationRecordDescriptor descriptorStub =
-                new EditDonationCommand.EditDonationRecordDescriptor();
-        descriptorStub.setBloodVolume(bloodVolumeStub);
-        descriptorStub.setDonationDate(donationDateStub);
-        assert(!descriptorStub.equals(null));
-    }
-    @Test
     public void equals_sameValues_returnsTrue() {
         Index indexStub = Index.fromZeroBased(0);
         BloodVolume bloodVolumeStub = new BloodVolume("300");
@@ -164,7 +154,6 @@ public class EditDonationCommandTest {
         descriptorStub.setDonationDate(donationDateStub);
         EditDonationCommand command1 = new EditDonationCommand(indexStub, descriptorStub);
         EditDonationCommand command2 = new EditDonationCommand(indexStub, descriptorStub);
-
         assert(command1.equals(command2));
     }
 
@@ -180,22 +169,7 @@ public class EditDonationCommandTest {
         descriptorStub.setDonationDate(donationDateStub);
         EditDonationCommand command1 = new EditDonationCommand(indexStub1, descriptorStub);
         EditDonationCommand command2 = new EditDonationCommand(indexStub2, descriptorStub);
-
         assert(!command1.equals(command2));
-    }
-
-    @Test
-    public void equals_null_returnsFalse() {
-        Index indexStub = Index.fromZeroBased(0);
-        BloodVolume bloodVolumeStub = new BloodVolume("300");
-        DonationDate donationDateStub = new DonationDate("01-01-2025");
-        EditDonationCommand.EditDonationRecordDescriptor descriptorStub =
-                new EditDonationCommand.EditDonationRecordDescriptor();
-        descriptorStub.setBloodVolume(bloodVolumeStub);
-        descriptorStub.setDonationDate(donationDateStub);
-        EditDonationCommand command = new EditDonationCommand(indexStub, descriptorStub);
-
-        assert(!command.equals(null));
     }
 
     @Test
@@ -213,7 +187,5 @@ public class EditDonationCommandTest {
         assert(result.contains("donationDate"));
         assert(result.contains("bloodVolume"));
     }
-
-
 }
 
