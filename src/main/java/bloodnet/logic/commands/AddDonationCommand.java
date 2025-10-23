@@ -19,7 +19,7 @@ import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.Person;
 
 /**
- * Adds a person to the bloodnet.
+ * Adds a donation record for a person in the bloodnet.
  */
 public class AddDonationCommand extends Command {
 
