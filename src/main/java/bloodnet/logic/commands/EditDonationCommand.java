@@ -69,8 +69,6 @@ public class EditDonationCommand extends Command {
         if (recordToEdit.equals(editedDonationRecord)) {
             throw new CommandException(MESSAGE_DUPLICATE_DONATION_RECORD);
         }
-        System.out.println(recordToEdit.toString());
-        System.out.println("HIIIIII" + editedDonationRecord.toString());
 
         model.setDonationRecord(recordToEdit, editedDonationRecord);
 
