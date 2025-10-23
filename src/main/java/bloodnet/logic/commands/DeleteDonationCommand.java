@@ -91,7 +91,7 @@ public class DeleteDonationCommand extends Command {
     }
 
     /**
-     * Retrieves the {@code Person} corresponding to the {@code targetPersonIndex} of this {@code AddDonationCommand}
+     * Retrieves the {@code Person} corresponding to the {@code targetPersonIndex} of this {@code DeleteDonationCommand}
      */
     private Person getPersonForDonation(Model model, DonationRecord donationRecord, Index targetIndex)
             throws CommandException {
