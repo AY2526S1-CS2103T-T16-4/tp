@@ -45,26 +45,26 @@ public class EditDonationCommand extends Command {
     private final EditDonationRecordDescriptor editDonationRecordDescriptor;
 
     /**
-     * @param index                of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index of the person in the filtered person list, whose donation record is to be edited
+     * @param editDonationRecordDescriptor details to edit the donation record with
      */
-    public EditDonationCommand(Index index, EditDonationRecordDescriptor editPersonDescriptor) {
+    public EditDonationCommand(Index index, EditDonationRecordDescriptor editDonationRecordDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editDonationRecordDescriptor);
         this.index = index;
-        this.editDonationRecordDescriptor = new EditDonationRecordDescriptor(editPersonDescriptor);
+        this.editDonationRecordDescriptor = new EditDonationRecordDescriptor(editDonationRecordDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         DonationRecord recordToEdit = getDonationRecordToEdit(model);
-        Person personToAddRecordFor = getPersonToEditRecordFor(model, recordToEdit);
-        UUID personId = personToAddRecordFor.getId();
+        Person personToEditRecordFor = getPersonToEditRecordFor(model, recordToEdit);
+        UUID personId = personToEditRecordFor.getId();
 
         assert personId != null;
 
-        DonationRecord editedDonationRecord = createEditedPersonRecord(recordToEdit, editDonationRecordDescriptor);
+        DonationRecord editedDonationRecord = createEditedDonationRecord(recordToEdit, editDonationRecordDescriptor);
 
         if (recordToEdit.equals(editedDonationRecord)) {
             throw new CommandException(MESSAGE_DUPLICATE_DONATION_RECORD);
@@ -73,23 +73,23 @@ public class EditDonationCommand extends Command {
         model.setDonationRecord(recordToEdit, editedDonationRecord);
 
         return new CommandResult(String.format(MESSAGE_EDIT_DONATION_RECORD_SUCCESS,
-                Messages.format(editedDonationRecord, personToAddRecordFor)));
+                Messages.format(editedDonationRecord, personToEditRecordFor)));
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static DonationRecord createEditedPersonRecord(
-            DonationRecord personToEdit, EditDonationRecordDescriptor editDonationRecordDescriptor) {
+    private static DonationRecord createEditedDonationRecord(
+            DonationRecord donationRecordToEdit, EditDonationRecordDescriptor editDonationRecordDescriptor) {
 
         DonationDate updatedDonationDate =
-                editDonationRecordDescriptor.getDonationDate().orElse(personToEdit.getDonationDate());
+                editDonationRecordDescriptor.getDonationDate().orElse(donationRecordToEdit.getDonationDate());
         BloodVolume updatedBloodVolume =
-                editDonationRecordDescriptor.getBloodVolume().orElse(personToEdit.getBloodVolume());
+                editDonationRecordDescriptor.getBloodVolume().orElse(donationRecordToEdit.getBloodVolume());
 
-        return new DonationRecord(personToEdit.getId(),
-                personToEdit.getPersonId(), updatedDonationDate, updatedBloodVolume);
+        return new DonationRecord(donationRecordToEdit.getId(),
+                donationRecordToEdit.getPersonId(), updatedDonationDate, updatedBloodVolume);
     }
 
     private DonationRecord getDonationRecordToEdit(Model model) throws CommandException {
@@ -103,7 +103,7 @@ public class EditDonationCommand extends Command {
     }
 
     /**
-     * Retrieves the {@code Person} corresponding to the {@code targetPersonIndex} of this {@code AddDonationCommand}
+     * Retrieves the {@code Person} corresponding to the {@code personId} of provided {@code donationRecord}
      */
     private Person getPersonToEditRecordFor(Model model, DonationRecord donationRecord) throws CommandException {
         requireNonNull(model);
@@ -112,7 +112,7 @@ public class EditDonationCommand extends Command {
         Optional<Person> optionalPerson = lastShownList.stream()
                 .filter(person -> person.getId().equals(donationRecord.getPersonId())).findFirst();
 
-        if (optionalPerson != null) {
+        if (optionalPerson.isPresent()) {
             return optionalPerson.get();
         }
         return null;
