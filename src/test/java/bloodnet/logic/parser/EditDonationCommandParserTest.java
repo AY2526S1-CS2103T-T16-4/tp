@@ -52,7 +52,8 @@ public class EditDonationCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + " v/400x", BloodVolume.MESSAGE_CONSTRAINTS); // invalid blood volume
-        assertParseFailure(parser, "1" + " d/01-20-xxxx", DonationDate.MESSAGE_CONSTRAINTS); // invalid donation date
+        assertParseFailure(parser, "1" + " d/01-20-xxxx",
+                DonationDate.MESSAGE_CONSTRAINTS); // invalid donation date
 
         // invalid blood volume followed by donation date
         assertParseFailure(parser, "1" + " v/x00" + " d/05-25-2020",
@@ -96,10 +97,8 @@ public class EditDonationCommandParserTest {
         EditDonationCommand.EditDonationRecordDescriptor edit = new EditDonationCommand.EditDonationRecordDescriptor();
         edit.setBloodVolume(new BloodVolume("400"));
         edit.setDonationDate(new DonationDate("01-01-2000"));
-
         EditDonationCommand expectedCommand = new EditDonationCommand(
                 targetIndex, edit);
-
         assertParseSuccess(parser, "1 d/01-01-2000 v/400", expectedCommand);
 
     }

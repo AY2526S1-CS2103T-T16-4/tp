@@ -19,7 +19,7 @@ import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.Person;
 
 /**
- * Adds a donation record for a person in the bloodnet.
+ * Adds a donation record for a person in BloodNet.
  */
 public class AddDonationCommand extends Command {
 
@@ -30,7 +30,7 @@ public class AddDonationCommand extends Command {
             + "Parameters: "
             + PREFIX_PERSON_INDEX_ONE_BASED + "PERSON INDEX (must be positive integer) "
             + PREFIX_DONATION_DATE + "DONATION DATE (DD-MM-YYYY) "
-            + PREFIX_BLOOD_VOLUME + "BLOOD VOLUME (IN MILLILITERS)\n"
+            + PREFIX_BLOOD_VOLUME + "BLOOD VOLUME (IN MILLILITRES)\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_PERSON_INDEX_ONE_BASED + "1 "
             + PREFIX_DONATION_DATE + "07-05-2025 "

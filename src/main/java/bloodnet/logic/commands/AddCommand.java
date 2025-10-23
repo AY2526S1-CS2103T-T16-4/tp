@@ -20,7 +20,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the bloodnet. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to BloodNet. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -35,7 +35,7 @@ public class AddCommand extends Command {
             + PREFIX_DATE_OF_BIRTH + "30-03-2004 ";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the bloodnet";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in BloodNet";
 
     private final Person toAdd;
 
