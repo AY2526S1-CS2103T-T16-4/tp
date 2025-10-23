@@ -77,7 +77,7 @@ public class EditDonationCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * Creates and returns a {@code DonationRecord} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
     private static DonationRecord createEditedDonationRecord(
