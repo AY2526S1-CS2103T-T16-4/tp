@@ -45,7 +45,7 @@ public class EditDonationCommand extends Command {
     private final EditDonationRecordDescriptor editDonationRecordDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param index of the person in the filtered person list, whose donation record is to be edited
      * @param editDonationRecordDescriptor details to edit the donation record with
      */
     public EditDonationCommand(Index index, EditDonationRecordDescriptor editDonationRecordDescriptor) {
