@@ -34,7 +34,7 @@ public class EditDonationCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DONATION_DATE + "DONATION_DATE (DD-MM-YYYY) ] "
             + "[" + PREFIX_BLOOD_VOLUME + "BLOOD_VOLUME (in millilitres) ] \n"
-            + "editdonation 1 v/100 d/02-02-2002";
+            + "Example: editdonation 1 v/100 d/02-02-2002";
 
     public static final String MESSAGE_EDIT_DONATION_RECORD_SUCCESS = "Edited Donation Record: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
