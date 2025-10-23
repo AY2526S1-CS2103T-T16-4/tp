@@ -28,17 +28,18 @@ public class EditDonationCommand extends Command {
 
     public static final String COMMAND_WORD = "editdonation";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the blood donation records of the donor "
-            + "identified by the index number used in the displayed donor list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the blood donation record of the donor "
+            + "identified by the index number used in the displayed donor list. \n"
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_DONATION_DATE + "DONATION_DATE (dd-mm-yyyy) ] "
-            + "[" + PREFIX_BLOOD_VOLUME + "BLOOD_VOLUME] (in millimeters";
+            + "[" + PREFIX_DONATION_DATE + "DONATION_DATE (DD-MM-YYYY) ] "
+            + "[" + PREFIX_BLOOD_VOLUME + "BLOOD_VOLUME (in millilitres) ] \n"
+            + "editdonation 1 v/100 d/02-02-2002";
 
     public static final String MESSAGE_EDIT_DONATION_RECORD_SUCCESS = "Edited Donation Record: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_DONATION_RECORD =
-            "This donation record already exists in the BloodNet.";
+            "No change to the original blood donation record.";
 
     private final Index index;
     private final EditDonationRecordDescriptor editDonationRecordDescriptor;
@@ -65,9 +66,11 @@ public class EditDonationCommand extends Command {
 
         DonationRecord editedDonationRecord = createEditedPersonRecord(recordToEdit, editDonationRecordDescriptor);
 
-        if (model.hasDonationRecord(editedDonationRecord) && recordToEdit.equals(editedDonationRecord)) {
+        if (recordToEdit.equals(editedDonationRecord)) {
             throw new CommandException(MESSAGE_DUPLICATE_DONATION_RECORD);
         }
+        System.out.println(recordToEdit.toString());
+        System.out.println("HIIIIII" + editedDonationRecord.toString());
 
         model.setDonationRecord(recordToEdit, editedDonationRecord);
 
@@ -87,7 +90,7 @@ public class EditDonationCommand extends Command {
         BloodVolume updatedBloodVolume =
                 editDonationRecordDescriptor.getBloodVolume().orElse(personToEdit.getBloodVolume());
 
-        return new DonationRecord(null,
+        return new DonationRecord(personToEdit.getId(),
                 personToEdit.getPersonId(), updatedDonationDate, updatedBloodVolume);
     }
 

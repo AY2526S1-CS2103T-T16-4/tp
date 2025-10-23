@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 import bloodnet.commons.core.index.Index;
+import bloodnet.logic.commands.exceptions.CommandException;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.donationrecord.BloodVolume;
@@ -70,6 +71,31 @@ public class EditDonationCommandTest {
     }
 
     @Test
+    public void execute_duplicateDonationRecord_success() throws Exception {
+        Model modelStub = new ModelManager();
+        Person p = new Person(UUID.fromString("d21831a7-8eec-4c33-ab00-fa74b8c822f1"),
+                new Name("Sally"), new Phone("12345678"), new Email("x@example.com"),
+                new BloodType("A+"), new DateOfBirth("02-02-2001"));
+        modelStub.addDonationRecord(new DonationRecord(UUID.fromString(
+                "3a8590f5-c86b-418a-82b5-7d65fc5602e4"),
+                UUID.fromString("d21831a7-8eec-4c33-ab00-fa74b8c822f1"), new DonationDate("02-02-2020") ,
+                new BloodVolume("500")));
+        modelStub.addPerson(p);
+        Index indexStub = Index.fromZeroBased(0);
+        DonationDate donationDateStub = new DonationDate("02-02-2020");
+        BloodVolume bloodVolumeStub = new BloodVolume("500");
+        EditDonationCommand.EditDonationRecordDescriptor edit =
+                new EditDonationCommand.EditDonationRecordDescriptor();
+        edit.setDonationDate(donationDateStub);
+        edit.setBloodVolume(bloodVolumeStub);
+        EditDonationCommand editDonationCommand =
+                new EditDonationCommand(indexStub, edit);
+        CommandException exception = assertThrows(CommandException.class, () -> editDonationCommand.execute(modelStub));
+        assert(exception.toString().contains(EditDonationCommand.MESSAGE_DUPLICATE_DONATION_RECORD));
+
+    }
+
+    @Test
     public void execute_personIdIsNull_failure() throws Exception {
         Model modelStub = new ModelManager();
         assertThrows(NullPointerException.class, () -> modelStub.addDonationRecord(new DonationRecord(UUID.fromString(
@@ -116,7 +142,6 @@ public class EditDonationCommandTest {
         secondDescriptorStub.setDonationDate(donationDateStub);
         assert(descriptorStub.equals(secondDescriptorStub));
     }
-
 
     @Test
     public void equals_compareNullDescriptor_returnsFalse() {
