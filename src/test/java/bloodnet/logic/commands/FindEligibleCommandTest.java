@@ -1,16 +1,9 @@
 package bloodnet.logic.commands;
 
-import static bloodnet.logic.Messages.MESSAGE_PEOPLE_LISTED_OVERVIEW;
-import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static bloodnet.testutil.TypicalPersons.CARL;
-import static bloodnet.testutil.TypicalPersons.ELLE;
-import static bloodnet.testutil.TypicalPersons.FIONA;
 import static bloodnet.testutil.TypicalPersons.getTypicalBloodNet;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
@@ -18,8 +11,6 @@ import org.junit.jupiter.api.Test;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
-import bloodnet.model.person.HasBloodTypePredicate;
-import bloodnet.model.person.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

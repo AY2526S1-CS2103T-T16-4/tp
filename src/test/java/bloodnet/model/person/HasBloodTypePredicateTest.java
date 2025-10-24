@@ -8,16 +8,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
-import bloodnet.model.donationrecord.BloodVolume;
-import bloodnet.model.donationrecord.DonationDate;
-import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.testutil.PersonBuilder;
 
 public class HasBloodTypePredicateTest {
@@ -26,26 +22,26 @@ public class HasBloodTypePredicateTest {
     @Test
     public void equals() {
         List<String> firstBloodType = Collections.singletonList("A+");
-        List<String> listOfBloodTypes = Arrays.asList("B+", "O+");
+        List<String> listOfBloodTypes = Arrays.asList("B+", "O+", "A+");
 
-        HasBloodTypePredicate firstPredicate = new HasBloodTypePredicate(firstBloodType);
-        HasBloodTypePredicate secondPredicate = new HasBloodTypePredicate(listOfBloodTypes);
+        HasBloodTypePredicate oneBloodType = new HasBloodTypePredicate(firstBloodType);
+        HasBloodTypePredicate multipleBloodTypes = new HasBloodTypePredicate(listOfBloodTypes);
 
         // same object -> returns true
-        assertTrue(firstPredicate.equals(firstPredicate));
+        assertTrue(oneBloodType.equals(oneBloodType));
 
         // same values -> returns true
-        HasBloodTypePredicate firstPredicateCopy = new HasBloodTypePredicate(firstBloodType);
-        assertTrue(firstPredicate.equals(firstPredicateCopy));
+        HasBloodTypePredicate oneBloodTypeCopy = new HasBloodTypePredicate(firstBloodType);
+        assertTrue(oneBloodType.equals(oneBloodTypeCopy));
 
         // different types -> returns false
-        assertEquals(firstPredicate.equals(1));
+        assertFalse(oneBloodType.equals(1));
 
         // null -> returns false
-        assertFalse(firstPredicate.equals(null));
+        assertFalse(oneBloodType.equals(null));
 
         // different person -> returns false
-        assertFalse(firstPredicate.equals(secondPredicate));
+        assertFalse(oneBloodType.equals(multipleBloodTypes));
     }
 
     // Still checking for multiple blood types and will be added in v1.5.
@@ -60,25 +56,25 @@ public class HasBloodTypePredicateTest {
     }
 
     @Test
-    public void test_personDoesNotHaveBloodTypeOrHasInvalidDateOfBirth_returnsFalse() {
-        // Zero keywords
+    public void test_personDoesNotHaveBloodType_returnsFalse() {
+        // Zero blood types listed
         HasBloodTypePredicate predicate = new HasBloodTypePredicate(Collections.emptyList());
         assertFalse(predicate.test(new PersonBuilder().withBloodType("O+").build()));
 
-        // Non-matching keyword
+        // Non-matching blood types
         predicate = new HasBloodTypePredicate(Arrays.asList("O+"));
         assertFalse(predicate.test(new PersonBuilder().withBloodType("A+").build()));
 
         //individual too young
-        predicate = new HasBloodTypePredicate(Arrays.asList("O+"));
-        assertFalse(predicate.test(new PersonBuilder().withBloodType("O+").withDateOfBirth(
-                "08-08-2012").build()));
+        //predicate = new HasBloodTypePredicate(Arrays.asList("O+"));
+        //assertFalse(predicate.test(new PersonBuilder().withBloodType("O+").withDateOfBirth(
+        //      "08-08-2012").build()));
 
         // individual too old and never donated before
         //individual too young
-        predicate = new HasBloodTypePredicate(Arrays.asList("O+"));
-        assertFalse(predicate.test(new PersonBuilder().withBloodType("O+").withDateOfBirth(
-                "20-10-1964").build()));
+        //predicate = new HasBloodTypePredicate(Arrays.asList("O+"));
+        //assertFalse(predicate.test(new PersonBuilder().withBloodType("O+").withDateOfBirth(
+        //          "20-10-1964").build()));
     }
 
     @Test

@@ -2,20 +2,14 @@ package bloodnet.logic.parser;
 
 import static bloodnet.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static bloodnet.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static bloodnet.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static bloodnet.testutil.TypicalPersons.getTypicalBloodNet;
-
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import bloodnet.logic.commands.FindCommand;
 import bloodnet.logic.commands.FindEligibleCommand;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
-import bloodnet.model.person.HasBloodTypePredicate;
-import bloodnet.model.person.NameContainsKeywordsPredicate;
 
 public class FindEligibleCommandParserTest {
     private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
