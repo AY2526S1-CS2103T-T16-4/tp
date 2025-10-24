@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +14,6 @@ import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
 import bloodnet.testutil.PersonBuilder;
-// COME BACK LATER
 
 public class HasBloodTypeAndIsEligibleToDonatePredicateTest {
     private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
@@ -23,18 +21,20 @@ public class HasBloodTypeAndIsEligibleToDonatePredicateTest {
     @Test
     public void equals() {
         String[] arrayOfBloodTypes = new String[]{"O+", "A+", "AB+"};
+        String[] secondArrayOfBloodTypes = new String[]{"O+"};
         HasBloodTypePredicate firstBloodTypePredicate = new HasBloodTypePredicate(Arrays.asList(arrayOfBloodTypes));
         IsEligibleToDonatePredicate eligibleToDonatePredicate = new IsEligibleToDonatePredicate(model);
-        HasBloodTypePredicate secondBloodTypePredicate = new HasBloodTypePredicate(Arrays.asList(arrayOfBloodTypes));
+        HasBloodTypePredicate secondBloodTypePredicate =
+                new HasBloodTypePredicate(Arrays.asList(secondArrayOfBloodTypes));
 
-        HasBloodTypeAndIsEligibleToDonatePredicate firstPredicate
-                = new HasBloodTypeAndIsEligibleToDonatePredicate(firstBloodTypePredicate, eligibleToDonatePredicate);
+        HasBloodTypeAndIsEligibleToDonatePredicate firstPredicate =
+                new HasBloodTypeAndIsEligibleToDonatePredicate(firstBloodTypePredicate, eligibleToDonatePredicate);
 
-        HasBloodTypeAndIsEligibleToDonatePredicate firstPredicateCopy
-                = new HasBloodTypeAndIsEligibleToDonatePredicate(firstBloodTypePredicate, eligibleToDonatePredicate);
+        HasBloodTypeAndIsEligibleToDonatePredicate firstPredicateCopy =
+                new HasBloodTypeAndIsEligibleToDonatePredicate(firstBloodTypePredicate, eligibleToDonatePredicate);
 
-        HasBloodTypeAndIsEligibleToDonatePredicate secondPredicate
-                = new HasBloodTypeAndIsEligibleToDonatePredicate(secondBloodTypePredicate, eligibleToDonatePredicate);
+        HasBloodTypeAndIsEligibleToDonatePredicate secondPredicate =
+                new HasBloodTypeAndIsEligibleToDonatePredicate(secondBloodTypePredicate, eligibleToDonatePredicate);
 
         // same predicate -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
@@ -65,32 +65,33 @@ public class HasBloodTypeAndIsEligibleToDonatePredicateTest {
     }
 
     @Test
-    public void test_personDoesNotHaveBloodType_returnsFalse() {
-        // Zero blood types listed
-        HasBloodTypePredicate predicate = new HasBloodTypePredicate(Collections.emptyList());
-        assertFalse(predicate.test(new PersonBuilder().withBloodType("O+").build()));
+    public void test_personSuccessWithBothPredicates_returnsTrue() {
+        HasBloodTypePredicate predicate = new HasBloodTypePredicate(Arrays.asList("O+"));
+        IsEligibleToDonatePredicate datePredicate = new IsEligibleToDonatePredicate(model);
+        HasBloodTypeAndIsEligibleToDonatePredicate bothPredicates =
+                new HasBloodTypeAndIsEligibleToDonatePredicate(predicate, datePredicate);
+        assertTrue(bothPredicates.test(new PersonBuilder().withBloodType("O+").withDateOfBirth("01-01-2005").build()));
+    }
 
-        // Non-matching blood types
-        predicate = new HasBloodTypePredicate(Arrays.asList("O+"));
-        assertFalse(predicate.test(new PersonBuilder().withBloodType("A+").build()));
-
-        //individual too young
-        //predicate = new HasBloodTypePredicate(Arrays.asList("O+"));
-        //assertFalse(predicate.test(new PersonBuilder().withBloodType("O+").withDateOfBirth(
-        //      "08-08-2012").build()));
-
-        // individual too old and never donated before
-        //individual too young
-        //predicate = new HasBloodTypePredicate(Arrays.asList("O+"));
-        //assertFalse(predicate.test(new PersonBuilder().withBloodType("O+").withDateOfBirth(
-        //          "20-10-1964").build()));
+    @Test
+    public void test_personFailureWithFailingBloodTypePredicate_returnsFalse() {
+        HasBloodTypePredicate predicate = new HasBloodTypePredicate(Arrays.asList("O+"));
+        IsEligibleToDonatePredicate datePredicate = new IsEligibleToDonatePredicate(model);
+        HasBloodTypeAndIsEligibleToDonatePredicate bothPredicates =
+                new HasBloodTypeAndIsEligibleToDonatePredicate(predicate, datePredicate);
+        assertFalse(bothPredicates.test(new PersonBuilder().withBloodType("A+").withDateOfBirth("01-01-2005").build()));
     }
 
     @Test
     public void toStringMethod() {
-        List<String> keywords = List.of("bloodtype1", "bloodtype2");
-        HasBloodTypePredicate predicate = new HasBloodTypePredicate(keywords);
-        String expected = HasBloodTypePredicate.class.getCanonicalName() + "{bloodType=" + keywords + "}";
+        String[] arrayOfBloodTypes = new String[]{"O+", "A+", "AB+"};
+        HasBloodTypePredicate bloodPredicate = new HasBloodTypePredicate(Arrays.asList(arrayOfBloodTypes));
+        IsEligibleToDonatePredicate eligiblePredicate = new IsEligibleToDonatePredicate(model);
+        HasBloodTypeAndIsEligibleToDonatePredicate predicate =
+                new HasBloodTypeAndIsEligibleToDonatePredicate(bloodPredicate, new IsEligibleToDonatePredicate(model));
+        String expected = HasBloodTypeAndIsEligibleToDonatePredicate.class.getCanonicalName()
+                + "{hasBloodType=" + bloodPredicate.toString()
+                + ", dateOfBirthAndDonationDate=" + eligiblePredicate.toString() + "}";
         assertEquals(expected, predicate.toString());
     }
 }

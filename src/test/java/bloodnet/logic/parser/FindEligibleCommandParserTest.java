@@ -1,11 +1,8 @@
 package bloodnet.logic.parser;
 
-import static bloodnet.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static bloodnet.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static bloodnet.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static bloodnet.testutil.TypicalPersons.getTypicalBloodNet;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;

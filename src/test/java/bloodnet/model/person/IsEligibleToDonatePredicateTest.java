@@ -8,14 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
-import bloodnet.model.BloodNet;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
@@ -25,7 +21,7 @@ import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.testutil.PersonBuilder;
 
 public class IsEligibleToDonatePredicateTest {
-    Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
 
 
     @Test

@@ -1,6 +1,5 @@
 package bloodnet.model.person;
 
-import static bloodnet.testutil.TypicalPersons.getTypicalBloodNet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -11,9 +10,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import bloodnet.model.Model;
-import bloodnet.model.ModelManager;
-import bloodnet.model.UserPrefs;
 import bloodnet.testutil.PersonBuilder;
 
 public class HasBloodTypePredicateTest {

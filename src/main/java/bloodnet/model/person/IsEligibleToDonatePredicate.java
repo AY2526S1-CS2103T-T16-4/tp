@@ -1,19 +1,14 @@
 package bloodnet.model.person;
 
 import java.time.LocalDate;
-import java.time.Period;
-import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
 import java.util.Optional;
 import java.util.function.Predicate;
 
 import bloodnet.commons.util.ToStringBuilder;
 import bloodnet.model.Model;
-import bloodnet.model.ModelManager;
-import bloodnet.model.ReadOnlyBloodNet;
-import bloodnet.model.UserPrefs;
 import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.donationrecord.DonationRecord;
-import java.util.Comparator;
 
 
 /**
@@ -42,7 +37,7 @@ public class IsEligibleToDonatePredicate implements Predicate<Person> {
                 .filter(donationRecord -> donationRecord.getPersonId()
                         .equals(person.getId()))
                 .max(Comparator.comparing(donationRecord -> donationRecord.getDonationDate().getDonationDate()))
-        .map(DonationRecord::getDonationDate);
+                .map(DonationRecord::getDonationDate);
 
         LocalDate currentDate = LocalDate.now();
         LocalDate earliestDate = currentDate.minusYears(16);
@@ -50,8 +45,8 @@ public class IsEligibleToDonatePredicate implements Predicate<Person> {
         LocalDate oldestRepeatDonor = currentDate.minusYears(66);
 
         if (!dateOfBirth.value.isAfter(earliestDate)) {
-            if (!dateOfBirth.value.isAfter(oldestRepeatDonor) &&
-                    lastDonationDate.isPresent() && lastDonationDate.get().getDonationDate()
+            if (!dateOfBirth.value.isAfter(oldestRepeatDonor)
+                    && lastDonationDate.isPresent() && lastDonationDate.get().getDonationDate()
                     .plusYears(3).isBefore(currentDate)) {
                 System.out.println("1");
                 return false;

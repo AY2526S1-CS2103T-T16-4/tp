@@ -1,15 +1,8 @@
 package bloodnet.logic.parser;
 
-import static bloodnet.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_TYPE;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import bloodnet.commons.core.index.Index;
-import bloodnet.logic.commands.DeleteCommand;
-import bloodnet.logic.commands.FindCommand;
 import bloodnet.logic.commands.FindEligibleCommand;
 import bloodnet.logic.parser.exceptions.ParseException;
 import bloodnet.model.person.BloodType;

@@ -1,10 +1,13 @@
 package bloodnet.logic.commands;
 
 import static bloodnet.testutil.TypicalPersons.getTypicalBloodNet;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,12 +20,12 @@ import bloodnet.model.UserPrefs;
  */
 public class FindEligibleCommandTest {
     private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalBloodNet(), new UserPrefs());
 
     @Test
     public void equals() {
 
         FindEligibleCommand findFirstCommand = new FindEligibleCommand(Collections.singletonList("O+"));
+        FindEligibleCommand findFirstCommandCopy = new FindEligibleCommand(Collections.singletonList("O+"));
         FindEligibleCommand findSecondCommand = new FindEligibleCommand(Collections.singletonList("A+"));
 
         // same object -> returns true
@@ -37,6 +40,16 @@ public class FindEligibleCommandTest {
 
         // different person -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
+
+        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+    }
+
+    @Test
+    public void toStringMethod() {
+        List<String> listOfBloodTypes = Arrays.asList("B+", "O+", "A+");
+        FindEligibleCommand findEligibleCommand = new FindEligibleCommand(listOfBloodTypes);
+        String expected = FindEligibleCommand.class.getCanonicalName() + "{bloodType=" + listOfBloodTypes + "}";
+        assertEquals(expected, findEligibleCommand.toString());
     }
 
 }
