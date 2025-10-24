@@ -85,7 +85,7 @@ public class DateOfBirth {
         }
 
         DateOfBirth otherDateOfBirth = (DateOfBirth) other;
-        return value.equals(otherDateOfBirth.value);
+        return this.getDateOfBirth().equals(otherDateOfBirth.getDateOfBirth());
     }
 
     /**

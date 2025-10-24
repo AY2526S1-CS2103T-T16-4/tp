@@ -44,20 +44,17 @@ public class IsEligibleToDonatePredicate implements Predicate<Person> {
         LocalDate oldestFirstTimeBloodDonors = currentDate.minusYears(61);
         LocalDate oldestRepeatDonor = currentDate.minusYears(66);
 
-        if (!dateOfBirth.value.isAfter(earliestDate)) {
-            if (!dateOfBirth.value.isAfter(oldestRepeatDonor)
+        if (!dateOfBirth.getDateOfBirth().isAfter(earliestDate)) {
+            if (!dateOfBirth.getDateOfBirth().isAfter(oldestRepeatDonor)
                     && lastDonationDate.isPresent() && lastDonationDate.get().getDonationDate()
                     .plusYears(3).isBefore(currentDate)) {
-                System.out.println("1");
                 return false;
             }
-            if (!dateOfBirth.value.isAfter(oldestFirstTimeBloodDonors) && !lastDonationDate.isPresent()) {
-                System.out.println("2");
+            if (!dateOfBirth.getDateOfBirth().isAfter(oldestFirstTimeBloodDonors) && !lastDonationDate.isPresent()) {
                 return false;
             }
             if (lastDonationDate.isPresent() && lastDonationDate.get().getDonationDate()
                     .plusDays(84).isAfter(currentDate)) {
-                System.out.println("3");
                 return false;
             }
         } else {

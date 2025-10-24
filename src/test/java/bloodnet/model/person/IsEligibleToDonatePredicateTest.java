@@ -101,6 +101,16 @@ public class IsEligibleToDonatePredicateTest {
     }
 
     @Test
+    public void donorIsAboveSixtySixAndNeverDonatedBefore() {
+        DateTimeFormatter formatter =
+                DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(STRICT);
+        IsEligibleToDonatePredicate predicate = new IsEligibleToDonatePredicate(model);
+        String olderButHasDonatedBefore = LocalDate.now().minusYears(61).format(formatter);
+        Person sixtyOneYearsOldPerson = new PersonBuilder().withDateOfBirth(olderButHasDonatedBefore).build();
+        assertFalse(predicate.test(sixtyOneYearsOldPerson));
+    }
+
+    @Test
     public void oldestRepeatDonor_returnsTrue() {
         DateTimeFormatter formatter =
                 DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(STRICT);

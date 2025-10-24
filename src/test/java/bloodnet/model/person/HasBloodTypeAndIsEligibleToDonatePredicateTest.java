@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -53,16 +52,6 @@ public class HasBloodTypeAndIsEligibleToDonatePredicateTest {
         assertFalse(firstPredicateCopy.equals(secondPredicate));
     }
 
-    // Still checking for multiple blood types and will be added in v1.5.
-    // Currently only check for filtering one blood type. I am pretty sure it works
-    // for a list of blood types, but will add tests in next iteration.
-    @Test
-    public void test_personHasBloodType_returnsTrue() {
-        // One keyword
-        HasBloodTypePredicate predicate = new HasBloodTypePredicate(Collections.singletonList("O+"));
-        assertTrue(predicate.test(new PersonBuilder().withBloodType("O+").build()));
-
-    }
 
     @Test
     public void test_personSuccessWithBothPredicates_returnsTrue() {

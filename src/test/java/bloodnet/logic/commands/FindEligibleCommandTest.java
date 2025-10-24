@@ -20,6 +20,8 @@ import bloodnet.model.UserPrefs;
  */
 public class FindEligibleCommandTest {
     private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalBloodNet(), new UserPrefs());
+
 
     @Test
     public void equals() {
