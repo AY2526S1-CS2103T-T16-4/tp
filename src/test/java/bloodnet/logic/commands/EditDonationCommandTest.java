@@ -1,5 +1,9 @@
 package bloodnet.logic.commands;
 
+import static bloodnet.logic.commands.CommandTestUtil.assertCommandFailure;
+import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static bloodnet.testutil.TypicalDonationRecords.getTypicalBloodNet;
+import static bloodnet.testutil.TypicalIndexes.INDEX_FIRST_DONATION;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.UUID;
@@ -7,20 +11,21 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 import bloodnet.commons.core.index.Index;
-import bloodnet.logic.commands.exceptions.CommandException;
+import bloodnet.logic.Messages;
+import bloodnet.logic.commands.EditDonationCommand.EditDonationRecordDescriptor;
+import bloodnet.model.BloodNet;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
+import bloodnet.model.UserPrefs;
 import bloodnet.model.donationrecord.BloodVolume;
 import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.donationrecord.DonationRecord;
-import bloodnet.model.person.BloodType;
-import bloodnet.model.person.DateOfBirth;
-import bloodnet.model.person.Email;
-import bloodnet.model.person.Name;
 import bloodnet.model.person.Person;
-import bloodnet.model.person.Phone;
+import bloodnet.testutil.DonationRecordBuilder;
+import bloodnet.testutil.EditDonationRecordsDescriptorBuilder;
 
 public class EditDonationCommandTest {
+    private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
 
     @Test
     public void constructor_validArguments_success() {
@@ -49,56 +54,41 @@ public class EditDonationCommandTest {
 
     @Test
     public void execute_validArguments_success() throws Exception {
-        Model modelStub = new ModelManager();
-        Person person = new Person(UUID.fromString("d21831a7-8eec-4c33-ab00-fa74b8c822f1"),
-                new Name("Sally"), new Phone("12345678"), new Email("x@example.com"),
-                new BloodType("A+"), new DateOfBirth("02-02-2001"));
-        modelStub.addDonationRecord(new DonationRecord(UUID.fromString(
-                "3a8590f5-c86b-418a-82b5-7d65fc5602e4"),
-                UUID.fromString("d21831a7-8eec-4c33-ab00-fa74b8c822f1"), new DonationDate("02-02-2020") ,
-                new BloodVolume("500")));
-        modelStub.addPerson(person);
-        Index indexStub = Index.fromZeroBased(0);
-        DonationDate donationDateStub = new DonationDate("01-01-2025");
-        BloodVolume bloodVolumeStub = new BloodVolume("450");
-        EditDonationCommand.EditDonationRecordDescriptor edit =
-                new EditDonationCommand.EditDonationRecordDescriptor();
-        edit.setDonationDate(donationDateStub);
-        edit.setBloodVolume(bloodVolumeStub);
-        EditDonationCommand editDonationCommand =
-                new EditDonationCommand(indexStub, edit);
-        CommandResult commandResult = editDonationCommand.execute(modelStub);
+        DonationRecord editedDonationRecord = new DonationRecordBuilder().build();
+        EditDonationRecordDescriptor descriptor = new EditDonationRecordsDescriptorBuilder(editedDonationRecord)
+                .build();
+
+        Person personToEditRecordFor = model.getFilteredPersonList().stream()
+                .filter(p -> p.getId().equals(editedDonationRecord.getPersonId()))
+                .findFirst()
+                .orElseThrow();
+
+        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION, descriptor);
+
+        String expectedMessage = String.format(
+                EditDonationCommand.MESSAGE_EDIT_DONATION_RECORD_SUCCESS,
+                Messages.format(editedDonationRecord, personToEditRecordFor));
+
+        Model expectedModel = new ModelManager(new BloodNet(model.getBloodNet()), new UserPrefs());
+
+        expectedModel.setDonationRecord(model.getFilteredDonationRecordList().get(0), editedDonationRecord);
+
+        assertCommandSuccess(editDonationCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_duplicateDonationRecord_success() throws Exception {
-        Model modelStub = new ModelManager();
-        Person person = new Person(UUID.fromString("d21831a7-8eec-4c33-ab00-fa74b8c822f1"),
-                new Name("Sally"), new Phone("12345678"), new Email("x@example.com"),
-                new BloodType("A+"), new DateOfBirth("02-02-2001"));
-        modelStub.addDonationRecord(new DonationRecord(UUID.fromString(
-                "3a8590f5-c86b-418a-82b5-7d65fc5602e4"),
-                UUID.fromString("d21831a7-8eec-4c33-ab00-fa74b8c822f1"), new DonationDate("02-02-2020") ,
-                new BloodVolume("500")));
-        modelStub.addPerson(person);
-        Index indexStub = Index.fromZeroBased(0);
-        DonationDate donationDateStub = new DonationDate("02-02-2020");
-        BloodVolume bloodVolumeStub = new BloodVolume("500");
-        EditDonationCommand.EditDonationRecordDescriptor edit =
-                new EditDonationCommand.EditDonationRecordDescriptor();
-        edit.setDonationDate(donationDateStub);
-        edit.setBloodVolume(bloodVolumeStub);
-        EditDonationCommand editDonationCommand =
-                new EditDonationCommand(indexStub, edit);
-        CommandException exception = assertThrows(CommandException.class, () -> editDonationCommand.execute(modelStub));
-        assert(exception.toString().contains(EditDonationCommand.MESSAGE_DUPLICATE_DONATION_RECORD));
+    public void execute_duplicateDonationRecord_failure() throws Exception {
+        DonationRecord firstDonationRecord = model.getFilteredDonationRecordList()
+                .get(INDEX_FIRST_DONATION.getZeroBased());
+        EditDonationRecordDescriptor descriptor = new EditDonationRecordsDescriptorBuilder(firstDonationRecord).build();
+        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION, descriptor);
 
+        assertCommandFailure(editDonationCommand, model, EditDonationCommand.MESSAGE_DUPLICATE_DONATION_RECORD);
     }
 
     @Test
     public void execute_personIdIsNull_failure() throws Exception {
-        Model modelStub = new ModelManager();
-        assertThrows(NullPointerException.class, () -> modelStub.addDonationRecord(new DonationRecord(UUID.fromString(
+        assertThrows(NullPointerException.class, () -> model.addDonationRecord(new DonationRecord(UUID.fromString(
                "3a8590f5-c86b-418a-82b5-7d65fc5602e4"),
                UUID.fromString(null), new DonationDate("02-02-2020") ,
                new BloodVolume("500"))));

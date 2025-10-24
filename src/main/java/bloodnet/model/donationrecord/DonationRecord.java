@@ -82,8 +82,7 @@ public class DonationRecord {
         }
 
         DonationRecord otherDonationRecord = (DonationRecord) other;
-        return id.equals(otherDonationRecord.id)
-                && personId.equals(otherDonationRecord.personId)
+        return personId.equals(otherDonationRecord.personId)
                 && donationDate.equals(otherDonationRecord.donationDate)
                 && bloodVolume.equals(otherDonationRecord.bloodVolume);
     }
