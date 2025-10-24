@@ -16,17 +16,17 @@ public class HasBloodTypePredicateTest {
 
     @Test
     public void equals() {
-        List<String> firstBloodType = Collections.singletonList("A+");
-        List<String> listOfBloodTypes = Arrays.asList("B+", "O+", "A+");
+        List<String> oneBloodTypeProvided = Collections.singletonList("A+");
+        List<String> multipleBloodTypesProvided = Arrays.asList("B+", "O+", "A+");
 
-        HasBloodTypePredicate oneBloodType = new HasBloodTypePredicate(firstBloodType);
-        HasBloodTypePredicate multipleBloodTypes = new HasBloodTypePredicate(listOfBloodTypes);
+        HasBloodTypePredicate oneBloodType = new HasBloodTypePredicate(oneBloodTypeProvided);
+        HasBloodTypePredicate multipleBloodTypes = new HasBloodTypePredicate(multipleBloodTypesProvided);
 
         // same object -> returns true
         assertTrue(oneBloodType.equals(oneBloodType));
 
         // same values -> returns true
-        HasBloodTypePredicate oneBloodTypeCopy = new HasBloodTypePredicate(firstBloodType);
+        HasBloodTypePredicate oneBloodTypeCopy = new HasBloodTypePredicate(oneBloodTypeProvided);
         assertTrue(oneBloodType.equals(oneBloodTypeCopy));
 
         // different types -> returns false
@@ -39,15 +39,16 @@ public class HasBloodTypePredicateTest {
         assertFalse(oneBloodType.equals(multipleBloodTypes));
     }
 
-    // Still checking for multiple blood types and will be added in v1.5.
-    // Currently only check for filtering one blood type. I am pretty sure it works
-    // for a list of blood types, but will add tests in next iteration.
     @Test
     public void test_personHasBloodType_returnsTrue() {
-        // One keyword
+        // One blood type provided
         HasBloodTypePredicate predicate = new HasBloodTypePredicate(Collections.singletonList("O+"));
         assertTrue(predicate.test(new PersonBuilder().withBloodType("O+").build()));
 
+        // Multiple blood types provided
+        List<String> multipleBloodTypesProvided = Arrays.asList("AB+", "O+", "A+");
+        predicate = new HasBloodTypePredicate(multipleBloodTypesProvided);
+        assertTrue(predicate.test(new PersonBuilder().withBloodType("O+").build()));
     }
 
     @Test
@@ -56,17 +57,21 @@ public class HasBloodTypePredicateTest {
         HasBloodTypePredicate predicate = new HasBloodTypePredicate(Collections.emptyList());
         assertFalse(predicate.test(new PersonBuilder().withBloodType("O+").build()));
 
-        // Non-matching blood types
+        // Non-matching blood type provided
         predicate = new HasBloodTypePredicate(Arrays.asList("O+"));
         assertFalse(predicate.test(new PersonBuilder().withBloodType("A+").build()));
 
+        // Non-matching blood types provided
+        List<String> multipleBloodTypesProvided = Arrays.asList("AB+", "O+", "A+");
+        predicate = new HasBloodTypePredicate(multipleBloodTypesProvided);
+        assertFalse(predicate.test(new PersonBuilder().withBloodType("O-").build()));
     }
 
     @Test
     public void toStringMethod() {
-        List<String> keywords = List.of("bloodtype1", "bloodtype2");
-        HasBloodTypePredicate predicate = new HasBloodTypePredicate(keywords);
-        String expected = HasBloodTypePredicate.class.getCanonicalName() + "{bloodType=" + keywords + "}";
+        List<String> bloodTypesProvided = List.of("bloodTypeOne", "bloodTypeTwo");
+        HasBloodTypePredicate predicate = new HasBloodTypePredicate(bloodTypesProvided);
+        String expected = HasBloodTypePredicate.class.getCanonicalName() + "{bloodType=" + bloodTypesProvided + "}";
         assertEquals(expected, predicate.toString());
     }
 }

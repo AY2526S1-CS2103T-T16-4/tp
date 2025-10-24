@@ -1,12 +1,12 @@
 package bloodnet.logic.commands;
 
+import static bloodnet.testutil.Assert.assertThrows;
 import static bloodnet.testutil.TypicalPersons.getTypicalBloodNet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -16,43 +16,53 @@ import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FindEligibleCommand}.
  */
 public class FindEligibleCommandTest {
-    private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalBloodNet(), new UserPrefs());
-
+    private final Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalBloodNet(), new UserPrefs());
 
     @Test
     public void equals() {
+        List<String> listOfBloodTypes = Arrays.asList("B+", "O+", "A+");
+        List<String> secondListOfBloodTypes = Arrays.asList("AB+", "A+");
 
-        FindEligibleCommand findFirstCommand = new FindEligibleCommand(Collections.singletonList("O+"));
-        FindEligibleCommand findFirstCommandCopy = new FindEligibleCommand(Collections.singletonList("O+"));
-        FindEligibleCommand findSecondCommand = new FindEligibleCommand(Collections.singletonList("A+"));
+        FindEligibleCommand findEligibleFirstCommand = new FindEligibleCommand(listOfBloodTypes);
+        FindEligibleCommand findEligibleFirstCommandCopy = new FindEligibleCommand(listOfBloodTypes);
+        FindEligibleCommand findEligibleSecondCommand = new FindEligibleCommand(secondListOfBloodTypes);
 
         // same object -> returns true
-        assertTrue(findFirstCommand.equals(findFirstCommand));
+        assertTrue(findEligibleFirstCommand.equals(findEligibleFirstCommand));
 
-        // same values -> returns true
         // different types -> returns false
-        assertFalse(findFirstCommand.equals(1));
+        assertFalse(findEligibleFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(findFirstCommand.equals(null));
+        assertFalse(findEligibleFirstCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(findFirstCommand.equals(findSecondCommand));
+        assertFalse(findEligibleFirstCommand.equals(findEligibleSecondCommand));
 
-        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+        // same values and different object -> returns false
+        assertTrue(findEligibleFirstCommand.equals(findEligibleFirstCommandCopy));
     }
 
     @Test
     public void toStringMethod() {
         List<String> listOfBloodTypes = Arrays.asList("B+", "O+", "A+");
         FindEligibleCommand findEligibleCommand = new FindEligibleCommand(listOfBloodTypes);
-        String expected = FindEligibleCommand.class.getCanonicalName() + "{bloodType=" + listOfBloodTypes + "}";
+
+        String expected = FindEligibleCommand.class.getCanonicalName() + "{bloodTypes=" + listOfBloodTypes + "}";
         assertEquals(expected, findEligibleCommand.toString());
     }
+
+
+    @Test
+    public void execute_nullPerson_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+    }
+
+
 
 }
 

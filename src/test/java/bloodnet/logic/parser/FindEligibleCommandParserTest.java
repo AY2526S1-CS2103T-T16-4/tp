@@ -17,28 +17,26 @@ public class FindEligibleCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        // only spaces are included
+        // only spaces included
         assertParseFailure(parser, "    ", BloodType.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_invalidArg_throwsParseException() {
         // invalid blood type, then valid blood type
-        assertParseFailure(parser, "T+ A+", BloodType.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "T+ A+ B+", BloodType.MESSAGE_CONSTRAINTS);
 
         // valid blood type, then invalid blood type
-        assertParseFailure(parser, "A+ T+", BloodType.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "A+ T+ A+", BloodType.MESSAGE_CONSTRAINTS);
 
         // valid blood type, then invalid blood type
         assertParseFailure(parser, "1232312321", BloodType.MESSAGE_CONSTRAINTS);
-
     }
 
     @Test
-    public void parse_validArguments_success() {
+    public void parse_validArg_success() {
         String[] arrayOfBloodTypes = new String[]{"O+", "A+", "AB+"};
-        FindEligibleCommand findEligible = new FindEligibleCommand(Arrays.asList(arrayOfBloodTypes));
-        String userInput = "O+ A+ AB+";
-        assertParseSuccess(parser, userInput, findEligible);
+        FindEligibleCommand findEligibleCommand = new FindEligibleCommand(Arrays.asList(arrayOfBloodTypes));
+        assertParseSuccess(parser, "O+ A+ AB+", findEligibleCommand);
     }
 }
