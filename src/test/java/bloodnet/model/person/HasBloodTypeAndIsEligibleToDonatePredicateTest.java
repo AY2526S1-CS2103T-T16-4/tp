@@ -15,32 +15,42 @@ import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
 import bloodnet.testutil.PersonBuilder;
+// COME BACK LATER
 
-public class HasBloodTypePredicateTest {
+public class HasBloodTypeAndIsEligibleToDonatePredicateTest {
+    private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
 
     @Test
     public void equals() {
-        List<String> firstBloodType = Collections.singletonList("A+");
-        List<String> listOfBloodTypes = Arrays.asList("B+", "O+", "A+");
+        String[] arrayOfBloodTypes = new String[]{"O+", "A+", "AB+"};
+        HasBloodTypePredicate firstBloodTypePredicate = new HasBloodTypePredicate(Arrays.asList(arrayOfBloodTypes));
+        IsEligibleToDonatePredicate eligibleToDonatePredicate = new IsEligibleToDonatePredicate(model);
+        HasBloodTypePredicate secondBloodTypePredicate = new HasBloodTypePredicate(Arrays.asList(arrayOfBloodTypes));
 
-        HasBloodTypePredicate oneBloodType = new HasBloodTypePredicate(firstBloodType);
-        HasBloodTypePredicate multipleBloodTypes = new HasBloodTypePredicate(listOfBloodTypes);
+        HasBloodTypeAndIsEligibleToDonatePredicate firstPredicate
+                = new HasBloodTypeAndIsEligibleToDonatePredicate(firstBloodTypePredicate, eligibleToDonatePredicate);
 
-        // same object -> returns true
-        assertTrue(oneBloodType.equals(oneBloodType));
+        HasBloodTypeAndIsEligibleToDonatePredicate firstPredicateCopy
+                = new HasBloodTypeAndIsEligibleToDonatePredicate(firstBloodTypePredicate, eligibleToDonatePredicate);
+
+        HasBloodTypeAndIsEligibleToDonatePredicate secondPredicate
+                = new HasBloodTypeAndIsEligibleToDonatePredicate(secondBloodTypePredicate, eligibleToDonatePredicate);
+
+        // same predicate -> returns true
+        assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        HasBloodTypePredicate oneBloodTypeCopy = new HasBloodTypePredicate(firstBloodType);
-        assertTrue(oneBloodType.equals(oneBloodTypeCopy));
+        System.out.println(firstPredicate.toString() + "\n" + firstPredicateCopy.toString());
+        assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
-        assertFalse(oneBloodType.equals(1));
+        assertFalse(firstPredicateCopy.equals(1));
 
         // null -> returns false
-        assertFalse(oneBloodType.equals(null));
+        assertFalse(firstPredicateCopy.equals(null));
 
         // different person -> returns false
-        assertFalse(oneBloodType.equals(multipleBloodTypes));
+        assertFalse(firstPredicateCopy.equals(secondPredicate));
     }
 
     // Still checking for multiple blood types and will be added in v1.5.

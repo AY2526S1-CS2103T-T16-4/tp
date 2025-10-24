@@ -40,15 +40,15 @@ public class HasBloodTypeAndIsEligibleToDonatePredicate implements Predicate<Per
         }
 
         // instanceof handles nulls
-        if (!(other instanceof IsEligibleToDonatePredicate)) {
+        if (!(other instanceof HasBloodTypeAndIsEligibleToDonatePredicate)) {
             return false;
         }
 
-        HasBloodTypeAndIsEligibleToDonatePredicate otherHasloodTypeAndIsEligibleToDonatePredicate =
+        HasBloodTypeAndIsEligibleToDonatePredicate otherHasBloodTypeAndIsEligibleToDonatePredicate =
                 (HasBloodTypeAndIsEligibleToDonatePredicate) other;
-        return this.bloodTypePredicate.equals(otherHasloodTypeAndIsEligibleToDonatePredicate.bloodTypePredicate)
-                && this.eligibleToDonatePredicate
-                == otherHasloodTypeAndIsEligibleToDonatePredicate.eligibleToDonatePredicate;
+        return this.bloodTypePredicate.equals(otherHasBloodTypeAndIsEligibleToDonatePredicate.bloodTypePredicate)
+                && this.eligibleToDonatePredicate.equals(
+                        otherHasBloodTypeAndIsEligibleToDonatePredicate.eligibleToDonatePredicate);
     }
 
     @Override

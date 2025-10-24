@@ -53,6 +53,10 @@ public class DonationDate {
         }
     }
 
+    public LocalDate getDonationDate() {
+        return value;
+    }
+
     /**
      * Formats the date as the same format as inputted ie: DD-MM-YYYY
      */

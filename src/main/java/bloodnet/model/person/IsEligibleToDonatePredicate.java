@@ -2,19 +2,32 @@ package bloodnet.model.person;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import bloodnet.commons.util.ToStringBuilder;
+import bloodnet.model.Model;
+import bloodnet.model.ModelManager;
+import bloodnet.model.ReadOnlyBloodNet;
+import bloodnet.model.UserPrefs;
+import bloodnet.model.donationrecord.DonationDate;
+import bloodnet.model.donationrecord.DonationRecord;
+import java.util.Comparator;
+
 
 /**
  * Tests that a {@code Person}'s {@code BloodType} matches any of the people's blood types.
  */
 public class IsEligibleToDonatePredicate implements Predicate<Person> {
 
+    private Model model;
     /**
      * Constructs a {@code HasBloodTypePredicate}.
      */
-    public IsEligibleToDonatePredicate() {
+    public IsEligibleToDonatePredicate(Model model) {
+        this.model = model;
+
     }
 
     /**
@@ -25,21 +38,31 @@ public class IsEligibleToDonatePredicate implements Predicate<Person> {
      */
     public boolean test(Person person) {
         DateOfBirth dateOfBirth = person.getDateOfBirth();
-        Period period = Period.between(dateOfBirth.value, LocalDate.now());
-        int daysSinceLastDonation = period.getDays();
+        Optional<DonationDate> lastDonationDate = model.getFilteredDonationRecordList().stream()
+                .filter(donationRecord -> donationRecord.getPersonId()
+                        .equals(person.getId()))
+                .max(Comparator.comparing(donationRecord -> donationRecord.getDonationDate().getDonationDate()))
+        .map(DonationRecord::getDonationDate);
+
         LocalDate currentDate = LocalDate.now();
-        LocalDate earliestDate = currentDate.minusYears(16).minusDays(1);
+        LocalDate earliestDate = currentDate.minusYears(16);
         LocalDate oldestFirstTimeBloodDonors = currentDate.minusYears(61);
         LocalDate oldestRepeatDonor = currentDate.minusYears(66);
 
-        if (dateOfBirth.value.isAfter(earliestDate)) {
-            if (dateOfBirth.value.isBefore(oldestRepeatDonor) && daysSinceLastDonation > 1068) {
+        if (!dateOfBirth.value.isAfter(earliestDate)) {
+            if (!dateOfBirth.value.isAfter(oldestRepeatDonor) &&
+                    lastDonationDate.isPresent() && lastDonationDate.get().getDonationDate()
+                    .plusYears(3).isBefore(currentDate)) {
+                System.out.println("1");
                 return false;
             }
-            if (dateOfBirth.value.isBefore(oldestFirstTimeBloodDonors) && daysSinceLastDonation <= 0) {
+            if (!dateOfBirth.value.isAfter(oldestFirstTimeBloodDonors) && !lastDonationDate.isPresent()) {
+                System.out.println("2");
                 return false;
             }
-            if (daysSinceLastDonation < 84) {
+            if (lastDonationDate.isPresent() && lastDonationDate.get().getDonationDate()
+                    .plusDays(84).isAfter(currentDate)) {
+                System.out.println("3");
                 return false;
             }
         } else {

@@ -56,6 +56,10 @@ public class DateOfBirth {
         }
     }
 
+    public LocalDate getDateOfBirth() {
+        return value;
+    }
+
     /**
      * Formats the date as the same format as inputted ie: DD-MM-YYY
      */

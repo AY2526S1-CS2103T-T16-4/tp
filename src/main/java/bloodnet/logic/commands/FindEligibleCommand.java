@@ -22,7 +22,7 @@ public class FindEligibleCommand extends Command {
     // This message will definitely be altered.
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all people who are eligible to donate "
             + "given the provided blood type. \n Eligible first-time blood donors must be between 16 and 60 "
-            + "(1 day before their 61st birthday.) \n"
+            + "(1 day before their 61st birthday). \n"
             + "Parameters: KEYWORD [BLOOD_TYPE]...\n"
             + "Example: " + COMMAND_WORD + " O+";
 
@@ -36,7 +36,7 @@ public class FindEligibleCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPersonList(new HasBloodTypeAndIsEligibleToDonatePredicate(
-                new HasBloodTypePredicate(enteredBloodType), new IsEligibleToDonatePredicate()));
+                new HasBloodTypePredicate(enteredBloodType), new IsEligibleToDonatePredicate(model)));
         int filteredPersonListSize = model.getFilteredPersonList().size();
         return new CommandResult(
                 String.format(Messages.MESSAGE_PEOPLE_LISTED_OVERVIEW,
@@ -51,7 +51,7 @@ public class FindEligibleCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof FindCommand)) {
+        if (!(other instanceof FindEligibleCommand)) {
             return false;
         }
 
