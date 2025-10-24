@@ -1,8 +1,11 @@
 package bloodnet.logic.parser;
 
+import static bloodnet.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.util.Arrays;
 import java.util.List;
 
+import bloodnet.logic.commands.FindCommand;
 import bloodnet.logic.commands.FindEligibleCommand;
 import bloodnet.logic.parser.exceptions.ParseException;
 
@@ -18,9 +21,14 @@ public class FindEligibleCommandParser implements Parser<FindEligibleCommand> {
      * @throws ParseException if the user input does not conform to the expected format
      */
     public FindEligibleCommand parse(String args) throws ParseException {
-        String trimmedArguments = args.trim();
-        String[] bloodTypesToFilterFor = trimmedArguments.split("\\s+");
+        String trimmedArgs = args.trim();
+        String[] bloodTypesToFilterFor = trimmedArgs.split("\\s+");
         List<String> list = Arrays.asList(bloodTypesToFilterFor);
+
+        if (trimmedArgs.isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEligibleCommand.MESSAGE_USAGE));
+        }
 
         for (String bloodType : list) {
             ParserUtil.parseBloodType(bloodType);

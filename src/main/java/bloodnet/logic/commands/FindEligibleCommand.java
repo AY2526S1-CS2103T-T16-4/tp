@@ -20,11 +20,13 @@ public class FindEligibleCommand extends Command {
     public static final String COMMAND_WORD = "findeligible";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all people who are eligible to donate"
-            + "blood given the specified blood type (case-insensitive) \n and displays them as a list with index "
-            + "numbers. \n All blood donors must be at least 16 (inclusive) years old; age limits might vary for "
-            + "repeat donors based on donation history.\n"
-            + "Parameters: KEYWORD [BLOOD_TYPE]...\n"
-            + "Example: " + COMMAND_WORD + " O+";
+            + " blood for the specified blood type(s) (case-insensitive) \nand displays them as a list with index "
+            + "numbers. \nAll eligible blood donors must be at least 16 (inclusive) years old.\nThe maximum age for "
+            + "first-time donors is generally 60 years and 354 days, but repeat donors may have different age limits \n"
+            + "depending on donation history. \n"
+            + "Parameters: BLOOD_TYPE (can include multiple)\n"
+            + "Example: " + COMMAND_WORD + " O+ A+ B+";
+
 
     private final List<String> enteredBloodTypes;
 
