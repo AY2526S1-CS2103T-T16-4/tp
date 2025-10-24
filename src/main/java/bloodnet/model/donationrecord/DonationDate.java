@@ -8,9 +8,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-
 /**
- * Represents a Donation Date (DD-MM-YYYY) in PersonList
+ * Represents a Donation Date (DD-MM-YYYY) in DonationRecordList
  * Guarantees: immutable; is valid as declared in {@link #isValidDonationDate(String)}
  */
 public class DonationDate {
@@ -20,17 +19,9 @@ public class DonationDate {
                     + " and not more than 130 years ago from today.";
     public static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(STRICT);
-    /**
-     * This is stored as a LocalDate for easier parsing purposes.
-     */
+
     public final LocalDate value;
 
-
-    /**
-     * Constructs a {@code DonationDate}.
-     *
-     * @param donationDate A valid donation date.
-     */
     public DonationDate(String donationDate) {
         requireNonNull(donationDate);
         checkArgument(isValidDonationDate(donationDate), MESSAGE_CONSTRAINTS);
@@ -38,8 +29,7 @@ public class DonationDate {
     }
 
     /**
-     * Returns true if a given string is a valid date of birth.
-     * Checks to see if it can be parsed as a valid date of birth.
+     * Returns true if a given string is a valid donation date.
      */
     public static boolean isValidDonationDate(String test) {
 
@@ -53,23 +43,18 @@ public class DonationDate {
         }
     }
 
-    public LocalDate getDonationDate() {
+    public LocalDate getValue() {
         return value;
     }
 
     /**
-     * Formats the date as the same format as inputted ie: DD-MM-YYYY
+     * Formats the date as the same format as inputted ie: DD-MM-YYYY.
      */
     @Override
     public String toString() {
         return value.format(DATE_FORMATTER);
     }
 
-    /**
-     * Compares two dates of birth with one another.
-     *
-     * @param other date
-     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {

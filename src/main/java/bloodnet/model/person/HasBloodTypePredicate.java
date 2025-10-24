@@ -9,29 +9,27 @@ import bloodnet.commons.util.ToStringBuilder;
  * Tests that a {@code Person}'s {@code BloodType} matches any of the people's blood types.
  */
 public class HasBloodTypePredicate implements Predicate<Person> {
-    private final List<String> bloodType;
+    private final List<String> bloodTypes;
 
     /**
      * Constructs a {@code HasBloodTypePredicate}.
      *
-     * @param bloodType A list of blood types to be matched.
+     * @param bloodTypes A list of blood types to be matched provided by the user.
      */
-    public HasBloodTypePredicate(List<String> bloodType) {
-        this.bloodType = bloodType;
+    public HasBloodTypePredicate(List<String> bloodTypes) {
+        this.bloodTypes = bloodTypes;
     }
 
-    // Very well aware that it is not the most elegant thing.
     /**
-     * This is the predicate that does the filtering. Basically, the user will
-     * provide whatever blood types that they would like. Then, filtering will be done
-     * both on date of birth and blood type in order to note down eligibility
-     * @param person the input argument
-     * @return
+     * Returns the person's eligibility based on bloodType.
+     * {@code bloodType} is provided by the user.
+     *
+     * @param person Person you are checking eligibility for.
      */
     public boolean test(Person person) {
-        boolean bloodTypeMatching = bloodType.stream()
+        boolean bloodTypePredicate = bloodTypes.stream()
                 .anyMatch(bloodType -> bloodType.equalsIgnoreCase(person.getBloodType().value));
-        return bloodTypeMatching;
+        return bloodTypePredicate;
     }
 
     @Override
@@ -46,11 +44,11 @@ public class HasBloodTypePredicate implements Predicate<Person> {
         }
 
         HasBloodTypePredicate otherHasBloodTypePredicate = (HasBloodTypePredicate) other;
-        return bloodType.equals(otherHasBloodTypePredicate.bloodType);
+        return bloodTypes.equals(otherHasBloodTypePredicate.bloodTypes);
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).add("bloodType", bloodType).toString();
+        return new ToStringBuilder(this).add("bloodType", bloodTypes).toString();
     }
 }

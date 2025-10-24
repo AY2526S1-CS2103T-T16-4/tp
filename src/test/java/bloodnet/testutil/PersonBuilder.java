@@ -32,7 +32,7 @@ public class PersonBuilder {
      * Creates a {@code PersonBuilder} with the default details.
      */
     public PersonBuilder() {
-        id = UUID.fromString("cb3fed29-2fa4-416e-9739-50e38ae5aa38");
+        id = UUID.fromString(DEFAULT_ID);
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);

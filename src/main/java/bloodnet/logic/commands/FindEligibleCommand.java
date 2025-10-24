@@ -12,31 +12,31 @@ import bloodnet.model.person.HasBloodTypePredicate;
 import bloodnet.model.person.IsEligibleToDonatePredicate;
 
 /**
- * Finds and lists all eligible person based on date of birth, blood type
- * and days since last donation.
+ * Finds and lists all eligible person based on blood type, date of birth
+ * and number of days since their last donation, if applicable.
  */
 public class FindEligibleCommand extends Command {
 
     public static final String COMMAND_WORD = "findeligible";
 
-    // This message will definitely be altered.
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all people who are eligible to donate "
-            + "given the provided blood type. \n Eligible first-time blood donors must be between 16 and 60 "
-            + "(1 day before their 61st birthday). \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all people who are eligible to donate"
+            + "blood given the specified blood type (case-insensitive) \n and displays them as a list with index "
+            + "numbers. \n All blood donors must be at least 16 (inclusive) years old; age limits might vary for "
+            + "repeat donors based on donation history.\n"
             + "Parameters: KEYWORD [BLOOD_TYPE]...\n"
             + "Example: " + COMMAND_WORD + " O+";
 
-    private final List<String> enteredBloodType;
+    private final List<String> enteredBloodTypes;
 
-    public FindEligibleCommand(List<String> enteredBloodType) {
-        this.enteredBloodType = enteredBloodType;
+    public FindEligibleCommand(List<String> enteredBloodTypes) {
+        this.enteredBloodTypes = enteredBloodTypes;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPersonList(new HasBloodTypeAndIsEligibleToDonatePredicate(
-                new HasBloodTypePredicate(enteredBloodType), new IsEligibleToDonatePredicate(model)));
+                new HasBloodTypePredicate(enteredBloodTypes), new IsEligibleToDonatePredicate(model)));
         int filteredPersonListSize = model.getFilteredPersonList().size();
         return new CommandResult(
                 String.format(Messages.MESSAGE_PEOPLE_LISTED_OVERVIEW,
@@ -56,13 +56,13 @@ public class FindEligibleCommand extends Command {
         }
 
         FindEligibleCommand otherFindCommand = (FindEligibleCommand) other;
-        return enteredBloodType.equals(otherFindCommand.enteredBloodType);
+        return enteredBloodTypes.equals(otherFindCommand.enteredBloodTypes);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("bloodType", enteredBloodType)
+                .add("bloodTypes", enteredBloodTypes)
                 .toString();
     }
 }

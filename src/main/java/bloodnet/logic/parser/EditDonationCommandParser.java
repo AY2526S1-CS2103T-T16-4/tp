@@ -7,6 +7,7 @@ import static java.util.Objects.requireNonNull;
 
 import bloodnet.commons.core.index.Index;
 import bloodnet.logic.commands.EditDonationCommand;
+import bloodnet.logic.commands.EditDonationCommand.EditDonationRecordDescriptor;
 import bloodnet.logic.parser.exceptions.ParseException;
 
 /**
@@ -24,7 +25,6 @@ public class EditDonationCommandParser implements Parser<EditDonationCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_BLOOD_VOLUME, PREFIX_DONATION_DATE);
-
         Index index;
 
         try {
@@ -36,7 +36,7 @@ public class EditDonationCommandParser implements Parser<EditDonationCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_BLOOD_VOLUME, PREFIX_DONATION_DATE);
 
-        EditDonationCommand.EditDonationRecordDescriptor editDonationRecordDescriptor =
+        EditDonationRecordDescriptor editDonationRecordDescriptor =
                 new EditDonationCommand.EditDonationRecordDescriptor();
 
         if (argMultimap.getValue(PREFIX_BLOOD_VOLUME).isPresent()) {
@@ -52,7 +52,7 @@ public class EditDonationCommandParser implements Parser<EditDonationCommand> {
         if (!editDonationRecordDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditDonationCommand.MESSAGE_NOT_EDITED);
         }
-
+        
         return new EditDonationCommand(index, editDonationRecordDescriptor);
     }
 

@@ -5,20 +5,13 @@ import java.util.function.Predicate;
 import bloodnet.commons.util.ToStringBuilder;
 
 /**
- * Tests that a {@code Person}'s {@code BloodType} matches any of the people's blood types.
+ * Tests that a {@code Person} is eligible based on {@code HasBloodTypePredicate} and
+ * {@code IsEligibleToDonatePredicate}
  */
 public class HasBloodTypeAndIsEligibleToDonatePredicate implements Predicate<Person> {
     private final HasBloodTypePredicate bloodTypePredicate;
     private final IsEligibleToDonatePredicate eligibleToDonatePredicate;
 
-
-    /**
-     * Constructs a {@code HasBloodTypePredicate}.
-     *
-     * @param bloodTypePredicate Predicate as to whether the person has the relevant blood type.
-     * @param eligibleToDonatePredicate Predicate as to whether the person is eligible based on date of
-     *                                  birth and donation date.
-     */
     public HasBloodTypeAndIsEligibleToDonatePredicate(HasBloodTypePredicate bloodTypePredicate,
                                                       IsEligibleToDonatePredicate eligibleToDonatePredicate) {
         this.bloodTypePredicate = bloodTypePredicate;
@@ -26,8 +19,9 @@ public class HasBloodTypeAndIsEligibleToDonatePredicate implements Predicate<Per
     }
 
     /**
-     * This function returns true if both of the predicates are true.
-     * @param person the input argument
+     * Returns true if both predicates are true.
+     *
+     * @param person Person that is being checked for.
      */
     public boolean test(Person person) {
         return bloodTypePredicate.test(person) && eligibleToDonatePredicate.test(person);
@@ -39,13 +33,14 @@ public class HasBloodTypeAndIsEligibleToDonatePredicate implements Predicate<Per
             return true;
         }
 
-        // instanceof handles nulls
+        // instanceof handles null check
         if (!(other instanceof HasBloodTypeAndIsEligibleToDonatePredicate)) {
             return false;
         }
 
         HasBloodTypeAndIsEligibleToDonatePredicate otherHasBloodTypeAndIsEligibleToDonatePredicate =
                 (HasBloodTypeAndIsEligibleToDonatePredicate) other;
+
         return this.bloodTypePredicate.equals(otherHasBloodTypeAndIsEligibleToDonatePredicate.bloodTypePredicate)
                 && this.eligibleToDonatePredicate.equals(
                         otherHasBloodTypeAndIsEligibleToDonatePredicate.eligibleToDonatePredicate);
@@ -54,6 +49,6 @@ public class HasBloodTypeAndIsEligibleToDonatePredicate implements Predicate<Per
     @Override
     public String toString() {
         return new ToStringBuilder(this).add("hasBloodType", bloodTypePredicate)
-                .add("dateOfBirthAndDonationDate", eligibleToDonatePredicate).toString();
+                .add("dateOfBirthAndDaysSinceLastDonation", eligibleToDonatePredicate).toString();
     }
 }

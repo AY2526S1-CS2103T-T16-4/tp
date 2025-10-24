@@ -60,16 +60,6 @@ public class HasBloodTypePredicateTest {
         predicate = new HasBloodTypePredicate(Arrays.asList("O+"));
         assertFalse(predicate.test(new PersonBuilder().withBloodType("A+").build()));
 
-        //individual too young
-        //predicate = new HasBloodTypePredicate(Arrays.asList("O+"));
-        //assertFalse(predicate.test(new PersonBuilder().withBloodType("O+").withDateOfBirth(
-        //      "08-08-2012").build()));
-
-        // individual too old and never donated before
-        //individual too young
-        //predicate = new HasBloodTypePredicate(Arrays.asList("O+"));
-        //assertFalse(predicate.test(new PersonBuilder().withBloodType("O+").withDateOfBirth(
-        //          "20-10-1964").build()));
     }
 
     @Test

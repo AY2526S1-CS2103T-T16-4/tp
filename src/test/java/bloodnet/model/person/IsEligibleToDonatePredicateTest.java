@@ -23,7 +23,6 @@ import bloodnet.testutil.PersonBuilder;
 public class IsEligibleToDonatePredicateTest {
     private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
 
-
     @Test
     public void equals() {
         IsEligibleToDonatePredicate predicateOne = new IsEligibleToDonatePredicate(model);
