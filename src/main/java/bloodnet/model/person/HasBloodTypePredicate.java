@@ -1,30 +1,23 @@
 package bloodnet.model.person;
 
-import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import bloodnet.commons.util.ToStringBuilder;
-import bloodnet.model.donationrecord.DonationRecord;
 
 /**
  * Tests that a {@code Person}'s {@code BloodType} matches any of the people's blood types.
  */
 public class HasBloodTypePredicate implements Predicate<Person> {
     private final List<String> bloodType;
-    private final List<DonationRecord> donationRecords;
 
     /**
      * Constructs a {@code HasBloodTypePredicate}.
      *
      * @param bloodType A list of blood types to be matched.
-     * @param donationRecords A list of donation records that are in the model.
      */
-    public HasBloodTypePredicate(List<String> bloodType, List<DonationRecord> donationRecords) {
+    public HasBloodTypePredicate(List<String> bloodType) {
         this.bloodType = bloodType;
-        this.donationRecords = donationRecords;
     }
 
     // Very well aware that it is not the most elegant thing.
@@ -38,44 +31,7 @@ public class HasBloodTypePredicate implements Predicate<Person> {
     public boolean test(Person person) {
         boolean bloodTypeMatching = bloodType.stream()
                 .anyMatch(bloodType -> bloodType.equalsIgnoreCase(person.getBloodType().value));
-
-        if (bloodTypeMatching) {
-            LocalDate currentDate = LocalDate.now();
-            LocalDate earliestDate = currentDate.minusYears(16);
-            LocalDate oldestFirstTimeBloodDonors = currentDate.minusYears(61).plusDays(1);
-            LocalDate oldestRepeatDonor = currentDate.minusYears(66).plusDays(1);
-
-            if (!person.getDateOfBirth().value.isAfter(earliestDate)) {
-                if (!person.getDateOfBirth().value.isBefore(oldestFirstTimeBloodDonors)) {
-                    return true;
-                }
-                else if (!person.getDateOfBirth().value.isBefore(oldestRepeatDonor)
-                        && donationRecords.stream().anyMatch(id ->
-                        id.getPersonId().equals(person.getId()))) {
-                    return true;
-                }
-                else {
-                    Optional<DonationRecord> latestDate = donationRecords.stream().max(
-                            Comparator.comparing(donationRecord ->
-                                    donationRecord.getDonationDate().value));
-
-                    if (latestDate.isPresent()) {
-                        LocalDate lastDate = latestDate.get().getDonationDate().value;
-                        return !lastDate.isBefore(currentDate.minusYears(3));
-                    }
-                }
-
-            }
-        }
-        if (donationRecords.stream().anyMatch(id -> id.getPersonId().equals(person.getId()))) {
-            Optional<DonationRecord> latestDate = donationRecords.stream().max(
-                    Comparator.comparing(donationRecord -> donationRecord.getDonationDate().value));
-            if (latestDate.isPresent()) {
-                LocalDate lastDate = latestDate.get().getDonationDate().value;
-                return !lastDate.isAfter(LocalDate.now().minusYears(12));
-            }
-        }
-        return false;
+        return bloodTypeMatching;
     }
 
     @Override
