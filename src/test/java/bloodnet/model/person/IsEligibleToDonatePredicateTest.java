@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
+import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.testutil.DonationRecordBuilder;
 import bloodnet.testutil.PersonBuilder;
 
@@ -264,7 +265,7 @@ public class IsEligibleToDonatePredicateTest {
         // Should be true because the successor donation is exactly 84 days away
         String testDonationDate = LocalDate.now().minusDays(234).format(formatter);
         IsEligibleToDonatePredicate testPredicate = new IsEligibleToDonatePredicate(model,
-                new bloodnet.model.donationrecord.DonationDate(testDonationDate));
+                                                                                    new DonationDate(testDonationDate));
         assertTrue(testPredicate.test(person));
     }
 
@@ -288,7 +289,7 @@ public class IsEligibleToDonatePredicateTest {
         // Should be false because the successor donation is less than 84 days away
         String testDonationDate = LocalDate.now().minusDays(180).format(formatter);
         IsEligibleToDonatePredicate testPredicate = new IsEligibleToDonatePredicate(model,
-                new bloodnet.model.donationrecord.DonationDate(testDonationDate));
+                                                                                    new DonationDate(testDonationDate));
         assertFalse(testPredicate.test(person));
     }
 
@@ -311,8 +312,8 @@ public class IsEligibleToDonatePredicateTest {
                         .withDonationDate(successorDonationDate)
                         .build());
 
-        IsEligibleToDonatePredicate testPredicate = new IsEligibleToDonatePredicate(
-                        model, new bloodnet.model.donationrecord.DonationDate(testDonationDate));
+        IsEligibleToDonatePredicate testPredicate = new IsEligibleToDonatePredicate(model,
+                                                                                    new DonationDate(testDonationDate));
         assertTrue(testPredicate.test(person));
     }
 
