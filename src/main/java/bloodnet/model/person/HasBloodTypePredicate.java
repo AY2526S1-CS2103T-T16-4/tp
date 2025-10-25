@@ -21,10 +21,10 @@ public class HasBloodTypePredicate implements Predicate<Person> {
     }
 
     /**
-     * Returns the person's eligibility based on bloodType.
+     * Returns true if the person's blood type is in the list of bloodTypes.
      * {@code bloodType} is provided by the user.
      *
-     * @param person Person you are checking eligibility for.
+     * @param person Person you are checking the {@code bloodType} for.
      */
     public boolean test(Person person) {
         boolean bloodTypePredicate = bloodTypes.stream()

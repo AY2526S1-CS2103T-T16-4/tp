@@ -26,9 +26,10 @@ public class IsEligibleToDonatePredicate implements Predicate<Person> {
     }
 
     /**
-     * Returns the person's eligibility based on {@code dateOfBirth} and number of days since their last donation.
+     * Returns true if the person's date of birth and days since last donation fits the criteria.
+     * {@code dateOfBirth} is provided by the user, while donation date is assumed to be the current day.
      *
-     * @param person Person that you are checking eligibility for.
+     * @param person Person you are checking the {@code dateOfBirth} and days since last donation for.
      */
     public boolean test(Person person) {
         LocalDate dateOfBirth = person.getDateOfBirth().getValue();

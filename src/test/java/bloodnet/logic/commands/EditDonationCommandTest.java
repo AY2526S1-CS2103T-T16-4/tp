@@ -24,29 +24,38 @@ import bloodnet.testutil.DonationRecordBuilder;
 import bloodnet.testutil.EditDonationRecordsDescriptorBuilder;
 
 public class EditDonationCommandTest {
-    private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalBloodNet(), new UserPrefs());
+
 
     @Test
     public void constructor_validArguments_success() {
         Index indexStub = Index.fromZeroBased(0);
         BloodVolume bloodVolumeStub = new BloodVolume("300");
         DonationDate donationDateStub = new DonationDate("01-01-2025");
+
         EditDonationCommand.EditDonationRecordDescriptor descriptorStub =
                 new EditDonationRecordDescriptor();
+
         descriptorStub.setBloodVolume(bloodVolumeStub);
         descriptorStub.setDonationDate(donationDateStub);
+
         new EditDonationCommand(indexStub, descriptorStub);
     }
 
     @Test
     public void execute_nullModel_throwsNullPointerException() {
         Index indexStub = Index.fromZeroBased(0);
+
         BloodVolume bloodVolumeStub = new BloodVolume("300");
         DonationDate donationDateStub = new DonationDate("01-01-2025");
+
         EditDonationRecordDescriptor descriptorStub =
                 new EditDonationRecordDescriptor();
+
         descriptorStub.setBloodVolume(bloodVolumeStub);
         descriptorStub.setDonationDate(donationDateStub);
+
         EditDonationCommand edit = new EditDonationCommand(indexStub, descriptorStub);
         assertThrows(NullPointerException.class, () -> edit.execute(null));
     }
@@ -54,23 +63,21 @@ public class EditDonationCommandTest {
     @Test
     public void execute_validArguments_success() throws Exception {
         DonationRecord editedDonationRecord = new DonationRecordBuilder().build();
-        EditDonationRecordDescriptor descriptor = new EditDonationRecordsDescriptorBuilder(editedDonationRecord)
-                .build();
+        expectedModel.setDonationRecord(model.getFilteredDonationRecordList().get(0), editedDonationRecord);
+
+        EditDonationRecordDescriptor editDonationRecordDescriptor = new EditDonationRecordsDescriptorBuilder(
+                editedDonationRecord).build();
 
         Person personToEditRecordFor = model.getFilteredPersonList().stream()
-                .filter(p -> p.getId().equals(editedDonationRecord.getPersonId()))
+                .filter(person -> person.getId().equals(editedDonationRecord.getPersonId()))
                 .findFirst()
                 .orElseThrow();
 
-        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION, descriptor);
+        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION, editDonationRecordDescriptor);
 
         String expectedMessage = String.format(
                 EditDonationCommand.MESSAGE_EDIT_DONATION_RECORD_SUCCESS,
                 Messages.format(editedDonationRecord, personToEditRecordFor));
-
-        Model expectedModel = new ModelManager(new BloodNet(model.getBloodNet()), new UserPrefs());
-
-        expectedModel.setDonationRecord(model.getFilteredDonationRecordList().get(0), editedDonationRecord);
 
         assertCommandSuccess(editDonationCommand, model, expectedMessage, expectedModel);
     }
@@ -79,8 +86,10 @@ public class EditDonationCommandTest {
     public void execute_duplicateDonationRecord_failure() throws Exception {
         DonationRecord firstDonationRecord = model.getFilteredDonationRecordList()
                 .get(INDEX_FIRST_DONATION.getZeroBased());
-        EditDonationRecordDescriptor descriptor = new EditDonationRecordsDescriptorBuilder(firstDonationRecord).build();
-        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION, descriptor);
+        EditDonationRecordDescriptor editDonationDescriptor = new EditDonationRecordsDescriptorBuilder(
+                firstDonationRecord).build();
+
+        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION, editDonationDescriptor);
 
         assertCommandFailure(editDonationCommand, model, EditDonationCommand.MESSAGE_DUPLICATE_DONATION_RECORD);
     }
