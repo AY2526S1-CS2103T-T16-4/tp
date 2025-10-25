@@ -8,7 +8,7 @@ import java.util.UUID;
 import bloodnet.commons.util.ToStringBuilder;
 
 /**
- * Represents a Donation Record in the bloodnet.
+ * Represents a Donation Record in BloodNet.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class DonationRecord {
