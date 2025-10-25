@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import bloodnet.commons.core.index.Index;
 import bloodnet.logic.Messages;
 import bloodnet.logic.commands.EditDonationCommand.EditDonationRecordDescriptor;
-import bloodnet.model.BloodNet;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
@@ -73,7 +72,8 @@ public class EditDonationCommandTest {
                 .findFirst()
                 .orElseThrow();
 
-        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION, editDonationRecordDescriptor);
+        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION,
+                editDonationRecordDescriptor);
 
         String expectedMessage = String.format(
                 EditDonationCommand.MESSAGE_EDIT_DONATION_RECORD_SUCCESS,
