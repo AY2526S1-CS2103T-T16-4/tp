@@ -13,22 +13,6 @@ management
 tasks done faster than traditional GUI apps! BloodNet also does not require internet connectivity, making it perfect
 for locations where internet service is unreliable!
 
-## Table of Contents
-- [Quick start](#quick-start)
-- [Features](#features)
-  - [Adding a donor: add](#adding-a-donor-add)
-  - [Listing all donors: list](#listing-all-donors--list)
-  - [Locating donors by name: find](#locating-donors-by-name-find-)
-  - [Finding eligible donors based on blood type: findeligible](#finding-eligible-donors-based-on-blood-type-findeligible)
-  - [Editing a donor: edit](#editing-a-donor--edit)
-  - [Deleting a donor: delete](#deleting-a-donor--delete)
-  - [Editing a donation record: editdonation](#editing-a-donation-record--editdonation)
-  - [Clearing all entries: clear](#clearing-all-entries--clear)
-  - [Exiting the program: exit](#exiting-the-program--exit)
-  - [Viewing help: help](#viewing-help--help)
-- [FAQ](#faq)
-- [Known issues](#known-issues)
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start

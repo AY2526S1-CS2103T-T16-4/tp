@@ -271,26 +271,27 @@ _{more aspects and alternatives to be added}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …      | I want to …                                                                            | So that …                                                                                       |
-| -------- | ----------- |----------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
-| * * *    | admin staff | add a donor’s contact & blood type                                                     | the blood bank can keep in touch with the donor if more information is needed                   |
-| * * *    | admin staff | add a donor’s date of birth                                                            | the blood bank knows can determine a person's eligibility in donating blood                     |
-| * * *    | admin staff | search donors by name                                                                  | I can find their contact information if I need to contact them                                  |
-| * * *    | admin staff | modify a donor’s contact information                                                   | I can fix the stored contact information if it was keyed in wrongly previously                  |
-| * * *    | admin staff | modify a donor’s date of birth                                                         | I can fix the stored date of birth if it was keyed in wrongly                                   |
-| * * *    | admin staff | modify a donor’s blood type                                                            | I can fix the stored blood type if it was keyed in wrongly previously                           |
-| * * *    | admin staff | delete a donor (soft-delete / archive)                                                 | Remove donors who have passed away or are no longer eligible for donation                       |
-| * * *    | admin staff | list all donors in the system                                                          | Have a quick overview of all the people who have agreed to donate blood to us                   |
-| * * *    | admin staff | find all donors of a particular blood type                                             | If we have a shortage of a particular blood type, we can contact these people and ask them for donations |
-| * * *    | admin staff | record a blood donation by a contact                                                   | I can track how many donations each contact has made, and the details of those donations        |
-| * * *    | admin staff | modify a blood donation record                                                         | I can modify wrongly keyed in records                                                           |
-| * * *    | admin staff | add the volume and donation date associated with a donation record                     | the blood bank is aware of the details associated with each donation record
-| * * *    | admin staff | delete a blood donation record                                                         | I can remove wrongly keyed in records                                                           |
-| * * *    | admin staff | find all eligible donors given a blood type (based on age and last donation interval)  | I can determine who I can call if blood is needed                                               |
-| * *      | admin staff | find a donor based on contact information                                              | I can link their name and contact information together                                          |
-| * *      | admin staff | detect duplicate donors                                                                | I can quickly identify duplicate data in the system and reconcile it to reduce data pollution   |
-| * *      | admin staff | detect duplicate donation records associated with the same person                      | I am able to quickly identify duplicate data in the BloodNet system and reconcile it to reduce data pollution |
-| *        | admin staff | record how much blood was donated by a donor in a session                              | I can recommend donors who have been very active for appreciation awards, to incentivise more donors |
+| Priority | As a …      | I want to …                                                                           | So that …                                                                                                                            |
+| -------- | ----------- |---------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| * * *    | admin staff | add a donor’s contact & blood type                                                    | the blood bank can keep in touch with the donor if more information is needed                                                        |
+| * * *    | admin staff | add a donor’s date of birth                                                           | the blood bank knows can determine a person's eligibility in donating blood                                                          |
+| * * *    | admin staff | search donors by name                                                                 | I can find their contact information if I need to contact them                                                                       |
+| * * *    | admin staff | modify a donor’s contact information                                                  | I can fix the stored contact information if it was keyed in wrongly previously                                                       |
+| * * *    | admin staff | modify a donor’s date of birth                                                        | I can fix the stored date of birth if it was keyed in wrongly                                                                        |
+| * * *    | admin staff | modify a donor’s blood type                                                           | I can fix the stored blood type if it was keyed in wrongly previously                                                                |
+| * * *    | admin staff | delete a donor (soft-delete / archive)                                                | Remove donors who have passed away or are no longer eligible for donation                                                            |
+| * * *    | admin staff | list all donors in the system                                                         | Have a quick overview of all the people who have agreed to donate blood to us                                                        |
+| * * *    | admin staff | find all donors of a particular blood type                                            | If we have a shortage of a particular blood type, we can contact these people and ask them for donations                             |
+| * * *    | admin staff | record a blood donation by a contact                                                  | I can track how many donations each contact has made, and the details of those donations                                             |
+| * * *    | admin staff | modify a blood donation record                                                        | I can modify wrongly keyed in records                                                                                                |
+| * * *    | admin staff | add the volume and donation date associated with a donation record                    | the blood bank is aware of the details associated with each donation record                                                          
+| * * *    | admin staff | delete a blood donation record                                                        | I can remove wrongly keyed in records                                                                                                |
+| * * *    | admin staff | find all eligible donors given a blood type (based on age and last donation interval) | I can determine who I can call if blood is needed                                                                                    |
+| * *      | admin staff | find a donor based on contact information                                             | I can link their name and contact information together                                                                               |
+| * *      | admin staff | detect duplicate donors                                                               | I can quickly identify duplicate data in the system and reconcile it to reduce data pollution                                        |
+| * *      | admin staff | detect duplicate donation records associated with the same person                     | I am able to quickly identify duplicate data in the BloodNet system and reconcile it to reduce data pollution                        |
+| *        | admin staff | record how much blood was donated by a donor in a session                             | I can recommend donors who have been very active for appreciation awards, to incentivise more donors                                 |
+| *        | admin staff | record when a donor donated blood in a session                                        | I can maintain accurate records of each donor’s donation history |
 
 
 ### Use cases
@@ -394,16 +395,23 @@ Use case ends.
 
 ---
 
-### **Use case: UC06 - Find all donors of a particular blood type**
+### **Use case: UC06 - Find all eligible donors of a particular blood type**
 
 **Actor**: Admin staff
 
 **MSS**
 
 1. Admin staff requests to find donors of a particular blood type.
-2. BloodNet searches for and displays all donors matching the specified blood type.
+2. BloodNet searches the entire donor list and applies the eligibility rules, such as date of birth and days since last donation.
+3. BloodNet displays all donors who match the given blood type and the eligibility rules. 
 
 Use case ends.
+
+**Extensions**
+
+* 1a. Invalid blood type entered. 
+  * 1a1. BloodNet shows an error message. 
+  * Use case relates back to step 1, prompting the user to re-enter a blood type.
 
 ---
 
@@ -460,7 +468,6 @@ Use case ends.
 
 ---
 
-
 ### **Use case: UC09 - Modify a blood donation record**
 
 **Actor**: Admin staff
@@ -508,6 +515,8 @@ Use case ends.
 5. Admin staff requests to delete a specified blood donation record.
 6. BloodNet deletes the donation record.
 
+
+
 Use case ends.
 
 **Extensions**
@@ -524,7 +533,6 @@ Use case ends.
       Use case returns to step 5.
 
 ---
-
 
 
 ### Non-Functional Requirements
