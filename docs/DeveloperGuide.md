@@ -1,13 +1,9 @@
 ---
-  layout: default.md
-    title: "Developer Guide"
-    pageNav: 3
+layout: default.md
+title: "Developer Guide"
+pageNav: 3
 ---
-
 # BloodNet Developer Guide
-
-<!-- * Table of Contents -->
-<page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
 

@@ -1,12 +1,12 @@
 ---
-  layout: default.md
-    title: "User Guide"
-    pageNav: 3
+layout: default.md
+title: "User Guide"
+pageNav: 3
 ---
 
 # BloodNet User Guide
 
-BloodNet is an **desktop app for tracking blood donors and their donations, optimized for use via a Command Line
+BloodNet is a **desktop app for tracking blood donors and their donations, optimized for use via a Command Line
 Interface** (CLI) while still
 having the benefits of a Graphical User Interface (GUI). If you can type fast, BloodNet can get your blood donation
 management
@@ -46,6 +46,9 @@ for locations where internet service is unreliable!**
     * `adddonation p/1 d/21-10-2025 v/500` : Adds a donation record for the 1st donor shown in the current donor
       list.
 
+    * `findeligible O+ A+` : Finds all donors with the specified blood type(s) provided who are currently eligible to 
+       donate based on their date of birth and number of days since last donation.
+
     * `exit` : Exits the app.
 
 6. Refer to the [Features](#features) below for details of each command.
@@ -55,14 +58,16 @@ for locations where internet service is unreliable!**
 ## Command summary
 
  Action              | Format, Examples                                                                                                                                
----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------
- **Add Donor**       | `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com b/A+ d/22-11-2004` 
- **List All Donors** | `list`                                                                                                                                          
- **Find Donor**      | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                      
- **Edit Donor**      | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`          
- **Delete Donor**    | `delete INDEX`<br> e.g., `delete 3`                                                                                                             
- **Delete All Data** | `clear`                                                                                                                                         
- **Help**            | `help`                                                                                                                                          
+--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------
+ **Add Donor**            | `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com b/A+ d/22-11-2004` 
+ **List All Donors**      | `list`                                                                                                                                          
+ **Find Donor**           | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`     
+ **Find Eligible Donors** | `findeligible BLOOD_TYPE(S)`<br> e.g., `findeligible A+ O+ B+`
+ **Edit Donor**           | `edit DONOR_LIST_INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`          
+ **Delete Donor**         | `delete DONOR_LIST_INDEX `<br> e.g., `delete 3`    
+ **Edit Donation Record** | `editdonation DONATION_RECORD_LIST_INDEX `<br> e.g., `editdonation 1 v/350 d/20-02-2025 `
+ **Delete All Data**      | `clear`
+ **Help**                 | `help`                                                                                                                                          
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -76,7 +81,7 @@ for locations where internet service is unreliable!**
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `n/NAME b/BLOOD_TYPE`, `b/BLOOD_TYPE n/NAME` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be
   ignored.<br>
@@ -100,7 +105,7 @@ Whenever someone signs up to be a blood donor, use this command to add them to t
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`
 
 * BLOOD_TYPE must be either O+, O-, A+, A-, B+, B-, AB+ or AB-
-* DATE_OF_BIRTH must be in the *dd-mm-yyyy* format
+* DATE_OF_BIRTH must be in the *dd-MM-yyyy* format
 
 Examples:
 
@@ -119,7 +124,7 @@ Finds donors whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
+* The search is case-insensitive. e.g. `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
@@ -131,15 +136,28 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
+### Finding eligible donors based on blood type: `findeligible`
+
+Finds all people who are eligible to donate blood for the specified blood type(s).
+
+Format: `findeligible BLOOD_TYPE(S)`
+
+* The search is case-insensitive. e.g. `O+` and `o+` will match the blood type of someone with blood type O+.
+* Eligibility criteria are based on guidelines from the Health Sciences Authority. The donor’s date of birth and 
+  how long it has been since their last blood donation are both considered when determining eligibility.
+
+Examples:
+<!-- Examples will be added soon -->
+
 ### Editing a donor : `edit`
 
-Let's say you made an oopsie and keyed in the wrong information when adding a donor. No worries! Use this command to
+Let's say you made a mistake and keyed in the wrong information when adding a donor. No worries! Use this command to
 edit an existing donor in the BloodNet system.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`
+Format: `edit DONOR_LIST_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
-  The index **must be a positive integer** 1, 2, 3, …​
+* Edits the person at the specified `DONOR_LIST_INDEX`. The index refers to the index number shown in the 
+  displayed donor list. The specified index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
@@ -156,9 +174,9 @@ Examples:
 Let's say you added someone to BloodNet on accident. That's alright! This command can be used to delete a specified
 donor from the BloodNet system.
 
-Format: `delete INDEX`
+Format: `delete DONOR_LIST_INDEX`
 
-* Deletes the donor at the specified `INDEX`.
+* Deletes the donor at the specified `DONOR_LIST_INDEX`.
 * The index refers to the index number shown in the displayed donor list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
@@ -166,6 +184,24 @@ Examples:
 
 * `list` followed by `delete 2` deletes the 2nd donor in the BloodNet system.
 * `find Betsy` followed by `delete 1` deletes the 1st donor in the result of the `find` command.
+
+### Editing a donor : `editdonation`
+
+If you made a mistake when adding the donation record particulars for a person, do not fret! Use this command to
+edit an existing donor record in the BloodNet system.
+
+Format: `editdonation DONATION_RECORD_LIST_INDEX [v/BLOOD_VOLUME] [d/DONATION_DATE]`
+
+* Edits the person at the specified `DONATION_RECORD_LIST_INDEX`. The index refers to the index number shown in the
+  displayed donation record list. The specified index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+
+Examples:
+
+* `editdonation 1 v/200 ` Edits the blood volume of the 1st donation record list
+* `editdonation 3 d/13-10-2024 ` Edits the donation date of the 3rd donation record list.
+<!-- More examples will be added soon -->
 
 ### Clearing all entries : `clear`
 
