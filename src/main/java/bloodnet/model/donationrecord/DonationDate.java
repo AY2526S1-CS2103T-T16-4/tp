@@ -22,6 +22,11 @@ public class DonationDate {
 
     public final LocalDate value;
 
+    /**
+     * Constructs a {@code donationDate}.
+     *
+     * @param donationDate A valid date of birth.
+     */
     public DonationDate(String donationDate) {
         requireNonNull(donationDate);
         checkArgument(isValidDonationDate(donationDate), MESSAGE_CONSTRAINTS);

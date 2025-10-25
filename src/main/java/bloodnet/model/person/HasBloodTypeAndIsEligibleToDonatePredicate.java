@@ -12,6 +12,10 @@ public class HasBloodTypeAndIsEligibleToDonatePredicate implements Predicate<Per
     private final HasBloodTypePredicate bloodTypePredicate;
     private final IsEligibleToDonatePredicate eligibleToDonatePredicate;
 
+
+    /**
+     * Constructs a {@code HasBloodTypePredicate} and a {@code IsEligibleToDonatePredicate}
+     */
     public HasBloodTypeAndIsEligibleToDonatePredicate(HasBloodTypePredicate bloodTypePredicate,
                                                       IsEligibleToDonatePredicate eligibleToDonatePredicate) {
         this.bloodTypePredicate = bloodTypePredicate;

@@ -52,7 +52,6 @@ public class EditDonationCommandParser implements Parser<EditDonationCommand> {
         if (!editDonationRecordDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditDonationCommand.MESSAGE_NOT_EDITED);
         }
-        
         return new EditDonationCommand(index, editDonationRecordDescriptor);
     }
 

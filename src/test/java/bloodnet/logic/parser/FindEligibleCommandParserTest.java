@@ -1,5 +1,6 @@
 package bloodnet.logic.parser;
 
+import static bloodnet.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static bloodnet.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static bloodnet.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -13,12 +14,15 @@ import bloodnet.model.person.BloodType;
 
 public class FindEligibleCommandParserTest {
 
+    private static final String MESSAGE_INVALID_FORMAT =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEligibleCommand.MESSAGE_USAGE);
+
     private final FindEligibleCommandParser parser = new FindEligibleCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
         // only spaces included
-        assertParseFailure(parser, "    ", BloodType.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "    ", MESSAGE_INVALID_FORMAT);
     }
 
     @Test

@@ -18,9 +18,10 @@ import bloodnet.model.UserPrefs;
 import bloodnet.testutil.PersonBuilder;
 
 public class HasBloodTypeAndIsEligibleToDonatePredicateTest {
-    private final Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
-    DateTimeFormatter formatter =
+    private DateTimeFormatter formatter =
             DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(STRICT);
+    private final Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
+
 
     @Test
     public void equals() {

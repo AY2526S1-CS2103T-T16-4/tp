@@ -4,10 +4,7 @@ import static bloodnet.logic.Messages.MESSAGE_PEOPLE_LISTED_OVERVIEW;
 import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static bloodnet.testutil.Assert.assertThrows;
 import static bloodnet.testutil.TypicalPersons.ALICE;
-import static bloodnet.testutil.TypicalPersons.AMY;
 import static bloodnet.testutil.TypicalPersons.CARL;
-import static bloodnet.testutil.TypicalPersons.HOON;
-import static bloodnet.testutil.TypicalPersons.IDA;
 import static bloodnet.testutil.TypicalPersons.getTypicalBloodNet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -19,14 +16,12 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import bloodnet.logic.Messages;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
 import bloodnet.model.person.HasBloodTypeAndIsEligibleToDonatePredicate;
 import bloodnet.model.person.HasBloodTypePredicate;
 import bloodnet.model.person.IsEligibleToDonatePredicate;
-import bloodnet.model.person.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindEligibleCommand}.

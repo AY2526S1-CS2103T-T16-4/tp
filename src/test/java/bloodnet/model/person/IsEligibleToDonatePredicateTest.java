@@ -18,10 +18,10 @@ import bloodnet.testutil.DonationRecordBuilder;
 import bloodnet.testutil.PersonBuilder;
 
 public class IsEligibleToDonatePredicateTest {
-    private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
-    DateTimeFormatter formatter =
+    private DateTimeFormatter formatter =
             DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(STRICT);
-    IsEligibleToDonatePredicate predicate = new IsEligibleToDonatePredicate(model);
+    private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
+    private IsEligibleToDonatePredicate predicate = new IsEligibleToDonatePredicate(model);
 
     @Test
     public void equals() {
@@ -65,7 +65,8 @@ public class IsEligibleToDonatePredicateTest {
     @Test
     public void donorIsInRangeAndHasDonatedBefore_returnsTrue() {
         String dateOfBirthInRangeAndDonatedBefore = LocalDate.now().minusYears(35).format(formatter);
-        Person personInRangeAndDonatedBefore = new PersonBuilder().withDateOfBirth(dateOfBirthInRangeAndDonatedBefore).build();
+        Person personInRangeAndDonatedBefore = new PersonBuilder()
+                .withDateOfBirth(dateOfBirthInRangeAndDonatedBefore).build();
         String donationDateOfPerson = LocalDate.now().minusYears(13)
                 .minusMonths(10).format(formatter);
         model.addDonationRecord(new DonationRecordBuilder().withPersonId(personInRangeAndDonatedBefore.getId())
