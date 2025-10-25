@@ -28,8 +28,6 @@ public class EditDonationCommandTest {
     private final Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
     private final Model expectedModel = new ModelManager(getTypicalBloodNet(), new UserPrefs());
 
-    private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
-
     @Test
     public void constructor_validArguments_success() {
         Index indexStub = Index.fromZeroBased(0);
@@ -80,13 +78,6 @@ public class EditDonationCommandTest {
         EditDonationRecordDescriptor descriptor = new EditDonationRecordsDescriptorBuilder(editedDonationRecord)
                 .build();
 
-        Person personToEditRecordFor = model.getFilteredPersonList().stream()
-                .filter(p -> p.getId().equals(editedDonationRecord.getPersonId()))
-                .findFirst()
-                .orElseThrow();
-
-        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION, descriptor);
-
         String expectedMessage = String.format(
                 EditDonationCommand.MESSAGE_EDIT_DONATION_RECORD_SUCCESS,
                 Messages.format(editedDonationRecord, personToEditRecordFor));
@@ -107,7 +98,6 @@ public class EditDonationCommandTest {
 
         EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION, editDonationDescriptor);
         EditDonationRecordDescriptor descriptor = new EditDonationRecordsDescriptorBuilder(firstDonationRecord).build();
-        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION, descriptor);
 
         assertCommandFailure(editDonationCommand, model, EditDonationCommand.MESSAGE_DUPLICATE_DONATION_RECORD);
     }
