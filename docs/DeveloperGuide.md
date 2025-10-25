@@ -465,7 +465,6 @@ Use case ends.
     * 3a1. BloodNet shows an error message.
     * Use case returns to step 3.
 
-
 ---
 
 ### **Use case: UC09 - Modify a blood donation record**
@@ -514,8 +513,6 @@ Use case ends.
 4. BloodNet returns a list of blood donations, sorted by donation date in descending order.
 5. Admin staff requests to delete a specified blood donation record.
 6. BloodNet deletes the donation record.
-
-
 
 Use case ends.
 
