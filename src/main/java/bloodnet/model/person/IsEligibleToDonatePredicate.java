@@ -1,15 +1,13 @@
 package bloodnet.model.person;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.Comparator;
-import java.util.Optional;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import bloodnet.commons.util.ToStringBuilder;
 import bloodnet.model.Model;
+import bloodnet.model.donationrecord.BloodVolume;
 import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.donationrecord.DonationRecord;
 
@@ -71,64 +69,14 @@ public class IsEligibleToDonatePredicate implements Predicate<Person> {
      * @param person Person you are checking the {@code dateOfBirth} and days since last donation for.
      */
     public boolean test(Person person) {
-        LocalDate donationDateValue = donationDate.getValue();
-        LocalDate dateOfBirth = person.getDateOfBirth().getValue();
-
-        // 1. Age of person at donationDate must be >= 16
-        int ageAtDonation = Period.between(dateOfBirth, donationDateValue).getYears();
-        if (ageAtDonation < 16) {
-            return false;
-        }
-
-        // Find predecessor (last donation before donationDate)
-        Optional<DonationDate> predecessorDonationDate = model.getFilteredDonationRecordList().stream()
-                .filter(donationRecord -> donationRecord.getPersonId().equals(person.getId()))
-                .map(DonationRecord::getDonationDate)
-                .filter(dd -> dd.getValue().isBefore(donationDateValue))
-                .max(Comparator.comparing(DonationDate::getValue));
-
-        // Find successor (first donation after donationDate)
-        Optional<DonationDate> successorDonationDate = model.getFilteredDonationRecordList().stream()
-                .filter(donationRecord -> donationRecord.getPersonId().equals(person.getId()))
-                .map(DonationRecord::getDonationDate)
-                .filter(dd -> dd.getValue().isAfter(donationDateValue))
-                .min(Comparator.comparing(DonationDate::getValue));
-
-        // 2. Days between predecessor and donationDate must be >= 84
-        if (predecessorDonationDate.isPresent()) {
-            long daysSinceLastDonation = ChronoUnit.DAYS.between(predecessorDonationDate.get().getValue(),
-                                                                 donationDateValue);
-            if (daysSinceLastDonation < 84) {
-                return false;
-            }
-        }
-
-        // 3. Days between donationDate and successor must be >= 84
-        if (successorDonationDate.isPresent()) {
-            long daysToNextDonation = ChronoUnit.DAYS.between(donationDateValue,
-                                                              successorDonationDate.get().getValue());
-            if (daysToNextDonation < 84) {
-                return false;
-            }
-        }
-
-        // 4. First-time donor and donationDate >= 61st birthday
-        LocalDate sixtyFirstBirthday = dateOfBirth.plusYears(61);
-        if (predecessorDonationDate.isEmpty() && !donationDateValue.isBefore(sixtyFirstBirthday)) {
-            return false;
-        }
-
-        // 5. Not first-time donor AND not donated in last 3 years AND donationDate >= 66th birthday
-        LocalDate sixtySixthBirthday = dateOfBirth.plusYears(66);
-        if (predecessorDonationDate.isPresent()) {
-            LocalDate lastDonation = predecessorDonationDate.get().getValue();
-            if (!lastDonation.plusYears(3).isAfter(donationDateValue)
-                && !donationDateValue.isBefore(sixtySixthBirthday)) {
-                return false;
-            }
-        }
-
-        return true;
+        // Using a dummy blood volume, as we want to reuse DonationRecord's .validate() method.
+        // Not the best design.
+        DonationRecord donationRecord = new DonationRecord(null,
+                                                            person.getId(),
+                                                            donationDate,
+                                                            new BloodVolume("1"));
+        ArrayList<String> validationErrorStrings = donationRecord.validate(model);
+        return validationErrorStrings.isEmpty();
     }
 
     @Override

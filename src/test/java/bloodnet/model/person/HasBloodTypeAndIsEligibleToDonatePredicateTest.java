@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
@@ -71,8 +72,12 @@ public class HasBloodTypeAndIsEligibleToDonatePredicateTest {
         String dateOfBirthOfPerson = LocalDate.now().minusYears(25)
                 .minusMonths(10).format(formatter);
 
-        assertTrue(bothPredicates.test(new PersonBuilder().withBloodType("O+")
-                .withDateOfBirth(dateOfBirthOfPerson).build()));
+        // Build a person and add to model to satisfy validations that look up the person
+        Person person = new PersonBuilder().withId(UUID.randomUUID())
+                .withBloodType("O+")
+                .withDateOfBirth(dateOfBirthOfPerson).build();
+        model.addPerson(person);
+        assertTrue(bothPredicates.test(person));
     }
 
     @Test
@@ -85,8 +90,11 @@ public class HasBloodTypeAndIsEligibleToDonatePredicateTest {
         String dateOfBirthOfPerson = LocalDate.now().minusYears(25)
                 .minusMonths(10).format(formatter);
 
-        assertFalse(bothPredicates.test(new PersonBuilder().withBloodType("A+")
-                .withDateOfBirth(dateOfBirthOfPerson).build()));
+        Person person = new PersonBuilder().withId(UUID.randomUUID())
+                .withBloodType("A+")
+                .withDateOfBirth(dateOfBirthOfPerson).build();
+        model.addPerson(person);
+        assertFalse(bothPredicates.test(person));
     }
 
     @Test

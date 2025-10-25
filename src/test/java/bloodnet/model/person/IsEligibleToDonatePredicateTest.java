@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
@@ -48,7 +49,10 @@ public class IsEligibleToDonatePredicateTest {
     @Test
     public void donorIsSixteen_returnsTrue() {
         String youngestDateOfBirthAllowed = LocalDate.now().minusYears(16).format(formatter);
-        assertTrue(predicate.test(new PersonBuilder().withDateOfBirth(youngestDateOfBirthAllowed).build()));
+        Person person = new PersonBuilder().withId(UUID.randomUUID())
+                .withDateOfBirth(youngestDateOfBirthAllowed).build();
+        model.addPerson(person);
+        assertTrue(predicate.test(person));
     }
 
     /**
@@ -57,7 +61,9 @@ public class IsEligibleToDonatePredicateTest {
     @Test
     public void donorIsBetweenSixteenAndSixty_returnsTrue() {
         String dateOfBirthInRange = LocalDate.now().minusYears(35).format(formatter);
-        assertTrue(predicate.test(new PersonBuilder().withDateOfBirth(dateOfBirthInRange).build()));
+        Person person = new PersonBuilder().withId(UUID.randomUUID()).withDateOfBirth(dateOfBirthInRange).build();
+        model.addPerson(person);
+        assertTrue(predicate.test(person));
     }
 
     /**
@@ -67,7 +73,9 @@ public class IsEligibleToDonatePredicateTest {
     public void donorIsInRangeAndHasDonatedBefore_returnsTrue() {
         String dateOfBirthInRangeAndDonatedBefore = LocalDate.now().minusYears(35).format(formatter);
         Person personInRangeAndDonatedBefore = new PersonBuilder()
-                .withDateOfBirth(dateOfBirthInRangeAndDonatedBefore).build();
+            .withId(UUID.randomUUID())
+            .withDateOfBirth(dateOfBirthInRangeAndDonatedBefore).build();
+        model.addPerson(personInRangeAndDonatedBefore);
         String donationDateOfPerson = LocalDate.now().minusYears(13)
                 .minusMonths(10).format(formatter);
         model.addDonationRecord(new DonationRecordBuilder().withPersonId(personInRangeAndDonatedBefore.getId())
@@ -84,8 +92,9 @@ public class IsEligibleToDonatePredicateTest {
     public void donorIsSixtyYearsOld_returnsTrue() {
         String oldestFirstTimeDonator = LocalDate.now().minusYears(61)
                 .plusDays(1).format(formatter);
-        Person oldestFirstTimePerson = new PersonBuilder().withDateOfBirth(oldestFirstTimeDonator).build();
-
+        Person oldestFirstTimePerson = new PersonBuilder().withId(UUID.randomUUID())
+            .withDateOfBirth(oldestFirstTimeDonator).build();
+        model.addPerson(oldestFirstTimePerson);
         assertTrue(predicate.test(oldestFirstTimePerson));
     }
 
@@ -95,7 +104,9 @@ public class IsEligibleToDonatePredicateTest {
     @Test
     public void donorIsSixtyOneButDonatedBefore_returnsTrue() {
         String overSixtyButHasDonatedBefore = LocalDate.now().minusYears(61).format(formatter);
-        Person sixtyOneYearsOldPerson = new PersonBuilder().withDateOfBirth(overSixtyButHasDonatedBefore).build();
+        Person sixtyOneYearsOldPerson = new PersonBuilder().withId(UUID.randomUUID())
+            .withDateOfBirth(overSixtyButHasDonatedBefore).build();
+        model.addPerson(sixtyOneYearsOldPerson);
 
         DonationRecordBuilder builder = new DonationRecordBuilder();
         String donationDateOfPerson = LocalDate.now().minusYears(13)
@@ -112,7 +123,9 @@ public class IsEligibleToDonatePredicateTest {
     @Test
     public void donorIsSixtyOneAndNeverDonatedBefore() {
         String olderButHasDonatedBefore = LocalDate.now().minusYears(61).format(formatter);
-        Person sixtyOneYearsOldPerson = new PersonBuilder().withDateOfBirth(olderButHasDonatedBefore).build();
+        Person sixtyOneYearsOldPerson = new PersonBuilder().withId(UUID.randomUUID())
+            .withDateOfBirth(olderButHasDonatedBefore).build();
+        model.addPerson(sixtyOneYearsOldPerson);
         assertFalse(predicate.test(sixtyOneYearsOldPerson));
     }
 
@@ -123,7 +136,9 @@ public class IsEligibleToDonatePredicateTest {
     public void oldestRepeatDonor_returnsTrue() {
         String olderButHasDonatedBefore = LocalDate.now().minusYears(66).plusDays(1)
                 .format(formatter);
-        Person oldestRepeatDonor = new PersonBuilder().withDateOfBirth(olderButHasDonatedBefore).build();
+        Person oldestRepeatDonor = new PersonBuilder().withId(UUID.randomUUID())
+            .withDateOfBirth(olderButHasDonatedBefore).build();
+        model.addPerson(oldestRepeatDonor);
         DonationRecordBuilder builder = new DonationRecordBuilder();
         String donationDateOfPerson = LocalDate.now().minusYears(13)
                 .minusMonths(10).format(formatter);
@@ -140,7 +155,9 @@ public class IsEligibleToDonatePredicateTest {
     @Test
     public void donatedWithLastThreeYears_returnsTrue() {
         String aboveSixtyFiveButHasDonatedBefore = LocalDate.now().minusYears(68).format(formatter);
-        Person personHasDonatedBefore = new PersonBuilder().withDateOfBirth(aboveSixtyFiveButHasDonatedBefore).build();
+        Person personHasDonatedBefore = new PersonBuilder().withId(UUID.randomUUID())
+            .withDateOfBirth(aboveSixtyFiveButHasDonatedBefore).build();
+        model.addPerson(personHasDonatedBefore);
 
         DonationRecordBuilder builder = new DonationRecordBuilder();
         String donationDateOfPerson = LocalDate.now().minusMonths(11)
@@ -158,7 +175,9 @@ public class IsEligibleToDonatePredicateTest {
     public void donorIsFifteen_returnsFalse() {
         String fifteenYearsOld = LocalDate.now().minusYears(16)
                 .plusDays(1).format(formatter);
-        assertFalse(predicate.test(new PersonBuilder().withDateOfBirth(fifteenYearsOld).build()));
+        Person person = new PersonBuilder().withId(UUID.randomUUID()).withDateOfBirth(fifteenYearsOld).build();
+        model.addPerson(person);
+        assertFalse(predicate.test(person));
     }
 
     /**
@@ -167,7 +186,9 @@ public class IsEligibleToDonatePredicateTest {
     @Test
     public void validDateOfBirthRangeButDonationLengthTooShort_returnsFalse() {
         String dateOfBirthInRangeAndDonated = LocalDate.now().minusYears(35).format(formatter);
-        Person tester = new PersonBuilder().withDateOfBirth(dateOfBirthInRangeAndDonated).build();
+        Person tester = new PersonBuilder().withId(UUID.randomUUID()).withDateOfBirth(dateOfBirthInRangeAndDonated)
+            .build();
+        model.addPerson(tester);
 
         DonationRecordBuilder builder = new DonationRecordBuilder();
         String donationDateOfPerson = LocalDate.now().minusMonths(1)
@@ -184,7 +205,9 @@ public class IsEligibleToDonatePredicateTest {
     @Test
     public void donorIsSixtyOneAndNeverDonatedBefore_returnsFalse() {
         String neverDonatedBefore = LocalDate.now().minusYears(61).format(formatter);
-        Person sixtyOneYearsOldPerson = new PersonBuilder().withDateOfBirth(neverDonatedBefore).build();
+        Person sixtyOneYearsOldPerson = new PersonBuilder().withId(UUID.randomUUID())
+            .withDateOfBirth(neverDonatedBefore).build();
+        model.addPerson(sixtyOneYearsOldPerson);
         assertFalse(predicate.test(sixtyOneYearsOldPerson));
     }
 
@@ -194,7 +217,8 @@ public class IsEligibleToDonatePredicateTest {
     @Test
     public void donorIsAboveSixtySixAndDonationIsNotInRange_returnsFalse() {
         String tooLongAgo = LocalDate.now().minusYears(66).format(formatter);
-        Person sixtySixYearOld = new PersonBuilder().withDateOfBirth(tooLongAgo).build();
+        Person sixtySixYearOld = new PersonBuilder().withId(UUID.randomUUID()).withDateOfBirth(tooLongAgo).build();
+        model.addPerson(sixtySixYearOld);
 
         DonationRecordBuilder builder = new DonationRecordBuilder();
         String donationDateOfPerson = LocalDate.now().minusYears(10)
@@ -212,7 +236,8 @@ public class IsEligibleToDonatePredicateTest {
     @Test
     public void donorHasPredecessorDonationWithin84Days_returnsFalse() {
         String dateOfBirth = LocalDate.now().minusYears(30).format(formatter);
-        Person person = new PersonBuilder().withDateOfBirth(dateOfBirth).build();
+        Person person = new PersonBuilder().withId(UUID.randomUUID()).withDateOfBirth(dateOfBirth).build();
+        model.addPerson(person);
 
         // Add a previous donation 83 days ago (predecessor < 84)
         String prevDonationDate = LocalDate.now().minusDays(83).format(formatter);
@@ -232,7 +257,8 @@ public class IsEligibleToDonatePredicateTest {
     @Test
     public void donorHasPredecessorDonationAtExactly84Days_returnsTrue() {
         String dateOfBirth = LocalDate.now().minusYears(30).format(formatter);
-        Person person = new PersonBuilder().withDateOfBirth(dateOfBirth).build();
+        Person person = new PersonBuilder().withId(UUID.randomUUID()).withDateOfBirth(dateOfBirth).build();
+        model.addPerson(person);
 
         // Add a previous donation exactly 84 days ago (boundary)
         String prevDonationDate = LocalDate.now().minusDays(84).format(formatter);
@@ -252,7 +278,8 @@ public class IsEligibleToDonatePredicateTest {
     @Test
     public void donorHasSuccessorDonationAtExactly84Days_returnsTrue() {
         String dateOfBirth = LocalDate.now().minusYears(30).format(formatter);
-        Person person = new PersonBuilder().withDateOfBirth(dateOfBirth).build();
+        Person person = new PersonBuilder().withId(UUID.randomUUID()).withDateOfBirth(dateOfBirth).build();
+        model.addPerson(person);
 
         // Add another donation 150 days ago (successor to the test date)
         String secondDonationDate = LocalDate.now().minusDays(150).format(formatter);
@@ -276,8 +303,8 @@ public class IsEligibleToDonatePredicateTest {
     @Test
     public void donorHasSuccessorDonationWithin84Days_returnsFalse() {
         String dateOfBirth = LocalDate.now().minusYears(30).format(formatter);
-        Person person = new PersonBuilder().withDateOfBirth(dateOfBirth).build();
-
+        Person person = new PersonBuilder().withId(UUID.randomUUID()).withDateOfBirth(dateOfBirth).build();
+        model.addPerson(person);
         // Add another donation 150 days ago (successor to the test date)
         String secondDonationDate = LocalDate.now().minusDays(150).format(formatter);
         model.addDonationRecord(new DonationRecordBuilder()
@@ -300,7 +327,8 @@ public class IsEligibleToDonatePredicateTest {
     @Test
     public void donorHasSuccessorDonationMoreThan84Days_returnsTrue() {
         String dateOfBirth = LocalDate.now().minusYears(30).format(formatter);
-        Person person = new PersonBuilder().withDateOfBirth(dateOfBirth).build();
+        Person person = new PersonBuilder().withId(UUID.randomUUID()).withDateOfBirth(dateOfBirth).build();
+        model.addPerson(person);
 
         // Choose a test donation date in the past
         String testDonationDate = LocalDate.now().minusDays(200).format(formatter);

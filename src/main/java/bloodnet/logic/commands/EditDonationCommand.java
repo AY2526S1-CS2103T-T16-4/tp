@@ -4,6 +4,7 @@ import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_VOLUME;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_DONATION_DATE;
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -18,7 +19,6 @@ import bloodnet.model.Model;
 import bloodnet.model.donationrecord.BloodVolume;
 import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.donationrecord.DonationRecord;
-import bloodnet.model.person.IsEligibleToDonatePredicate;
 import bloodnet.model.person.Person;
 
 
@@ -41,9 +41,10 @@ public class EditDonationCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_DONATION_RECORD =
             "No change to the donation record.";
-    public static final String MESSAGE_VIOLATES_ELIBILITY_CRITERIA =
-            "This edit violates the donation eligibility criteria. "
-            + "Please ensure the criteria are satisfied when editing a donation record.";
+    public static final String MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER =
+            "You are attempting to modify a donation record to an invalid one. "
+            + "Please fix these errors:";
+
     private final Index indexOfDonationRecord;
     private final EditDonationRecordDescriptor editDonationRecordDescriptor;
 
@@ -71,14 +72,17 @@ public class EditDonationCommand extends Command {
         assert personId != null;
         DonationRecord editedDonationRecord = createEditedDonationRecord(recordToEdit, editDonationRecordDescriptor);
 
-        if (recordToEdit.equals(editedDonationRecord)) {
-            throw new CommandException(MESSAGE_DUPLICATE_DONATION_RECORD);
+        ArrayList<String> validationErrorStrings = editedDonationRecord.validate(model);
+        if (!validationErrorStrings.isEmpty()) {
+            String concatenatedMessage = MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER;
+            for (String validationErrorString : validationErrorStrings) {
+                concatenatedMessage += "\n- " + validationErrorString;
+            }
+            throw new CommandException(concatenatedMessage);
         }
 
-        IsEligibleToDonatePredicate isEligibleToDonatePredicate = new IsEligibleToDonatePredicate(model,
-                editedDonationRecord.getDonationDate());
-        if (!isEligibleToDonatePredicate.test(personForRecordEdit)) {
-            throw new CommandException(MESSAGE_VIOLATES_ELIBILITY_CRITERIA);
+        if (recordToEdit.equals(editedDonationRecord)) {
+            throw new CommandException(MESSAGE_DUPLICATE_DONATION_RECORD);
         }
 
         model.setDonationRecord(recordToEdit, editedDonationRecord);

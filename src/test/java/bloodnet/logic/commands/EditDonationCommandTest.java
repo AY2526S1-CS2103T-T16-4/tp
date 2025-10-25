@@ -108,8 +108,10 @@ public class EditDonationCommandTest {
         Model expectedModel = new ModelManager(new BloodNet(model.getBloodNet()), new UserPrefs());
 
         expectedModel.setDonationRecord(model.getFilteredDonationRecordList().get(0), editedDonationRecord);
+        String expectedMessage = EditDonationCommand.MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER;
+        expectedMessage += "\n- " + DonationRecord.MESSAGE_PREDECESSOR_DONATION_TOO_CLOSE;
 
-        assertCommandFailure(editDonationCommand, model, EditDonationCommand.MESSAGE_VIOLATES_ELIBILITY_CRITERIA);
+        assertCommandFailure(editDonationCommand, model, expectedMessage);
     }
 
     @Test

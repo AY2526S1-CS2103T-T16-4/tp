@@ -5,6 +5,7 @@ import static bloodnet.logic.parser.CliSyntax.PREFIX_DONATION_DATE;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_PERSON_INDEX_ONE_BASED;
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,7 +17,6 @@ import bloodnet.model.Model;
 import bloodnet.model.donationrecord.BloodVolume;
 import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.donationrecord.DonationRecord;
-import bloodnet.model.person.IsEligibleToDonatePredicate;
 import bloodnet.model.person.Person;
 
 /**
@@ -65,16 +65,22 @@ public class AddDonationCommand extends Command {
 
         Person personToAddRecordFor = getPersonToAddRecordFor(model);
 
-        IsEligibleToDonatePredicate isEligibleToDonatePredicate = new IsEligibleToDonatePredicate(model, donationDate);
-        if (!isEligibleToDonatePredicate.test(personToAddRecordFor)) {
-            throw new CommandException(MESSAGE_VIOLATES_ELIGIBILITY_CRITERIA);
-        }
 
         UUID personId = personToAddRecordFor.getId();
 
         assert personId != null;
 
         DonationRecord donationRecord = new DonationRecord(null, personId, donationDate, bloodVolume);
+
+        ArrayList<String> validationErrorStrings = donationRecord.validate(model);
+        if (!validationErrorStrings.isEmpty()) {
+            String concatenatedMessage = "You are attempting to add an invalid donation record. "
+                                            + "Please fix these errors:";
+            for (String validationErrorString : validationErrorStrings) {
+                concatenatedMessage += "\n- " + validationErrorString;
+            }
+            throw new CommandException(concatenatedMessage);
+        }
 
         if (model.hasDonationRecord(donationRecord)) {
             throw new CommandException(MESSAGE_DUPLICATE_DONATION_RECORD);

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import bloodnet.commons.core.GuiSettings;
 import bloodnet.commons.core.index.Index;
 import bloodnet.logic.commands.exceptions.CommandException;
+import bloodnet.model.BloodNet;
 import bloodnet.model.Model;
 import bloodnet.model.ReadOnlyBloodNet;
 import bloodnet.model.ReadOnlyUserPrefs;
@@ -300,6 +301,14 @@ public class AddDonationCommandTest {
         @Override
         public void addDonationRecord(DonationRecord donationRecord) {
             // Do nothing
+        }
+
+        @Override
+        public BloodNet getBloodNet() {
+            BloodNet bloodNet = new BloodNet();
+            bloodNet.addPerson(person);
+            bloodNet.addDonationRecord(donationRecord);
+            return bloodNet;
         }
     }
 }
