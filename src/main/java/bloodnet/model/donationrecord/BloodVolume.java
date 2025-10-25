@@ -35,7 +35,11 @@ public class BloodVolume {
 
         // Check that the string can be parsed into an integer
         try {
-            Integer.parseInt(test);
+            Integer i = Integer.parseInt(test);
+            // Ensure that the blood volume is not 0 or less than 0
+            if (i <= 0) {
+                return false;
+            }
         } catch (NumberFormatException e) {
             return false;
         }

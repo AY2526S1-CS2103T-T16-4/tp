@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import bloodnet.logic.parser.exceptions.ParseException;
+import bloodnet.model.donationrecord.BloodVolume;
+import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.person.BloodType;
 import bloodnet.model.person.DateOfBirth;
 import bloodnet.model.person.Email;
@@ -165,6 +167,52 @@ public class ParserUtilTest {
         String dateOfBirthWithWhiteSpace = WHITESPACE + VALID_DATE_OF_BIRTH + WHITESPACE;
         DateOfBirth expectedDateOfBirth = new DateOfBirth(VALID_DATE_OF_BIRTH);
         assertEquals(expectedDateOfBirth, ParserUtil.parseDateOfBirth(dateOfBirthWithWhiteSpace));
+    }
+
+    @Test
+    public void parseDonationDate_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDonationDate((String) null));
+    }
+
+    @Test
+    public void parseDonationDate_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDonationDate("28 Jun 2026"));
+    }
+
+    @Test
+    public void parseDonationDate_validValueWithoutWhitespace_returnsDonationDate() throws Exception {
+        DonationDate expectedDonationDate = new DonationDate("10-12-2023");
+        assertEquals(expectedDonationDate, ParserUtil.parseDonationDate("10-12-2023"));
+    }
+
+    @Test
+    public void parseDonationDate_validValueWithWhitespace_returnsTrimmedDonationDate() throws Exception {
+        String donationDateWithWhitespace = WHITESPACE + "10-12-2023" + WHITESPACE;
+        DonationDate expectedDonationDate = new DonationDate("10-12-2023");
+        assertEquals(expectedDonationDate, ParserUtil.parseDonationDate(donationDateWithWhitespace));
+    }
+
+    @Test
+    public void parseBloodVolume_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseBloodVolume((String) null));
+    }
+
+    @Test
+    public void parseBloodVolume_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseBloodVolume("invalid"));
+    }
+
+    @Test
+    public void parseBloodVolume_validValueWithoutWhitespace_returnsBloodVolume() throws Exception {
+        BloodVolume expectedBloodVolume = new BloodVolume("450");
+        assertEquals(expectedBloodVolume, ParserUtil.parseBloodVolume("450"));
+    }
+
+    @Test
+    public void parseBloodVolume_validValueWithWhitespace_returnsTrimmedBloodVolume() throws Exception {
+        String bloodVolumeWithWhitespace = WHITESPACE + "450" + WHITESPACE;
+        BloodVolume expectedBloodVolume = new BloodVolume("450");
+        assertEquals(expectedBloodVolume, ParserUtil.parseBloodVolume(bloodVolumeWithWhitespace));
     }
 
 }
