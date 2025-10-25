@@ -1,4 +1,5 @@
 package bloodnet.logic.commands;
+
 import static bloodnet.logic.commands.CommandTestUtil.assertCommandFailure;
 import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static bloodnet.testutil.TypicalDonationRecords.getTypicalBloodNet;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import bloodnet.commons.core.index.Index;
 import bloodnet.logic.Messages;
 import bloodnet.logic.commands.EditDonationCommand.EditDonationRecordDescriptor;
+import bloodnet.model.BloodNet;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
@@ -26,6 +28,7 @@ public class EditDonationCommandTest {
     private final Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
     private final Model expectedModel = new ModelManager(getTypicalBloodNet(), new UserPrefs());
 
+    private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
 
     @Test
     public void constructor_validArguments_success() {
@@ -74,10 +77,23 @@ public class EditDonationCommandTest {
 
         EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION,
                 editDonationRecordDescriptor);
+        EditDonationRecordDescriptor descriptor = new EditDonationRecordsDescriptorBuilder(editedDonationRecord)
+                .build();
+
+        Person personToEditRecordFor = model.getFilteredPersonList().stream()
+                .filter(p -> p.getId().equals(editedDonationRecord.getPersonId()))
+                .findFirst()
+                .orElseThrow();
+
+        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION, descriptor);
 
         String expectedMessage = String.format(
                 EditDonationCommand.MESSAGE_EDIT_DONATION_RECORD_SUCCESS,
                 Messages.format(editedDonationRecord, personToEditRecordFor));
+
+        Model expectedModel = new ModelManager(new BloodNet(model.getBloodNet()), new UserPrefs());
+
+        expectedModel.setDonationRecord(model.getFilteredDonationRecordList().get(0), editedDonationRecord);
 
         assertCommandSuccess(editDonationCommand, model, expectedMessage, expectedModel);
     }
@@ -90,6 +106,8 @@ public class EditDonationCommandTest {
                 firstDonationRecord).build();
 
         EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION, editDonationDescriptor);
+        EditDonationRecordDescriptor descriptor = new EditDonationRecordsDescriptorBuilder(firstDonationRecord).build();
+        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION, descriptor);
 
         assertCommandFailure(editDonationCommand, model, EditDonationCommand.MESSAGE_DUPLICATE_DONATION_RECORD);
     }
