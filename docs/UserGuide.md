@@ -10,11 +10,24 @@ BloodNet is a **desktop app for tracking blood donors and their donations, optim
 Interface** (CLI) while still
 having the benefits of a Graphical User Interface (GUI). If you can type fast, BloodNet can get your blood donation
 management
-tasks done faster than traditional GUI apps! **BloodNet also does not require internet connectivity, making it perfect
-for locations where internet service is unreliable!**
+tasks done faster than traditional GUI apps! BloodNet also does not require internet connectivity, making it perfect
+for locations where internet service is unreliable!
 
-<!-- * Table of Contents -->
-<page-nav-print />
+## Table of Contents
+- [Quick start](#quick-start)
+- [Features](#features)
+  - [Adding a donor: add](#adding-a-donor-add)
+  - [Listing all donors: list](#listing-all-donors--list)
+  - [Locating donors by name: find](#locating-donors-by-name-find-)
+  - [Finding eligible donors based on blood type: findeligible](#finding-eligible-donors-based-on-blood-type-findeligible)
+  - [Editing a donor: edit](#editing-a-donor--edit)
+  - [Deleting a donor: delete](#deleting-a-donor--delete)
+  - [Editing a donation record: editdonation](#editing-a-donation-record--editdonation)
+  - [Clearing all entries: clear](#clearing-all-entries--clear)
+  - [Exiting the program: exit](#exiting-the-program--exit)
+  - [Viewing help: help](#viewing-help--help)
+- [FAQ](#faq)
+- [Known issues](#known-issues)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -58,16 +71,16 @@ for locations where internet service is unreliable!**
 ## Command summary
 
  Action              | Format, Examples                                                                                                                                
---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------
- **Add Donor**            | `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com b/A+ d/22-11-2004` 
- **List All Donors**      | `list`                                                                                                                                          
- **Find Donor**           | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`     
- **Find Eligible Donors** | `findeligible BLOOD_TYPE(S)`<br> e.g., `findeligible A+ O+ B+`
- **Edit Donor**           | `edit DONOR_LIST_INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`          
- **Delete Donor**         | `delete DONOR_LIST_INDEX `<br> e.g., `delete 3`    
- **Edit Donation Record** | `editdonation DONATION_RECORD_LIST_INDEX `<br> e.g., `editdonation 1 v/350 d/20-02-2025 `
- **Delete All Data**      | `clear`
- **Help**                 | `help`                                                                                                                                          
+-------------------------- |-------------------------------------------------------------------------------------------------------------------------------------------------
+[**Add Donor**](#adding-a-donor-add)| `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com b/A+ d/22-11-2004` 
+[**List All Donors**](#listing-all-donors--list) | `list`                                                                                                                                          
+[**Find Donor**](#locating-donors-by-name-find-)| `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`     
+[**Find Eligible Donors**](#finding-eligible-donors-based-on-blood-type-findeligible) | `findeligible BLOOD_TYPE(S)`<br> e.g., `findeligible A+ O+ B+`
+[**Edit Donor**](#editing-a-donor--edit) | `edit DONOR_LIST_INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`          
+[**Delete Donor**](#deleting-a-donor--delete)  | `delete DONOR_LIST_INDEX `<br> e.g., `delete 3`    
+[**Edit Donation Record**](#editing-a-donation-record--editdonation) | `editdonation DONATION_RECORD_LIST_INDEX `<br> e.g., `editdonation 1 v/350 d/20-02-2025 `
+[**Delete All Data**](#clearing-all-entries--clear)  | `clear`
+[**Help**](#viewing-help--help) | `help`                                                                                                                                          
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -91,13 +104,6 @@ for locations where internet service is unreliable!**
   as space characters surrounding line-breaks may be omitted when copied over to the application.
   </box>
 
-### Viewing help : `help`
-
-If you need a refresher on the formats of the various commands, use this command! It will provide a summary of the
-formats of each command, as well as the link to this user guide.
-
-Format: `help`
-
 ### Adding a donor: `add`
 
 Whenever someone signs up to be a blood donor, use this command to add them to the BloodNet system!
@@ -109,8 +115,8 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com b/B+ d/04-11-2007`
-* `add n/Betsy Crowe e/betsycrowe@example.com b/O- d/20-05-2012`
+* `add n/John Doe p/98765432 e/johnd@example.com b/B+ d/04-11-1999`
+* `add n/Betsy Crowe e/betsycrowe@example.com b/O- d/20-05-2004`
 
 ### Listing all donors : `list`
 
@@ -136,7 +142,7 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Finding eligible donors based on blood type: `findeligible`
+### Find eligible donors based on blood type: `findeligible`
 
 Finds all people who are eligible to donate blood for the specified blood type(s).
 
@@ -147,6 +153,7 @@ Format: `findeligible BLOOD_TYPE(S)`
   how long it has been since their last blood donation are both considered when determining eligibility.
 
 Examples:
+To be added
 <!-- Examples will be added soon -->
 
 ### Editing a donor : `edit`
@@ -185,7 +192,7 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd donor in the BloodNet system.
 * `find Betsy` followed by `delete 1` deletes the 1st donor in the result of the `find` command.
 
-### Editing a donor : `editdonation`
+### Editing a donation record : `editdonation`
 
 If you made a mistake when adding the donation record particulars for a person, do not fret! Use this command to
 edit an existing donor record in the BloodNet system.
@@ -220,6 +227,13 @@ This operation is irreversible! Hence, it is recommended to take a backup of the
 Exits the program.
 
 Format: `exit`
+
+### Viewing help : `help`
+
+If you need a refresher on the formats of the various commands, use this command! It will provide a summary of the
+formats of each command, as well as the link to this user guide.
+
+Format: `help`
 
 ### Saving the data
 
