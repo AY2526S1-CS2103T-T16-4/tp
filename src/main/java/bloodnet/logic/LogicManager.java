@@ -65,7 +65,7 @@ public class LogicManager implements Logic {
 
     @Override
     public InputResponse handle(String input) throws CommandException, ParseException {
-        logger.info("----------------[USER COMMAND][" + input + "]");
+        logger.info("----------------[USER INPUT][" + input + "]");
 
         if (currentSession == null) {
             Command command = bloodNetParser.parseCommand(input);
