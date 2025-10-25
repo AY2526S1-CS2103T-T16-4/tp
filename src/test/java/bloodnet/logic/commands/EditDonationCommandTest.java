@@ -1,20 +1,15 @@
 package bloodnet.logic.commands;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static bloodnet.logic.commands.CommandTestUtil.assertCommandFailure;
 import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static bloodnet.testutil.TypicalDonationRecords.getTypicalBloodNet;
 import static bloodnet.testutil.TypicalIndexes.INDEX_FIRST_DONATION;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
 import bloodnet.commons.core.index.Index;
-import bloodnet.logic.commands.exceptions.CommandException;
-import bloodnet.logic.commands.EditDonationCommand.EditDonationRecordDescriptor;
 import bloodnet.logic.Messages;
 import bloodnet.logic.commands.EditDonationCommand.EditDonationRecordDescriptor;
 import bloodnet.model.BloodNet;
@@ -25,9 +20,6 @@ import bloodnet.model.donationrecord.BloodVolume;
 import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.Person;
-import bloodnet.model.person.Phone;
-import bloodnet.testutil.DonationRecordBuilder;
-
 import bloodnet.testutil.DonationRecordBuilder;
 import bloodnet.testutil.EditDonationRecordsDescriptorBuilder;
 
@@ -40,7 +32,7 @@ public class EditDonationCommandTest {
         BloodVolume bloodVolumeStub = new BloodVolume("300");
         DonationDate donationDateStub = new DonationDate("01-01-2025");
         EditDonationCommand.EditDonationRecordDescriptor descriptorStub =
-                new EditDonationCommand.EditDonationRecordDescriptor();
+                new EditDonationRecordDescriptor();
         descriptorStub.setBloodVolume(bloodVolumeStub);
         descriptorStub.setDonationDate(donationDateStub);
         new EditDonationCommand(indexStub, descriptorStub);
@@ -51,8 +43,8 @@ public class EditDonationCommandTest {
         Index indexStub = Index.fromZeroBased(0);
         BloodVolume bloodVolumeStub = new BloodVolume("300");
         DonationDate donationDateStub = new DonationDate("01-01-2025");
-        EditDonationCommand.EditDonationRecordDescriptor descriptorStub =
-                new EditDonationCommand.EditDonationRecordDescriptor();
+        EditDonationRecordDescriptor descriptorStub =
+                new EditDonationRecordDescriptor();
         descriptorStub.setBloodVolume(bloodVolumeStub);
         descriptorStub.setDonationDate(donationDateStub);
         EditDonationCommand edit = new EditDonationCommand(indexStub, descriptorStub);

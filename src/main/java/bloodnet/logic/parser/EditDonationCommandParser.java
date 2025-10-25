@@ -11,13 +11,13 @@ import bloodnet.logic.commands.EditDonationCommand.EditDonationRecordDescriptor;
 import bloodnet.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new EditDonationCommand object
+ * Parses input arguments and creates a new EditDonationCommand object.
  */
 public class EditDonationCommandParser implements Parser<EditDonationCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditDonationCommand
-     * and returns an EditDonationCommand object for execution.
+     * Parses the provided {@code String} of arguments in the context of the EditDonationCommand
+     * and returns an EditDonationCommand object to execute.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
