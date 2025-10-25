@@ -90,6 +90,29 @@ public class EditDonationCommandTest {
     }
 
     @Test
+    public void execute_invalidDonationDate_throwsCommandException() throws Exception {
+        // 16-05-2025 is invalid as it is one day after Alice's most recent donation (15-05-2025)
+        DonationRecord editedDonationRecord = new DonationRecordBuilder()
+                                                    .withPersonId(DonationRecordBuilder.DEFAULT_PERSON.getId())
+                                                    .withDonationDate("16-05-2025")
+                                                    .withBloodVolume(DonationRecordBuilder.DEFAULT_BLOOD_VOLUME)
+                                                    .build();
+
+        EditDonationRecordDescriptor editDonationRecordDescriptor = new EditDonationRecordsDescriptorBuilder(
+                editedDonationRecord).build();
+
+        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION,
+                editDonationRecordDescriptor);
+
+
+        Model expectedModel = new ModelManager(new BloodNet(model.getBloodNet()), new UserPrefs());
+
+        expectedModel.setDonationRecord(model.getFilteredDonationRecordList().get(0), editedDonationRecord);
+
+        assertCommandFailure(editDonationCommand, model, EditDonationCommand.MESSAGE_VIOLATES_ELIBILITY_CRITERIA);
+    }
+
+    @Test
     public void execute_duplicateDonationRecord_failure() throws Exception {
         DonationRecord firstDonationRecord = model.getFilteredDonationRecordList()
                 .get(INDEX_FIRST_DONATION.getZeroBased());
@@ -195,4 +218,3 @@ public class EditDonationCommandTest {
         assert(result.contains("bloodVolume"));
     }
 }
-

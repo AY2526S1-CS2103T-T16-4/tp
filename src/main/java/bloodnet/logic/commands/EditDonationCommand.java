@@ -18,6 +18,7 @@ import bloodnet.model.Model;
 import bloodnet.model.donationrecord.BloodVolume;
 import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.donationrecord.DonationRecord;
+import bloodnet.model.person.IsEligibleToDonatePredicate;
 import bloodnet.model.person.Person;
 
 
@@ -40,6 +41,9 @@ public class EditDonationCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_DONATION_RECORD =
             "No change to the donation record.";
+    public static final String MESSAGE_VIOLATES_ELIBILITY_CRITERIA =
+            "This edit violates the donation eligibility criteria. "
+            + "Please ensure the criteria are satisfied when editing a donation record.";
     private final Index indexOfDonationRecord;
     private final EditDonationRecordDescriptor editDonationRecordDescriptor;
 
@@ -69,6 +73,12 @@ public class EditDonationCommand extends Command {
 
         if (recordToEdit.equals(editedDonationRecord)) {
             throw new CommandException(MESSAGE_DUPLICATE_DONATION_RECORD);
+        }
+
+        IsEligibleToDonatePredicate isEligibleToDonatePredicate = new IsEligibleToDonatePredicate(model,
+                editedDonationRecord.getDonationDate());
+        if (!isEligibleToDonatePredicate.test(personForRecordEdit)) {
+            throw new CommandException(MESSAGE_VIOLATES_ELIBILITY_CRITERIA);
         }
 
         model.setDonationRecord(recordToEdit, editedDonationRecord);

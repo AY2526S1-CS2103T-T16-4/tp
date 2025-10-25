@@ -16,6 +16,7 @@ import bloodnet.model.Model;
 import bloodnet.model.donationrecord.BloodVolume;
 import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.donationrecord.DonationRecord;
+import bloodnet.model.person.IsEligibleToDonatePredicate;
 import bloodnet.model.person.Person;
 
 /**
@@ -39,6 +40,9 @@ public class AddDonationCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New donation record added: %1$s";
     public static final String MESSAGE_DUPLICATE_DONATION_RECORD =
                                                 "This donation record already exists in BloodNet";
+    public static final String MESSAGE_VIOLATES_ELIGIBILITY_CRITERIA =
+            "This record violates the donation eligibility criteria. "
+            + "Please ensure the criteria are satisfied when adding a donation record.";
 
     private final Index targetPersonIndex;
     private final DonationDate donationDate;
@@ -60,6 +64,12 @@ public class AddDonationCommand extends Command {
         requireNonNull(model);
 
         Person personToAddRecordFor = getPersonToAddRecordFor(model);
+
+        IsEligibleToDonatePredicate isEligibleToDonatePredicate = new IsEligibleToDonatePredicate(model, donationDate);
+        if (!isEligibleToDonatePredicate.test(personToAddRecordFor)) {
+            throw new CommandException(MESSAGE_VIOLATES_ELIGIBILITY_CRITERIA);
+        }
+
         UUID personId = personToAddRecordFor.getId();
 
         assert personId != null;

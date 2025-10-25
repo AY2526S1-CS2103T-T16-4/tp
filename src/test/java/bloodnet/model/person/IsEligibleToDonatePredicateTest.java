@@ -204,6 +204,118 @@ public class IsEligibleToDonatePredicateTest {
         assertFalse(predicate.test(sixtySixYearOld));
     }
 
+    /**
+     * Predecessor gap strictly less than 84 days should be ineligible.
+     * Uses today as the donationDate and a previous donation 83 days ago.
+     */
+    @Test
+    public void donorHasPredecessorDonationWithin84Days_returnsFalse() {
+        String dateOfBirth = LocalDate.now().minusYears(30).format(formatter);
+        Person person = new PersonBuilder().withDateOfBirth(dateOfBirth).build();
+
+        // Add a previous donation 83 days ago (predecessor < 84)
+        String prevDonationDate = LocalDate.now().minusDays(83).format(formatter);
+        model.addDonationRecord(new DonationRecordBuilder()
+                        .withPersonId(person.getId())
+                        .withDonationDate(prevDonationDate)
+                        .build());
+
+        // Using default predicate (donationDate = today)
+        assertFalse(predicate.test(person));
+    }
+
+    /**
+     * Predecessor gap exactly 84 days should be eligible.
+     * Uses today as the donationDate and a previous donation exactly 84 days ago.
+     */
+    @Test
+    public void donorHasPredecessorDonationAtExactly84Days_returnsTrue() {
+        String dateOfBirth = LocalDate.now().minusYears(30).format(formatter);
+        Person person = new PersonBuilder().withDateOfBirth(dateOfBirth).build();
+
+        // Add a previous donation exactly 84 days ago (boundary)
+        String prevDonationDate = LocalDate.now().minusDays(84).format(formatter);
+        model.addDonationRecord(new DonationRecordBuilder()
+                        .withPersonId(person.getId())
+                        .withDonationDate(prevDonationDate)
+                        .build());
+
+        // Using default predicate (donationDate = today)
+        assertTrue(predicate.test(person));
+    }
+
+    /**
+     * Tests individual who has a successor donation (later donation) at exactly 84 days.
+     * Predicate should return true (is eligible).
+     */
+    @Test
+    public void donorHasSuccessorDonationAtExactly84Days_returnsTrue() {
+        String dateOfBirth = LocalDate.now().minusYears(30).format(formatter);
+        Person person = new PersonBuilder().withDateOfBirth(dateOfBirth).build();
+
+        // Add another donation 150 days ago (successor to the test date)
+        String secondDonationDate = LocalDate.now().minusDays(150).format(formatter);
+        model.addDonationRecord(new DonationRecordBuilder()
+                .withPersonId(person.getId())
+                .withDonationDate(secondDonationDate)
+                .build());
+
+        // Test if person was eligible to donate 234 days ago (exactly 84 days before the second donation)
+        // Should be true because the successor donation is exactly 84 days away
+        String testDonationDate = LocalDate.now().minusDays(234).format(formatter);
+        IsEligibleToDonatePredicate testPredicate = new IsEligibleToDonatePredicate(model,
+                new bloodnet.model.donationrecord.DonationDate(testDonationDate));
+        assertTrue(testPredicate.test(person));
+    }
+
+    /**
+     * Tests individual who has a successor donation (later donation) within 84 days.
+     * Predicate should return false in this case (ineligible).
+     */
+    @Test
+    public void donorHasSuccessorDonationWithin84Days_returnsFalse() {
+        String dateOfBirth = LocalDate.now().minusYears(30).format(formatter);
+        Person person = new PersonBuilder().withDateOfBirth(dateOfBirth).build();
+
+        // Add another donation 150 days ago (successor to the test date)
+        String secondDonationDate = LocalDate.now().minusDays(150).format(formatter);
+        model.addDonationRecord(new DonationRecordBuilder()
+                .withPersonId(person.getId())
+                .withDonationDate(secondDonationDate)
+                .build());
+
+        // Test if person was eligible to donate 180 days ago (only 30 days before the second donation)
+        // Should be false because the successor donation is less than 84 days away
+        String testDonationDate = LocalDate.now().minusDays(180).format(formatter);
+        IsEligibleToDonatePredicate testPredicate = new IsEligibleToDonatePredicate(model,
+                new bloodnet.model.donationrecord.DonationDate(testDonationDate));
+        assertFalse(testPredicate.test(person));
+    }
+
+    /**
+     * Tests individual who has a successor donation (later donation) strictly more than 84 days away.
+     * Predicate should return true (eligible) since the gap to the successor is > 84 days.
+     */
+    @Test
+    public void donorHasSuccessorDonationMoreThan84Days_returnsTrue() {
+        String dateOfBirth = LocalDate.now().minusYears(30).format(formatter);
+        Person person = new PersonBuilder().withDateOfBirth(dateOfBirth).build();
+
+        // Choose a test donation date in the past
+        String testDonationDate = LocalDate.now().minusDays(200).format(formatter);
+
+        // Add a successor donation 100 days after the test date (still in the past)
+        String successorDonationDate = LocalDate.now().minusDays(100).format(formatter); // 200 - 100 = 100 days gap
+        model.addDonationRecord(new DonationRecordBuilder()
+                        .withPersonId(person.getId())
+                        .withDonationDate(successorDonationDate)
+                        .build());
+
+        IsEligibleToDonatePredicate testPredicate = new IsEligibleToDonatePredicate(
+                        model, new bloodnet.model.donationrecord.DonationDate(testDonationDate));
+        assertTrue(testPredicate.test(person));
+    }
+
     @Test
     public void toStringMethod() {
         String expected = IsEligibleToDonatePredicate.class.getCanonicalName() + "{}";
