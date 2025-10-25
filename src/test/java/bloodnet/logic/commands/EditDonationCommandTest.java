@@ -75,8 +75,6 @@ public class EditDonationCommandTest {
 
         EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION,
                 editDonationRecordDescriptor);
-        EditDonationRecordDescriptor descriptor = new EditDonationRecordsDescriptorBuilder(editedDonationRecord)
-                .build();
 
         String expectedMessage = String.format(
                 EditDonationCommand.MESSAGE_EDIT_DONATION_RECORD_SUCCESS,
@@ -97,7 +95,6 @@ public class EditDonationCommandTest {
                 firstDonationRecord).build();
 
         EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION, editDonationDescriptor);
-        EditDonationRecordDescriptor descriptor = new EditDonationRecordsDescriptorBuilder(firstDonationRecord).build();
 
         assertCommandFailure(editDonationCommand, model, EditDonationCommand.MESSAGE_DUPLICATE_DONATION_RECORD);
     }
