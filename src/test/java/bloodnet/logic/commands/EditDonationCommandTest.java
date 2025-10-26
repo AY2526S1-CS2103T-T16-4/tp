@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 
 import bloodnet.commons.core.index.Index;
@@ -92,9 +94,10 @@ public class EditDonationCommandTest {
     @Test
     public void execute_invalidDonationDate_throwsCommandException() throws Exception {
         // 16-05-2025 is invalid as it is one day after Alice's most recent donation (15-05-2025)
+        String donationDateString = "16-05-2025";
         DonationRecord editedDonationRecord = new DonationRecordBuilder()
                                                     .withPersonId(DonationRecordBuilder.DEFAULT_PERSON.getId())
-                                                    .withDonationDate("16-05-2025")
+                                                    .withDonationDate(donationDateString)
                                                     .withBloodVolume(DonationRecordBuilder.DEFAULT_BLOOD_VOLUME)
                                                     .build();
 
@@ -109,7 +112,10 @@ public class EditDonationCommandTest {
 
         expectedModel.setDonationRecord(model.getFilteredDonationRecordList().get(0), editedDonationRecord);
         String expectedMessage = EditDonationCommand.MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER;
-        expectedMessage += "\n- " + DonationRecord.MESSAGE_PREDECESSOR_DONATION_TOO_CLOSE;
+        String errorString = String.format(DonationRecord.MESSAGE_PREDECESSOR_DONATION_TOO_CLOSE,
+                                           LocalDate.of(2025, 05, 15)
+                                                    .plusDays(84).format(DonationDate.DATE_FORMATTER));
+        expectedMessage += "\n- " + errorString;
 
         assertCommandFailure(editDonationCommand, model, expectedMessage);
     }

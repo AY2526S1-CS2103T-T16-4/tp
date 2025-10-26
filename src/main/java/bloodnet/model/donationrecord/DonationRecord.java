@@ -21,16 +21,17 @@ import bloodnet.model.person.Person;
  */
 public class DonationRecord {
     // Static validation error strings
-    public static final String MESSAGE_AGE_BELOW_16 = "Donor's age at the donation date cannot be below 16.";
+    public static final String MESSAGE_AGE_BELOW_16 =
+            "Donor is too young on the donation date. Donation date must be on %s (their 16th birthdate) or later.";
     public static final String MESSAGE_PREDECESSOR_DONATION_TOO_CLOSE =
-            "Days since predecessor donation date cannot be less than 84.";
+            "Days since predecessor donation date cannot be less than 84. Donation date must be on %s or later.";
     public static final String MESSAGE_SUCCESSOR_DONATION_TOO_CLOSE =
-            "Days from successor donation date cannot be less than 84.";
+            "Days from successor donation date cannot be less than 84. Donation date must be on %s or earlier.";
     public static final String MESSAGE_FIRST_TIME_DONOR_TOO_OLD =
-            "This is a first-time donor. Donation date must be strictly before their 61st birthdate.";
+            "This is a first-time donor. Donation date must be strictly before %s (their 61st birthdate).";
     public static final String MESSAGE_NON_RECENT_DONOR_TOO_OLD =
             "This is a repeated donor. However, they have not donated blood in the last 3 years. "
-            + "Donation date must be strictly before their 66th birthdate.";
+            + "Donation date must be strictly before %s (their 66th birthdate).";
 
     // Identity fields
     private UUID id;
@@ -132,55 +133,70 @@ public class DonationRecord {
         // 1. Age of person at donationDate must be >= 16
         int ageAtDonation = Period.between(dateOfBirthValue, donationDateValue).getYears();
         if (ageAtDonation < 16) {
-            validationErrorStrings.add(MESSAGE_AGE_BELOW_16);
+            LocalDate sixteenthBirthday = dateOfBirthValue.plusYears(16);
+            String errorString = String.format(MESSAGE_AGE_BELOW_16,
+                                                sixteenthBirthday.format(DonationDate.DATE_FORMATTER));
+            validationErrorStrings.add(errorString);
         }
 
         // Find predecessor (last donation before donationDate)
-        Optional<DonationDate> predecessorDonationDate = model.getFilteredDonationRecordList().stream()
+        Optional<DonationDate> predecessorDonationDateOptional = model.getFilteredDonationRecordList().stream()
                 .filter(donationRecord -> donationRecord.getPersonId().equals(person.getId()))
                 .map(DonationRecord::getDonationDate)
                 .filter(dd -> dd.getValue().isBefore(donationDateValue))
                 .max(Comparator.comparing(DonationDate::getValue));
 
         // Find successor (first donation after donationDate)
-        Optional<DonationDate> successorDonationDate = model.getFilteredDonationRecordList().stream()
+        Optional<DonationDate> successorDonationDateOptional = model.getFilteredDonationRecordList().stream()
                 .filter(donationRecord -> donationRecord.getPersonId().equals(person.getId()))
                 .map(DonationRecord::getDonationDate)
                 .filter(dd -> dd.getValue().isAfter(donationDateValue))
                 .min(Comparator.comparing(DonationDate::getValue));
 
         // 2. Days between predecessor and donationDate must be >= 84
-        if (predecessorDonationDate.isPresent()) {
-            long daysSinceLastDonation = ChronoUnit.DAYS.between(predecessorDonationDate.get().getValue(),
+        if (predecessorDonationDateOptional.isPresent()) {
+            LocalDate predecessorDonationDate = predecessorDonationDateOptional.get().getValue();
+            long daysSinceLastDonation = ChronoUnit.DAYS.between(predecessorDonationDate,
                     donationDateValue);
             if (daysSinceLastDonation < 84) {
-                validationErrorStrings.add(MESSAGE_PREDECESSOR_DONATION_TOO_CLOSE);
+                String errorString = String.format(MESSAGE_PREDECESSOR_DONATION_TOO_CLOSE,
+                                                    predecessorDonationDate.plusDays(84)
+                                                                           .format(DonationDate.DATE_FORMATTER));
+                validationErrorStrings.add(errorString);
             }
         }
 
         // 3. Days between donationDate and successor must be >= 84
-        if (successorDonationDate.isPresent()) {
+        if (successorDonationDateOptional.isPresent()) {
+            LocalDate successorDonationDate = successorDonationDateOptional.get().getValue();
             long daysToNextDonation = ChronoUnit.DAYS.between(donationDateValue,
-                    successorDonationDate.get().getValue());
+                    successorDonationDate);
             if (daysToNextDonation < 84) {
-                validationErrorStrings.add(MESSAGE_SUCCESSOR_DONATION_TOO_CLOSE);
+                String errorString = String.format(MESSAGE_SUCCESSOR_DONATION_TOO_CLOSE,
+                                                    successorDonationDate.minusDays(84)
+                                                                         .format(DonationDate.DATE_FORMATTER));
+                validationErrorStrings.add(errorString);
             }
         }
 
         // 4. First-time donor and donationDate >= 61st birthday
         LocalDate sixtyFirstBirthday = dateOfBirthValue.plusYears(61);
-        if (predecessorDonationDate.isEmpty() && !donationDateValue.isBefore(sixtyFirstBirthday)) {
-            validationErrorStrings.add(MESSAGE_FIRST_TIME_DONOR_TOO_OLD);
+        if (predecessorDonationDateOptional.isEmpty() && !donationDateValue.isBefore(sixtyFirstBirthday)) {
+            String errorMessage = String.format(MESSAGE_FIRST_TIME_DONOR_TOO_OLD, sixtyFirstBirthday.format(
+                    DonationDate.DATE_FORMATTER));
+            validationErrorStrings.add(errorMessage);
         }
 
         // 5. Not first-time donor AND not donated in last 3 years AND donationDate >=
         // 66th birthday
         LocalDate sixtySixthBirthday = dateOfBirthValue.plusYears(66);
-        if (predecessorDonationDate.isPresent()) {
-            LocalDate lastDonation = predecessorDonationDate.get().getValue();
+        if (predecessorDonationDateOptional.isPresent()) {
+            LocalDate lastDonation = predecessorDonationDateOptional.get().getValue();
             if (!lastDonation.plusYears(3).isAfter(donationDateValue)
                     && !donationDateValue.isBefore(sixtySixthBirthday)) {
-                validationErrorStrings.add(MESSAGE_NON_RECENT_DONOR_TOO_OLD);
+                String errorMessage = String.format(MESSAGE_NON_RECENT_DONOR_TOO_OLD, sixtySixthBirthday.format(
+                        DonationDate.DATE_FORMATTER));
+                validationErrorStrings.add(errorMessage);
             }
         }
         return validationErrorStrings;
