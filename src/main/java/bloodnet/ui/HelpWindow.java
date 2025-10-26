@@ -113,9 +113,7 @@ public class HelpWindow extends UiPart<Stage> {
     public void addTitle() {
         Text title = new Text("BloodNet Commands\n");
         title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-fill: #C12727;");
-        Text newLine = new Text("\n");
         helpMessage.getChildren().add(title);
-        helpMessage.getChildren().add(newLine);
     }
 
     /**
@@ -136,15 +134,12 @@ public class HelpWindow extends UiPart<Stage> {
                 parameter.setStyle("-fx-fill: #262525;");
                 helpMessage.getChildren().add(parameter);
             }
-
             String examples = AllCommandInstructions.TEXT.get(command).getExample();
             if (!examples.isEmpty()) {
                 Text example = new Text(examples + "\n");
                 example.setStyle("-fx-fill: #4d4b4b;");
                 helpMessage.getChildren().add(example);
             }
-            Text space = new Text("\n");
-            helpMessage.getChildren().add(space);
         }
     }
 
@@ -152,7 +147,7 @@ public class HelpWindow extends UiPart<Stage> {
      * Add the link to the message box.
      */
     public void addLink() {
-        Text text = new Text(HELP_MESSAGE + "         ");
+        Text text = new Text("\n" + HELP_MESSAGE + "         ");
         helpMessage.getChildren().add(text);
         Button linker = new Button("Copy link");
         linker.getStyleClass().add("copyButton");
