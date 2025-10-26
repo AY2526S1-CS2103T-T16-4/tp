@@ -4,6 +4,7 @@ import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_VOLUME;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_DONATION_DATE;
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -40,6 +41,10 @@ public class EditDonationCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_DONATION_RECORD =
             "No change to the donation record.";
+    public static final String MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER =
+            "You are attempting to modify a donation record to an invalid one. "
+            + "Please fix these errors:";
+
     private final Index indexOfDonationRecord;
     private final EditDonationRecordDescriptor editDonationRecordDescriptor;
 
@@ -66,6 +71,15 @@ public class EditDonationCommand extends Command {
         UUID personId = personForRecordEdit.getId();
         assert personId != null;
         DonationRecord editedDonationRecord = createEditedDonationRecord(recordToEdit, editDonationRecordDescriptor);
+
+        ArrayList<String> validationErrorStrings = editedDonationRecord.validate(model);
+        if (!validationErrorStrings.isEmpty()) {
+            String concatenatedMessage = MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER;
+            for (String validationErrorString : validationErrorStrings) {
+                concatenatedMessage += "\n- " + validationErrorString;
+            }
+            throw new CommandException(concatenatedMessage);
+        }
 
         if (recordToEdit.equals(editedDonationRecord)) {
             throw new CommandException(MESSAGE_DUPLICATE_DONATION_RECORD);
