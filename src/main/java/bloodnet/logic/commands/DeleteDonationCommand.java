@@ -23,7 +23,7 @@ public class DeleteDonationCommand extends Command {
 
     public static final String COMMAND_WORD = "deletedonation";
 
-    public static final String DESCRIPTION = ": Deletes the donation record identified by the index number "
+    public static final String DESCRIPTION = "Deletes the donation record identified by the index number "
             + "used in the displayed donation record list.";
 
     public static final String EXAMPLE = "Example: " + COMMAND_WORD + " 1";

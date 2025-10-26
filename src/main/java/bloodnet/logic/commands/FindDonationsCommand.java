@@ -21,11 +21,11 @@ public class FindDonationsCommand extends Command {
     public static final String COMMAND_WORD = "finddonations";
 
     public static final String DESCRIPTION = "Finds all donation records related to "
-            + "the person identified by the index number used in the displayed person list.";
+            + "the donor identified by the index number used in the displayed donor list.";
 
-    public static final String PARAMETERS = "INDEX (must be a positive integer)";
+    public static final String PARAMETERS = "Parameters: INDEX (must be a positive integer)";
 
-    public static final String EXAMPLE =  "Example: " + COMMAND_WORD + " 1";
+    public static final String EXAMPLE = "Example: " + COMMAND_WORD + " 1";
 
     private final Index targetPersonIndex;
 

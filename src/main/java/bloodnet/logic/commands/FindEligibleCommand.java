@@ -19,19 +19,23 @@ public class FindEligibleCommand extends Command {
 
     public static final String COMMAND_WORD = "findeligible";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all people who are eligible to donate"
-            + " blood for the specified blood type(s) (case-insensitive) \nand displays them as a list with index "
-            + "numbers. \nAll eligible blood donors must be at least 16 (inclusive) years old.\nThe maximum age for "
-            + "first-time donors is generally 60 years and 354 days, but repeat donors may have different age limits \n"
-            + "depending on donation history. \n"
-            + "Parameters: BLOOD_TYPE (can include multiple)\n"
-            + "Example: " + COMMAND_WORD + " O+ A+ B+";
+    public static final String DESCRIPTION = "Finds all donors who are eligible to donate"
+            + " blood for the specified blood type(s) (case-insensitive) and displays them as a list with index "
+            + "numbers. All eligible blood donors must be at least 16 (inclusive) years old. The maximum age for "
+            + "first-time donors is generally 60 years and 354 days, but repeat donors may have different age limits.";
 
+    public static final String PARAMETERS = "Parameters: BLOOD_TYPE(S)";
+
+    public static final String EXAMPLE = "Example: " + COMMAND_WORD + " O+ A+ B+";
 
     private final List<String> enteredBloodTypes;
 
     public FindEligibleCommand(List<String> enteredBloodTypes) {
         this.enteredBloodTypes = enteredBloodTypes;
+    }
+
+    public static String getMessageUsage() {
+        return COMMAND_WORD + ": " + DESCRIPTION + "\n" + PARAMETERS + "\n" + EXAMPLE;
     }
 
     @Override

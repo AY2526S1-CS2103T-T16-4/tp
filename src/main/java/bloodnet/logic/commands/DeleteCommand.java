@@ -20,8 +20,8 @@ public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
-    public static final String DESCRIPTION = " Deletes the person identified by the index number "
-            + "used in the displayed person list.";
+    public static final String DESCRIPTION = "Deletes the donor identified by the index number "
+            + "used in the displayed donor list.";
 
     public static final String EXAMPLE = "Example: " + COMMAND_WORD + " 1";
 

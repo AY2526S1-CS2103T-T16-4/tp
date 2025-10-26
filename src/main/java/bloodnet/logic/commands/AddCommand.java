@@ -20,9 +20,9 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String DESCRIPTION = "Adds a person to BloodNet.";
+    public static final String DESCRIPTION = "Adds a donor to BloodNet.";
 
-    public static final String PARAMETERS =  "Parameters: "
+    public static final String PARAMETERS = "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
