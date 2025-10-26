@@ -41,8 +41,7 @@ public class AddDonationCommand extends Command {
     public static final String MESSAGE_DUPLICATE_DONATION_RECORD =
                                                 "This donation record already exists in BloodNet";
     public static final String MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER =
-            "This record violates the donation eligibility criteria. "
-            + "Please ensure the criteria are satisfied when adding a donation record.";
+            "This record violates the following eligibility criteria: ";
 
     private final Index targetPersonIndex;
     private final DonationDate donationDate;
