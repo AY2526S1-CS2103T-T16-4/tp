@@ -12,7 +12,7 @@ public class ExitCommand extends Command {
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting BloodNet as requested ...";
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
-            "Exits the program and closes the graphical user interface", "", "");
+            "Exits the program and closes the graphical user interface.", "", "");
 
     @Override
     public InputResponse execute(Model model) {

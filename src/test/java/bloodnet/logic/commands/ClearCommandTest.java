@@ -2,6 +2,7 @@ package bloodnet.logic.commands;
 
 import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static bloodnet.testutil.TypicalPersons.getTypicalBloodNet;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -47,6 +48,12 @@ public class ClearCommandTest {
 
         assertTrue(session instanceof ConfirmationCommandSession);
         assertFalse(session.isDone());
+    }
+
+    @Test
+    public void getMessage_string_returnsTrue() {
+        String expectedMessage = ClearCommand.COMMAND_WORD + ": Clears the entire blood donor list.";
+        assertEquals(expectedMessage, ClearCommand.getMessageUsage().trim());
     }
 
 }
