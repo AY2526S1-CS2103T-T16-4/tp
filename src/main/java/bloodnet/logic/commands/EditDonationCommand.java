@@ -32,7 +32,7 @@ public class EditDonationCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the donation record identified "
             + "by the index number used in the displayed donation record list. \n"
             + "Existing values will be overwritten by the input values. \n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: DONATION_RECORD_LIST_INDEX (must be a positive integer) "
             + PREFIX_DONATION_DATE + "DONATION DATE (DD-MM-YYYY) "
             + PREFIX_BLOOD_VOLUME + "BLOOD VOLUME (IN MILLILITRES)\n"
             + "Example: editdonation 1 v/100 d/02-02-2002";
