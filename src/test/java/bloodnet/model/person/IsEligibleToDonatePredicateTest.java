@@ -333,7 +333,7 @@ public class IsEligibleToDonatePredicateTest {
         // Choose a test donation date in the past
         String testDonationDate = LocalDate.now().minusDays(200).format(formatter);
 
-        // Add a successor donation 100 days after the test date (still in the past)
+        // Add a successor donation 100 days after the test date
         String successorDonationDate = LocalDate.now().minusDays(100).format(formatter); // 200 - 100 = 100 days gap
         model.addDonationRecord(new DonationRecordBuilder()
                         .withPersonId(person.getId())

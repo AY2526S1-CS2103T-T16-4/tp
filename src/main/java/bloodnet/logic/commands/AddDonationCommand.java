@@ -40,7 +40,7 @@ public class AddDonationCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New donation record added: %1$s";
     public static final String MESSAGE_DUPLICATE_DONATION_RECORD =
                                                 "This donation record already exists in BloodNet";
-    public static final String MESSAGE_VIOLATES_ELIGIBILITY_CRITERIA =
+    public static final String MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER =
             "This record violates the donation eligibility criteria. "
             + "Please ensure the criteria are satisfied when adding a donation record.";
 
@@ -64,8 +64,6 @@ public class AddDonationCommand extends Command {
         requireNonNull(model);
 
         Person personToAddRecordFor = getPersonToAddRecordFor(model);
-
-
         UUID personId = personToAddRecordFor.getId();
 
         assert personId != null;
@@ -74,8 +72,7 @@ public class AddDonationCommand extends Command {
 
         ArrayList<String> validationErrorStrings = donationRecord.validate(model);
         if (!validationErrorStrings.isEmpty()) {
-            String concatenatedMessage = "You are attempting to add an invalid donation record. "
-                                            + "Please fix these errors:";
+            String concatenatedMessage = MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER;
             for (String validationErrorString : validationErrorStrings) {
                 concatenatedMessage += "\n- " + validationErrorString;
             }

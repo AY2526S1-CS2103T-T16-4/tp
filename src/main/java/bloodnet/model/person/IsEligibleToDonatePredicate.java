@@ -46,26 +46,6 @@ public class IsEligibleToDonatePredicate implements Predicate<Person> {
      * Returns true if the person's date of birth and days since last donation fits the criteria.
      * {@code dateOfBirth} is provided by the user.
      *
-     * <p>Criteria for invalid donation record:</p>
-     * <ul>
-     *     <li>Age of person, at the date of donationDate, is < 16</li>
-     *
-     *     <li>Number of days between the predecessor donation record (if it exists) and the
-     *         donationDate is strictly less than 84. That is, if the predecessor donation
-     *         record is the 0th date, then return false if donationDate is the 83rd date or lower.</li>
-     *
-     *     <li>Number of days between the successor donation record (if it exists) and the
-     *         donationDate is strictly less than 84. That is, if the donationDate is the
-     *         0th date, then return false if successor donation record is the 83rd date or lower.</li>
-     *
-     *     <li>If donor is a first-time donor (ie, there exists no predecessor donation
-     *         record for that donor) AND donationDate >= 61st birthdate of donor.</li>
-     *
-     *     <li>If donor is not a first-time donor (ie, there exists some predecessor donation
-     *         record for that donor) AND donor has not donated in the last 3 years
-     *         AND donationDate >= 66th birthdate of donor. </li>
-     * </ul>
-     *
      * @param person Person you are checking the {@code dateOfBirth} and days since last donation for.
      */
     public boolean test(Person person) {
