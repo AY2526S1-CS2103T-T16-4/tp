@@ -1,7 +1,5 @@
 package bloodnet.model.person;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
@@ -21,20 +19,6 @@ public class IsEligibleToDonatePredicate implements Predicate<Person> {
     private final Model model;
     private final DonationDate donationDate;
     /**
-     * Constructs a {@code IsEligibleToDonatePredicate}.
-     * Sets {@code donationDate} to today's date.
-     */
-    public IsEligibleToDonatePredicate(Model model) {
-        this.model = model;
-
-        LocalDate todayDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String formattedTodayDate = todayDate.format(formatter);
-        this.donationDate = new DonationDate(formattedTodayDate);
-    }
-
-    /**
-     * Overloaded constructor.
      * Sets {@code donationDate} to the specified {@code donationDate}.
      */
     public IsEligibleToDonatePredicate(Model model, DonationDate donationDate) {

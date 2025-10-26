@@ -23,12 +23,12 @@ public class IsEligibleToDonatePredicateTest {
     private DateTimeFormatter formatter =
             DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(STRICT);
     private Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
-    private IsEligibleToDonatePredicate predicate = new IsEligibleToDonatePredicate(model);
+    private IsEligibleToDonatePredicate predicate = new IsEligibleToDonatePredicate(model, DonationDate.getTodayDate());
 
     @Test
     public void equals() {
-        IsEligibleToDonatePredicate predicateOne = new IsEligibleToDonatePredicate(model);
-        IsEligibleToDonatePredicate predicateTwo = new IsEligibleToDonatePredicate(model);
+        IsEligibleToDonatePredicate predicateOne = new IsEligibleToDonatePredicate(model, DonationDate.getTodayDate());
+        IsEligibleToDonatePredicate predicateTwo = new IsEligibleToDonatePredicate(model, DonationDate.getTodayDate());
 
         // same object -> return true
         assertTrue(predicateOne.equals(predicateOne));
