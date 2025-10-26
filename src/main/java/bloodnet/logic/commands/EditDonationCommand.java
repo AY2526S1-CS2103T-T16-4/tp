@@ -62,7 +62,7 @@ public class EditDonationCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public InputResponse execute(Model model) throws CommandException {
         requireNonNull(model);
         DonationRecord recordToEdit = getDonationRecordToEdit(model);
         Person personForRecordEdit = getPersonToEditRecordFor(model, recordToEdit);
@@ -86,7 +86,7 @@ public class EditDonationCommand extends Command {
         }
 
         model.setDonationRecord(recordToEdit, editedDonationRecord);
-        return new CommandResult(String.format(MESSAGE_EDIT_DONATION_RECORD_SUCCESS,
+        return new InputResponse(String.format(MESSAGE_EDIT_DONATION_RECORD_SUCCESS,
                 Messages.format(editedDonationRecord, personForRecordEdit)));
     }
 

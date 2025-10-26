@@ -60,7 +60,7 @@ public class AddDonationCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public InputResponse execute(Model model) throws CommandException {
         requireNonNull(model);
 
         Person personToAddRecordFor = getPersonToAddRecordFor(model);
@@ -85,7 +85,7 @@ public class AddDonationCommand extends Command {
 
         model.addDonationRecord(donationRecord);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(donationRecord, personToAddRecordFor)));
+        return new InputResponse(String.format(MESSAGE_SUCCESS, Messages.format(donationRecord, personToAddRecordFor)));
     }
 
     @Override
