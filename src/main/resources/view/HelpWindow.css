@@ -22,3 +22,8 @@
 .helpMessageContainer {
   -fx-background-color:  #f2f0f0;
 }
+
+.scrollPaneHelp .scroll-bar:horizontal .thumb,
+.scrollPaneHelp .scroll-bar:vertical .thumb {
+    -fx-background-color: #a30808;
+}
