@@ -15,21 +15,16 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String DESCRIPTION = "Finds all donors whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.";
-
-    public static final String EXAMPLE = "Example: " + COMMAND_WORD + " alice bob charlie";
-
-    public static final String PARAMETERS = "Parameters: KEYWORD [MORE_KEYWORDS]...";
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
+            "Finds all donors whose names contain any of the specified keywords "
+                    + "(case-insensitive) and displays them as a "
+                    + "list with index numbers.", "Parameters: KEYWORD [MORE_KEYWORDS]...",
+            "Example: " + COMMAND_WORD + " alice bob charlie");
 
     private final NameContainsKeywordsPredicate predicate;
 
     public FindCommand(NameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
-    }
-
-    public static String getMessageUsage() {
-        return COMMAND_WORD + ": " + DESCRIPTION + "\n" + PARAMETERS + "\n" + EXAMPLE;
     }
 
     @Override
@@ -63,5 +58,9 @@ public class FindCommand extends Command {
         return new ToStringBuilder(this)
                 .add("predicate", predicate)
                 .toString();
+    }
+
+    public static String getMessageUsage() {
+        return COMMAND_INFORMATION.getMessageUsage();
     }
 }

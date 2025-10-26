@@ -9,9 +9,9 @@ public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
 
-    public static final String DESCRIPTION = "Shows program usage instructions.";
-
-    public static final String EXAMPLE = "Example: " + COMMAND_WORD;
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
+            "Shows program usage instructions.", "",
+            "Example: " + COMMAND_WORD);
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
@@ -21,6 +21,7 @@ public class HelpCommand extends Command {
     }
 
     public static String getMessageUsage() {
-        return COMMAND_WORD + ": " + DESCRIPTION + "\n" + EXAMPLE;
+        return COMMAND_INFORMATION.getMessageUsage();
     }
+
 }

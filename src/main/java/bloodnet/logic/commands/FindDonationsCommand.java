@@ -20,21 +20,14 @@ import bloodnet.model.person.Person;
 public class FindDonationsCommand extends Command {
     public static final String COMMAND_WORD = "finddonations";
 
-    public static final String DESCRIPTION = "Finds all donation records related to "
-            + "the donor identified by the index number used in the displayed donor list.";
-
-    public static final String PARAMETERS = "Parameters: INDEX (must be a positive integer)";
-
-    public static final String EXAMPLE = "Example: " + COMMAND_WORD + " 1";
-
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
+            "Finds all donation "
+            + "records related to the donor identified by the index number used in the displayed donor list.",
+            "Parameters: INDEX (must be a positive integer)", "Example: \" + COMMAND_WORD + \" 1");
     private final Index targetPersonIndex;
 
     public FindDonationsCommand(Index targetPersonIndex) {
         this.targetPersonIndex = targetPersonIndex;
-    }
-
-    public static String getMessageUsage() {
-        return COMMAND_WORD + ": " + DESCRIPTION + "\n" + PARAMETERS + "\n" + EXAMPLE;
     }
 
     @Override
@@ -82,4 +75,9 @@ public class FindDonationsCommand extends Command {
 
         return lastShownList.get(targetPersonIndex.getZeroBased());
     }
+
+    public static String getMessageUsage() {
+        return COMMAND_INFORMATION.getMessageUsage();
+    }
+
 }

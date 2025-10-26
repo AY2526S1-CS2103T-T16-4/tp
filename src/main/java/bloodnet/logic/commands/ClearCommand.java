@@ -16,6 +16,9 @@ public class ClearCommand extends Command {
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "BloodNet has been cleared!";
 
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD, "",
+            "", "");
+
     @Override
     public CommandSession createSession(Model model) throws CommandException {
         requireNonNull(model);
@@ -27,5 +30,9 @@ public class ClearCommand extends Command {
         requireNonNull(model);
         model.setBloodNet(new BloodNet());
         return new InputResponse(MESSAGE_SUCCESS);
+    }
+
+    public static String getMessageUsage() {
+        return COMMAND_INFORMATION.getMessageUsage();
     }
 }

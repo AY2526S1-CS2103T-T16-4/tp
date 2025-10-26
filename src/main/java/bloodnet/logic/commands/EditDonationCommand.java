@@ -28,11 +28,14 @@ public class EditDonationCommand extends Command {
 
     public static final String COMMAND_WORD = "editdonation";
 
-    public static final String DESCRIPTION = "Edits the donation record detail(s) identified "
-            + "by the index number used in the displayed donation record list. At least one field "
-            + "must be provided.";
-
-    public static final String EXAMPLE = "Example: editdonation 1 v/100 d/02-02-2002";
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
+            "Edits the donation "
+            + "record detail(s) identified by the index number used in the displayed donation record list. "
+            + "At least one field must be provided.",
+            "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_DONATION_DATE + "DONATION DATE (DD-MM-YYYY)] "
+            + "[" + PREFIX_BLOOD_VOLUME + "BLOOD VOLUME (IN MILLILITRES)]",
+            "Example: editdonation 1 v/100 d/02-02-2002");
 
     public static final String MESSAGE_EDIT_DONATION_RECORD_SUCCESS = "Edited Donation Record: %1$s";
 
@@ -40,10 +43,6 @@ public class EditDonationCommand extends Command {
             "No change to the donation record.";
 
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-
-    public static final String PARAMETERS = "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_DONATION_DATE + "DONATION DATE (DD-MM-YYYY)] "
-            + "[" + PREFIX_BLOOD_VOLUME + "BLOOD VOLUME (IN MILLILITRES)]";
 
     private final Index indexOfDonationRecord;
     private final EditDonationRecordDescriptor editDonationRecordDescriptor;
@@ -59,10 +58,6 @@ public class EditDonationCommand extends Command {
 
         this.indexOfDonationRecord = indexOfDonationRecord;
         this.editDonationRecordDescriptor = new EditDonationRecordDescriptor(editDonationRecordDescriptor);
-    }
-
-    public static String getMessageUsage() {
-        return COMMAND_WORD + ": " + DESCRIPTION + "\n" + PARAMETERS + "\n" + EXAMPLE;
     }
 
     @Override
@@ -147,6 +142,10 @@ public class EditDonationCommand extends Command {
                 .add("indexOfDonationRecord", indexOfDonationRecord)
                 .add("editDonationRecordDescriptor", editDonationRecordDescriptor)
                 .toString();
+    }
+
+    public static String getMessageUsage() {
+        return COMMAND_INFORMATION.getMessageUsage();
     }
 
     /**

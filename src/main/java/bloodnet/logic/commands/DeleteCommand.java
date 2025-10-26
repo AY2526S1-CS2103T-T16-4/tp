@@ -20,24 +20,18 @@ public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
-    public static final String DESCRIPTION = "Deletes the donor identified by the index number "
-            + "used in the displayed donor list.";
-
-    public static final String EXAMPLE = "Example: " + COMMAND_WORD + " 1";
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
+            "Deletes the "
+            + "donor identified by the index number used in the displayed donor list.",
+            "Example: " + COMMAND_WORD + " 1",
+            "Parameters: INDEX (must be a positive integer");
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
-
-    public static final String PARAMETERS = "Parameters: INDEX (must be a positive integer)";
-
 
     private final Index targetIndex;
 
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
-    }
-
-    public static String getMessageUsage() {
-        return COMMAND_WORD + ": " + DESCRIPTION + "\n" + PARAMETERS + "\n" + EXAMPLE;
     }
 
     @Override
@@ -84,6 +78,10 @@ public class DeleteCommand extends Command {
         }
 
         return lastShownList.get(targetIndex.getZeroBased());
+    }
+
+    public static String getMessageUsage() {
+        return COMMAND_INFORMATION.getMessageUsage();
     }
 
 

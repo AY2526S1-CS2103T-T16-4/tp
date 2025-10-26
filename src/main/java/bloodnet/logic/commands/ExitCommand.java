@@ -11,9 +11,16 @@ public class ExitCommand extends Command {
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting BloodNet as requested ...";
 
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
+            "", "", "");
+
     @Override
     public InputResponse execute(Model model) {
         return new InputResponse(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
+    }
+
+    public static String getMessageUsage() {
+        return COMMAND_INFORMATION.getMessageUsage();
     }
 
 }

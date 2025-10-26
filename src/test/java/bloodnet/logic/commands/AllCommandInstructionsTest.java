@@ -9,22 +9,20 @@ public class AllCommandInstructionsTest {
 
     @Test
     public void test_addInstructions_success() {
-        AllCommandInstructions all = new AllCommandInstructions();
-        all.addInstructions();
-        assertTrue(AllCommandInstructions.TEXT.containsKey("\n" + AddCommand.COMMAND_WORD));
-        assertTrue(AllCommandInstructions.TEXT.containsKey("\n" + HelpCommand.COMMAND_WORD));
-        assertTrue(AllCommandInstructions.TEXT.containsKey("\n" + EditCommand.COMMAND_WORD));
+        AllCommands all = new AllCommands();
+        assertTrue(AllCommands.COMMANDS.containsKey(AddCommand.COMMAND_WORD));
+        assertTrue(AllCommands.COMMANDS.containsKey(HelpCommand.COMMAND_WORD));
+        assertTrue(AllCommands.COMMANDS.containsKey(EditCommand.COMMAND_WORD));
     }
 
     @Test
-    public void test_addInstructionsDecriptionsCorrect_success() {
-        AllCommandInstructions all = new AllCommandInstructions();
-        all.addInstructions();
-        assertEquals(AddCommand.DESCRIPTION,
-                AllCommandInstructions.TEXT.get("\n" + AddCommand.COMMAND_WORD).getDescription());
-        assertEquals(EditCommand.DESCRIPTION,
-                AllCommandInstructions.TEXT.get("\n" + EditCommand.COMMAND_WORD).getDescription());
-        assertEquals(DeleteDonationCommand.DESCRIPTION,
-                AllCommandInstructions.TEXT.get("\n" + DeleteDonationCommand.COMMAND_WORD).getDescription());
+    public void test_addInstructionsDescriptionsCorrect_success() {
+        AllCommands all = new AllCommands();
+        assertEquals(AddCommand.COMMAND_INFORMATION.getDescription(),
+                AllCommands.COMMANDS.get(AddCommand.COMMAND_WORD).getDescription());
+        assertEquals(EditCommand.COMMAND_INFORMATION.getDescription(),
+                AllCommands.COMMANDS.get(EditCommand.COMMAND_WORD).getDescription());
+        assertEquals(DeleteDonationCommand.COMMAND_INFORMATION.getDescription(),
+                AllCommands.COMMANDS.get(DeleteDonationCommand.COMMAND_WORD).getDescription());
     }
 }

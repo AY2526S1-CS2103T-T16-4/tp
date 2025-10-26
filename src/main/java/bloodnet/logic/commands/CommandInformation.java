@@ -7,14 +7,17 @@ public class CommandInformation {
     private final String description;
     private final String parameters;
     private final String example;
+    private final String command;
 
     /**
      * Creates a CommandInformation with the different components.
+     * @param command Command.
      * @param description Description of the command.
      * @param parameters Parameters for the command.
      * @param example Example using the command.
      */
-    public CommandInformation(String description, String parameters, String example) {
+    public CommandInformation(String command, String description, String parameters, String example) {
+        this.command = command;
         this.description = description;
         this.parameters = parameters;
         this.example = example;
@@ -31,5 +34,14 @@ public class CommandInformation {
     public String getExample() {
         return this.example;
     }
+
+    public String getCommand() {
+        return this.command;
+    }
+
+    public String getMessageUsage() {
+        return this.command + ": " + this.description + "\n" + this.parameters + "\n" + this.example + "\n";
+    }
+
 }
 

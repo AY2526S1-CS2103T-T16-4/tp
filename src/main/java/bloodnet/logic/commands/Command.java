@@ -31,4 +31,5 @@ public abstract class Command {
      */
     public abstract InputResponse execute(Model model) throws CommandException;
 
+
 }
