@@ -37,7 +37,7 @@ public class EditDonationCommandParser implements Parser<EditDonationCommand> {
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_BLOOD_VOLUME, PREFIX_DONATION_DATE);
 
         EditDonationRecordDescriptor editDonationRecordDescriptor =
-                new EditDonationRecordDescriptor();
+                new EditDonationCommand.EditDonationRecordDescriptor();
 
         if (argMultimap.getValue(PREFIX_BLOOD_VOLUME).isPresent()) {
             editDonationRecordDescriptor.setBloodVolume(

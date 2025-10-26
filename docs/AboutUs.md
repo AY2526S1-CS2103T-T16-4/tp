@@ -43,10 +43,10 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/flyingcat9.png" width="200px">
 
-[[github](http://github.com/flyingcat9)]
+[[github](http://github.com/flyingcat9)] [[portfolio](team/liminong.md)]
 
 * Role: Developer
-* Responsibilities: Deliverables and deadlines
+* Responsibilities: Delivarables and deadlines
 
 ### Eugene Lek
 

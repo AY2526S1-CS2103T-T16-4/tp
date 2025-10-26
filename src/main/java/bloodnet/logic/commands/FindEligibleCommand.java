@@ -25,7 +25,7 @@ public class FindEligibleCommand extends Command {
             + "numbers. \nAll eligible blood donors must be at least 16 (inclusive) years old.\nThe maximum age for "
             + "first-time donors is generally 60 years and 354 days, but repeat donors may have different age limits \n"
             + "depending on donation history. \n"
-            + "Parameters: BLOOD_TYPE(S) \n"
+            + "Parameters: BLOOD_TYPE (can include multiple)\n"
             + "Example: " + COMMAND_WORD + " O+ A+ B+";
 
 
