@@ -11,7 +11,7 @@ public class HelpCommand extends Command {
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
             "Shows program usage instructions.", "",
-            "Example: " + COMMAND_WORD);
+            "");
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 

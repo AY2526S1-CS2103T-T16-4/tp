@@ -24,7 +24,7 @@ public class DeleteCommand extends Command {
             "Deletes the "
             + "donor identified by the index number used in the displayed donor list.",
             "Example: " + COMMAND_WORD + " 1",
-            "Parameters: INDEX (must be a positive integer");
+            "Parameters: INDEX (must be a positive integer)");
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 

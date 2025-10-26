@@ -16,8 +16,8 @@ public class ClearCommand extends Command {
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "BloodNet has been cleared!";
 
-    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD, "",
-            "", "");
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
+            "Clears the entire donation list.", "", "");
 
     @Override
     public CommandSession createSession(Model model) throws CommandException {
