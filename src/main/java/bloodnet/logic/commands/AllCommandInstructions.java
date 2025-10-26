@@ -14,14 +14,14 @@ public class AllCommandInstructions {
      * Adds the instructions to the HashMap.
      */
     public void addInstructions() {
-        TEXT.put("\n"+ AddCommand.COMMAND_WORD, new CommandInformation(AddCommand.DESCRIPTION,
+        TEXT.put("\n" + AddCommand.COMMAND_WORD, new CommandInformation(AddCommand.DESCRIPTION,
                 AddCommand.PARAMETERS, AddCommand.EXAMPLE));
 
-        TEXT.put("\n" + EditCommand.COMMAND_WORD, new CommandInformation(EditCommand.DESCRIPTION, EditCommand.PARAMETERS,
-                EditCommand.EXAMPLE));
+        TEXT.put("\n" + EditCommand.COMMAND_WORD, new CommandInformation(EditCommand.DESCRIPTION,
+                EditCommand.PARAMETERS, EditCommand.EXAMPLE));
 
-        TEXT.put("\n" + DeleteCommand.COMMAND_WORD, new CommandInformation(DeleteCommand.DESCRIPTION, DeleteCommand.PARAMETERS,
-                DeleteCommand.EXAMPLE));
+        TEXT.put("\n" + DeleteCommand.COMMAND_WORD, new CommandInformation(DeleteCommand.DESCRIPTION,
+                DeleteCommand.PARAMETERS, DeleteCommand.EXAMPLE));
 
         TEXT.put("\n" + FindCommand.COMMAND_WORD, new CommandInformation(FindCommand.DESCRIPTION,
                 FindCommand.PARAMETERS, FindCommand.EXAMPLE));

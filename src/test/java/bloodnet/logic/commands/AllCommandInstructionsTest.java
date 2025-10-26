@@ -11,9 +11,9 @@ public class AllCommandInstructionsTest {
     public void test_addInstructions_success() {
         AllCommandInstructions all = new AllCommandInstructions();
         all.addInstructions();
-        assertTrue(AllCommandInstructions.TEXT.containsKey(AddCommand.COMMAND_WORD));
-        assertTrue(AllCommandInstructions.TEXT.containsKey(HelpCommand.COMMAND_WORD));
-        assertTrue(AllCommandInstructions.TEXT.containsKey(EditCommand.COMMAND_WORD));
+        assertTrue(AllCommandInstructions.TEXT.containsKey("\n" + AddCommand.COMMAND_WORD));
+        assertTrue(AllCommandInstructions.TEXT.containsKey("\n" + HelpCommand.COMMAND_WORD));
+        assertTrue(AllCommandInstructions.TEXT.containsKey("\n" + EditCommand.COMMAND_WORD));
     }
 
     @Test
@@ -21,10 +21,10 @@ public class AllCommandInstructionsTest {
         AllCommandInstructions all = new AllCommandInstructions();
         all.addInstructions();
         assertEquals(AddCommand.DESCRIPTION,
-                AllCommandInstructions.TEXT.get(AddCommand.COMMAND_WORD).getDescription());
+                AllCommandInstructions.TEXT.get("\n" + AddCommand.COMMAND_WORD).getDescription());
         assertEquals(EditCommand.DESCRIPTION,
-                AllCommandInstructions.TEXT.get(EditCommand.COMMAND_WORD).getDescription());
+                AllCommandInstructions.TEXT.get("\n" + EditCommand.COMMAND_WORD).getDescription());
         assertEquals(DeleteDonationCommand.DESCRIPTION,
-                AllCommandInstructions.TEXT.get(DeleteDonationCommand.COMMAND_WORD).getDescription());
+                AllCommandInstructions.TEXT.get("\n" + DeleteDonationCommand.COMMAND_WORD).getDescription());
     }
 }
