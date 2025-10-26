@@ -27,9 +27,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
-
 /**
- * Controller for a help page
+ * Controller for a help page.
  */
 public class HelpWindow extends UiPart<Stage> {
 

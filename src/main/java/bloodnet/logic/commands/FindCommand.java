@@ -8,8 +8,8 @@ import bloodnet.model.Model;
 import bloodnet.model.person.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all persons in bloodnet whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Finds and lists all persons in BloodNet whose name contains any of the argument keywords.
+ * Keyword matching is case-insensitive.
  */
 public class FindCommand extends Command {
 

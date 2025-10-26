@@ -116,8 +116,5 @@ public class DeleteDonationCommand extends Command {
         }
 
         throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND);
-
-
-
     }
 }

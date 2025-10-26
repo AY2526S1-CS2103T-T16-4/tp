@@ -9,7 +9,7 @@ import bloodnet.model.BloodNet;
 import bloodnet.model.Model;
 
 /**
- * Clears the bloodnet.
+ * Clears the BloodNet donor list.
  */
 public class ClearCommand extends Command {
 

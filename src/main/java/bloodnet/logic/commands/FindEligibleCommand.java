@@ -12,7 +12,7 @@ import bloodnet.model.person.HasBloodTypePredicate;
 import bloodnet.model.person.IsEligibleToDonatePredicate;
 
 /**
- * Finds and lists all eligible person based on blood type, date of birth
+ * Finds and lists all eligible donors based on blood type, date of birth
  * and number of days since their last donation, if applicable.
  */
 public class FindEligibleCommand extends Command {

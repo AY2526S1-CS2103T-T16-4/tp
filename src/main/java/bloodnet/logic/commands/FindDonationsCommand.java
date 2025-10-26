@@ -13,9 +13,9 @@ import bloodnet.model.donationrecord.DonorIsSamePersonPredicate;
 import bloodnet.model.person.Person;
 
 /**
- * Finds and list all donation records in bloodnet related to
+ * Finds and list all donation records in BloodNet related to
  * the person identified by the index number used in the displayed
- * person list from the bloodnet.
+ * person list from BloodNet.
  */
 public class FindDonationsCommand extends Command {
     public static final String COMMAND_WORD = "finddonations";
