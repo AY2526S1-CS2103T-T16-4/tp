@@ -48,6 +48,16 @@ public class DonationDate {
         }
     }
 
+    /**
+     * Static method to produce today's date as a {@code DonationDate}.
+     */
+    public static DonationDate getTodayDate() {
+        LocalDate todayDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedTodayDate = todayDate.format(formatter);
+        return new DonationDate(formattedTodayDate);
+    }
+
     public LocalDate getValue() {
         return value;
     }
@@ -81,4 +91,3 @@ public class DonationDate {
     }
 
 }
-

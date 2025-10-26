@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import bloodnet.model.Model;
 import bloodnet.model.ModelManager;
 import bloodnet.model.UserPrefs;
+import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.person.HasBloodTypeAndIsEligibleToDonatePredicate;
 import bloodnet.model.person.HasBloodTypePredicate;
 import bloodnet.model.person.IsEligibleToDonatePredicate;
@@ -82,7 +83,7 @@ public class FindEligibleCommandTest {
         HasBloodTypeAndIsEligibleToDonatePredicate predicate =
                 new HasBloodTypeAndIsEligibleToDonatePredicate(
                         new HasBloodTypePredicate(listOfBloodTypes),
-                        new IsEligibleToDonatePredicate(model));
+                        new IsEligibleToDonatePredicate(model, DonationDate.getTodayDate()));
 
         expectedModel.updateFilteredPersonList(predicate);
 
@@ -100,7 +101,7 @@ public class FindEligibleCommandTest {
         HasBloodTypeAndIsEligibleToDonatePredicate predicate =
                 new HasBloodTypeAndIsEligibleToDonatePredicate(
                         new HasBloodTypePredicate(listOfBloodTypes),
-                        new IsEligibleToDonatePredicate(model));
+                        new IsEligibleToDonatePredicate(model, DonationDate.getTodayDate()));
 
         expectedModel.updateFilteredPersonList(predicate);
 
@@ -112,4 +113,3 @@ public class FindEligibleCommandTest {
 
 
 }
-

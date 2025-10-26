@@ -7,6 +7,7 @@ import java.util.List;
 import bloodnet.commons.util.ToStringBuilder;
 import bloodnet.logic.Messages;
 import bloodnet.model.Model;
+import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.person.HasBloodTypeAndIsEligibleToDonatePredicate;
 import bloodnet.model.person.HasBloodTypePredicate;
 import bloodnet.model.person.IsEligibleToDonatePredicate;
@@ -37,7 +38,8 @@ public class FindEligibleCommand extends Command {
     public InputResponse execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPersonList(new HasBloodTypeAndIsEligibleToDonatePredicate(
-                new HasBloodTypePredicate(enteredBloodTypes), new IsEligibleToDonatePredicate(model)));
+                new HasBloodTypePredicate(enteredBloodTypes),
+                new IsEligibleToDonatePredicate(model, DonationDate.getTodayDate())));
         int filteredPersonListSize = model.getFilteredPersonList().size();
         return new InputResponse(
                 String.format(Messages.MESSAGE_PEOPLE_LISTED_OVERVIEW,
