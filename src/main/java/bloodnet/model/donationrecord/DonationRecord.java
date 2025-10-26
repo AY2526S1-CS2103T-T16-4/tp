@@ -122,6 +122,14 @@ public class DonationRecord {
     public ArrayList<String> validate(Model model) {
         ArrayList<String> validationErrorStrings = new ArrayList<>();
 
+        // We try to resolve the personId to a person by
+        // checking against the FULL personList in the BloodNet,
+        // not just against the filteredPersonList.
+
+        // This is to allow this method to be used
+        // by the isEligibleToDonate predicate,
+        // which may create a DonationRecord object
+        // with a personId that is not in the filteredPersonList.
         Person person = model.getBloodNet().getPersonList().stream()
                 .filter(p -> p.getId().equals(personId))
                 .findFirst()
@@ -187,8 +195,7 @@ public class DonationRecord {
             validationErrorStrings.add(errorMessage);
         }
 
-        // 5. Not first-time donor AND not donated in last 3 years AND donationDate >=
-        // 66th birthday
+        // 5. Not first-time donor AND not donated in last 3 years AND donationDate >= 66th birthday
         LocalDate sixtySixthBirthday = dateOfBirthValue.plusYears(66);
         if (predecessorDonationDateOptional.isPresent()) {
             LocalDate lastDonation = predecessorDonationDateOptional.get().getValue();
