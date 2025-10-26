@@ -38,6 +38,7 @@
     },
     {
       "src": "DeveloperGuide.md",
+      "title": "Developer Guide",
       "headings": {
         "bloodnet-developer-guide": "BloodNet Developer Guide",
         "acknowledgements": "Acknowledgements",
@@ -51,7 +52,6 @@
         "common-classes": "Common classes",
         "implementation": "Implementation",
         "proposed-undo-redo-feature": "[Proposed] Undo/redo feature",
-        "proposed-data-archiving": "[Proposed] Data archiving",
         "documentation-logging-testing-configuration-dev-ops": "Documentation, logging, testing, configuration, dev-ops",
         "appendix-requirements": "Appendix: Requirements",
         "product-scope": "Product scope",
@@ -62,15 +62,11 @@
         "use-case-uc03-search-donors-by-name": "Use case: UC03 - Search donors by name",
         "use-case-uc04-delete-a-donor": "Use case: UC04 - Delete a donor",
         "use-case-uc05-list-all-donors-in-the-system": "Use case: UC05 - List all donors in the system",
-        "use-case-uc06-find-all-donors-of-a-particular-blood-type": "Use case: UC06 - Find all donors of a particular blood type",
+        "use-case-uc06-find-all-eligible-donors-of-a-particular-blood-type": "Use case: UC06 - Find all eligible donors of a particular blood type",
         "use-case-uc07-record-a-blood-donation-by-a-donor": "Use case: UC07 - Record a blood donation by a donor",
         "use-case-uc08-list-all-blood-donations-by-a-donor": "Use case: UC08 - List all blood donations by a donor",
         "use-case-uc09-modify-a-blood-donation-record": "Use case: UC09 - Modify a blood donation record",
         "use-case-uc10-delete-a-blood-donation-record": "Use case: UC10 - Delete a blood donation record",
-        "use-case-uc11-check-if-a-person-is-eligible-for-donation-on-a-particular-date": "Use case: UC11 - Check if a person is eligible for donation on a particular date",
-        "use-case-uc12-see-donor-demographics-e-g-age-ranges-gender-distribution": "Use case: UC12 - See donor demographics (e.g. age ranges, gender distribution)",
-        "use-case-uc13-report-the-breakdown-of-contacts-by-blood-group": "Use case: UC13 - Report the breakdown of contacts by blood group",
-        "use-case-uc14-view-a-record-of-every-change-done-to-the-system": "Use case: UC14 - View a record of every change done to the system",
         "non-functional-requirements": "Non-Functional Requirements",
         "glossary": "Glossary",
         "appendix-instructions-for-manual-testing": "Appendix: Instructions for manual testing",
@@ -118,19 +114,22 @@
     },
     {
       "src": "UserGuide.md",
+      "title": "User Guide",
       "headings": {
         "bloodnet-user-guide": "BloodNet User Guide",
         "quick-start": "Quick start",
         "command-summary": "Command summary",
         "features": "Features",
-        "viewing-help-help": "Viewing help : help",
         "adding-a-donor-add": "Adding a donor: add",
         "listing-all-donors-list": "Listing all donors : list",
         "locating-donors-by-name-find": "Locating donors by name: find ",
+        "find-eligible-donors-based-on-blood-type-findeligible": "Find eligible donors based on blood type: findeligible",
         "editing-a-donor-edit": "Editing a donor : edit",
         "deleting-a-donor-delete": "Deleting a donor : delete",
+        "editing-a-donation-record-editdonation": "Editing a donation record : editdonation",
         "clearing-all-entries-clear": "Clearing all entries : clear",
         "exiting-the-program-exit": "Exiting the program : exit",
+        "viewing-help-help": "Viewing help : help",
         "saving-the-data": "Saving the data",
         "editing-the-data-file": "Editing the data file",
         "archiving-data-files-coming-in-v2-0": "Archiving data files [coming in v2.0]",
@@ -183,7 +182,7 @@
       "src": "team/liminong.md",
       "title": "Li Min Ong's Project Portfolio Page",
       "headings": {
-        "project-bloodnet-level-3": "Project: BloodNet Level 3"
+        "project-bloodnet": "Project: BloodNet"
       },
       "headingKeywords": {}
     }
