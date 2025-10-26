@@ -18,7 +18,9 @@ public class IsEligibleToDonatePredicate implements Predicate<Person> {
 
     private final Model model;
     private final DonationDate donationDate;
+
     /**
+     * Constructs a {@code IsEligibleToDonatePredicate}.
      * Sets {@code donationDate} to the specified {@code donationDate}.
      */
     public IsEligibleToDonatePredicate(Model model, DonationDate donationDate) {
