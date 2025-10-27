@@ -27,13 +27,13 @@ public class DonationRecord {
             + "Donation date cannot be between %s (their birthdate) "
             + "and %s (one day before their 16th birthdate) inclusive.";
     public static final String MESSAGE_PREDECESSOR_DONATION_TOO_CLOSE =
-            "Days since predecessor donation date cannot be less than 84. "
-            + "Donation date cannot be between %s (predecessor donation date) "
-            + "and %s (83rd date after predecessor donation date) inclusive.";
+            "Consecutive donations must be at least 12 weeks (84 days) apart. "
+            + "However, the donor has already donated blood on %s. "
+            + "Therefore, the donation date cannot be between %s and %s inclusive.";
     public static final String MESSAGE_SUCCESSOR_DONATION_TOO_CLOSE =
-            "Days from successor donation date cannot be less than 84. "
-            + "Donation date cannot be between %s (83rd date before successor donation date) "
-            + "and %s (successor donation date) inclusive.";
+            "Consecutive donations must be at least 12 weeks (84 days) apart. "
+            + "However, the donor has already donated blood on %s. "
+            + "Therefore, the donation date cannot be between %s and %s inclusive.";
     public static final String MESSAGE_FIRST_TIME_DONOR_TOO_OLD =
             "This is a first-time donor. "
             + "Donation date cannot be on or after %s (their 61st birthdate).";
@@ -178,6 +178,7 @@ public class DonationRecord {
             if (daysSinceLastDonation < 84) {
                 String errorString = String.format(MESSAGE_PREDECESSOR_DONATION_TOO_CLOSE,
                                                     predecessorDonationDate.format(DonationDate.DATE_FORMATTER),
+                                                    predecessorDonationDate.format(DonationDate.DATE_FORMATTER),
                                                     predecessorDonationDate.plusDays(83)
                                                                            .format(DonationDate.DATE_FORMATTER));
                 validationErrorStrings.add(errorString);
@@ -191,6 +192,7 @@ public class DonationRecord {
                     successorDonationDate);
             if (daysToNextDonation < 84) {
                 String errorString = String.format(MESSAGE_SUCCESSOR_DONATION_TOO_CLOSE,
+                                                    successorDonationDate.format(DonationDate.DATE_FORMATTER),
                                                     successorDonationDate.minusDays(83)
                                                                          .format(DonationDate.DATE_FORMATTER),
                                                     successorDonationDate.format(DonationDate.DATE_FORMATTER));
