@@ -31,7 +31,7 @@ public class DonationRecord {
             "This is a first-time donor. Donation date must be strictly before %s (their 61st birthdate).";
     public static final String MESSAGE_NON_RECENT_DONOR_TOO_OLD =
             "This is a repeated donor. However, they have not donated blood in the last 3 years. "
-            + "Donation date must be strictly before %s (their 66th birthdate).";
+                    + "Donation date must be strictly before %s (their 66th birthdate).";
 
     // Identity fields
     private UUID id;
@@ -40,6 +40,10 @@ public class DonationRecord {
 
     // Data fields
     private final BloodVolume bloodVolume;
+
+    // Fields which aren't actually stored in the database, but displayed
+    // in the UI
+    private String donorName;
 
     /**
      * Every field other than ID must be present and not null.
@@ -71,6 +75,14 @@ public class DonationRecord {
 
     public BloodVolume getBloodVolume() {
         return bloodVolume;
+    }
+
+    public void setDonorName(String donorName) {
+        this.donorName = donorName;
+    }
+
+    public String getDonorName() {
+        return donorName;
     }
 
     /**
@@ -143,7 +155,7 @@ public class DonationRecord {
         if (ageAtDonation < 16) {
             LocalDate sixteenthBirthday = dateOfBirthValue.plusYears(16);
             String errorString = String.format(MESSAGE_AGE_BELOW_16,
-                                                sixteenthBirthday.format(DonationDate.DATE_FORMATTER));
+                    sixteenthBirthday.format(DonationDate.DATE_FORMATTER));
             validationErrorStrings.add(errorString);
         }
 
@@ -168,8 +180,8 @@ public class DonationRecord {
                     donationDateValue);
             if (daysSinceLastDonation < 84) {
                 String errorString = String.format(MESSAGE_PREDECESSOR_DONATION_TOO_CLOSE,
-                                                    predecessorDonationDate.plusDays(84)
-                                                                           .format(DonationDate.DATE_FORMATTER));
+                        predecessorDonationDate.plusDays(84)
+                                .format(DonationDate.DATE_FORMATTER));
                 validationErrorStrings.add(errorString);
             }
         }
@@ -181,8 +193,8 @@ public class DonationRecord {
                     successorDonationDate);
             if (daysToNextDonation < 84) {
                 String errorString = String.format(MESSAGE_SUCCESSOR_DONATION_TOO_CLOSE,
-                                                    successorDonationDate.minusDays(84)
-                                                                         .format(DonationDate.DATE_FORMATTER));
+                        successorDonationDate.minusDays(84)
+                                .format(DonationDate.DATE_FORMATTER));
                 validationErrorStrings.add(errorString);
             }
         }
