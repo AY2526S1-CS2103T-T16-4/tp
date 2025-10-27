@@ -131,10 +131,13 @@ public class EditDonationCommandTest {
     }
 
     @Test
-    public void execute_personIdIsNull_failure() throws Exception {
-        Model model = new ModelManager();
-        assertThrows(NullPointerException.class, ()
-                -> model.addDonationRecord(new DonationRecordBuilder().withPersonId(null).build()));
+    public void execute_personInFilteredListIsNullExecute_failure() throws Exception {
+        DonationRecord donation = new DonationRecordBuilder().build();
+        EditDonationRecordDescriptor descriptorStub =
+                new EditDonationRecordDescriptor();
+        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION, descriptorStub);
+        model.updateFilteredPersonList(person -> false);
+        assertCommandFailure(editDonationCommand, model, Messages.MESSAGE_PERSON_NOT_FOUND);
     }
 
     @Test
