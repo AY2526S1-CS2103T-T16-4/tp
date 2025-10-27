@@ -24,13 +24,16 @@ public class DonationRecord {
     // Static validation error strings
     public static final String MESSAGE_AGE_BELOW_16 =
             "Donor is too young on the donation date. "
-            + "Donation date cannot be between %s (their birthdate) and %s (one day before their 16th birthdate) inclusive.";
+            + "Donation date cannot be between %s (their birthdate) "
+            + "and %s (one day before their 16th birthdate) inclusive.";
     public static final String MESSAGE_PREDECESSOR_DONATION_TOO_CLOSE =
             "Days since predecessor donation date cannot be less than 84. "
-            + "Donation date cannot be between %s (predecessor donation date) and %s (83rd date after predecessor donation date) inclusive.";
+            + "Donation date cannot be between %s (predecessor donation date) "
+            + "and %s (83rd date after predecessor donation date) inclusive.";
     public static final String MESSAGE_SUCCESSOR_DONATION_TOO_CLOSE =
             "Days from successor donation date cannot be less than 84. "
-            + "Donation date cannot be between %s (83rd date before successor donation date) and %s (successor donation date) inclusive.";
+            + "Donation date cannot be between %s (83rd date before successor donation date) "
+            + "and %s (successor donation date) inclusive.";
     public static final String MESSAGE_FIRST_TIME_DONOR_TOO_OLD =
             "This is a first-time donor. "
             + "Donation date cannot be on or after %s (their 61st birthdate).";
