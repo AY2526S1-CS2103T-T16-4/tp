@@ -19,9 +19,9 @@ end box
 [--> LogicManager : handle("delete 1")
 activate LogicManager
 
-opt no active session
+opt no current command session
     note right
-        Normally, the active session check is performed for every input.
+        Normally, the current command session check is performed for every input.
         If no session exists, a new session would be created (as shown here).
         The opt block is omitted in the subsequent input flow for readability.
     end note
@@ -55,11 +55,26 @@ opt no active session
     BloodNetParser --> LogicManager : d
     deactivate BloodNetParser
 
-    LogicManager --> DeleteCommand : createSession(m)
+    LogicManager -> DeleteCommand : createSession(m)
     activate DeleteCommand
 
+    note right
+    These interactions with model are highly specific to the 
+    implementation of createSession for each command.
+    end note
+
+    DeleteCommand -> Model : getFilteredPersonList()
+    activate Model
+    Model --> DeleteCommand : filteredPersonList
+    deactivate Model
+
+    DeleteCommand -> Model : hasDonationRecordFor(personToDelete)
+    activate Model
+    Model --> DeleteCommand : whether personToDelete has any existing donation records
+    deactivate Model
+
     create Session
-    DeleteCommand --> Session
+    DeleteCommand -> Session
     activate Session
 
     Session -->  DeleteCommand
@@ -74,7 +89,7 @@ activate Session
 
 
 create ConfirmationInputResponse
-Session --> ConfirmationInputResponse
+Session -> ConfirmationInputResponse
 activate ConfirmationInputResponse
 
 ConfirmationInputResponse --> Session

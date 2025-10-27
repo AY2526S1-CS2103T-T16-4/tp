@@ -102,8 +102,9 @@ How the `Logic` component works:
 * `Logic` checks for an active current session
 * If there is no active current session:
     * The input is passed to a `BloodNetParser` object which in turns creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-    * This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`), which its `createSession` is invoked by `LogicManager`  to create a new `CommandSession` object (more precisely, an object of one of its subclasses e.g., `ConfirmationCommandSession`), which will become the new current session
-3. Advance current session
+    * This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`), which its `createSession` is invoked by `LogicManager`  to create a new `CommandSession` object (more precisely, an object of one of its subclasses e.g., `ConfirmationCommandSession`), which will become the new current session.
+      * During the invoking of `createSession`, the `Command` object (depending on its implementation of `createSession`) may interact with the `Model` to query target objects and/or perform validation checks.
+1. Advance current session
 * The current session is called upon to handle the input. 
 * The result of the input handling is encapsulated as an `InputResponse` object.
 * If the current command session has finished (as checked by its `isDone` method), the current session will be marked as `null`.

@@ -14,6 +14,11 @@ activate ui UI_COLOR
 ui -[UI_COLOR]> logic : handle("delete 1")
 activate logic LOGIC_COLOR
 
+logic -[LOGIC_COLOR]> model: Query target object(s) and/or \n perform validation check(s)
+activate model MODEL_COLOR
+model -[MODEL_COLOR]-> logic
+deactivate model
+
 logic -[LOGIC_COLOR]-> ui
 deactivate logic
 
