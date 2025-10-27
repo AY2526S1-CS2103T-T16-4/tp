@@ -16,7 +16,7 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command.\nKey in 'help' to access the user guide,"
             + " which contains a list of valid commands.";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
+    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The donor index provided is invalid";
     public static final String MESSAGE_INVALID_DONATION_DISPLAYED_INDEX =
             "The donation record index provided is invalid";
     // Should find a more elegant way to handle plurality.

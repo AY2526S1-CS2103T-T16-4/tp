@@ -120,6 +120,7 @@ public class EditDonationCommand extends Command {
      */
     private Person getPersonToEditRecordFor(Model model, DonationRecord donationRecord) throws CommandException {
         requireNonNull(model);
+        requireNonNull(donationRecord);
         List<Person> personList = model.getFilteredPersonList();
         Optional<Person> optionalPerson = personList.stream()
                 .filter(person -> person.getId().equals(donationRecord.getPersonId())).findFirst();
@@ -127,8 +128,7 @@ public class EditDonationCommand extends Command {
         if (optionalPerson.isPresent()) {
             return optionalPerson.get();
         }
-
-        return null;
+        throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND);
     }
 
     @Override

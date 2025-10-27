@@ -4,13 +4,13 @@ import static bloodnet.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents the volume of blood donated during a blood donation session in the bloodnet.
+ * Represents the volume of blood donated during a blood donation session in BloodNet.
  * Guarantees: immutable; is valid as declared in {@link #isValidBloodVolume(String)}
  */
 public class BloodVolume {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Blood volume should be a whole number, in millilitres";
+            "Blood volume should be a positive whole number, in millilitres.";
 
     public final Integer volume;
 
