@@ -1,5 +1,6 @@
 package bloodnet.logic.parser;
 
+import static bloodnet.logic.Messages.MESSAGE_DATE_OF_BIRTH_TOO_OLD;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
@@ -90,10 +91,9 @@ public class ParserUtil {
     public static DateOfBirth parseDateOfBirth(String dateOfBirth) throws ParseException {
         requireNonNull(dateOfBirth);
         String trimmedDateOfBirth = dateOfBirth.trim();
-
         if (!DateOfBirth.isValidDateOfBirth(trimmedDateOfBirth)) {
             String formattedMessage = String.format(
-                    DateOfBirth.MESSAGE_CONSTRAINTS,
+                    MESSAGE_DATE_OF_BIRTH_TOO_OLD,
                     LocalDate.now().minusYears(130).format(DateOfBirth.DATE_FORMATTER));
             throw new ParseException(formattedMessage);
         }

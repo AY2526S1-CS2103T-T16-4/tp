@@ -32,6 +32,8 @@ import static bloodnet.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static bloodnet.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static bloodnet.testutil.TypicalPersons.BOB;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 
 import bloodnet.logic.Messages;
@@ -45,8 +47,11 @@ import bloodnet.model.person.Phone;
 import bloodnet.testutil.PersonBuilder;
 
 public class AddCommandParserTest {
-    private AddCommandParser parser = new AddCommandParser();
+    private static String expectedError = String.format(
+            DateOfBirth.MESSAGE_CONSTRAINTS,
+            LocalDate.now().minusYears(130).format(DateOfBirth.DATE_FORMATTER));
 
+    private AddCommandParser parser = new AddCommandParser();
     @Test
     public void parse_allFieldsPresent_success() {
         Person expectedPerson = new PersonBuilder(BOB).build();
@@ -192,7 +197,7 @@ public class AddCommandParserTest {
 
         // invalid date of birth
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + BLOOD_TYPE_DESC_BOB
-                + INVALID_DATE_OF_BIRTH_DESC, DateOfBirth.MESSAGE_CONSTRAINTS);
+                + INVALID_DATE_OF_BIRTH_DESC, expectedError);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB
