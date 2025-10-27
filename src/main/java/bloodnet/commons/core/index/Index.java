@@ -4,7 +4,7 @@ import bloodnet.commons.util.ToStringBuilder;
 
 /**
  * Represents a zero-based or one-based index.
- *
+ * <p>
  * {@code Index} should be used right from the start (when parsing in a new user input), so that if the current
  * component wants to communicate with another component, it can send an {@code Index} to avoid having to know what
  * base the other component is using for its index. However, after receiving the {@code Index}, that component can
@@ -65,5 +65,13 @@ public class Index {
     @Override
     public String toString() {
         return new ToStringBuilder(this).add("zeroBasedIndex", zeroBasedIndex).toString();
+    }
+
+    /**
+     * Converts the index to be easily readable to the user.
+     * @return the user index
+     */
+    public String toDisplayUser() {
+        return Integer.toString(zeroBasedIndex + 1);
     }
 }

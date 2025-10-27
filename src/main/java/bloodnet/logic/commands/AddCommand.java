@@ -20,13 +20,13 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the bloodnet. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to BloodNet. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_BLOOD_TYPE + "BLOOD TYPE "
-            + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH "
+            + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH (DD-MM-YYYY)\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
@@ -35,7 +35,7 @@ public class AddCommand extends Command {
             + PREFIX_DATE_OF_BIRTH + "30-03-2004 ";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the bloodnet";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in BloodNet";
 
     private final Person toAdd;
 
@@ -48,7 +48,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public InputResponse execute(Model model) throws CommandException {
         requireNonNull(model);
 
         if (model.hasPerson(toAdd)) {
@@ -56,7 +56,7 @@ public class AddCommand extends Command {
         }
 
         model.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+        return new InputResponse(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 
     @Override

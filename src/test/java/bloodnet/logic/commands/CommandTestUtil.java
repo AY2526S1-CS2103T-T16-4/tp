@@ -17,6 +17,7 @@ import bloodnet.commons.core.index.Index;
 import bloodnet.logic.commands.exceptions.CommandException;
 import bloodnet.model.BloodNet;
 import bloodnet.model.Model;
+import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.NameContainsKeywordsPredicate;
 import bloodnet.model.person.Person;
 import bloodnet.testutil.EditPersonDescriptorBuilder;
@@ -54,7 +55,7 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_BLOOD_TYPE_DESC = " " + PREFIX_BLOOD_TYPE; // " " not allowed for blood types
     public static final String INVALID_DATE_OF_BIRTH_DESC = " "
-        + PREFIX_DATE_OF_BIRTH; // " " not allowed for date of births
+            + PREFIX_DATE_OF_BIRTH; // " " not allowed for date of births
 
     // Donation Record Test Values
     public static final String VALID_DONATION_DATE_AMY = "12-12-2024";
@@ -71,23 +72,23 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-            .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withBloodType(VALID_BLOOD_TYPE_AMY)
-            .withDateOfBirth(VALID_DATE_OF_BIRTH_AMY).build();
+                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withBloodType(VALID_BLOOD_TYPE_AMY)
+                .withDateOfBirth(VALID_DATE_OF_BIRTH_AMY).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-            .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withBloodType(VALID_BLOOD_TYPE_BOB)
-            .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withBloodType(VALID_BLOOD_TYPE_BOB)
+                .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).build();
     }
 
     /**
      * Executes the given {@code command}, confirms that <br>
-     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
+     * - the returned {@link InputResponse} matches {@code expectedInputResponse} <br>
      * - the {@code actualModel} matches {@code expectedModel}
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
+    public static void assertCommandSuccess(Command command, Model actualModel, InputResponse expectedInputResponse,
                                             Model expectedModel) {
         try {
-            CommandResult result = command.execute(actualModel);
-            assertEquals(expectedCommandResult, result);
+            InputResponse response = command.execute(actualModel);
+            assertEquals(expectedInputResponse, response);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
@@ -95,13 +96,13 @@ public class CommandTestUtil {
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, InputResponse, Model)}
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
                                             Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
-        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+        InputResponse expectedInputResponse = new InputResponse(expectedMessage);
+        assertCommandSuccess(command, actualModel, expectedInputResponse, expectedModel);
     }
 
     /**
@@ -133,6 +134,21 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the donation record at the given {@code targetIndex} in the
+     * {@code model}'s bloodnet.
+     * @param model
+     * @param targetIndex
+     */
+    public static void showDonationRecordAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredDonationRecordList().size());
+
+        DonationRecord donationRecord = model.getFilteredDonationRecordList().get(targetIndex.getZeroBased());
+        model.updateFilteredDonationRecordList(d -> d.equals(donationRecord));
+
+        assertEquals(1, model.getFilteredDonationRecordList().size());
     }
 
 }

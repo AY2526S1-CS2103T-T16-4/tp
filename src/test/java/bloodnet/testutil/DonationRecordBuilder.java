@@ -10,7 +10,7 @@ import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.Person;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building {@code DonationRecord} objects.
  */
 public class DonationRecordBuilder {
 
@@ -24,7 +24,7 @@ public class DonationRecordBuilder {
     private BloodVolume bloodVolume;
 
     /**
-     * Creates a {@code PersonBuilder} with the default details.
+     * Creates a {@code DonationRecordBuilder} with the default details.
      */
     public DonationRecordBuilder() {
         personId = DEFAULT_PERSON.getId();
@@ -33,7 +33,7 @@ public class DonationRecordBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the DonationRecordBuilder with the data of {@code donationRecordToCopy}.
      */
     public DonationRecordBuilder(DonationRecord donationRecordToCopy) {
         id = donationRecordToCopy.getId();
@@ -43,7 +43,7 @@ public class DonationRecordBuilder {
     }
 
     /**
-     * Sets the {@code ID} of the {@code Person} that we are building.
+     * Sets the {@code ID} of the {@code DonationRecord} that we are building.
      */
     public DonationRecordBuilder withId(UUID id) {
         this.id = id;
@@ -51,7 +51,7 @@ public class DonationRecordBuilder {
     }
 
     /**
-     * Sets the {@code PersonId} of the {@code Person} that we are building.
+     * Sets the {@code PersonId} of the {@code DonationRecord} that we are building.
      */
     public DonationRecordBuilder withPersonId(UUID personId) {
         this.personId = personId;
@@ -59,7 +59,7 @@ public class DonationRecordBuilder {
     }
 
     /**
-     * Sets the {@code DonationDate} of the {@code Person} that we are building.
+     * Sets the {@code DonationDate} of the {@code DonationRecord} that we are building.
      */
     public DonationRecordBuilder withDonationDate(String donationDate) {
         this.donationDate = new DonationDate(donationDate);
@@ -67,7 +67,7 @@ public class DonationRecordBuilder {
     }
 
     /**
-     * Sets the {@code BloodVolume} of the {@code Person} that we are building.
+     * Sets the {@code BloodVolume} of the {@code DonationRecord} that we are building.
      */
     public DonationRecordBuilder withBloodVolume(String bloodVolume) {
         this.bloodVolume = new BloodVolume(bloodVolume);

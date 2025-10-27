@@ -52,7 +52,7 @@ public class JsonBloodNetStorage implements BloodNetStorage {
         requireNonNull(filePath);
 
         Optional<JsonSerializableBloodNet> jsonBloodNet = JsonUtil.readJsonFile(
-            filePath, JsonSerializableBloodNet.class);
+                filePath, JsonSerializableBloodNet.class);
         if (!jsonBloodNet.isPresent()) {
             return Optional.empty();
         }

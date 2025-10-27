@@ -4,6 +4,7 @@ import static bloodnet.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static bloodnet.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static bloodnet.testutil.Assert.assertThrows;
 import static bloodnet.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static bloodnet.testutil.TypicalPersons.getTypicalBloodNet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -18,12 +19,18 @@ import bloodnet.logic.commands.ClearCommand;
 import bloodnet.logic.commands.DeleteCommand;
 import bloodnet.logic.commands.EditCommand;
 import bloodnet.logic.commands.EditCommand.EditPersonDescriptor;
+import bloodnet.logic.commands.EditDonationCommand;
 import bloodnet.logic.commands.ExitCommand;
 import bloodnet.logic.commands.FindCommand;
 import bloodnet.logic.commands.FindDonationsCommand;
+import bloodnet.logic.commands.FindEligibleCommand;
 import bloodnet.logic.commands.HelpCommand;
 import bloodnet.logic.commands.ListCommand;
 import bloodnet.logic.parser.exceptions.ParseException;
+import bloodnet.model.Model;
+import bloodnet.model.ModelManager;
+import bloodnet.model.UserPrefs;
+import bloodnet.model.donationrecord.BloodVolume;
 import bloodnet.model.person.NameContainsKeywordsPredicate;
 import bloodnet.model.person.Person;
 import bloodnet.testutil.EditPersonDescriptorBuilder;
@@ -68,6 +75,27 @@ public class BloodNetParserTest {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
     }
+
+    @Test
+    public void parseCommand_editdonations() throws Exception {
+        EditDonationCommand command = (EditDonationCommand) parser.parseCommand(
+                EditDonationCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_PERSON.getOneBased() + " v/200");
+        EditDonationCommand.EditDonationRecordDescriptor edit = new EditDonationCommand.EditDonationRecordDescriptor();
+        edit.setBloodVolume(new BloodVolume("200"));
+        assertEquals(new EditDonationCommand(INDEX_FIRST_PERSON, edit), command);
+    }
+
+    @Test
+    public void parseCommand_findeligible() throws Exception {
+        Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
+        List<String> bloodType = Arrays.asList("A+", "O+", "AB+");
+        FindEligibleCommand command = (FindEligibleCommand) parser.parseCommand(
+                FindEligibleCommand.COMMAND_WORD + " A+ O+ AB+");
+        assertEquals(new FindEligibleCommand(bloodType),
+                command);
+    }
+
 
     @Test
     public void parseCommand_find() throws Exception {

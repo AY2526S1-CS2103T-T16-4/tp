@@ -9,13 +9,17 @@ import java.util.regex.Pattern;
 
 import bloodnet.commons.core.LogsCenter;
 import bloodnet.logic.commands.AddCommand;
+import bloodnet.logic.commands.AddDonationCommand;
 import bloodnet.logic.commands.ClearCommand;
 import bloodnet.logic.commands.Command;
 import bloodnet.logic.commands.DeleteCommand;
+import bloodnet.logic.commands.DeleteDonationCommand;
 import bloodnet.logic.commands.EditCommand;
+import bloodnet.logic.commands.EditDonationCommand;
 import bloodnet.logic.commands.ExitCommand;
 import bloodnet.logic.commands.FindCommand;
 import bloodnet.logic.commands.FindDonationsCommand;
+import bloodnet.logic.commands.FindEligibleCommand;
 import bloodnet.logic.commands.HelpCommand;
 import bloodnet.logic.commands.ListCommand;
 import bloodnet.logic.parser.exceptions.ParseException;
@@ -57,11 +61,17 @@ public class BloodNetParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
+        case EditDonationCommand.COMMAND_WORD:
+            return new EditDonationCommandParser().parse(arguments);
+
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
+        case DeleteDonationCommand.COMMAND_WORD:
+            return new DeleteDonationCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -74,6 +84,12 @@ public class BloodNetParser {
 
         case FindDonationsCommand.COMMAND_WORD:
             return new FindDonationsCommandParser().parse(arguments);
+
+        case AddDonationCommand.COMMAND_WORD:
+            return new AddDonationCommandParser().parse(arguments);
+
+        case FindEligibleCommand.COMMAND_WORD:
+            return new FindEligibleCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

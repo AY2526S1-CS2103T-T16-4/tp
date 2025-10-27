@@ -9,7 +9,7 @@ import bloodnet.commons.core.GuiSettings;
 import bloodnet.commons.core.LogsCenter;
 import bloodnet.commons.exceptions.DataLoadingException;
 import bloodnet.logic.commands.Command;
-import bloodnet.logic.commands.CommandResult;
+import bloodnet.logic.commands.InputResponse;
 import bloodnet.logic.commands.commandsessions.CommandSession;
 import bloodnet.logic.commands.commandsessions.exceptions.TerminalSessionStateException;
 import bloodnet.logic.commands.exceptions.CommandException;
@@ -29,11 +29,11 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_FORMAT = "Could not save data due to the following error: %s";
 
     public static final String FILE_OPS_PERMISSION_ERROR_FORMAT =
-        "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
+            "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
 
     public static final String TERMINAL_COMMAND_SESSION_STATE_ERROR_MESSAGE =
-        "An error has occured under the hood! \n"
-            + "Your previous command was likely not properly captured. Please try again.";
+            "An error has occured under the hood! \n"
+                    + "Your previous command was likely not properly captured. Please try again.";
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
@@ -64,32 +64,40 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
+    public InputResponse handle(String input) throws CommandException, ParseException {
+        logger.info("----------------[USER INPUT][" + input + "]");
 
         if (currentSession == null) {
-            Command command = bloodNetParser.parseCommand(commandText);
+            Command command = bloodNetParser.parseCommand(input);
             this.currentSession = command.createSession(model);
         }
 
         assert this.currentSession != null;
 
-        return advanceCurrentSession(commandText);
+        return advanceCurrentSession(input);
     }
 
-    private CommandResult advanceCurrentSession(String input) throws CommandException {
-        CommandResult result;
+    private InputResponse advanceCurrentSession(String input) throws CommandException {
+        InputResponse response;
         try {
-            result = currentSession.handle(input);
+            response = currentSession.handle(input);
         } catch (TerminalSessionStateException e) {
             currentSession = null;
-            result = new CommandResult(TERMINAL_COMMAND_SESSION_STATE_ERROR_MESSAGE);
+            response = new InputResponse(TERMINAL_COMMAND_SESSION_STATE_ERROR_MESSAGE);
+        } catch (CommandException e) {
+            // If a CommandException is thrown upon calling currentSession.handle(input),
+            // the current session should be ended.
+            // However, we still throw the CommandException,
+            // so that the OutputBox's text does not get reset to an empty String.
+            // Refer to OutputBox::handleCommandEntered to better understand this.
+            currentSession = null;
+            throw e;
         }
         if (currentSession != null && currentSession.isDone()) {
             currentSession = null;
             saveBloodNetSafely();
         }
-        return result;
+        return response;
     }
 
     private void saveBloodNetSafely() throws CommandException {

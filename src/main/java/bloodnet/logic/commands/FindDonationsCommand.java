@@ -32,16 +32,16 @@ public class FindDonationsCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public InputResponse execute(Model model) throws CommandException {
         Person personToFindRecordsOf = getPersonToFindRecordsOf(model);
         DonorIsSamePersonPredicate predicate = new DonorIsSamePersonPredicate(personToFindRecordsOf);
         model.updateFilteredDonationRecordList(predicate);
         int filteredDonationRecordListSize = model.getFilteredDonationRecordList().size();
-        return new CommandResult(
+        return new InputResponse(
                 String.format(Messages.MESSAGE_DONATIONS_LISTED_OVERVIEW,
-                filteredDonationRecordListSize,
-                filteredDonationRecordListSize > 1 ? "s" : "",
-                personToFindRecordsOf.getName()));
+                        filteredDonationRecordListSize,
+                        filteredDonationRecordListSize > 1 ? "s" : "",
+                        personToFindRecordsOf.getName()));
     }
 
     @Override

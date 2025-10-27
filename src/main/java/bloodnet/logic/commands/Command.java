@@ -15,8 +15,7 @@ public abstract class Command {
      * Create a command session to handle this command.
      *
      * @param model {@code Model} which the command should operate on.
-     * @return a {@code CommandSession} that will manage user interaction of the
-     *         command.
+     * @return a {@code CommandSession} that will manage user interaction of the command.
      * @throws CommandException If an error occurs during session creation.
      */
     public CommandSession createSession(Model model) throws CommandException {
@@ -30,6 +29,6 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract CommandResult execute(Model model) throws CommandException;
+    public abstract InputResponse execute(Model model) throws CommandException;
 
 }
