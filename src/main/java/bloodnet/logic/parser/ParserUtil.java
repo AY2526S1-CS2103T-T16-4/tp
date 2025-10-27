@@ -2,6 +2,8 @@ package bloodnet.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+
 import bloodnet.commons.core.index.Index;
 import bloodnet.commons.util.StringUtil;
 import bloodnet.logic.parser.exceptions.ParseException;
@@ -88,8 +90,12 @@ public class ParserUtil {
     public static DateOfBirth parseDateOfBirth(String dateOfBirth) throws ParseException {
         requireNonNull(dateOfBirth);
         String trimmedDateOfBirth = dateOfBirth.trim();
+
         if (!DateOfBirth.isValidDateOfBirth(trimmedDateOfBirth)) {
-            throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
+            String formattedMessage = String.format(
+                    DateOfBirth.MESSAGE_CONSTRAINTS,
+                    LocalDate.now().minusYears(130).format(DateOfBirth.DATE_FORMATTER));
+            throw new ParseException(formattedMessage);
         }
         return new DateOfBirth(trimmedDateOfBirth);
     }
