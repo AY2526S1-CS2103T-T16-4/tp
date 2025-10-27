@@ -12,7 +12,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 import bloodnet.commons.util.ToStringBuilder;
-import bloodnet.model.Model;
 import bloodnet.model.person.Person;
 import javafx.collections.ObservableList;
 
@@ -120,7 +119,8 @@ public class DonationRecord {
      *
      * @return an {@code ArrayList} containing a list of validation error strings
      */
-    public ArrayList<String> validate(Model model) {
+    public ArrayList<String> validate(ObservableList<Person> fullPersonList,
+                                      ObservableList<DonationRecord> fullDonationRecordList) {
         ArrayList<String> validationErrorStrings = new ArrayList<>();
 
         // We try to resolve the personId to a person by
@@ -131,7 +131,7 @@ public class DonationRecord {
         // by the isEligibleToDonate predicate,
         // which may create a DonationRecord object
         // with a personId that is not in the filteredPersonList.
-        Person person = model.getBloodNet().getPersonList().stream()
+        Person person = fullPersonList.stream()
                 .filter(p -> p.getId().equals(personId))
                 .findFirst()
                 .orElseThrow();
@@ -148,12 +148,21 @@ public class DonationRecord {
             validationErrorStrings.add(errorString);
         }
 
-        ObservableList<DonationRecord> fullDonationRecordList = model.getBloodNet().getDonationRecordList();
+        // If this .validate() method is called when trying to edit a donation record,
+        // we want to filter fullDonationRecordList to only include those records that are
+        // not the record that is currently being edited.
+
+        // However, if this validate() method is called by IsEligibleToDonatePredicate#test(Person),
+        // (that is, when this.getId() == null),
+        // we do not want to impose this filter.
+
+        // Not the most elegant code but it does the job.
+        boolean isDonationRecordIdNull = this.getId() == null;
 
         // Find predecessor (last donation before donationDate)
         Optional<DonationDate> predecessorDonationDateOptional = fullDonationRecordList.stream()
                 .filter(donationRecord -> donationRecord.getPersonId().equals(person.getId()))
-                .filter(donationRecord -> !donationRecord.getId().equals(this.getId()))
+                .filter(donationRecord -> isDonationRecordIdNull || !donationRecord.getId().equals(this.getId()))
                 .map(DonationRecord::getDonationDate)
                 .filter(dd -> dd.getValue().isBefore(donationDateValue))
                 .max(Comparator.comparing(DonationDate::getValue));
@@ -161,7 +170,7 @@ public class DonationRecord {
         // Find successor (first donation after donationDate)
         Optional<DonationDate> successorDonationDateOptional = fullDonationRecordList.stream()
                 .filter(donationRecord -> donationRecord.getPersonId().equals(person.getId()))
-                .filter(donationRecord -> !donationRecord.getId().equals(this.getId()))
+                .filter(donationRecord -> isDonationRecordIdNull || !donationRecord.getId().equals(this.getId()))
                 .map(DonationRecord::getDonationDate)
                 .filter(dd -> dd.getValue().isAfter(donationDateValue))
                 .min(Comparator.comparing(DonationDate::getValue));
