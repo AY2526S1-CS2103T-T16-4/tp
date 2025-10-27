@@ -148,15 +148,17 @@ public class DonationRecord {
             validationErrorStrings.add(errorString);
         }
 
-        // If this .validate() method is called when trying to edit a donation record,
+        // If .validate() is called when trying to edit a donation record,
         // we want to filter fullDonationRecordList to only include those records that are
         // not the record that is currently being edited.
 
-        // However, if this validate() method is called by IsEligibleToDonatePredicate#test(Person),
-        // (that is, when this.getId() == null),
-        // we do not want to impose this filter.
+        // However, if .validate() is called by IsEligibleToDonatePredicate#test(Person)
+        // or by AddDonationCommand#execute(),
+        // we do not want to impose the above-mentioned filter.
 
-        // Not the most elegant code but it does the job.
+        // If this.getId() == null, this method
+        // is being called by either IsEligibleToDonatePredicate#test(Person)
+        // or AddDonationCommand#execute().
         boolean isDonationRecordIdNull = this.getId() == null;
 
         // Find predecessor (last donation before donationDate)
