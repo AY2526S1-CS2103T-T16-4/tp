@@ -11,7 +11,19 @@ Participant ":Storage" as storage STORAGE_COLOR
 user -[USER_COLOR]> ui : "delete 1"
 activate ui UI_COLOR
 
-ui -[UI_COLOR]> logic : execute("delete 1")
+ui -[UI_COLOR]> logic : handle("delete 1")
+activate logic LOGIC_COLOR
+
+logic -[LOGIC_COLOR]-> ui
+deactivate logic
+
+ui -[USER_COLOR]-> user : seek confirmation
+deactivate ui
+
+user -[USER_COLOR]> ui: "yes"
+activate ui UI_COLOR
+
+ui -[UI_COLOR]> logic : handle("yes")
 activate logic LOGIC_COLOR
 
 logic -[LOGIC_COLOR]> model : deletePerson(p)

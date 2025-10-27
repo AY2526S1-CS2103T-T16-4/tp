@@ -46,7 +46,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1` followed by responding with `yes` when user confirmation is sought before the command is executed.
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
 
@@ -151,6 +151,7 @@ Classes used by multiple components are in the `bloodnet.commons` package.
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
 
 ### \[Proposed\] Undo/redo feature
 
@@ -562,6 +563,7 @@ Use case ends.
 * **Destructive operation**: An action that leads to permanent removal of data
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A Singaporean (+65) contact detail that is not meant to be shared with others
+*
 
 --------------------------------------------------------------------------------------------------------------------
 
