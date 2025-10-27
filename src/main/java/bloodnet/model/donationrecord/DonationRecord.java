@@ -45,6 +45,10 @@ public class DonationRecord {
     // Data fields
     private final BloodVolume bloodVolume;
 
+    // Fields which aren't actually stored in the database, but displayed
+    // in the UI
+    private String donorName;
+
     /**
      * Every field other than ID must be present and not null.
      */
@@ -75,6 +79,14 @@ public class DonationRecord {
 
     public BloodVolume getBloodVolume() {
         return bloodVolume;
+    }
+
+    public void setDonorName(String donorName) {
+        this.donorName = donorName;
+    }
+
+    public String getDonorName() {
+        return donorName;
     }
 
     /**
