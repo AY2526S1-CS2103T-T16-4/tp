@@ -36,7 +36,7 @@ public class EditCommand extends Command {
             "Edits the "
             + "field(s) of the donor identified by the index number used in the displayed donor list. "
             + "At least one field to edit must "
-            + "be provided.", "Parameters: INDEX (must be a positive integer) "
+            + "be provided.", "Parameters: DONOR INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "

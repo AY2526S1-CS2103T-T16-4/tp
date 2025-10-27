@@ -33,7 +33,7 @@ public class EditDonationCommand extends Command {
             "Edits the donation "
             + "record detail(s) identified by the index number used in the displayed donation record list. "
             + "At least one field must be provided.",
-            "Parameters: INDEX (must be a positive integer) "
+            "Parameters: DONATION RECORD INDEX (must be a positive integer) "
             + "[" + PREFIX_DONATION_DATE + "DONATION DATE (DD-MM-YYYY)] "
             + "[" + PREFIX_BLOOD_VOLUME + "BLOOD VOLUME (IN MILLILITRES)]",
             "Example: editdonation 1 v/100 d/02-02-2002");
