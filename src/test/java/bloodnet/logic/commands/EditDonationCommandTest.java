@@ -109,11 +109,9 @@ public class EditDonationCommandTest {
         Model expectedModel = new ModelManager(new BloodNet(model.getBloodNet()), new UserPrefs());
 
         expectedModel.setDonationRecord(model.getFilteredDonationRecordList().get(0), editedDonationRecord);
-        String expectedMessage = EditDonationCommand.MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER;
-        String errorString = String.format(DonationRecord.MESSAGE_PREDECESSOR_DONATION_TOO_CLOSE,
-                                           LocalDate.of(2025, 05, 15)
-                                                    .plusDays(84).format(DonationDate.DATE_FORMATTER));
-        expectedMessage += "\n- " + errorString;
+        String expectedMessage = EditDonationCommand.MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER
+                                + "\n- "
+                                + String.format(DonationRecord.MESSAGE_PREDECESSOR_DONATION_TOO_CLOSE, "15-05-2025", "06-08-2025");
 
         assertCommandFailure(editDonationCommand, model, expectedMessage);
     }
