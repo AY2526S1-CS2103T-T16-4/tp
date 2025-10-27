@@ -111,6 +111,17 @@ public class BloodNet implements ReadOnlyBloodNet {
         persons.remove(key);
     }
 
+    /**
+     * Checks if {@code person} has any {@code DonationRecord}
+     * in bloodnet.
+     */
+    public boolean hasDonationRecordFor(Person person) {
+        requireNonNull(person);
+        return donationRecords.asUnmodifiableObservableList()
+                .stream()
+                .anyMatch(record -> record.getPersonId().equals(person.getId()));
+    }
+
     //// donationRecord-level operations
 
     /**

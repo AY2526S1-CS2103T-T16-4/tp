@@ -116,6 +116,12 @@ public class ModelManager implements Model {
         bloodNet.setPerson(target, editedPerson);
     }
 
+    @Override
+    public boolean hasDonationRecordFor(Person person) {
+        requireNonNull(person);
+        return bloodNet.hasDonationRecordFor(person);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
