@@ -66,7 +66,7 @@ for locations where internet service is unreliable!
 [**Delete Donor**](#deleting-a-donor--delete)  | `delete DONOR_LIST_INDEX `<br> e.g., `delete 3`    
 [**Edit Donation Record**](#editing-a-donation-record--editdonation) | `editdonation DONATION_RECORD_LIST_INDEX `<br> e.g., `editdonation 1 v/350 d/20-02-2025 `
 [**Delete All Data**](#clearing-all-entries--clear)  | `clear`
-[**Help**](#viewing-help--help) | `help`                                                                                                                                          
+[**Help**](#viewing-help-help) | `help`                                                                                                                                          
 
 --------------------------------------------------------------------------------------------------------------------
 
