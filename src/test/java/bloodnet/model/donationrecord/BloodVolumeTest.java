@@ -32,10 +32,12 @@ public class BloodVolumeTest {
         assertFalse(BloodVolume.isValidBloodVolume("400.0")); // not integer
         assertFalse(BloodVolume.isValidBloodVolume("qddewr2")); // letters
         assertFalse(BloodVolume.isValidBloodVolume("-1")); // negative number
+        assertFalse(BloodVolume.isValidBloodVolume("500")); // invalid according to HSA guidelines
 
 
         // valid volumes
         assertTrue(BloodVolume.isValidBloodVolume("400"));
+        assertTrue(BloodVolume.isValidBloodVolume("499"));
     }
 
     @Test
