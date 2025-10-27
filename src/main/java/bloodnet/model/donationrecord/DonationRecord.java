@@ -26,11 +26,7 @@ public class DonationRecord {
             "Donor is too young on the donation date. "
             + "Donation date cannot be between %s (their birthdate) "
             + "and %s (one day before their 16th birthdate) inclusive.";
-    public static final String MESSAGE_PREDECESSOR_DONATION_TOO_CLOSE =
-            "Consecutive donations must be at least 12 weeks (84 days) apart. "
-            + "However, the donor has already donated blood on %s. "
-            + "Therefore, the donation date cannot be between %s and %s inclusive.";
-    public static final String MESSAGE_SUCCESSOR_DONATION_TOO_CLOSE =
+    public static final String MESSAGE_NEIGHBOURING_DONATION_TOO_CLOSE =
             "Consecutive donations must be at least 12 weeks (84 days) apart. "
             + "However, the donor has already donated blood on %s. "
             + "Therefore, the donation date cannot be between %s and %s inclusive.";
@@ -176,7 +172,7 @@ public class DonationRecord {
             long daysSinceLastDonation = ChronoUnit.DAYS.between(predecessorDonationDate,
                     donationDateValue);
             if (daysSinceLastDonation < 84) {
-                String errorString = String.format(MESSAGE_PREDECESSOR_DONATION_TOO_CLOSE,
+                String errorString = String.format(MESSAGE_NEIGHBOURING_DONATION_TOO_CLOSE,
                                                     predecessorDonationDate.format(DonationDate.DATE_FORMATTER),
                                                     predecessorDonationDate.format(DonationDate.DATE_FORMATTER),
                                                     predecessorDonationDate.plusDays(83)
@@ -191,7 +187,7 @@ public class DonationRecord {
             long daysToNextDonation = ChronoUnit.DAYS.between(donationDateValue,
                     successorDonationDate);
             if (daysToNextDonation < 84) {
-                String errorString = String.format(MESSAGE_SUCCESSOR_DONATION_TOO_CLOSE,
+                String errorString = String.format(MESSAGE_NEIGHBOURING_DONATION_TOO_CLOSE,
                                                     successorDonationDate.format(DonationDate.DATE_FORMATTER),
                                                     successorDonationDate.minusDays(83)
                                                                          .format(DonationDate.DATE_FORMATTER),

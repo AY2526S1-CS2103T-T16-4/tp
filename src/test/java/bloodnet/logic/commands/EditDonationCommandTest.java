@@ -109,7 +109,8 @@ public class EditDonationCommandTest {
         expectedModel.setDonationRecord(model.getFilteredDonationRecordList().get(0), editedDonationRecord);
         String expectedMessage = EditDonationCommand.MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER
                                 + "\n- "
-                                + String.format(DonationRecord.MESSAGE_PREDECESSOR_DONATION_TOO_CLOSE,
+                                + String.format(DonationRecord.MESSAGE_NEIGHBOURING_DONATION_TOO_CLOSE,
+                                                "15-05-2025",
                                                 "15-05-2025",
                                                 "06-08-2025");
 
