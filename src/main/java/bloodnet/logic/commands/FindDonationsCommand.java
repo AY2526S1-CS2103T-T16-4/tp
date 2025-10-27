@@ -23,8 +23,8 @@ public class FindDonationsCommand extends Command {
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
             "Finds all donation "
             + "records related to the donor identified by the index number used in the displayed donor list.",
-            "Parameters: DONATION RECORD INDEX (must be a positive integer)", "Example: " +
-            COMMAND_WORD + " 1");
+            "Parameters: DONATION RECORD INDEX (must be a positive integer)", "Example: "
+            + COMMAND_WORD + " 1");
 
     private final Index targetPersonIndex;
 
