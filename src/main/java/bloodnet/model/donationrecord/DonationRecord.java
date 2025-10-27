@@ -14,6 +14,7 @@ import java.util.UUID;
 import bloodnet.commons.util.ToStringBuilder;
 import bloodnet.model.Model;
 import bloodnet.model.person.Person;
+import javafx.collections.ObservableList;
 
 /**
  * Represents a Donation Record in BloodNet.
@@ -147,16 +148,20 @@ public class DonationRecord {
             validationErrorStrings.add(errorString);
         }
 
+        ObservableList<DonationRecord> fullDonationRecordList = model.getBloodNet().getDonationRecordList();
+
         // Find predecessor (last donation before donationDate)
-        Optional<DonationDate> predecessorDonationDateOptional = model.getFilteredDonationRecordList().stream()
+        Optional<DonationDate> predecessorDonationDateOptional = fullDonationRecordList.stream()
                 .filter(donationRecord -> donationRecord.getPersonId().equals(person.getId()))
+                .filter(donationRecord -> !donationRecord.getId().equals(this.getId()))
                 .map(DonationRecord::getDonationDate)
                 .filter(dd -> dd.getValue().isBefore(donationDateValue))
                 .max(Comparator.comparing(DonationDate::getValue));
 
         // Find successor (first donation after donationDate)
-        Optional<DonationDate> successorDonationDateOptional = model.getFilteredDonationRecordList().stream()
+        Optional<DonationDate> successorDonationDateOptional = fullDonationRecordList.stream()
                 .filter(donationRecord -> donationRecord.getPersonId().equals(person.getId()))
+                .filter(donationRecord -> !donationRecord.getId().equals(this.getId()))
                 .map(DonationRecord::getDonationDate)
                 .filter(dd -> dd.getValue().isAfter(donationDateValue))
                 .min(Comparator.comparing(DonationDate::getValue));
