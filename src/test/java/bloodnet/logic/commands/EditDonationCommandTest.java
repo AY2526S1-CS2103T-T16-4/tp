@@ -8,8 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.time.LocalDate;
-
 import org.junit.jupiter.api.Test;
 
 import bloodnet.commons.core.index.Index;
@@ -111,7 +109,9 @@ public class EditDonationCommandTest {
         expectedModel.setDonationRecord(model.getFilteredDonationRecordList().get(0), editedDonationRecord);
         String expectedMessage = EditDonationCommand.MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER
                                 + "\n- "
-                                + String.format(DonationRecord.MESSAGE_PREDECESSOR_DONATION_TOO_CLOSE, "15-05-2025", "06-08-2025");
+                                + String.format(DonationRecord.MESSAGE_PREDECESSOR_DONATION_TOO_CLOSE,
+                                        "15-05-2025",
+                                                "06-08-2025");
 
         assertCommandFailure(editDonationCommand, model, expectedMessage);
     }
