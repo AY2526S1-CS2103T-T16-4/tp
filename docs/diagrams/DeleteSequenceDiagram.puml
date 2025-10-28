@@ -59,7 +59,7 @@ opt no current command session
     activate DeleteCommand
 
     note right
-    These interactions with model are highly specific to the 
+    These interactions with model are highly specific to the
     implementation of createSession for each command.
     end note
 
@@ -118,7 +118,7 @@ DeleteCommand --> Session
 deactivate DeleteCommand
 
 create CommandResult
-Session -> CommandResult 
+Session -> CommandResult
 activate CommandResult
 CommandResult --> Session
 deactivate CommandResult
