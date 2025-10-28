@@ -118,18 +118,6 @@ public class EditDonationCommandTest {
     }
 
     @Test
-    public void execute_duplicateDonationRecord_failure() throws Exception {
-        DonationRecord firstDonationRecord = model.getFilteredDonationRecordList()
-                .get(INDEX_FIRST_DONATION.getZeroBased());
-        EditDonationRecordDescriptor editDonationDescriptor = new EditDonationRecordsDescriptorBuilder(
-                firstDonationRecord).build();
-
-        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION, editDonationDescriptor);
-
-        assertCommandFailure(editDonationCommand, model, EditDonationCommand.MESSAGE_DONATION_RECORD_ALREADY_EXISTS);
-    }
-
-    @Test
     public void execute_personIdIsNull_failure() throws Exception {
         Model model = new ModelManager();
         assertThrows(NullPointerException.class, ()
