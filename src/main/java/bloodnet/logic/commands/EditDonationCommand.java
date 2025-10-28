@@ -216,7 +216,5 @@ public class EditDonationCommand extends Command {
                     .add("donationDate", getDonationDate())
                     .toString();
         }
-
-
     }
 }
