@@ -26,7 +26,7 @@ import bloodnet.testutil.EditDonationRecordsDescriptorBuilder;
 
 public class EditDonationCommandTest {
     private final Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalBloodNet(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalBloodNet(), new UserPrefs());
 
     @Test
     public void constructor_validArguments_success() {
@@ -103,8 +103,7 @@ public class EditDonationCommandTest {
         EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION,
                 editDonationRecordDescriptor);
 
-
-        Model expectedModel = new ModelManager(new BloodNet(model.getBloodNet()), new UserPrefs());
+        expectedModel = new ModelManager(new BloodNet(model.getBloodNet()), new UserPrefs());
 
         expectedModel.setDonationRecord(model.getFilteredDonationRecordList().get(0), editedDonationRecord);
         String expectedMessage = EditDonationCommand.MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER
@@ -118,15 +117,49 @@ public class EditDonationCommandTest {
     }
 
     @Test
-    public void execute_duplicateDonationRecord_failure() throws Exception {
-        DonationRecord firstDonationRecord = model.getFilteredDonationRecordList()
-                .get(INDEX_FIRST_DONATION.getZeroBased());
-        EditDonationRecordDescriptor editDonationDescriptor = new EditDonationRecordsDescriptorBuilder(
-                firstDonationRecord).build();
+    public void execute_dateAlreadyExistsForDonor_throwsCommandException() throws Exception {
+        // Changing the string to the same day.
+        String donationDateString = "15-05-2025";
+        DonationRecord editedDonationRecord = new DonationRecordBuilder()
+                .withPersonId(DonationRecordBuilder.DEFAULT_PERSON.getId())
+                .withDonationDate(donationDateString)
+                .withBloodVolume(DonationRecordBuilder.DEFAULT_BLOOD_VOLUME)
+                .build();
 
-        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION, editDonationDescriptor);
+        EditDonationRecordDescriptor editDonationRecordDescriptor = new EditDonationRecordsDescriptorBuilder(
+                editedDonationRecord).build();
 
-        assertCommandFailure(editDonationCommand, model, EditDonationCommand.MESSAGE_DUPLICATE_DONATION_RECORD);
+        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION,
+                editDonationRecordDescriptor);
+
+        assertCommandFailure(editDonationCommand, model, EditDonationCommand.MESSAGE_DONATION_RECORD_ALREADY_EXISTS);
+    }
+
+    @Test
+    public void execute_editingDonationRecordItself_success() throws Exception {
+        // Changing the string to the same day as the donation record
+        String donationDateString = "15-01-2025";
+        DonationRecord editedDonationRecord = new DonationRecordBuilder()
+                .withPersonId(DonationRecordBuilder.DEFAULT_PERSON.getId())
+                .withDonationDate(donationDateString)
+                .withBloodVolume(DonationRecordBuilder.DEFAULT_BLOOD_VOLUME)
+                .build();
+
+        EditDonationRecordDescriptor editDonationRecordDescriptor = new EditDonationRecordsDescriptorBuilder(
+                editedDonationRecord).build();
+
+        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION,
+                editDonationRecordDescriptor);
+
+        expectedModel = new ModelManager(new BloodNet(model.getBloodNet()), new UserPrefs());
+
+        expectedModel.setDonationRecord(model.getFilteredDonationRecordList().get(0), editedDonationRecord);
+
+        String expectedMessage = String.format(
+                EditDonationCommand.MESSAGE_EDIT_DONATION_RECORD_SUCCESS,
+                Messages.format(editedDonationRecord, DonationRecordBuilder.DEFAULT_PERSON));
+
+        assertCommandSuccess(editDonationCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
