@@ -80,7 +80,7 @@ public class EditDonationCommand extends Command {
         }
 
         if (!recordToEdit.isSameDonationRecord(editedDonationRecord) && model.hasDonationRecord(editedDonationRecord)) {
-                throw new CommandException(MESSAGE_DONATION_RECORD_ALREADY_EXISTS);
+            throw new CommandException(MESSAGE_DONATION_RECORD_ALREADY_EXISTS);
         }
 
         model.setDonationRecord(recordToEdit, editedDonationRecord);

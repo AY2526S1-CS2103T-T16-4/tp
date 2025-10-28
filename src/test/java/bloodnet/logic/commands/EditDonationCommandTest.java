@@ -26,7 +26,7 @@ import bloodnet.testutil.EditDonationRecordsDescriptorBuilder;
 
 public class EditDonationCommandTest {
     private final Model model = new ModelManager(getTypicalBloodNet(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalBloodNet(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalBloodNet(), new UserPrefs());
 
     @Test
     public void constructor_validArguments_success() {
@@ -89,7 +89,7 @@ public class EditDonationCommandTest {
 
     @Test
     public void execute_invalidDonationDate_throwsCommandException() throws Exception {
-        // 16-05-2025 is invalid as it is one day after Alice's most recent donation (19-10-2025"
+        // 16-05-2025 is invalid as it is one day after Alice's most recent donation (15-05-2025)
         String donationDateString = "16-05-2025";
         DonationRecord editedDonationRecord = new DonationRecordBuilder()
                                                     .withPersonId(DonationRecordBuilder.DEFAULT_PERSON.getId())
@@ -103,8 +103,7 @@ public class EditDonationCommandTest {
         EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION,
                 editDonationRecordDescriptor);
 
-
-        Model expectedModel = new ModelManager(new BloodNet(model.getBloodNet()), new UserPrefs());
+        expectedModel = new ModelManager(new BloodNet(model.getBloodNet()), new UserPrefs());
 
         expectedModel.setDonationRecord(model.getFilteredDonationRecordList().get(0), editedDonationRecord);
         String expectedMessage = EditDonationCommand.MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER
@@ -118,10 +117,9 @@ public class EditDonationCommandTest {
     }
 
     @Test
-<<<<<<< Updated upstream
-=======
     public void execute_dateAlreadyExistsForDonor_throwsCommandException() throws Exception {
-        String donationDateString = "16-05-2025";
+        // Changing the string to the same day.
+        String donationDateString = "15-05-2025";
         DonationRecord editedDonationRecord = new DonationRecordBuilder()
                 .withPersonId(DonationRecordBuilder.DEFAULT_PERSON.getId())
                 .withDonationDate(donationDateString)
@@ -134,34 +132,10 @@ public class EditDonationCommandTest {
         EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION,
                 editDonationRecordDescriptor);
 
-
-        Model expectedModel = new ModelManager(new BloodNet(model.getBloodNet()), new UserPrefs());
-
-        expectedModel.setDonationRecord(model.getFilteredDonationRecordList().get(0), editedDonationRecord);
-        String expectedMessage = EditDonationCommand.MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER
-                + "\n- "
-                + String.format(DonationRecord.MESSAGE_NEIGHBOURING_DONATION_TOO_CLOSE,
-                "15-05-2025",
-                "15-05-2025",
-                "06-08-2025");
-
-        assertCommandFailure(editDonationCommand, model, expectedMessage);
+        assertCommandFailure(editDonationCommand, model, EditDonationCommand.MESSAGE_DONATION_RECORD_ALREADY_EXISTS);
     }
 
     @Test
-    public void execute_duplicateDonationRecord_failure() throws Exception {
-        DonationRecord firstDonationRecord = model.getFilteredDonationRecordList()
-                .get(INDEX_FIRST_DONATION.getZeroBased());
-        EditDonationRecordDescriptor editDonationDescriptor = new EditDonationRecordsDescriptorBuilder(
-                firstDonationRecord).build();
-
-        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION, editDonationDescriptor);
-
-        assertCommandFailure(editDonationCommand, model, EditDonationCommand.MESSAGE_DUPLICATE_DONATION_RECORD);
-    }
-
-    @Test
->>>>>>> Stashed changes
     public void execute_personIdIsNull_failure() throws Exception {
         Model model = new ModelManager();
         assertThrows(NullPointerException.class, ()
