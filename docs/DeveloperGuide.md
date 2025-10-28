@@ -605,7 +605,14 @@ Use case ends.
 * **Destructive operation**: An action that leads to permanent removal of data
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A Singaporean (+65) contact detail that is not meant to be shared with others
-*
+* **Run**: In the context of a command, refers to carrying out the entire lifecycle of a command, including user interaction and invoking domain logic
+* **Execution**: In the context of a command, refers specifically to invoking the domain logic of the command, without handling any user interaction
+* **Input Box**: The text box in the application that receives all textual inputs from the user
+* **Output Box**: The text box in the application that displays output resulting from processing an input/ executing a command
+* **User Input**: Any textual input entered by the user into the input box
+* **Command Input**: A specific type of user input that triggers a new command to run
+* **Input Response**: The application's response to a user input, encapsulating information such as the output to display in the output box and whether to exit the application
+* **Command Result**: A specific type of input response produced by a command after executing its domain logic
 
 --------------------------------------------------------------------------------------------------------------------
 
