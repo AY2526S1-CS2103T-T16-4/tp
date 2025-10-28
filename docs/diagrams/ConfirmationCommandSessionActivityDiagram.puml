@@ -20,4 +20,3 @@ else ([user inputs 'no'])
 endif
 stop
 @enduml
-    
