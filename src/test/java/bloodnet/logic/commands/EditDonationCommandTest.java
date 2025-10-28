@@ -136,6 +136,33 @@ public class EditDonationCommandTest {
     }
 
     @Test
+    public void execute_editingDonationRecordItself_success() throws Exception {
+        // Changing the string to the same day as the donation record
+        String donationDateString = "15-01-2025";
+        DonationRecord editedDonationRecord = new DonationRecordBuilder()
+                .withPersonId(DonationRecordBuilder.DEFAULT_PERSON.getId())
+                .withDonationDate(donationDateString)
+                .withBloodVolume(DonationRecordBuilder.DEFAULT_BLOOD_VOLUME)
+                .build();
+
+        EditDonationRecordDescriptor editDonationRecordDescriptor = new EditDonationRecordsDescriptorBuilder(
+                editedDonationRecord).build();
+
+        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION,
+                editDonationRecordDescriptor);
+
+        expectedModel = new ModelManager(new BloodNet(model.getBloodNet()), new UserPrefs());
+
+        expectedModel.setDonationRecord(model.getFilteredDonationRecordList().get(0), editedDonationRecord);
+
+        String expectedMessage = String.format(
+                EditDonationCommand.MESSAGE_EDIT_DONATION_RECORD_SUCCESS,
+                Messages.format(editedDonationRecord, DonationRecordBuilder.DEFAULT_PERSON));
+
+        assertCommandSuccess(editDonationCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_personIdIsNull_failure() throws Exception {
         Model model = new ModelManager();
         assertThrows(NullPointerException.class, ()

@@ -66,7 +66,6 @@ public class EditDonationCommand extends Command {
         requireNonNull(model);
         DonationRecord recordToEdit = getDonationRecordToEdit(model);
         Person personForRecordEdit = getPersonToEditRecordFor(model, recordToEdit);
-        assert personForRecordEdit != null;
         DonationRecord editedDonationRecord = createEditedDonationRecord(recordToEdit, editDonationRecordDescriptor);
         ArrayList<String> validationErrorStrings = editedDonationRecord
                                                         .validate(model.getBloodNet().getPersonList(),
