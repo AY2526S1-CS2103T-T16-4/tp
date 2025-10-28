@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 
 import bloodnet.commons.core.index.Index;
 import bloodnet.commons.util.CollectionUtil;
@@ -68,8 +67,6 @@ public class EditDonationCommand extends Command {
         DonationRecord recordToEdit = getDonationRecordToEdit(model);
         Person personForRecordEdit = getPersonToEditRecordFor(model, recordToEdit);
         assert personForRecordEdit != null;
-        UUID personId = personForRecordEdit.getId();
-        assert personId != null;
         DonationRecord editedDonationRecord = createEditedDonationRecord(recordToEdit, editDonationRecordDescriptor);
         ArrayList<String> validationErrorStrings = editedDonationRecord
                                                         .validate(model.getBloodNet().getPersonList(),
@@ -82,13 +79,8 @@ public class EditDonationCommand extends Command {
             throw new CommandException(concatenatedMessage);
         }
 
-        if (!recordToEdit.isSameDonationRecord(editedDonationRecord)) {
-            boolean hasDonorRecordAlready = model.getFilteredDonationRecordList().stream()
-                    .filter(donationRecord -> !donationRecord.equals(recordToEdit))
-                    .anyMatch(record -> record.isSameDonationRecord(editedDonationRecord));
-            if (hasDonorRecordAlready) {
+        if (!recordToEdit.isSameDonationRecord(editedDonationRecord) && model.hasDonationRecord(editedDonationRecord)) {
                 throw new CommandException(MESSAGE_DONATION_RECORD_ALREADY_EXISTS);
-            }
         }
 
         model.setDonationRecord(recordToEdit, editedDonationRecord);
