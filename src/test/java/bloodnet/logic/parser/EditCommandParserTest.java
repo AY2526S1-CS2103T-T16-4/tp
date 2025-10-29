@@ -30,6 +30,8 @@ import static bloodnet.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static bloodnet.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static bloodnet.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 
 import bloodnet.commons.core.index.Index;
@@ -44,9 +46,12 @@ import bloodnet.model.person.Phone;
 import bloodnet.testutil.EditPersonDescriptorBuilder;
 
 public class EditCommandParserTest {
-
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.getMessageUsage());
+
+    private static String expectedError = String.format(
+            DateOfBirth.MESSAGE_CONSTRAINTS,
+            LocalDate.now().minusYears(130).format(DateOfBirth.DATE_FORMATTER));
 
     private EditCommandParser parser = new EditCommandParser();
 
@@ -85,7 +90,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_BLOOD_TYPE_DESC,
                 BloodType.MESSAGE_CONSTRAINTS); // invalid blood type
         assertParseFailure(parser, "1" + INVALID_DATE_OF_BIRTH_DESC,
-                DateOfBirth.MESSAGE_CONSTRAINTS); // invalid date of birth
+                expectedError); // invalid date of birth
 
         // invalid phone followed by valid email
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);

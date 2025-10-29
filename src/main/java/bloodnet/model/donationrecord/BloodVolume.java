@@ -4,13 +4,13 @@ import static bloodnet.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents the volume of blood donated during a blood donation session in BloodNet.
+ * Represents the volume of blood donated during a blood donation session in the bloodnet.
  * Guarantees: immutable; is valid as declared in {@link #isValidBloodVolume(String)}
  */
 public class BloodVolume {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Blood volume should be a positive whole number, in millilitres.";
+            "Blood volume should be a positive whole number less than 500 millilitres, as per the official guidelines.";
 
     public final Integer volume;
 
@@ -38,6 +38,9 @@ public class BloodVolume {
             Integer i = Integer.parseInt(test);
             // Ensure that the blood volume is not 0 or less than 0
             if (i <= 0) {
+                return false;
+            }
+            if (i >= 500) {
                 return false;
             }
         } catch (NumberFormatException e) {

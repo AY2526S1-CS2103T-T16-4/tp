@@ -59,14 +59,17 @@ for locations where internet service is unreliable!
  Action              | Format, Examples                                                                                                                                
 -------------------------- |-------------------------------------------------------------------------------------------------------------------------------------------------
 [**Add Donor**](#adding-a-donor-add)| `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com b/A+ d/22-11-2004` 
-[**List All Donors**](#listing-all-donors--list) | `list`                                                                                                                                          
-[**Find Donor**](#locating-donors-by-name-find-)| `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`     
-[**Find Eligible Donors**](#finding-eligible-donors-based-on-blood-type-findeligible) | `findeligible BLOOD_TYPE(S)`<br> e.g., `findeligible A+ O+ B+`
-[**Edit Donor**](#editing-a-donor--edit) | `edit DONOR_LIST_INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`          
-[**Delete Donor**](#deleting-a-donor--delete)  | `delete DONOR_LIST_INDEX `<br> e.g., `delete 3`    
-[**Edit Donation Record**](#editing-a-donation-record--editdonation) | `editdonation DONATION_RECORD_LIST_INDEX `<br> e.g., `editdonation 1 v/350 d/20-02-2025 `
-[**Delete All Data**](#clearing-all-entries--clear)  | `clear`
-[**Help**](#viewing-help--help) | `help`                                                                                                                                          
+[**List All Donors**](#listing-all-donors-list) | `list`                                                                                                                                          
+[**Find Donor**](#locating-donors-by-name-find)| `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`     
+[**Find Eligible Donors**](#find-eligible-donors-based-on-blood-type-findeligible) | `findeligible BLOOD_TYPE(S)`<br> e.g., `findeligible A+ O+ B+`
+[**Edit Donor**](#editing-a-donor-edit) | `edit DONOR_LIST_INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`          
+[**Delete Donor** ⚠️](#deleting-a-donor-delete)  | `delete DONOR_LIST_INDEX `<br> e.g., `delete 3`    
+[**Edit Donation Record**](#editing-a-donation-record-editdonation) | `editdonation DONATION_RECORD_LIST_INDEX `<br> e.g., `editdonation 1 v/350 d/20-02-2025 `
+[**Delete All Data** ⚠️](#clearing-all-entries-clear)  | `clear`
+[**Help**](#viewing-help-help) | `help` 
+[**Exit**](#exiting-the-program-exit) | `exit`                                                                                                                                          
+
+⚠️ &nbsp;  You will be asked to confirm this action before it is carried out.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -88,6 +91,8 @@ for locations where internet service is unreliable!
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines
   as space characters surrounding line-breaks may be omitted when copied over to the application.
+
+* ⚠️ indicates that user confirmation will be prompted before execution.
   </box>
 
 ### Adding a donor: `add`
@@ -162,7 +167,7 @@ Examples:
 * `find Betsy` followed by `edit 1 p/91234567` edits the phone number of the 1st donor in the result of the `find`
   command.
 
-### Deleting a donor : `delete`
+### ⚠️ Deleting a donor : `delete`
 
 Let's say you added someone to BloodNet on accident. That's alright! This command can be used to delete a specified
 donor from the BloodNet system.
@@ -196,7 +201,7 @@ Examples:
 * `editdonation 3 d/13-10-2024 ` Edits the donation date of the 3rd donation record list.
 <!-- More examples will be added soon -->
 
-### Clearing all entries : `clear`
+### ⚠️ Clearing all entries : `clear`
 
 Clears all entries from the BloodNet system.
 

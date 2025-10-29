@@ -38,7 +38,7 @@ Given below is a quick overview of main components and how they interact with ea
 The bulk of the app's work is done by the following four components:
 
 * [**`UI`**](#ui-component): The UI of the App.
-* [**`Logic`**](#logic-component): The command executor.
+* [**`Logic`**](#logic-component): The input handler.
 * [**`Model`**](#model-component): Holds the data of the App in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
 
@@ -46,7 +46,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1` followed by responding with `yes` when user confirmation is sought before the command is executed.
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
 
@@ -67,7 +67,7 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/AY2
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`InputBox`, `OutputBox`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/java/bloodnet/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
@@ -84,9 +84,9 @@ The `UI` component,
 
 Here's a (partial) class diagram of the `Logic` component:
 
-<puml src="diagrams/LogicClassDiagram.puml" width="550"/>
+<puml src="diagrams/LogicClassDiagram.puml" width="650"/>
 
-The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
+The sequence diagram below illustrates the interactions within the `Logic` component, taking `handle("delete 1")` API call followed by a `handle("yes")` API call as an example in a freshly started program.
 
 <puml src="diagrams/DeleteSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `delete 1` Command" />
 
@@ -96,13 +96,21 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 </box>
 
 How the `Logic` component works:
+1. Receive input
+* The `Logic` is called upon to handle an input
+2. Check for active session
+* `Logic` checks for an active current session
+* If there is no active current session:
+    * The input is passed to a `BloodNetParser` object which in turns creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
+    * This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`), which its `createSession` is invoked by `LogicManager`  to create a new `CommandSession` object (more precisely, an object of one of its subclasses e.g., `ConfirmationCommandSession`), which will become `LogicManager`'s `currentCommandSession`.
+      * During the invoking of `createSession`, the `Command` object (depending on its implementation of `createSession`) may interact with the `Model` component to query target objects and/or perform validation checks.
+3. Advance current session
+* The current session is called upon to handle the input. 
+* The result of the input handling is encapsulated as an `InputResponse` object.
+* If the current command session has finished (as checked by its `isDone` method), the current session will be marked as `null`.
+* The `InputResponse` object is then returned back from `Logic`.
 
-1. When `Logic` is called upon to execute a command, it is passed to an `BloodNetParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-3. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
-   Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
-
+#### Parsing
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
 <puml src="diagrams/ParserClasses.puml" width="600"/>
@@ -110,6 +118,24 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 How the parsing works:
 * When called upon to parse a user command, the `BloodNetParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `BloodNetParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+
+#### Command Sessions
+`CommandSession` is an abstraction that has been developed to manage user interactivity during a command lifecycle in a maintainable and extensible way. It encapsulates the state and logic needed to handle multi-step (which includes single-step) interactions, while keeping the `Command` execution logic separate from input handling. Since `CommandSession` does not implement the `Command`'s execution logic itself, this logic is typically passed in during construction either by providing the `Command` object itself or by wrapping it in a help object (e.g., `DeferredExecution`).
+
+By using sessions, the system can:
+* Pause a command mid-lifecycle to wait for user input
+* Maintain contextual information across multiple user inputs
+
+To make the handling of user inputs (regardless of whether it is a command input or session input) uniform, **all commands create a `CommandSession` via `Command#createSession(Model model)**, regardless of whether they are interactive or single-step:
+* **Interactive commands** (e.g., `delete`) creates a specialised session like `ConfirmationCommandSession` that manage multi-step interactions
+* **Single-step commands** (e.g., `list`) creates a `SingleStepCommandSession` which immediately carry out the command's execution. This is the default behaviour of a `Command` if `Command#createSession(Model)` is not overridden.
+
+THis design allows the `LogicManager` to **treat all user inputs uniformly**, using the presence or absence of a `currentCommandSession` to determine whether an input should be treated as a new command input.
+
+The method `CommandSession#isDone()` is then used by `LogicManager` to determine whether a session has completed. Once it returns `true`, the session is cleaned up, clearing `currentCommandSession` and allowing the next command input to be processed.
+
+The following activity diagram summarises the session lifecycle management when the user inputs something:
+<puml src="diagrams/CommandSessionActivityDiagram.puml" width="600"/>
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/java/bloodnet/model/Model.java)
@@ -145,6 +171,29 @@ Classes used by multiple components are in the `bloodnet.commons` package.
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### User Confirmation
+The user confirmation mechanism is facilitated by `ConfirmationCommandSession` class which is an implementation of `CommandSession` (See [Command Sessions](#command-sessions) for more details.)
+
+The `ConfirmationCommandSession` class manages interactive commands that require explicit user confirmation before execution (i.e., destructive operations).
+* When a command input is identified as requiring confirmation, the `LogicManager` invokes the parsed `Command`'s `createSession()` method, producing a `ConfirmationCommandSession` that stores the execution of the Command in a `deferredExecution` object.
+
+To facilitate the handling of inputs within the context of its session, `ConfirmationCommandSession` maintains three internal states:
+
+State                   | Description                                      | Transition Condition|
+------------------------|--------------------------------------------------|--------------------|
+`INITIAL`               | Default state immediately after creation. Ignores the original command input (since its information is already encapsulated within the deferred execution passed into it) and returns a confirmation prompt. | Automatically transitions to `PENDING_CONFIRMATION`.
+`PENDING_CONFIRMATION`  | Waits for user input(`yes` or `no` (caps-insensitive)) <br><ul><li> `yes` -> carry out deferred execution of command.</li><li>`no` -> cancels command</li><li>Other input -> re-prompts user. | Transitions to `DONE` after confirmation or cancellation|
+`DONE`                  | Terminal state indicating the session has completed. Any further `handle()` calls throw `TerminalSessionStateException` | -|
+
+The following activity diagrams contrast the flow of a command requiring user confirmation and a single-step command:
+<puml src="diagrams/ConfirmationCommandSessionActivityDiagram.puml" alt="ConfirmationCommandSessionActivityDiagram"/>
+
+<puml src="diagrams/SingleStepCommandSessionActivityDiagram.puml" alt="SingleStepCommandSessionActivityDiagram"/>
+
+For clarity, the above diagrams omit general session handling, command parsing and input delegation. See [**Command Sessions**](#command-sessions) for a complete overview.
+
+
 
 ### \[Proposed\] Undo/redo feature
 
@@ -556,6 +605,14 @@ Use case ends.
 * **Destructive operation**: An action that leads to permanent removal of data
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A Singaporean (+65) contact detail that is not meant to be shared with others
+* **Run**: In the context of a command, refers to carrying out the entire lifecycle of a command, including user interaction and invoking domain logic
+* **Execution**: In the context of a command, refers specifically to invoking the domain logic of the command, without handling any user interaction
+* **Input Box**: The text box in the application that receives all textual inputs from the user
+* **Output Box**: The text box in the application that displays output resulting from processing an input/ executing a command
+* **User Input**: Any textual input entered by the user into the input box
+* **Command Input**: A specific type of user input that triggers a new command to run
+* **Input Response**: The application's response to a user input, encapsulating information such as the output to display in the output box and whether to exit the application
+* **Command Result**: A specific type of input response produced by a command after executing its domain logic
 
 --------------------------------------------------------------------------------------------------------------------
 
