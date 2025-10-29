@@ -23,9 +23,11 @@ public class FindEligibleCommand extends Command {
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
             "Finds all donors who are eligible to donate blood for the specified blood type(s) "
                     + "(case-insensitive) and displays them as a list with index numbers. All eligible blood donors "
-                    + "must be at least 16 (inclusive) years old. The maximum age for first-time donors is generally 60"
-                    + " years and 354 days, but repeat donors may have different age limits. Additionally, "
-                    + "blood donors must not donate more than once within a 12-week period.",
+                    + "must be at least 16 (inclusive) years old on the donation date. For first-time donors, the  "
+                    + "donation date must be strictly before their 61st birthday. For returning donors, they must have "
+                    + "made a previous donation within the last 3 years from the donation date (inclusive of "
+                    + "that donation date), and the donation date must be strictly before their 66th birthday."
+                    + " In addition, there must be a minimum of 84 days between any two consecutive donations.",
             "Parameters: BLOOD_TYPE(S)", "Example: " + COMMAND_WORD + " O+ A+ B+");
 
     private final List<String> enteredBloodTypes;
