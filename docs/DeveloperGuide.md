@@ -392,11 +392,11 @@ Use case ends.
     * Use case ends.
 
 * 3a. Donor ID is invalid.
-    * 3a1. BloodNet shows an error message.
+    * 2a1. BloodNet shows an error message.
     * Use case returns to step 3.
 
 * 3b. Date or volume format is invalid.
-    * 3b1. BloodNet shows an error message.
+    * 2b1. BloodNet shows an error message.
     * Use case resumes at step 3.
 
 ---
@@ -450,7 +450,7 @@ Use case ends.
     * Use case returns to step 3.
 
 * 5a. Donation ID is invalid.
-    * 1a1. BloodNet shows an error message.
+    * 5a1. BloodNet shows an error message.
       Use case returns to step 5.
 
 * 5b. Invalid data format for date or volume.
@@ -484,7 +484,7 @@ Use case ends.
     * Use case returns to step 3.
 
 * 5a. Donation ID is invalid.
-    * 1a1. BloodNet shows an error message.
+    * 5a1. BloodNet shows an error message.
       Use case returns to step 5.
 
 ---
