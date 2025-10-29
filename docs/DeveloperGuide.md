@@ -581,17 +581,25 @@ testers are expected to do more *exploratory* testing.
 
 ## **Appendix: Effort**
 
-In the course of the past few weeks, beyond just repurposing AB3 to a blood donor address book, we have made signficant upgrades to it, which involved substantial amount of hard work, ingenuity and late nights (just look at some of the commit timings):
+In the course of the past few weeks, beyond just repurposing AB3 to a blood donor address book, we have made significant upgrades to it for our target audience, which involved a substantial amount of hard work, ingenuity, late nights and early mornings (just look at some of the commit timings):
 
 ### Having multiple entities, donors and donation records
-...
+
+In order to remain accuracy with the current blood donation guidelines in Singapore, we decided to the `isEligibleToDonate` predicate, which is invoked when adding a donation to a donor's record ensure eligibility. 
+
+The original AB3 only has a predicate that allows individuals to search by name, but determining which blood donors are eligible require more complex criteria than just regex. 
+
+As a result, implementing `isEligibleToDonate` required integrating these checks into the existing logic, handling edge cases and ensuring consistency with the current guidelines. 
+
+Overall, this addition improved reliability and the correctness of all donation-related operations prevalent in the system.  
+
 
 ### User confirmation
 Wanting to safeguards against accidental destructive operations, we sought to implement user confirmation before such operations.
 
 To accomplish, much complexity needed to be introduced. AB3 originally executes every user input as a new command immediately. But introducing user interactivity within a command (which user confirmation support requires) fundamentally change this flow requiring us to create a new abstraction, `commandSession`, to manage multi-step interactions and persist information throughout the command lifecycle until completion.
 
-The implementation was challenging due to input delegation, differentiating between a new command input and an input within a command sesison, handling command exceptions resulting in mid-session exits, and maintaining consistent system state, all while providing a uniform framework compatible with single-step commands. Documentation also required careful revision as existing terms like "command", “execution” needed to be clarified and properly redesigned.
+The implementation was challenging due to input delegation, differentiating between a new command input and an input within a command session, handling command exceptions resulting in mid-session exits, and maintaining consistent system state, all while providing a uniform framework compatible with single-step commands. Documentation also required careful revision as existing terms like "command", “execution” needed to be clarified and properly redesigned.
 
 Overall, the feature involved considerable architectural changes, edge case handling, and documentation effort to balance usability and system safety.
 
