@@ -154,7 +154,6 @@ Format: `findeligible BLOOD_TYPE...`
 
 Examples:
 To be added
-<!-- Examples will be added in the next PR -->
 
 ### Editing a donor: `edit`
 
