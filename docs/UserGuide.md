@@ -50,7 +50,7 @@ for locations where internet service is unreliable!
 
 6. Press <kbd>F1</kbd> or type **`help`** in the command box and press <kbd>Enter</kbd> to open the [help window](#viewing-help--help), which provides a summary of all command usages. 
 
-6. Refer to the [Features](#features) below for details of each command.
+7. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -60,12 +60,13 @@ for locations where internet service is unreliable!
 -------------------------- |-------------------------------------------------------------------------------------------------------------------------------------------------
 [**Add Donor**](#adding-a-donor-add)| `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com b/A+ d/22-11-2004` 
 [**List All Donors**](#listing-all-donors-list) | `list`                                                                                                                                          
-[**Find Donor**](#locating-donors-by-name-find) | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake` 
-[**Find Eligible Donors**](#find-eligible-donors-based-on-blood-type-findeligible) | `findeligible BLOOD_TYPE(S)`<br> e.g., `findeligible A+ O+ B+`
+[**Find Donor**](#locating-donors-by-name-find)| `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`     
+[**Find Eligible Donors**](#finding-eligible-donors-based-on-blood-type-findeligible) | `findeligible BLOOD_TYPE(S)`<br> e.g., `findeligible A+ O+ B+`
 [**Edit Donor**](#editing-a-donor-edit) | `edit DONOR_LIST_INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`          
 [**Delete Donor** ⚠️](#-deleting-a-donor-delete) | `delete DONOR_LIST_INDEX `<br> e.g., `delete 3`
 [**Delete Donation Record** ⚠️](#-deleting-a-donation-record-deletedonation) | `deletedonation DONATION_RECORD_LIST_INDEX `<br> e.g., `deletedonation 1`
 [**Edit Donation Record**](#editing-a-donation-record-editdonation) | `editdonation DONATION_RECORD_LIST_INDEX `<br> e.g., `editdonation 1 v/350 d/20-02-2025 `
+[**Find Donation Records of a Donor**](#finding-donation-records-of-a-donor-finddonations) | `finddonations DONOR_LIST_INDEX` <br> e.g., `finddonations 3`
 [**Delete All Data** ⚠️](#-clearing-all-entries-clear) | `clear`
 [**Help**](#viewing-help-help) | `help` 
 [**Exit**](#exiting-the-program-exit) | `exit`                                                                                                                                          
@@ -134,7 +135,7 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Find eligible donors based on blood type: `findeligible`
+### Finding eligible donors based on blood type: `findeligible`
 
 Finds all people who are eligible to donate blood for the specified blood type(s).
 
@@ -217,6 +218,18 @@ Examples:
 * `editdonation 3 d/13-10-2024 ` Edits the donation date of the 3rd donation record list.
 <!-- More examples will be added soon -->
 
+## Finding donation records of a donor: `finddonations`
+
+Find donation records of a donor.
+
+Format: `finddonations DONOR_LIST_INDEX`
+* List all donation records of the donor at the specified `DONOR_LIST_INDEX`. The index refers to the index number shown in the displayed donor record list. The specified index **must be a positive whole number** 1, 2, 3, ...
+
+Example:
+
+* `finddonations 3`: List all donation records of the 3rd donor in the donor list.
+  ![result for 'finddonations 3'](images/finddonations3.png)
+
 ### ⚠️ Clearing all entries: `clear`
 
 Clears all entries from the BloodNet system.
@@ -272,6 +285,8 @@ _Details coming soon ..._
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
 the data of your previous BloodNet home folder.
+**Q**: Are the donor list and donation records list synchronised?
+**A**: **NO!** The two lists should be treated as largely independent. The only time they interact is for donation-related commands that require a donor to be specified (e.g., `finddonations`, `adddonation`). In these cases, the person index used as a parameter is derived from the donor list.
 
 --------------------------------------------------------------------------------------------------------------------
 
