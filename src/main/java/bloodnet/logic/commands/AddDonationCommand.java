@@ -17,6 +17,7 @@ import bloodnet.model.Model;
 import bloodnet.model.donationrecord.BloodVolume;
 import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.donationrecord.DonationRecord;
+import bloodnet.model.donationrecord.DonorIsSamePersonPredicate;
 import bloodnet.model.person.Person;
 
 /**
@@ -84,6 +85,8 @@ public class AddDonationCommand extends Command {
         }
 
         model.addDonationRecord(donationRecord);
+
+        model.updateFilteredDonationRecordList(new DonorIsSamePersonPredicate(personToAddRecordFor));
 
         return new InputResponse(String.format(MESSAGE_SUCCESS, Messages.format(donationRecord, personToAddRecordFor)));
     }

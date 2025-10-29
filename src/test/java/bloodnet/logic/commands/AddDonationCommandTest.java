@@ -272,7 +272,7 @@ public class AddDonationCommandTest {
 
         @Override
         public void updateFilteredDonationRecordList(Predicate<DonationRecord> predicate) {
-            throw new AssertionError("This method should not be called.");
+            // Do nothing
         }
     }
 
