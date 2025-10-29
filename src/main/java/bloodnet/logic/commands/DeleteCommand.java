@@ -22,8 +22,8 @@ public class DeleteCommand extends Command {
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
             "Deletes the "
-            + "donor identified by the index number used in the displayed donor list. Note that the donor" +
-                    "can only be deleted if the donor has no donation records.",
+            + "donor identified by the index number used in the displayed donor list. Note that the donor"
+                    + "can only be deleted if the donor has no donation records.",
             "Example: " + COMMAND_WORD + " 1",
             "Parameters: INDEX (must be a positive integer)");
 
