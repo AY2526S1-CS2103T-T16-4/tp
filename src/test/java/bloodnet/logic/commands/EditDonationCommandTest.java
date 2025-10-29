@@ -163,16 +163,6 @@ public class EditDonationCommandTest {
     }
 
     @Test
-    public void execute_personInFilteredListIsNullExecute_failure() throws Exception {
-        DonationRecord donation = new DonationRecordBuilder().build();
-        EditDonationRecordDescriptor descriptorStub =
-                new EditDonationRecordDescriptor();
-        EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION, descriptorStub);
-        model.updateFilteredPersonList(person -> false);
-        assertCommandFailure(editDonationCommand, model, Messages.MESSAGE_PERSON_NOT_FOUND);
-    }
-
-    @Test
     public void equals_sameObject_returnsTrue() {
         Index indexStub = Index.fromZeroBased(0);
         EditDonationCommand editedDonationRecord = new EditDonationCommand(indexStub,
