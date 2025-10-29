@@ -63,7 +63,8 @@ for locations where internet service is unreliable!
 [**Find Donor**](#locating-donors-by-name-find)| `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`     
 [**Find Eligible Donors**](#find-eligible-donors-based-on-blood-type-findeligible) | `findeligible BLOOD_TYPE(S)`<br> e.g., `findeligible A+ O+ B+`
 [**Edit Donor**](#editing-a-donor-edit) | `edit DONOR_LIST_INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`          
-[**Delete Donor** ⚠️](#deleting-a-donor-delete)  | `delete DONOR_LIST_INDEX `<br> e.g., `delete 3`    
+[**Delete Donor** ⚠️](#deleting-a-donor-delete)  | `delete DONOR_LIST_INDEX `<br> e.g., `delete 3`
+[**Delete Donation Record** ⚠️](#deleting-record-deletedonation)  | `deletedonation DONATION_RECORD_LIST_INDEX `<br> e.g., `deletedonation 1`
 [**Edit Donation Record**](#editing-a-donation-record-editdonation) | `editdonation DONATION_RECORD_LIST_INDEX `<br> e.g., `editdonation 1 v/350 d/20-02-2025 `
 [**Delete All Data** ⚠️](#clearing-all-entries-clear)  | `clear`
 [**Help**](#viewing-help-help) | `help` 
@@ -177,11 +178,26 @@ Format: `delete DONOR_LIST_INDEX`
 * Deletes the donor at the specified `DONOR_LIST_INDEX`.
 * The index refers to the index number shown in the displayed donor list.
 * The index **must be a positive integer** 1, 2, 3, …​
+* If the specified donor has donation records, those donation records will have to be deleted first using the
+  `deletedonation` command before the donor can be deleted.
 
 Examples:
 
 * `list` followed by `delete 2` deletes the 2nd donor in the BloodNet system.
 * `find Betsy` followed by `delete 1` deletes the 1st donor in the result of the `find` command.
+
+### ⚠️ Deleting a donation record : `deletedonation`
+
+This command can be used to delete a specified donor from the BloodNet system.
+
+Format: `delete DONATION_RECORD_LIST_INDEX`
+
+* Deletes the donor at the specified `DONATION_RECORD_LIST_INDEX`.
+* The index refers to the index number shown in the displayed donation record list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `finddonations 1` followed by `deletedonation 2` deletes the 2nd donation record of the 1st donor in the donor list.
 
 ### Editing a donation record : `editdonation`
 
