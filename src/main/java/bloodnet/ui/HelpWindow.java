@@ -42,6 +42,7 @@ public class HelpWindow extends UiPart<Stage> {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         getRoot().setWidth(screenBounds.getWidth() * 0.6);
         getRoot().setHeight(screenBounds.getHeight() * 0.8);
+        getRoot().setResizable(true);
         addTitle();
         AllCommands all = new AllCommands();
         AllCommands.addCommands();
