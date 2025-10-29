@@ -55,7 +55,7 @@ StatusBarFooter --|> UiPart
 HelpWindow --|> UiPart
 
 PersonCard ..> Model
-DonationRecordCard ..> Model
+DonationRecordCard ..> Model: ""
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
