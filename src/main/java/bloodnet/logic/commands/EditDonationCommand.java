@@ -28,16 +28,19 @@ public class EditDonationCommand extends Command {
 
     public static final String COMMAND_WORD = "editdonation";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the donation record identified "
-            + "by the index number used in the displayed donation record list. \n"
-            + "Existing values will be overwritten by the input values. \n"
-            + "Parameters: DONATION_RECORD_LIST_INDEX (must be a positive integer) "
-            + PREFIX_DONATION_DATE + "DONATION DATE (DD-MM-YYYY) "
-            + PREFIX_BLOOD_VOLUME + "BLOOD VOLUME (IN MILLILITRES)\n"
-            + "Example: editdonation 1 v/100 d/02-02-2002";
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
+            "Edits the donation "
+            + "record detail(s) identified by the index number used in the displayed donation record list. "
+            + "At least one field must be provided.",
+            "Parameters: DONATION RECORD INDEX (must be a positive integer) "
+            + "[" + PREFIX_DONATION_DATE + "DONATION DATE (DD-MM-YYYY)] "
+            + "[" + PREFIX_BLOOD_VOLUME + "BLOOD VOLUME (IN MILLILITRES)]",
+            "Example: editdonation 1 v/100 d/02-02-2002");
 
     public static final String MESSAGE_EDIT_DONATION_RECORD_SUCCESS = "Edited Donation Record: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+
+    public static final String MESSAGE_DUPLICATE_DONATION_RECORD =
+            "No change to the donation record.";
     public static final String MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER =
             "You are attempting to modify a donation record to an invalid one. "
             + "Please fix these errors:";
@@ -116,15 +119,15 @@ public class EditDonationCommand extends Command {
      */
     private Person getPersonToEditRecordFor(Model model, DonationRecord donationRecord) throws CommandException {
         requireNonNull(model);
-        List<Person> personList = model.getFilteredPersonList();
+        requireNonNull(donationRecord);
+        List<Person> personList = model.getBloodNet().getPersonList();
         Optional<Person> optionalPerson = personList.stream()
                 .filter(person -> person.getId().equals(donationRecord.getPersonId())).findFirst();
 
         if (optionalPerson.isPresent()) {
             return optionalPerson.get();
         }
-
-        return null;
+        throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND);
     }
 
     @Override
@@ -149,6 +152,10 @@ public class EditDonationCommand extends Command {
                 .add("indexOfDonationRecord", indexOfDonationRecord)
                 .add("editDonationRecordDescriptor", editDonationRecordDescriptor)
                 .toString();
+    }
+
+    public static String getMessageUsage() {
+        return COMMAND_INFORMATION.getMessageUsage();
     }
 
     /**

@@ -31,7 +31,7 @@ public class ModelManager implements Model {
     public ModelManager(ReadOnlyBloodNet bloodNet, ReadOnlyUserPrefs userPrefs) {
         requireAllNonNull(bloodNet, userPrefs);
 
-        logger.fine("Initializing with bloodnet: " + bloodNet + " and user prefs " + userPrefs);
+        logger.fine("Initializing with BloodNet: " + bloodNet + " and user prefs " + userPrefs);
 
         this.bloodNet = new BloodNet(bloodNet);
         this.userPrefs = new UserPrefs(userPrefs);

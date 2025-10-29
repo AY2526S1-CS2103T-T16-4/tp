@@ -19,7 +19,7 @@ import bloodnet.model.donationrecord.DonationDate;
 public class EditDonationCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditDonationCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditDonationCommand.getMessageUsage());
 
     private final EditDonationCommandParser parser = new EditDonationCommandParser();
 
@@ -29,7 +29,7 @@ public class EditDonationCommandParserTest {
         assertParseFailure(parser, " v/400", MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditDonationCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", EditDonationCommand.getMessageUsage());
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);

@@ -13,17 +13,18 @@ import bloodnet.model.donationrecord.DonorIsSamePersonPredicate;
 import bloodnet.model.person.Person;
 
 /**
- * Finds and list all donation records in bloodnet related to
+ * Finds and list all donation records in BloodNet related to
  * the person identified by the index number used in the displayed
- * person list from the bloodnet.
+ * person list from BloodNet.
  */
 public class FindDonationsCommand extends Command {
     public static final String COMMAND_WORD = "finddonations";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all donation records related to "
-            + "the person identified by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
+            "Finds all donation "
+            + "records related to the donor identified by the index number used in the displayed donor list.",
+            "Parameters: DONATION RECORD INDEX (must be a positive integer)", "Example: "
+            + COMMAND_WORD + " 1");
 
     private final Index targetPersonIndex;
 
@@ -75,5 +76,9 @@ public class FindDonationsCommand extends Command {
         }
 
         return lastShownList.get(targetPersonIndex.getZeroBased());
+    }
+
+    public static String getMessageUsage() {
+        return COMMAND_INFORMATION.getMessageUsage();
     }
 }

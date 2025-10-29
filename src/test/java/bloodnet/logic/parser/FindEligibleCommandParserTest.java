@@ -15,7 +15,7 @@ import bloodnet.model.person.BloodType;
 public class FindEligibleCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEligibleCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEligibleCommand.getMessageUsage());
 
     private final FindEligibleCommandParser parser = new FindEligibleCommandParser();
 
