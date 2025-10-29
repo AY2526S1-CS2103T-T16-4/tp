@@ -69,8 +69,6 @@ for locations where internet service is unreliable!
 [**Help**](#viewing-help-help) | `help` 
 [**Exit**](#exiting-the-program-exit) | `exit`                                                                                                                                          
 
->>>>>>> master
-
 ⚠️ &nbsp;  You will be asked to confirm this action before it is carried out.
 
 --------------------------------------------------------------------------------------------------------------------
