@@ -16,7 +16,7 @@ public class DateOfBirth {
 
     public static final String MESSAGE_CONSTRAINTS =
             "The date of birth should be of the format DD-MM-YYYY, not in the future,"
-                    + " and not more than 130 years ago from today.";
+                    + " and not before %s.";
     public static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(STRICT);
 
@@ -29,7 +29,10 @@ public class DateOfBirth {
      */
     public DateOfBirth(String dateOfBirth) {
         requireNonNull(dateOfBirth);
-        checkArgument(isValidDateOfBirth(dateOfBirth), MESSAGE_CONSTRAINTS);
+        String formattedMessage = String.format(
+                DateOfBirth.MESSAGE_CONSTRAINTS,
+                LocalDate.now().minusYears(130).format(DateOfBirth.DATE_FORMATTER));
+        checkArgument(isValidDateOfBirth(dateOfBirth), formattedMessage);
         value = LocalDate.parse(dateOfBirth, DATE_FORMATTER);
     }
 

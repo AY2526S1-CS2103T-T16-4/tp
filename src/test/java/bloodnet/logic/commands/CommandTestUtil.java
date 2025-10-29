@@ -60,7 +60,7 @@ public class CommandTestUtil {
     // Donation Record Test Values
     public static final String VALID_DONATION_DATE_AMY = "12-12-2024";
     public static final String VALID_DONATION_DATE_BOB = "15-09-2025";
-    public static final String VALID_BLOOD_VOLUME_AMY = "550";
+    public static final String VALID_BLOOD_VOLUME_AMY = "350";
     public static final String VALID_BLOOD_VOLUME_BOB = "410";
 
 
