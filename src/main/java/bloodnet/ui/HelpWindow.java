@@ -5,11 +5,13 @@ import java.util.logging.Logger;
 import bloodnet.commons.core.LogsCenter;
 import bloodnet.logic.commands.AllCommands;
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -37,9 +39,12 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        getRoot().setWidth(screenBounds.getWidth() * 0.6);
+        getRoot().setHeight(screenBounds.getHeight() * 0.8);
         addTitle();
         AllCommands all = new AllCommands();
-        all.addCommands();
+        AllCommands.addCommands();
         formatInstructions();
         addLink();
     }
