@@ -50,7 +50,7 @@ for locations where internet service is unreliable!
 
 6. Press <kbd>F1</kbd> or type **`help`** in the command box and press <kbd>Enter</kbd> to open the [help window](#viewing-help--help), which provides a summary of all command usages. 
 
-6. Refer to the [Features](#features) below for details of each command.
+7. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -256,6 +256,8 @@ _Details coming soon ..._
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
 the data of your previous BloodNet home folder.
+**Q**: Are the donor list and donation records list synchronised?
+**A**: **NO!** The two lists should be treated as largely independent. The only time they interact is for donation-related commands that require a donor to be specified (e.g., `finddonations`, `adddonation`). In these cases, the person index used as a parameter is derived from the donor list.
 
 --------------------------------------------------------------------------------------------------------------------
 
