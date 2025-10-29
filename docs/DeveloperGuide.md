@@ -576,3 +576,22 @@ testers are expected to do more *exploratory* testing.
     1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 2. _{ more test cases …​ }_
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Effort**
+
+In the course of the past few weeks, beyond just repurposing AB3 to a blood donor address book, we have made signficant upgrades to it, which involved substantial amount of hard work, ingenuity and late nights (just look at some of the commit timings):
+
+### Having multiple entities, donors and donation records
+...
+
+### User confirmation
+Wanting to safeguards against accidental destructive operations, we sought to implement user confirmation before such operations.
+
+To accomplish, much complexity needed to be introduced. AB3 originally executes every user input as a new command immediately. But introducing user interactivity within a command (which user confirmation support requires) fundamentally change this flow requiring us to create a new abstraction, `commandSession`, to manage multi-step interactions and persist information throughout the command lifecycle until completion.
+
+The implementation was challenging due to input delegation, differentiating between a new command input and an input within a command sesison, handling command exceptions resulting in mid-session exits, and maintaining consistent system state, all while providing a uniform framework compatible with single-step commands. Documentation also required careful revision as existing terms like "command", “execution” needed to be clarified and properly redesigned.
+
+Overall, the feature involved considerable architectural changes, edge case handling, and documentation effort to balance usability and system safety.
+
