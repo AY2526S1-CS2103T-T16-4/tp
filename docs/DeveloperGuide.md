@@ -426,11 +426,11 @@ Use case ends.
     * Use case ends.
 
 * 2a. Donor ID is invalid.
-    * 3a1. BloodNet shows an error message.
+    * 2a1. BloodNet shows an error message.
     * Use case returns to step 2.
 
 * 2b. Donor has one or more existing donation records.
-    * Admin staff deletes donation records of user ([UC10](#use-case-uc10---delete-a-blood-donation-record)).
+    * 2b1. Admin staff deletes donation records of user ([UC10](#use-case-uc10---delete-a-blood-donation-record)).
     * Use case returns to step 2.
 
 ---
