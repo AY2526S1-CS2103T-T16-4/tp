@@ -39,17 +39,17 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' bloodnet file path.
+     * Returns the user prefs' BloodNet file path.
      */
     Path getBloodNetFilePath();
 
     /**
-     * Sets the user prefs' bloodnet file path.
+     * Sets the user prefs' BloodNet file path.
      */
     void setBloodNetFilePath(Path bloodNetFilePath);
 
     /**
-     * Replaces bloodnet data with the data in {@code bloodNet}.
+     * Replaces the BloodNet data with the data in {@code bloodNet}.
      */
     void setBloodNet(ReadOnlyBloodNet bloodNet);
 
@@ -119,9 +119,9 @@ public interface Model {
 
     /**
      * Replaces the given donationRecord {@code target} with {@code editedDonationRecord}.
-     * {@code target} must exist in the bloodnet.
+     * {@code target} must exist in bloodnet.
      * The donationRecord identity of {@code editedDonationRecord} must not be the same as another existing
-     * donationRecord in the bloodnet.
+     * donationRecord in bloodnet.
      */
     void setDonationRecord(DonationRecord target, DonationRecord editedDonationRecord);
 

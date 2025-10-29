@@ -77,6 +77,22 @@ public class BloodNetParserTest {
     }
 
     @Test
+    public void parseCommand_find() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindCommand command = (FindCommand) parser.parseCommand(
+                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_finddonations() throws Exception {
+        FindDonationsCommand command = (FindDonationsCommand) parser.parseCommand(
+                FindDonationsCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new FindDonationsCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
     public void parseCommand_editdonations() throws Exception {
         EditDonationCommand command = (EditDonationCommand) parser.parseCommand(
                 EditDonationCommand.COMMAND_WORD + " "
@@ -96,23 +112,6 @@ public class BloodNetParserTest {
                 command);
     }
 
-
-    @Test
-    public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
-    }
-
-    @Test
-    public void parseCommand_finddonations() throws Exception {
-        FindDonationsCommand command = (FindDonationsCommand) parser.parseCommand(
-                FindDonationsCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new FindDonationsCommand(INDEX_FIRST_PERSON), command);
-    }
-
     @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
@@ -127,8 +126,8 @@ public class BloodNetParserTest {
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                HelpCommand.getMessageUsage()), () -> parser.parseCommand(""));
     }
 
     @Test

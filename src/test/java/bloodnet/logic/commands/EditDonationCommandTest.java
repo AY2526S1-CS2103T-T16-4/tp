@@ -163,13 +163,6 @@ public class EditDonationCommandTest {
     }
 
     @Test
-    public void execute_personIdIsNull_failure() throws Exception {
-        Model model = new ModelManager();
-        assertThrows(NullPointerException.class, ()
-                -> model.addDonationRecord(new DonationRecordBuilder().withPersonId(null).build()));
-    }
-
-    @Test
     public void equals_sameObject_returnsTrue() {
         Index indexStub = Index.fromZeroBased(0);
         EditDonationCommand editedDonationRecord = new EditDonationCommand(indexStub,

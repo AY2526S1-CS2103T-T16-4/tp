@@ -12,13 +12,19 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_SUCCESS = "Listed all persons";
+    public static final String MESSAGE_SUCCESS = "Listed all donors";
 
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
+            "Lists out all blood donors.", "", "");
 
     @Override
     public InputResponse execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new InputResponse(MESSAGE_SUCCESS);
+    }
+
+    public static String getMessageUsage() {
+        return COMMAND_INFORMATION.getMessageUsage();
     }
 }

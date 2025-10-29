@@ -14,16 +14,18 @@ import bloodnet.model.Model;
 import bloodnet.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the bloodnet.
+ * Deletes a person identified using it's displayed index from BloodNet.
  */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
+            "Deletes the "
+            + "donor identified by the index number used in the displayed donor list. Note that the donor"
+                    + "can only be deleted if the donor has no donation records.",
+            "Example: " + COMMAND_WORD + " 1",
+            "Parameters: INDEX (must be a positive integer)");
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
@@ -83,5 +85,9 @@ public class DeleteCommand extends Command {
         }
 
         return personToDelete;
+    }
+
+    public static String getMessageUsage() {
+        return COMMAND_INFORMATION.getMessageUsage();
     }
 }
