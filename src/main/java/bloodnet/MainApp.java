@@ -1,5 +1,7 @@
 package bloodnet;
 
+import static bloodnet.model.util.SampleDataUtil.getSampleBloodNet;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -82,9 +84,17 @@ public class MainApp extends Application {
             if (!bloodNetOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getBloodNetFilePath()
                         + " populated with a sample BloodNet.");
+
+                // We need to save the sample Bloodnet data to the data file
+                // right away so that their UUIDs will be populated by the storage layer.
+                storage.saveBloodNet(getSampleBloodNet());
+
+                // Then, we need to read the data via the storage layer again
+                // because it will populate the donor's name in every Donation Record
+                bloodNetOptional = storage.readBloodNet();
             }
             initialData = bloodNetOptional.orElseGet(SampleDataUtil::getSampleBloodNet);
-        } catch (DataLoadingException e) {
+        } catch (Exception e) {
             logger.warning("Data file at " + storage.getBloodNetFilePath() + " could not be loaded."
                     + " Will be starting with an empty BloodNet.");
             initialData = new BloodNet();
