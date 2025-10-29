@@ -53,6 +53,8 @@ UniqueDonationRecordList --> "~* all" DonationRecord
 DonationRecord *--> DonationDate
 DonationRecord *--> BloodVolume
 
+DonationRecord ..> Person
+
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
 
