@@ -267,7 +267,7 @@ Use case ends.
 
 **Extensions**
 
-* 1a. One or more of the provided information is invalid
+* 1a. One or more fields of the provided information is invalid
     * 1a1. BloodNet shows an error message.
     * Use case returns to step 1.
 
@@ -292,11 +292,11 @@ Use case ends.
 
 * 2a. Donor ID not found.
     * 3a1. BloodNet shows an error message.
-    * Use case returns to step 3.
+    * Use case returns to step 2.
 
 * 2b. One or more invalid values provided.
     * 3b1. BloodNet shows an error message.
-    * Use case returns to step 3.
+    * Use case returns to step 2.
 
 ---
 
@@ -331,8 +331,12 @@ Use case ends.
     * Use case ends.
 
 * 2a. Donor ID is invalid.
-    * 3a1. BloodNet shows an error message.
-    * Use case returns to step 3.
+    * 2a1. BloodNet shows an error message.
+    * Use case returns to step 2.
+
+* 2b. Donor has one or more existing donation records.
+    * 2b1. Admin staff deletes donation records of user ([UC10](#use-case-uc10---delete-a-blood-donation-record)).
+    * Use case returns to step 2.
 
 ---
 
@@ -388,11 +392,11 @@ Use case ends.
     * Use case ends.
 
 * 3a. Donor ID is invalid.
-    * 3a1. BloodNet shows an error message.
+    * 2a1. BloodNet shows an error message.
     * Use case returns to step 3.
 
 * 3b. Date or volume format is invalid.
-    * 3b1. BloodNet shows an error message.
+    * 2b1. BloodNet shows an error message.
     * Use case resumes at step 3.
 
 ---
@@ -446,7 +450,7 @@ Use case ends.
     * Use case returns to step 3.
 
 * 5a. Donation ID is invalid.
-    * 1a1. BloodNet shows an error message.
+    * 5a1. BloodNet shows an error message.
       Use case returns to step 5.
 
 * 5b. Invalid data format for date or volume.
@@ -480,7 +484,7 @@ Use case ends.
     * Use case returns to step 3.
 
 * 5a. Donation ID is invalid.
-    * 1a1. BloodNet shows an error message.
+    * 5a1. BloodNet shows an error message.
       Use case returns to step 5.
 
 ---
@@ -508,8 +512,9 @@ Use case ends.
 * **Blood Type**: The blood types supported are A+, A-, B+, B-, AB+, AB-, O+ and O-
 * **Donor**: Person who donates blood to others
 * **Destructive operation**: An action that leads to permanent removal of data
+* **Field**: A single piece of information for a donor or donation record.
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A Singaporean (+65) contact detail that is not meant to be shared with others
+* **Private contact detail**: An 8-digit Singaporean (+65) contact detail that is not meant to be shared with others
 * **Run**: In the context of a command, refers to carrying out the entire lifecycle of a command, including user interaction and invoking domain logic
 * **Execution**: In the context of a command, refers specifically to invoking the domain logic of the command, without handling any user interaction
 * **Input Box**: The text box in the application that receives all textual inputs from the user
