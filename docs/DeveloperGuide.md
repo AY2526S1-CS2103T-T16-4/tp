@@ -195,6 +195,18 @@ For clarity, the above diagrams omit general session handling, command parsing a
 
 --------------------------------------------------------------------------------------------------------------------
 
+### \[Future enhancements\]
+
+With future updates, the current `PersonList` and `DonationRecord` will be synchronized with respect to the UI.
+As such, the system will therefore ensure that whatever a user does an action to the donor list, it updates the UI
+accordingly for the `DonationRecord` list.
+
+The below diagram is how a potential implementation of this would look like using command `FindEligible` as an example:
+
+<puml src="diagrams/FutureUIImplementation.puml" width="250" />
+
+__________________________________________________________________________________________________
+
 ## **Documentation, logging, testing, configuration, dev-ops**
 
 * [Documentation guide](Documentation.md)
