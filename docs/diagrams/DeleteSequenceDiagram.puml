@@ -110,8 +110,10 @@ activate Session
 
 Session -> DeleteCommand : execute()
 activate DeleteCommand
-DeleteCommand -> Model : deletePerson(1)
+DeleteCommand -> Model: getFilteredPersonList()
 activate Model
+Model --> DeleteCommand : filteredPersonList
+DeleteCommand -> Model : deletePerson(personToDelete)
 Model --> DeleteCommand
 deactivate Model
 DeleteCommand --> Session
