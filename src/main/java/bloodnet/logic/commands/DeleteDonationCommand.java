@@ -105,7 +105,7 @@ public class DeleteDonationCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        for (Person person : model.getFilteredPersonList()) {
+        for (Person person : model.getBloodNet().getPersonList()) {
             if (person.getId().equals(personId)) {
                 return person;
             }
