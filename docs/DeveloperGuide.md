@@ -128,11 +128,11 @@ By using sessions, the system can:
 
 To make the handling of user inputs (regardless of whether it is a command input or session input) uniform, **all commands create a `CommandSession` via `Command#createSession(Model model)**, regardless of whether they are interactive or single-step:
 * **Interactive commands** (e.g., `delete`) creates a specialised session like `ConfirmationCommandSession` that manage multi-step interactions
-* **Single-step commands** (e.g., `list`) creates a `SingleStepCommandSession` which immediately carry out the command's execution. This is the default behaviour of a `Command` if `Command#createSession(Model)` is not overriden.
+* **Single-step commands** (e.g., `list`) creates a `SingleStepCommandSession` which immediately carry out the command's execution. This is the default behaviour of a `Command` if `Command#createSession(Model)` is not overridden.
 
 THis design allows the `LogicManager` to **treat all user inputs uniformly**, using the presence or absence of a `currentCommandSession` to determine whether an input should be treated as a new command input.
 
-The method `CommandSession#isDone()` is then used by `LogicManager` to determine whether a session has completed. Once it returns `true`, the session is cleanup, clearing `currentCommandSession` and allowing the next command input to be processed.
+The method `CommandSession#isDone()` is then used by `LogicManager` to determine whether a session has completed. Once it returns `true`, the session is cleaned up, clearing `currentCommandSession` and allowing the next command input to be processed.
 
 The following activity diagram summarises the session lifecycle management when the user inputs something:
 <puml src="diagrams/CommandSessionActivityDiagram.puml" width="600"/>
@@ -173,7 +173,7 @@ Classes used by multiple components are in the `bloodnet.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 ### User Confirmation
-The user confirmation mechanism is facilated by `ConfirmationCommandSession` class which is an implementation of `CommandSession` (See [Command Sessions](#command-sessions) for more details.)
+The user confirmation mechanism is facilitated by `ConfirmationCommandSession` class which is an implementation of `CommandSession` (See [Command Sessions](#command-sessions) for more details.)
 
 The `ConfirmationCommandSession` class manages interactive commands that require explicit user confirmation before execution (i.e., destructive operations).
 * When a command input is identified as requiring confirmation, the `LogicManager` invokes the parsed `Command`'s `createSession()` method, producing a `ConfirmationCommandSession` that stores the execution of the Command in a `deferredExecution` object.
