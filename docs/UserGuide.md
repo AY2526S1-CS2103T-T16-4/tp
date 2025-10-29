@@ -63,10 +63,11 @@ for locations where internet service is unreliable!
 [**Find Donor**](#locating-donors-by-name-find)| `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`     
 [**Find Eligible Donors**](#finding-eligible-donors-based-on-blood-type-findeligible) | `findeligible BLOOD_TYPE(S)`<br> e.g., `findeligible A+ O+ B+`
 [**Edit Donor**](#editing-a-donor-edit) | `edit DONOR_LIST_INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`          
-[**Delete Donor** ⚠️](#deleting-a-donor-delete)  | `delete DONOR_LIST_INDEX `<br> e.g., `delete 3`    
+[**Delete Donor** ⚠️](#-deleting-a-donor-delete) | `delete DONOR_LIST_INDEX `<br> e.g., `delete 3`
+[**Delete Donation Record** ⚠️](#-deleting-a-donation-record-deletedonation) | `deletedonation DONATION_RECORD_LIST_INDEX `<br> e.g., `deletedonation 1`
 [**Edit Donation Record**](#editing-a-donation-record-editdonation) | `editdonation DONATION_RECORD_LIST_INDEX `<br> e.g., `editdonation 1 v/350 d/20-02-2025 `
 [**Find Donation Records of a Donor**](#finding-donation-records-of-a-donor-finddonations) | `finddonations DONOR_LIST_INDEX` <br> e.g., `finddonations 3`
-[**Delete All Data** ⚠️](#clearing-all-entries-clear)  | `clear`
+[**Delete All Data** ⚠️](#-clearing-all-entries-clear) | `clear`
 [**Help**](#viewing-help-help) | `help` 
 [**Exit**](#exiting-the-program-exit) | `exit`                                                                                                                                          
 
@@ -110,13 +111,13 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com b/B+ d/04-11-1999`
 * `add n/Betsy Crowe e/betsycrowe@example.com b/O- d/20-05-2004`
 
-### Listing all donors : `list`
+### Listing all donors: `list`
 
 Shows a list of all donors in the BloodNet system.
 
 Format: `list`
 
-### Locating donors by name: `find `
+### Locating donors by name: `find`
 
 Finds donors whose names contain any of the given keywords.
 
@@ -148,7 +149,7 @@ Examples:
 To be added
 <!-- Examples will be added soon -->
 
-### Editing a donor : `edit`
+### Editing a donor: `edit`
 
 Let's say you made a mistake and keyed in the wrong information when adding a donor. No worries! Use this command to
 edit an existing donor in the BloodNet system.
@@ -168,7 +169,7 @@ Examples:
 * `find Betsy` followed by `edit 1 p/91234567` edits the phone number of the 1st donor in the result of the `find`
   command.
 
-### ⚠️ Deleting a donor : `delete`
+### ⚠️ Deleting a donor: `delete`
 
 Let's say you added someone to BloodNet on accident. That's alright! This command can be used to delete a specified
 donor from the BloodNet system.
@@ -178,13 +179,28 @@ Format: `delete DONOR_LIST_INDEX`
 * Deletes the donor at the specified `DONOR_LIST_INDEX`.
 * The index refers to the index number shown in the displayed donor list.
 * The index **must be a positive integer** 1, 2, 3, …​
+* If the specified donor has donation records, those donation records will have to be deleted first using the
+  `deletedonation` command before the donor can be deleted.
 
 Examples:
 
 * `list` followed by `delete 2` deletes the 2nd donor in the BloodNet system.
 * `find Betsy` followed by `delete 1` deletes the 1st donor in the result of the `find` command.
 
-### Editing a donation record : `editdonation`
+### ⚠️ Deleting a donation record: `deletedonation`
+
+This command can be used to delete a specified donor from the BloodNet system.
+
+Format: `delete DONATION_RECORD_LIST_INDEX`
+
+* Deletes the donor at the specified `DONATION_RECORD_LIST_INDEX`.
+* The index refers to the index number shown in the displayed donation record list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `finddonations 1` followed by `deletedonation 2` deletes the 2nd donation record of the 1st donor in the donor list.
+
+### Editing a donation record: `editdonation`
 
 If you made a mistake when adding the donation record particulars for a person, do not fret! Use this command to
 edit an existing donor record in the BloodNet system.
@@ -214,7 +230,7 @@ Example:
 * `finddonations 3`: List all donation records of the 3rd donor in the donor list.
   ![result for 'finddonations 3'](images/finddonations3.png)
 
-### ⚠️ Clearing all entries : `clear`
+### ⚠️ Clearing all entries: `clear`
 
 Clears all entries from the BloodNet system.
 
@@ -226,13 +242,13 @@ Format: `clear`
 This operation is irreversible! Hence, it is recommended to take a backup of the data file before running this command.
 </box>
 
-### Exiting the program : `exit`
+### Exiting the program: `exit`
 
 Exits the program.
 
 Format: `exit`
 
-### Viewing help : `help`
+### Viewing help: `help`
 
 If you need a refresher on the formats of the various commands, use this command! It will provide a summary of the
 formats of each command, as well as the link to this user guide.
