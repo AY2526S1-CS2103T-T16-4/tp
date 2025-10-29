@@ -27,7 +27,7 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_BLOOD_TYPE + "BLOOD_TYPE "
+            + PREFIX_BLOOD_TYPE + "BLOOD_TYPE" + " "
             + PREFIX_DATE_OF_BIRTH + "DATE_OF_BIRTH_" + DATE_FORMAT, "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "

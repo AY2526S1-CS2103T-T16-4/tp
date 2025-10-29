@@ -8,8 +8,8 @@ import bloodnet.model.Model;
 import bloodnet.model.person.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all persons in BloodNet whose name contains any of the argument keywords.
- * Keyword matching is case-insensitive.
+ * Finds and lists all donors in BloodNet whose name contains any of the argument keywords.
+ * Note that keyword matching is case-insensitive.
  */
 public class FindCommand extends Command {
 
@@ -19,7 +19,7 @@ public class FindCommand extends Command {
             "Finds all donors whose names contain any of the specified keywords "
                     + "(case-insensitive) and displays them as a "
                     + "list with index numbers.", "Parameters: KEYWORD...",
-            "Example: " + COMMAND_WORD + " alice bob charlie");
+            "Example: " + COMMAND_WORD + " alice Bob charlie");
 
     private final NameContainsKeywordsPredicate predicate;
 

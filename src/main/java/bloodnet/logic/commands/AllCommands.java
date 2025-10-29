@@ -19,7 +19,7 @@ public class AllCommands {
     public static final HashMap<String, CommandInformation> COMMANDS = new LinkedHashMap<>();
 
     /**
-     * Adds the commands into a HashMap.
+     * Adds the commands into a HashMap for usage in the help window.
      */
     public static void addCommands() {
         for (CommandInformation information: ALL_COMMANDS) {

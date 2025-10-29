@@ -42,8 +42,6 @@ public class EditDonationCommand extends Command {
 
     public static final String MESSAGE_EDIT_DONATION_RECORD_SUCCESS = "Edited Donation Record: %1$s";
 
-    public static final String MESSAGE_DUPLICATE_DONATION_RECORD =
-            "No change to the donation record.";
     public static final String MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER =
             "You are attempting to modify a donation record to an invalid one. "
             + "Please fix these errors:";
