@@ -201,9 +201,9 @@ For clarity, the above diagrams omit general session handling, command parsing a
 
 The proposed undo/redo mechanism is facilitated by `VersionedBloodNet`. It extends `BloodNet` with an undo/redo history, stored internally as an `BloodNetStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
-* `VersionedBloodNet#commit()` — Saves the current bloodnet state in its history.
-* `VersionedBloodNet#undo()` — Restores the previous bloodnet state from its history.
-* `VersionedBloodNet#redo()` — Restores a previously undone bloodnet state from its history.
+* `VersionedBloodNet#commit()` — Saves the current Bloodnet state in its history.
+* `VersionedBloodNet#undo()` — Restores the previous Bloodnet state from its history.
+* `VersionedBloodNet#redo()` — Restores a previously undone Bloodnet state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitBloodNet()`, `Model#undoBloodNet()` and `Model#redoBloodNet()` respectively.
 
@@ -227,7 +227,7 @@ Step 3. The user executes `add n/David …​` to add a new person. The `add` co
 
 </box>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoBloodNet()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous BloodNet state, and restores the BloodNet to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoBloodNet()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous BloodNet state, and restores BloodNet to that state.
 
 <puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
 
@@ -362,7 +362,7 @@ Use case ends.
 
 **Extensions**
 
-* 1a. One or more of the provided information is invalid
+* 1a. One or more fields of the provided information is invalid
     * 1a1. BloodNet shows an error message.
     * Use case returns to step 1.
 
@@ -387,11 +387,11 @@ Use case ends.
 
 * 2a. Donor ID not found.
     * 3a1. BloodNet shows an error message.
-    * Use case returns to step 3.
+    * Use case returns to step 2.
 
 * 2b. One or more invalid values provided.
     * 3b1. BloodNet shows an error message.
-    * Use case returns to step 3.
+    * Use case returns to step 2.
 
 ---
 
@@ -427,7 +427,11 @@ Use case ends.
 
 * 2a. Donor ID is invalid.
     * 3a1. BloodNet shows an error message.
-    * Use case returns to step 3.
+    * Use case returns to step 2.
+
+* 2b. Donor has one or more existing donation records.
+    * Admin staff deletes donation records of user ([UC10](#use-case-uc10---delete-a-blood-donation-record)).
+    * Use case returns to step 2.
 
 ---
 
@@ -604,7 +608,7 @@ Use case ends.
 * **Donor**: Person who donates blood to others
 * **Destructive operation**: An action that leads to permanent removal of data
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A Singaporean (+65) contact detail that is not meant to be shared with others
+* **Private contact detail**: An 8-digit Singaporean (+65) contact detail that is not meant to be shared with others
 * **Run**: In the context of a command, refers to carrying out the entire lifecycle of a command, including user interaction and invoking domain logic
 * **Execution**: In the context of a command, refers specifically to invoking the domain logic of the command, without handling any user interaction
 * **Input Box**: The text box in the application that receives all textual inputs from the user
