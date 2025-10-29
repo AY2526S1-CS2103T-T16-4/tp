@@ -20,17 +20,13 @@ import bloodnet.model.ReadOnlyBloodNet;
 import bloodnet.model.donationrecord.DonationRecord;
 import bloodnet.model.person.Person;
 import bloodnet.storage.Storage;
+import bloodnet.storage.StorageManager;
 import javafx.collections.ObservableList;
 
 /**
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic {
-    public static final String FILE_OPS_ERROR_FORMAT = "Could not save data due to the following error: %s";
-
-    public static final String FILE_OPS_PERMISSION_ERROR_FORMAT =
-            "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
-
     public static final String TERMINAL_COMMAND_SESSION_STATE_ERROR_MESSAGE =
             "An error has occured under the hood! \n"
                     + "Your previous command was likely not properly captured. Please try again.";
@@ -111,9 +107,10 @@ public class LogicManager implements Logic {
             model.setBloodNet(latestBloodNet);
 
         } catch (AccessDeniedException e) {
-            throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
+            throw new CommandException(
+                    String.format(StorageManager.FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
         } catch (IOException ioe) {
-            throw new CommandException(String.format(FILE_OPS_ERROR_FORMAT, ioe.getMessage()), ioe);
+            throw new CommandException(String.format(StorageManager.FILE_OPS_ERROR_FORMAT, ioe.getMessage()), ioe);
         } catch (DataLoadingException e) {
             throw new CommandException("Data file at " + storage.getBloodNetFilePath() + " could not be reloaded.");
         }
