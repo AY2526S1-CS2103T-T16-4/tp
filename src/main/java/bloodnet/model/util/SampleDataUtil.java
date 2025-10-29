@@ -74,7 +74,7 @@ public class SampleDataUtil {
                         new DonationDate("18-02-2025"), new BloodVolume("400")),
                 new DonationRecord(UUID.fromString("27e01424-af32-4be4-a08b-b93f7870b45f"),
                         UUID.fromString("763927e1-342b-468b-b539-3197e55cd53b"),
-                        new DonationDate("15-10-2025"), new BloodVolume("500")),
+                        new DonationDate("15-10-2025"), new BloodVolume("499")),
         };
     }
 }
