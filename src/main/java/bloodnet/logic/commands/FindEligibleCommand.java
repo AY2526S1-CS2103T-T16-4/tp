@@ -28,7 +28,7 @@ public class FindEligibleCommand extends Command {
                     + "made a previous donation within the last 3 years from the donation date (inclusive of "
                     + "that donation date), and the donation date must be strictly before their 66th birthday."
                     + " In addition, there must be a minimum of 84 days between any two consecutive donations.",
-            "Parameters: BLOOD_TYPE(S)", "Example: " + COMMAND_WORD + " O+ A+ B+");
+            "Parameters: BLOOD_TYPE...", "Example: " + COMMAND_WORD + " O+ A+ B+");
 
     private final List<String> enteredBloodTypes;
 

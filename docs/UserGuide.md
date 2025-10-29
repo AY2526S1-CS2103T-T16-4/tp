@@ -60,12 +60,12 @@ for locations where internet service is unreliable!
 -------------------------- |-------------------------------------------------------------------------------------------------------------------------------------------------
 [**Add Donor**](#adding-a-donor-add)| `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com b/A+ d/22-11-2004` 
 [**List All Donors**](#listing-all-donors-list) | `list`                                                                                                                                          
-[**Find Donor**](#locating-donors-by-name-find)| `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`     
-[**Find Eligible Donors**](#finding-eligible-donors-based-on-blood-type-findeligible) | `findeligible BLOOD_TYPE(S)`<br> e.g., `findeligible A+ O+ B+`
+[**Find Donor**](#locating-donors-by-name-find)| `find KEYWORD...`<br> e.g., `find James Jake`     
+[**Find Eligible Donors**](#finding-eligible-donors-based-on-blood-type-findeligible) | `findeligible BLOOD_TYPE...`<br> e.g., `findeligible A+ O+ B+`
 [**Edit Donor**](#editing-a-donor-edit) | `edit DONOR_LIST_INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`          
 [**Delete Donor** ⚠️](#-deleting-a-donor-delete) | `delete DONOR_LIST_INDEX `<br> e.g., `delete 3`
 [**Delete Donation Record** ⚠️](#-deleting-a-donation-record-deletedonation) | `deletedonation DONATION_RECORD_LIST_INDEX `<br> e.g., `deletedonation 1`
-[**Edit Donation Record**](#editing-a-donation-record-editdonation) | `editdonation DONATION_RECORD_LIST_INDEX `<br> e.g., `editdonation 1 v/350 d/20-02-2025 `
+[**Edit Donation Record**](#editing-a-donation-record-editdonation) | `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLUME]`<br> e.g., `editdonation 1 d/20-02-2025 v/350`
 [**Find Donation Records of a Donor**](#finding-donation-records-of-a-donor-finddonations) | `finddonations DONOR_LIST_INDEX` <br> e.g., `finddonations 3`
 [**Delete All Data** ⚠️](#-clearing-all-entries-clear) | `clear`
 [**Help**](#viewing-help-help) | `help` 
@@ -90,6 +90,13 @@ for locations where internet service is unreliable!
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be
   ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+
+* Parameters enclosed in square brackets, `[]`, are optional.
+  e.g., in `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLUME]`, `[d/DONATION_DATE]` and `[v/BLOOD_VOLUME]` may each be omitted.
+    * **Note**: Although parameters may be marked as optional, there may be cases where at least one of the optional parameters must be provided (such as in `editdonation` and `edit`). When this applies, it will be explicitly stated both in this user guide and in the in-application help messages.
+
+* Parameters followed by ellipsis (`...`) indicate that multiple **but at least one** value(s) can be supplied.
+  e.g., in `findeligible BLOOD_TYPE...`, `findeligible A+` and `findeligbile A+ B+ O-` are all valid commands but `findeligible` is invalid.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines
   as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -121,7 +128,7 @@ Format: `list`
 
 Finds donors whose names contain any of the given keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD...`
 
 * The search is case-insensitive. e.g. `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -139,7 +146,7 @@ Examples:
 
 Finds all people who are eligible to donate blood for the specified blood type(s).
 
-Format: `findeligible BLOOD_TYPE(S)`
+Format: `findeligible BLOOD_TYPE...`
 
 * The search is case-insensitive. e.g. `O+` and `o+` will match the blood type of someone with blood type O+.
 * Eligibility criteria are based on guidelines from the Health Sciences Authority. The donor’s date of birth and 
