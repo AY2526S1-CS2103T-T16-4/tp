@@ -9,13 +9,17 @@ package Logic as LogicPackage {
 package "Parser Classes" as ParserClasses{
 }
 Class XYZCommand
-Class CommandResult
+Class InputResponse
 Class "{abstract}\nCommand" as Command
 
 
 Class "<<interface>>\nLogic" as Logic
 Class LogicManager
+
+Class "{abstract}\nCommandSession" as Session
+class ABCCommandSession
 }
+
 
 package Model {
 Class HiddenModel #FFFFFF
@@ -32,16 +36,25 @@ LogicManager -right->"1" ParserClasses
 ParserClasses ..> XYZCommand : <<create>>
 
 XYZCommand -up-|> Command
-LogicManager .left.> Command : <<call>>
+LogicManager -left-> Command : <<call>>
 
 LogicManager --> Model
 LogicManager --> Storage
 Storage --[hidden] Model
-Command .[hidden]up.> Storage
-Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+Session .[hidden]up.> Storage
+Command ..> Model
+note top of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
 
-Logic ..> CommandResult
-LogicManager .down.> CommandResult
-Command .up.> CommandResult : <<create>>
+LogicManager -down-> Session
+ABCCommandSession -up-|> Session
+Command .up.> ABCCommandSession : <<create>>
+
+Command .up.> InputResponse : <<create>>
+
+note right of ABCCommandSession: ABCCommandSession = \nSingleStepCommandSession, \nConfirmationCommandSession, etc
+
+
+Logic ..> InputResponse
+LogicManager -down-> InputResponse
+Session .up.> InputResponse : <<create>>
 @enduml
