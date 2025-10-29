@@ -1,5 +1,6 @@
 package bloodnet.logic.commands;
 
+import static bloodnet.logic.parser.CliSyntax.DATE_FORMAT;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_TYPE;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -26,8 +27,8 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_BLOOD_TYPE + "BLOOD TYPE "
-            + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH (DD-MM-YYYY)", "Example: " + COMMAND_WORD + " "
+            + PREFIX_BLOOD_TYPE + "BLOOD_TYPE "
+            + PREFIX_DATE_OF_BIRTH + "DATE_OF_BIRTH_" + DATE_FORMAT, "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "

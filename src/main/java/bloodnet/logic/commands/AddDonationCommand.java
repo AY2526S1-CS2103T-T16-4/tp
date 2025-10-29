@@ -1,5 +1,8 @@
 package bloodnet.logic.commands;
 
+import static bloodnet.logic.parser.CliSyntax.DATE_FORMAT;
+import static bloodnet.logic.parser.CliSyntax.MILLIMITRE_FORMAT;
+import static bloodnet.logic.parser.CliSyntax.POSITIVE_INTEGER_FORMAT;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_VOLUME;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_DONATION_DATE;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_PERSON_INDEX_ONE_BASED;
@@ -30,9 +33,10 @@ public class AddDonationCommand extends Command {
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
             "Adds a donation "
             + "record for the donor identified by their index number in the displayed donor list.",
-            "Parameters: " + PREFIX_PERSON_INDEX_ONE_BASED + "DONOR INDEX (must be positive integer) "
-            + PREFIX_DONATION_DATE + "DONATION DATE (DD-MM-YYYY) " + PREFIX_BLOOD_VOLUME
-                    + "BLOOD VOLUME (IN MILLILITRES)", "Example: " + COMMAND_WORD + " "
+            "Parameters: " + PREFIX_PERSON_INDEX_ONE_BASED + "DONOR_LIST_INDEX_" + POSITIVE_INTEGER_FORMAT + " "
+            + PREFIX_DONATION_DATE + "DONATION_DATE_" + DATE_FORMAT + " " + PREFIX_BLOOD_VOLUME
+            + "BLOOD_VOLUME_" + MILLIMITRE_FORMAT,
+            "Example: " + COMMAND_WORD + " "
             + PREFIX_PERSON_INDEX_ONE_BASED + "1 "
             + PREFIX_DONATION_DATE + "07-05-2025 "
             + PREFIX_BLOOD_VOLUME + "450 ");

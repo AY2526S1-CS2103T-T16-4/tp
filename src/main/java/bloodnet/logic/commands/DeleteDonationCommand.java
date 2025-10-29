@@ -1,5 +1,6 @@
 package bloodnet.logic.commands;
 
+import static bloodnet.logic.parser.CliSyntax.POSITIVE_INTEGER_FORMAT;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class DeleteDonationCommand extends Command {
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
             "Deletes the "
             + "donation record identified by the index number used in the displayed donation record list.",
-            "Parameters: DONATION RECORD INDEX (must be a positive integer)",
+            "Parameters: DONATION_RECORD_LIST_INDEX_" + POSITIVE_INTEGER_FORMAT,
             "Example: " + COMMAND_WORD + " 1");
 
     public static final String MESSAGE_DELETE_DONATION_SUCCESS = "Deleted Donation Record: %1$s";

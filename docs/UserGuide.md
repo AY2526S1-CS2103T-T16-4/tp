@@ -58,7 +58,7 @@ for locations where internet service is unreliable!
 
  Action              | Format, Examples                                                                                                                                
 -------------------------- |-------------------------------------------------------------------------------------------------------------------------------------------------
-[**Add Donor**](#adding-a-donor-add)| `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com b/A+ d/22-11-2004` 
+[**Add Donor**](#adding-a-donor-add)| `add n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH` <br> e.g., `add n/James Ho p/92224444 e/jamesho@example.com b/A+ d/22-11-2004` 
 [**List All Donors**](#listing-all-donors-list) | `list`                                                                                                                                          
 [**Find Donor**](#locating-donors-by-name-find)| `find KEYWORD...`<br> e.g., `find James Jake`     
 [**Find Eligible Donors**](#finding-eligible-donors-based-on-blood-type-findeligible) | `findeligible BLOOD_TYPE...`<br> e.g., `findeligible A+ O+ B+`
@@ -82,7 +82,7 @@ for locations where internet service is unreliable!
 **Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. in `adddonation n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`, `NAME`, `PHONE`, `EMAIL`, `BLOOD_TYPE` and `DATE_OF_BIRTH` are parameters which can be used as `add n/John Doe p/91111111 e/john@gmail.com b/A+ d/22-11-2004`.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME b/BLOOD_TYPE`, `b/BLOOD_TYPE n/NAME` is also acceptable.
@@ -108,7 +108,7 @@ for locations where internet service is unreliable!
 
 Whenever someone signs up to be a blood donor, use this command to add them to the BloodNet system!
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`
+Format: `add n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`
 
 * BLOOD_TYPE must be either O+, O-, A+, A-, B+, B-, AB+ or AB-
 * DATE_OF_BIRTH must be in the *dd-MM-yyyy* format
@@ -212,7 +212,7 @@ Examples:
 If you made a mistake when adding the donation record particulars for a person, do not fret! Use this command to
 edit an existing donor record in the BloodNet system.
 
-Format: `editdonation DONATION_RECORD_LIST_INDEX [v/BLOOD_VOLUME] [d/DONATION_DATE]`
+Format: `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLUME]`
 
 * Edits the person at the specified `DONATION_RECORD_LIST_INDEX`. The index refers to the index number shown in the
   displayed donation record list. The specified index **must be a positive integer** 1, 2, 3, …​
