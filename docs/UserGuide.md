@@ -91,9 +91,9 @@ for locations where internet service is unreliable!
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines
   as space characters surrounding line-breaks may be omitted when copied over to the application.
-  </box>
 
 * ⚠️ indicates that user confirmation will be prompted before execution.
+  </box>
 
 ### Adding a donor: `add`
 
