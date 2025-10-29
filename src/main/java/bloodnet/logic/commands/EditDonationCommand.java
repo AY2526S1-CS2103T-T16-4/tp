@@ -120,7 +120,7 @@ public class EditDonationCommand extends Command {
     private Person getPersonToEditRecordFor(Model model, DonationRecord donationRecord) throws CommandException {
         requireNonNull(model);
         requireNonNull(donationRecord);
-        List<Person> personList = model.getFilteredPersonList();
+        List<Person> personList = model.getBloodNet().getPersonList();
         Optional<Person> optionalPerson = personList.stream()
                 .filter(person -> person.getId().equals(donationRecord.getPersonId())).findFirst();
 
