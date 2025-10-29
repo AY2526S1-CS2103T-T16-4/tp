@@ -3,6 +3,7 @@ package bloodnet;
 import static bloodnet.model.util.SampleDataUtil.getSampleBloodNet;
 
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -94,7 +95,14 @@ public class MainApp extends Application {
                 bloodNetOptional = storage.readBloodNet();
             }
             initialData = bloodNetOptional.orElseGet(SampleDataUtil::getSampleBloodNet);
-        } catch (Exception e) {
+
+        } catch (AccessDeniedException e) {
+            logger.warning(String.format(StorageManager.FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()));
+            initialData = new BloodNet();
+        } catch (IOException ioe) {
+            logger.warning(String.format(StorageManager.FILE_OPS_ERROR_FORMAT, ioe.getMessage()));
+            initialData = new BloodNet();
+        } catch (DataLoadingException e) {
             logger.warning("Data file at " + storage.getBloodNetFilePath() + " could not be loaded."
                     + " Will be starting with an empty BloodNet.");
             initialData = new BloodNet();
