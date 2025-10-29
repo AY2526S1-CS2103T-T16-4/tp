@@ -201,9 +201,9 @@ For clarity, the above diagrams omit general session handling, command parsing a
 
 The proposed undo/redo mechanism is facilitated by `VersionedBloodNet`. It extends `BloodNet` with an undo/redo history, stored internally as an `BloodNetStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
-* `VersionedBloodNet#commit()` — Saves the current Bloodnet state in its history.
-* `VersionedBloodNet#undo()` — Restores the previous Bloodnet state from its history.
-* `VersionedBloodNet#redo()` — Restores a previously undone Bloodnet state from its history.
+* `VersionedBloodNet#commit()` — Saves the current BloodNet state in its history.
+* `VersionedBloodNet#undo()` — Restores the previous BloodNet state from its history.
+* `VersionedBloodNet#redo()` — Restores a previously undone BloodNet state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitBloodNet()`, `Model#undoBloodNet()` and `Model#redoBloodNet()` respectively.
 
@@ -607,6 +607,7 @@ Use case ends.
 * **Blood Type**: The blood types supported are A+, A-, B+, B-, AB+, AB-, O+ and O-
 * **Donor**: Person who donates blood to others
 * **Destructive operation**: An action that leads to permanent removal of data
+* **Field**: A single piece of information for a donor or donation record.
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: An 8-digit Singaporean (+65) contact detail that is not meant to be shared with others
 * **Run**: In the context of a command, refers to carrying out the entire lifecycle of a command, including user interaction and invoking domain logic
