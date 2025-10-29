@@ -24,7 +24,7 @@ public class FindEligibleCommand extends Command {
             "Finds all donors who are eligible to donate blood for the specified blood type(s) "
                     + "(case-insensitive) and displays them as a list with index numbers. All eligible blood donors "
                     + "must be at least 16 (inclusive) years old. The maximum age for first-time donors is generally 60"
-                    + "years and 354 days, but repeat donors may have different age limits. Additionally, "
+                    + " years and 354 days, but repeat donors may have different age limits. Additionally, "
                     + "blood donors must not donate more than once within a 12-week period.",
             "Parameters: BLOOD_TYPE(S)", "Example: " + COMMAND_WORD + " O+ A+ B+");
 

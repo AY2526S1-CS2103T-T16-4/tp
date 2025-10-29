@@ -40,7 +40,7 @@ public class CommandInformation {
     }
 
     public String getMessageUsage() {
-        return this.command + ": " + this.description + "\n" + this.parameters + "\n" + this.example + "\n";
+        return this.command + ": " + this.description + "\n" + this.parameters + "\n" + this.example;
     }
 }
 
