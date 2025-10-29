@@ -36,7 +36,6 @@ public class AddDonationCommand extends Command {
             + PREFIX_DONATION_DATE + "07-05-2025 "
             + PREFIX_BLOOD_VOLUME + "450 ");
 
-
     public static final String MESSAGE_SUCCESS = "New donation record added: %1$s";
     public static final String MESSAGE_DUPLICATE_DONATION_RECORD =
                                                 "This donation record already exists in BloodNet";

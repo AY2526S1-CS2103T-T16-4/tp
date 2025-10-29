@@ -51,7 +51,6 @@ public class AddCommand extends Command {
         return COMMAND_INFORMATION.getMessageUsage();
     }
 
-
     @Override
     public InputResponse execute(Model model) throws CommandException {
         requireNonNull(model);

@@ -89,6 +89,4 @@ public class DeleteCommand extends Command {
     public static String getMessageUsage() {
         return COMMAND_INFORMATION.getMessageUsage();
     }
-
-
 }

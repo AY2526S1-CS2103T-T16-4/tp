@@ -81,5 +81,4 @@ public class FindDonationsCommand extends Command {
     public static String getMessageUsage() {
         return COMMAND_INFORMATION.getMessageUsage();
     }
-
 }
