@@ -62,7 +62,7 @@ for locations where internet service is unreliable!
 [**List All Donors**](#listing-all-donors-list) | `list`                                                                                                                                          
 [**Find Donor**](#locating-donors-by-name-find)| `find KEYWORD...`<br> e.g., `find James Jake`     
 [**Find Eligible Donors**](#finding-eligible-donors-based-on-blood-type-findeligible) | `findeligible BLOOD_TYPE...`<br> e.g., `findeligible A+ O+ B+`
-[**Edit Donor**](#editing-a-donor-edit) | `edit DONOR_LIST_INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`          
+[**Edit Donor**](#editing-a-donor-edit) | `edit DONOR_LIST_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`          
 [**Delete Donor** ⚠️](#-deleting-a-donor-delete) | `delete DONOR_LIST_INDEX `<br> e.g., `delete 3`
 [**Delete Donation Record** ⚠️](#-deleting-a-donation-record-deletedonation) | `deletedonation DONATION_RECORD_LIST_INDEX `<br> e.g., `deletedonation 1`
 [**Edit Donation Record**](#editing-a-donation-record-editdonation) | `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLUME]`<br> e.g., `editdonation 1 d/20-02-2025 v/350`
@@ -82,7 +82,7 @@ for locations where internet service is unreliable!
 **Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `adddonation n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`, `NAME`, `PHONE`, `EMAIL`, `BLOOD_TYPE` and `DATE_OF_BIRTH` are parameters which can be used as `add n/John Doe p/91111111 e/john@gmail.com b/A+ d/22-11-2004`.
+  e.g. in `add n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`, `NAME`, `PHONE`, `EMAIL`, `BLOOD_TYPE` and `DATE_OF_BIRTH` are parameters which can be used as `add n/John Doe p/98124309 e/john@gmail.com b/A+ d/22-11-2004`.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME b/BLOOD_TYPE`, `b/BLOOD_TYPE n/NAME` is also acceptable.
@@ -95,8 +95,8 @@ for locations where internet service is unreliable!
   e.g., in `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLUME]`, `[d/DONATION_DATE]` and `[v/BLOOD_VOLUME]` may each be omitted.
     * **Note**: Although parameters may be marked as optional, there may be cases where at least one of the optional parameters must be provided (such as in `editdonation` and `edit`). When this applies, it will be explicitly stated both in this user guide and in the in-application help messages.
 
-* Parameters followed by ellipsis (`...`) indicate that multiple **but at least one** value(s) can be supplied.
-  e.g., in `findeligible BLOOD_TYPE...`, `findeligible A+` and `findeligbile A+ B+ O-` are all valid commands but `findeligible` is invalid.
+* Parameters followed by ellipsis (`...`) indicate that multiple **but at least one** value(s) must be supplied by the user.
+  e.g., in `findeligible BLOOD_TYPE...`, `findeligible A+` and `findeligible A+ B+ O-` are all valid commands but `findeligible` with no parameters is an invalid command.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines
   as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -111,7 +111,7 @@ Whenever someone signs up to be a blood donor, use this command to add them to t
 Format: `add n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`
 
 * BLOOD_TYPE must be either O+, O-, A+, A-, B+, B-, AB+ or AB-
-* DATE_OF_BIRTH must be in the *dd-MM-yyyy* format
+* DATE_OF_BIRTH must be in the *DD-MM-YYYY* format
 
 Examples:
 
@@ -149,12 +149,12 @@ Finds all people who are eligible to donate blood for the specified blood type(s
 Format: `findeligible BLOOD_TYPE...`
 
 * The search is case-insensitive. e.g. `O+` and `o+` will match the blood type of someone with blood type O+.
-* Eligibility criteria are based on guidelines from the Health Sciences Authority. The donor’s date of birth and 
-  how long it has been since their last blood donation are both considered when determining eligibility.
+* Eligibility criteria are based on official guidelines. The donor’s date of birth and 
+  how long it has been since their last blood donation are both considered when determining an individual's eligibility.
 
 Examples:
 To be added
-<!-- Examples will be added soon -->
+<!-- Examples will be added in the next PR -->
 
 ### Editing a donor: `edit`
 
@@ -196,20 +196,20 @@ Examples:
 
 ### ⚠️ Deleting a donation record: `deletedonation`
 
-This command can be used to delete a specified donor from the BloodNet system.
+This command can be used to delete a specified donation record from the BloodNet system.
 
-Format: `delete DONATION_RECORD_LIST_INDEX`
+Format: `deletedonation DONATION_RECORD_LIST_INDEX`
 
 * Deletes the donor at the specified `DONATION_RECORD_LIST_INDEX`.
 * The index refers to the index number shown in the displayed donation record list.
 * The index **must be a positive whole number** 1, 2, 3, …​
 
 Examples:
-* `finddonations 1` followed by `deletedonation 2` deletes the 2nd donation record of the 1st donor in the donor list.
+* `finddonations 1` followed by `deletedonation 2` deletes the 2nd donation record of the 1st donor in the shown donor list.
 
 ### Editing a donation record: `editdonation`
 
-If you made a mistake when adding the donation record particulars for a person, do not fret! Use this command to
+If you made a mistake when adding the donation record particulars for a person, please do not fret! Use this command to
 edit an existing donor record in the BloodNet system.
 
 Format: `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLUME]`
@@ -223,7 +223,7 @@ Examples:
 
 * `editdonation 1 v/200 ` Edits the blood volume of the 1st donation record list
 * `editdonation 3 d/13-10-2024 ` Edits the donation date of the 3rd donation record list.
-<!-- More examples will be added soon -->
+<!-- More examples will be added soon in the next PR-->
 
 ## Finding donation records of a donor: `finddonations`
 
@@ -246,14 +246,8 @@ Format: `clear`
 <box type="warning" seamless>
 
 **Caution:**
-This operation is irreversible! Hence, it is recommended to take a backup of the data file before running this command.
+Note that this operation is irreversible! Hence, it is recommended to create a backup of the data file before running this command.
 </box>
-
-### Exiting the program: `exit`
-
-Exits the program.
-
-Format: `exit`
 
 ### Viewing help: `help`
 
@@ -261,6 +255,12 @@ If you need a refresher on the formats of the various commands, use this command
 formats of each command, as well as the link to this user guide.
 
 Format: `help`
+
+### Exiting the program: `exit`
+
+Exits the program.
+
+Format: `exit`
 
 ### Saving the data
 
@@ -278,7 +278,7 @@ welcome to update data directly by editing that data file.
 If your changes to the data file makes its format invalid, BloodNet will discard all data and start with an empty data
 file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the BloodNet to behave in unexpected ways (e.g., if a value entered is outside the
-acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+acceptable range). Therefore, edit the data file only if you are confident that you are able to update it correctly.
 </box>
 
 ### Archiving data files `[coming in v2.0]`
@@ -293,7 +293,8 @@ _Details coming soon ..._
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
 the data of your previous BloodNet home folder.
 **Q**: Are the donor list and donation records list synchronised?
-**A**: **NO!** The two lists should be treated as largely independent. The only time they interact is for donation-related commands that require a donor to be specified (e.g., `finddonations`, `adddonation`). In these cases, the person index used as a parameter is derived from the donor list.
+**A**: **NO!** The two lists should be treated as largely independent. The only time they interact is for donation-related commands that require a donor to be specified (e.g., `finddonations`, `adddonation`). In these cases, the donor index used as a parameter is derived from the shown donor list.
+
 
 --------------------------------------------------------------------------------------------------------------------
 
