@@ -164,7 +164,7 @@ edit an existing donor in the BloodNet system.
 Format: `edit DONOR_LIST_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`
 
 * Edits the person at the specified `DONOR_LIST_INDEX`. The index refers to the index number shown in the 
-  displayed donor list. The specified index **must be a positive integer** 1, 2, 3, …​
+  displayed donor list. The specified index **must be a positive whole number** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
@@ -185,7 +185,7 @@ Format: `delete DONOR_LIST_INDEX`
 
 * Deletes the donor at the specified `DONOR_LIST_INDEX`.
 * The index refers to the index number shown in the displayed donor list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive whole number** 1, 2, 3, …​
 * If the specified donor has donation records, those donation records will have to be deleted first using the
   `deletedonation` command before the donor can be deleted.
 
@@ -202,7 +202,7 @@ Format: `delete DONATION_RECORD_LIST_INDEX`
 
 * Deletes the donor at the specified `DONATION_RECORD_LIST_INDEX`.
 * The index refers to the index number shown in the displayed donation record list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive whole number** 1, 2, 3, …​
 
 Examples:
 * `finddonations 1` followed by `deletedonation 2` deletes the 2nd donation record of the 1st donor in the donor list.
@@ -215,7 +215,7 @@ edit an existing donor record in the BloodNet system.
 Format: `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLUME]`
 
 * Edits the person at the specified `DONATION_RECORD_LIST_INDEX`. The index refers to the index number shown in the
-  displayed donation record list. The specified index **must be a positive integer** 1, 2, 3, …​
+  displayed donation record list. The specified index **must be a positive whole number** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
