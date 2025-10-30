@@ -1,5 +1,6 @@
 package bloodnet.logic.commands;
 
+import static bloodnet.logic.parser.CliSyntax.POSITIVE_INTEGER_FORMAT;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import bloodnet.model.Model;
 import bloodnet.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from BloodNet.
+ * Deletes a person identified using its displayed index from the person list.
  */
 public class DeleteCommand extends Command {
 
@@ -22,10 +23,10 @@ public class DeleteCommand extends Command {
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
             "Deletes the "
-            + "donor identified by the index number used in the displayed donor list. Note that the donor"
+            + "donor identified by the index number used in the displayed donor list. Note that the donor "
                     + "can only be deleted if the donor has no donation records.",
-            "Example: " + COMMAND_WORD + " 1",
-            "Parameters: INDEX (must be a positive integer)");
+            "Parameters: DONOR_LIST_INDEX_" + POSITIVE_INTEGER_FORMAT,
+            "Example: " + COMMAND_WORD + " 1");
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 

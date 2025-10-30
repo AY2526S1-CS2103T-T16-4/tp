@@ -13,7 +13,7 @@ import bloodnet.model.person.HasBloodTypePredicate;
 import bloodnet.model.person.IsEligibleToDonatePredicate;
 
 /**
- * Finds and lists all eligible donors based on blood type, date of birth
+ * Finds and lists all eligible persons based on blood type, date of birth
  * and number of days since their last donation, if applicable.
  */
 public class FindEligibleCommand extends Command {
@@ -28,7 +28,7 @@ public class FindEligibleCommand extends Command {
                     + "made a previous donation within the last 3 years from the donation date (inclusive of "
                     + "that donation date), and the donation date must be strictly before their 66th birthday."
                     + " In addition, there must be a minimum of 84 days between any two consecutive donations.",
-            "Parameters: BLOOD_TYPE(S)", "Example: " + COMMAND_WORD + " O+ A+ B+");
+            "Parameters: BLOOD_TYPE...", "Example: " + COMMAND_WORD + " O+ A+ B+");
 
     private final List<String> enteredBloodTypes;
 
