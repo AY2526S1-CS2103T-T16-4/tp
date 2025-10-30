@@ -583,16 +583,14 @@ testers are expected to do more *exploratory* testing.
 
 In the course of the past few weeks, beyond just repurposing AB3 to a blood donor address book, we have made significant upgrades to it for our target audience, which involved a substantial amount of hard work, ingenuity, late nights and early mornings (just look at some of the commit timings):
 
-### Having multiple entities, donors and donation records
+### New Blood Type and Data of Birth fields (Person model)
+In order for the person model to capture the information users need to track each donor, we added the blood type and date of birth fields. This meant having to add code in many places of the codebase.
 
-In order to remain accuracy with the current blood donation guidelines in Singapore, we decided to the `isEligibleToDonate` predicate, which is invoked when adding a donation to a donor's record ensure eligibility. 
+### New Donation Record model
+In order for the system to not only track donors but also their donations (i.e. when and what volume of blood was donated), we added a Donation Record model. This was incredibly time consuming as we had to add a lot of new code to the storage, model, and logic packages.
 
-The original AB3 only has a predicate that allows individuals to search by name, but determining which blood donors are eligible require more complex criteria than just regex. 
-
-As a result, implementing `isEligibleToDonate` required integrating these checks into the existing logic, handling edge cases and ensuring consistency with the current guidelines. 
-
-Overall, this addition improved reliability and the correctness of all donation-related operations prevalent in the system.  
-
+### New command to find eligible donors of particular blood types.
+When reserves of a particular blood type are running low, users may want to search for existing donors in the system who are eligible to donate, so they can reach out to them and request for an urgent donation. This was challenging as the official rules on blood donation eligibility are complex. This eligibility check is also conducted when adding or editing a donation record.
 
 ### User confirmation
 Wanting to safeguards against accidental destructive operations, we sought to implement user confirmation before such operations.
