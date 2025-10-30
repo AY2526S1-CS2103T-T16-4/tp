@@ -36,9 +36,9 @@ public class EditCommand extends Command {
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
             "Edits the "
-            + "field(s) of the donor identified by the index number used in the displayed donor list. "
-            + "At least one field to edit must "
-            + "be provided.", "Parameters: DONOR_LIST_INDEX_" + POSITIVE_INTEGER_FORMAT + " "
+                    + "field(s) of the donor identified by the index number used in the displayed donor list. "
+                    + "At least one field to edit must "
+                    + "be provided.", "Parameters: DONOR_LIST_INDEX_" + POSITIVE_INTEGER_FORMAT + " "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
@@ -47,7 +47,7 @@ public class EditCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com");
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Donor: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited donor: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This donor already exists in BloodNet.";
 
@@ -55,7 +55,7 @@ public class EditCommand extends Command {
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index Index of the person in the filtered person list to edit.
+     * @param index                Index of the person in the filtered person list to edit.
      * @param editPersonDescriptor Details to edit the person with.
      */
     public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {

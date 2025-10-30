@@ -23,12 +23,12 @@ public class DeleteCommand extends Command {
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
             "Deletes the "
-            + "donor identified by the index number used in the displayed donor list. Note that the donor "
+                    + "donor identified by the index number used in the displayed donor list. Note that the donor "
                     + "can only be deleted if the donor has no donation records.",
             "Parameters: DONOR_LIST_INDEX_" + POSITIVE_INTEGER_FORMAT,
             "Example: " + COMMAND_WORD + " 1");
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted donor: %1$s";
 
     private final Index targetIndex;
 
