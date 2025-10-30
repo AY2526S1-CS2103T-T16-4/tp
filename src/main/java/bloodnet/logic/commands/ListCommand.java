@@ -12,7 +12,7 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_SUCCESS = "Listed all donors";
+    public static final String MESSAGE_SUCCESS = "Listed all donors.";
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
             "Lists out all donors.", "", "");
