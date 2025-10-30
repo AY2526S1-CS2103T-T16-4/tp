@@ -12,11 +12,11 @@ public class AllCommands {
             FindCommand.COMMAND_INFORMATION,
             AddCommand.COMMAND_INFORMATION,
             EditCommand.COMMAND_INFORMATION, DeleteCommand.COMMAND_INFORMATION,
-            ClearCommand.COMMAND_INFORMATION,
             FindDonationsCommand.COMMAND_INFORMATION,
             AddDonationCommand.COMMAND_INFORMATION, EditDonationCommand.COMMAND_INFORMATION,
             DeleteDonationCommand.COMMAND_INFORMATION,
             FindEligibleCommand.COMMAND_INFORMATION,
+            ClearCommand.COMMAND_INFORMATION,
             HelpCommand.COMMAND_INFORMATION, ExitCommand.COMMAND_INFORMATION};
 
     public static final HashMap<String, CommandInformation> COMMANDS = new LinkedHashMap<>();
