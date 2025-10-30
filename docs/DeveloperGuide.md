@@ -9,7 +9,7 @@ pageNav: 3
 
 ## **Acknowledgements**
 
-- Blood donation eligibility criteria in Singapore were based on guidelines from the Health Sciences Authority
+- Blood donation eligibility criteria in Singapore were based on guidelines from the [Health Sciences Authority](https://www.hsa.gov.sg/blood-donation/can-i-donate)
 <!-- Can add more, if used -->
 --------------------------------------------------------------------------------------------------------------------
 
