@@ -64,6 +64,7 @@ for locations where internet service is unreliable!
 [**Find Eligible Donors**](#finding-eligible-donors-based-on-blood-type-findeligible) | `findeligible BLOOD_TYPE(S)`<br> e.g., `findeligible A+ O+ B+`
 [**Edit Donor**](#editing-a-donor-edit) | `edit DONOR_LIST_INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 [**Delete Donor** ⚠️](#%EF%B8%8F-deleting-a-donor-delete) | `delete DONOR_LIST_INDEX `<br> e.g., `delete 3`
+[**Add Donation Record**](#adding-a-donation-record-adddonation) | `adddonation p/DONOR_LIST_INDEX d/DONATION_DATE v/BLOOD_VOLUME`<br> e.g., `adddonation p/1 d/09-05-2025 v/200`
 [**Delete Donation Record** ⚠️](#%EF%B8%8F-deleting-a-donation-record-deletedonation) | `deletedonation DONATION_RECORD_LIST_INDEX `<br> e.g., `deletedonation 1`
 [**Edit Donation Record**](#editing-a-donation-record-editdonation) | `editdonation DONATION_RECORD_LIST_INDEX `<br> e.g., `editdonation 1 v/350 d/20-02-2025 `
 [**Find Donation Records of a Donor**](#finding-donation-records-of-a-donor-finddonations) | `finddonations DONOR_LIST_INDEX` <br> e.g., `finddonations 3`
@@ -186,6 +187,21 @@ Examples:
 
 * `list` followed by `delete 2` deletes the 2nd donor in the BloodNet system.
 * `find Betsy` followed by `delete 1` deletes the 1st donor in the result of the `find` command.
+
+### Adding a donation record: `adddonation`
+
+This command can be used to add a donation record for a donor.
+
+Format: `adddonation p/DONOR_LIST_INDEX d/DONATION_DATE v/BLOOD_VOLUME`
+
+* Adds a donation record for the donor corresponding to the specified `DONOR_LIST_INDEX`.
+* The index refers to the index number shown in the displayed donor list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* DONATION_DATE must be in the *dd-MM-yyyy* format
+* BLOOD_VOLUME **must be a positive integer** strictly **less than 500**.
+
+Examples:
+* `adddonation p/1 d/15-10-2025 v/200` adds a donation record for the 1st donor, with a blood volume of 200ml donated on 15-10-2025.
 
 ### ⚠️ Deleting a donation record: `deletedonation`
 
