@@ -8,11 +8,14 @@ import java.util.LinkedHashMap;
  */
 public class AllCommands {
 
-    public static final CommandInformation[] ALL_COMMANDS = {AddCommand.COMMAND_INFORMATION,
+    public static final CommandInformation[] ALL_COMMANDS = { ListCommand.COMMAND_INFORMATION,
+            FindCommand.COMMAND_INFORMATION,
+            AddCommand.COMMAND_INFORMATION,
             EditCommand.COMMAND_INFORMATION, DeleteCommand.COMMAND_INFORMATION,
-            FindCommand.COMMAND_INFORMATION, ListCommand.COMMAND_INFORMATION, ClearCommand.COMMAND_INFORMATION,
+            ClearCommand.COMMAND_INFORMATION,
+            FindDonationsCommand.COMMAND_INFORMATION,
             AddDonationCommand.COMMAND_INFORMATION, EditDonationCommand.COMMAND_INFORMATION,
-            DeleteDonationCommand.COMMAND_INFORMATION, FindDonationsCommand.COMMAND_INFORMATION,
+            DeleteDonationCommand.COMMAND_INFORMATION,
             FindEligibleCommand.COMMAND_INFORMATION,
             HelpCommand.COMMAND_INFORMATION, ExitCommand.COMMAND_INFORMATION};
 
