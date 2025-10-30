@@ -19,7 +19,7 @@ public class FindCommand extends Command {
             "Finds all donors whose names contain any of the specified keywords "
                     + "(case-insensitive) and displays them as a "
                     + "list with index numbers.", "Parameters: KEYWORD...",
-            "Example: " + COMMAND_WORD + " alice Bob charlie");
+            "Example: " + COMMAND_WORD + " alice bob charlie");
 
     private final NameContainsKeywordsPredicate predicate;
 

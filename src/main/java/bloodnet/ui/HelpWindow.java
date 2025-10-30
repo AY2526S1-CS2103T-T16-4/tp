@@ -111,6 +111,7 @@ public class HelpWindow extends UiPart<Stage> {
         final ClipboardContent url = new ClipboardContent();
         url.putString(USERGUIDE_URL);
         clipboard.setContent(url);
+        logger.info("BloodNet User Guide URL copied successfully.");
     }
 
     /**
@@ -163,7 +164,6 @@ public class HelpWindow extends UiPart<Stage> {
         Button linker = new Button("Copy link");
         linker.getStyleClass().add("copyButton");
         linker.setOnAction(event -> copyUrl());
-        logger.info("User clicked 'Copy Link' button.");
         helpMessage.getChildren().add(linker);
     }
 }
