@@ -39,12 +39,12 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
+        logger.info("HelpWindow initialised.");
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         getRoot().setWidth(screenBounds.getWidth() * 0.6);
         getRoot().setHeight(screenBounds.getHeight() * 0.8);
         getRoot().setResizable(true);
         addTitle();
-        AllCommands all = new AllCommands();
         AllCommands.addCommands();
         formatInstructions();
         addLink();
@@ -163,6 +163,7 @@ public class HelpWindow extends UiPart<Stage> {
         Button linker = new Button("Copy link");
         linker.getStyleClass().add("copyButton");
         linker.setOnAction(event -> copyUrl());
+        logger.info("User clicked 'Copy Link' button.");
         helpMessage.getChildren().add(linker);
     }
 }
