@@ -22,7 +22,7 @@ if ()then ([user includes one or more valid blood type(s)])
     :From the updated PersonList, the DonationRecordList is updated;
     if () then([filtered PersonList not empty])
         :Update corresponding DonationRecord list;
-        :Show updated donor list and donation record list;
+        :Show updated person list and donation record list;
     else([else])
         :Show message: "No eligible donors found";
     endif
