@@ -199,7 +199,7 @@ In the future, we can make the `FilteredPersonList` and `FilteredDonationRecordL
 
 The diagram below illustrates a potential implementation using the `FindEligible` command.
 
-<puml src="diagrams/FutureUIImplementationForFindEligible.puml" alt="FutureUIImplementationForFindEligible">
+<puml src="diagrams/FutureUIImplementationForFindEligible.puml" alt="FutureUIImplementationForFindEligible"/>
 
 __________________________________________________________________________________________________
 
@@ -561,11 +561,11 @@ testers are expected to do more *exploratory* testing.
 
 ### find:
 #### _Test 1_
-* **Test instructions**: Run `find aleX davId iRfan`
+* **Test instructions**: Run `find aleX davId iRfan`.
 
 * **Expected Message**: “3 persons listed”
 
-* **Expected Displayed Donor List**: Alex Yeoh, David Li and Irfan Ibrahim
+* **Expected Displayed Donor List**: Displays Alex Yeoh, David Li and Irfan Ibrahim.
 
 * **Expected Displayed Donation Records List**: No change.
 
@@ -573,11 +573,11 @@ testers are expected to do more *exploratory* testing.
 
 ### list:
 #### _Test 1_
-* **Test instructions**: Run `list`
+* **Test instructions**: Run `list`.
 
 * **Expected Message**: “Listed all donors”
 
-* **Expected Displayed Donor List**: All 6 donors are displayed
+* **Expected Displayed Donor List**: Display all 6 donors.
 
 * **Expected Displayed Donation Records List**: No change.
 
@@ -585,11 +585,11 @@ testers are expected to do more *exploratory* testing.
 
 ### add:
 #### _Test 1_
-* **Test instructions**: Run `add n/John Doe p/98765432 e/johnd@example.com b/A+ d/30-03-2004`
+* **Test instructions**: Run `add n/John Doe p/98765432 e/johnd@example.com b/A+ d/30-03-2004`.
 
 * **Expected Message**: “New donor added: John Doe; Phone: 98765432; Email: johnd@example.com; Blood Type: A+; Date Of Birth: 30-03-2004”
 
-* **Expected Displayed Donor List**: John Doe is added to the end of the list
+* **Expected Displayed Donor List**: John Doe is added to the end of the list.
 
 * **Expected Displayed Donation Records List**: No change.
 
@@ -597,11 +597,11 @@ testers are expected to do more *exploratory* testing.
 
 ### edit:
 #### _Test 1_
-* **Test instructions**: Run `list`, followed by `edit 1 p/91234567 e/johndoe@example.com`
+* **Test instructions**: Run `list`, followed by `edit 1 p/91234567 e/johndoe@example.com`.
 
 * **Expected Message**: “Edited donor: Alex Yeoh; Phone: 91234567; Email: johndoe@example.com; Blood Type: A+; Date Of Birth: 28-03-1995”
 
-* **Expected Displayed Donor List**: Alex Yeoh’s phone number is updated to “91234567”, while his email is updated to “johndoe@example.com”
+* **Expected Displayed Donor List**: Alex Yeoh’s phone number is updated to “91234567”, while his email is updated to “johndoe@example.com”.
 
 * **Expected Displayed Donation Records List**: No change.
 
@@ -609,22 +609,22 @@ testers are expected to do more *exploratory* testing.
 
 ### delete:
 #### _Test 1_
-* **Test instructions**: Run `list`, followed by `delete 6`
+* **Test instructions**: Run `list`, followed by `delete 6`.
 
 * **Expected Message**: “Are you sure you want to delete Roy Balakrishnan? This action is not reversible.
 Key in either 'yes' or 'no'.”
 
-* **Expected Displayed Donor List**: No change
+* **Expected Displayed Donor List**: No change.
 
-* **Expected Displayed Donation Record List**: No change
+* **Expected Displayed Donation Record List**: No change.
 
-* **Test instructions (cont.)**: Then, input `yes`
+* **Test instructions (cont.)**: Then, input `yes`.
 
 * **Expected Message**: “Deleted donor: Roy Balakrishnan; Phone: 92624417; Email: royb@example.com; Blood Type: O+; Date Of Birth: 21-03-2004”
 
-* **Expected Displayed Donor List**: Roy Balakrishnan is removed from the donor list
+* **Expected Displayed Donor List**: Roy Balakrishnan is removed from the donor list.
 
-* **Expected Displayed Donation Record List**: No change
+* **Expected Displayed Donation Record List**: No change.
 
 
 
@@ -634,7 +634,7 @@ Key in either 'yes' or 'no'.”
 
 * **Expected Message**: “2 donation records related to Alex Yeoh found!”
 
-* **Expected Displayed Donor List**: No change
+* **Expected Displayed Donor List**: No change.
 
 * **Expected Displayed Donation Record List**: Displays only two donation records and the donor of these records is Alex Yeoh.
 
@@ -642,19 +642,19 @@ Key in either 'yes' or 'no'.”
 
 ### adddonation:
 #### _Test 1_
-* **Test instructions**: Run `list`, followed by “adddonation p/1 d/10-10-2025 v/250”
+* **Test instructions**: Run `list`, followed by “adddonation p/1 d/10-10-2025 v/250”.
 
 * **Expected Message**: “New donation record added: Donor Name: Alex Yeoh; Donation Date: 10-10-2025; Blood Volume: 250”
 
 * **Expected Displayed Donor List**: No change.
 
-* **Expected Displayed Donation Record List**: New donation record with the provided details shown at the bottom of the list (ie: If using test data, should be at index 7.)
+* **Expected Displayed Donation Record List**: New donation record with the provided details shown at the bottom of the list (ie: If using test data, should be at index 7).
 
 
 
 ### editdonation:
 #### _Test 1_
-* **Test instruction**: Run `editdonation 5 v/499`
+* **Test instruction**: Run `editdonation 5 v/499`.
 
 * **Expected Message**: “Edited Donation Record: Donor Name: Irfan Ibrahim; Donation Date: 18-02-2025; Blood Volume: 499”
 
@@ -666,7 +666,7 @@ Key in either 'yes' or 'no'.”
 
 ### deletedonation:
 #### _Test 1_
-* **Test instructions**: Run `deletedonation 5`
+* **Test instructions**: Run `deletedonation 5`.
 
 * **Expected Message**: “Are you sure you want to delete donation record for: Donor Name: Irfan Ibrahim; Donation Date: 18-02-2025; Blood Volume: 400? This action is not reversible.
 Key in either 'yes' or 'no'.”
@@ -675,11 +675,11 @@ Key in either 'yes' or 'no'.”
 
 * **Expected Displayed Donation Record List**: No change.
 
-* **Test instructions (cont.)**: Then, key in “yes”
+* **Test instructions (cont.)**: Then, input `yes`.
 
 * **Expected message**: “Deleted Donation Record: Donor Name: Irfan Ibrahim; Donation Date: 18-02-2025; Blood Volume: 400”
 
-* **Expected Displayed Donor List**: No change
+* **Expected Displayed Donor List**: No change.
 
 * **Expected Displayed Donation Records List**: The 5th record should have been deleted.
 
@@ -687,21 +687,21 @@ Key in either 'yes' or 'no'.”
 
 ### findeligible:
 #### _Test 1_
-* **Test instructions**: Run `findeligible A+`
+* **Test instructions**: Run `findeligible A+`.
 
-* **Expected message**: 0 donors listed!
+* **Expected message**: "0 donors listed!"
 
-* **Expected Displayed Donor List**: Nothing shown.
+* **Expected Displayed Donor List**: Empty donor list.
 
 * **Expected Displayed Donation Records List**: No change.
 
 
 #### _Test 2_
-* **Test instructions**: Run `findeligible B+ AB+`
+* **Test instructions**: Run `findeligible B+ AB+`.
 
-* **Expected message**: 2 donors listed!
+* **Expected message**: "2 donors listed!"
 
-* **Expected Displayed Donor List**: Shows Bernice Yu and David Li
+* **Expected Displayed Donor List**: Displays Bernice Yu and David Li.
 
 * **Expected Displayed Donation Records List**: No change.
 
@@ -709,16 +709,16 @@ Key in either 'yes' or 'no'.”
 
 ### clear:
 #### _Test 1_
-* **Test instructions**: Run ‘list’ followed by ‘clear’
+* **Test instructions**: Run `list` followed by `clear`.
 
 * **Expected Message**: “Are you sure you want to clear BloodNet? This action is not reversible.
 Key in either 'yes' or 'no'.”
 
-* **Expected Displayed Donor List**: No change
+* **Expected Displayed Donor List**: No change.
 
-* **Expected Displayed donation**: No change
+* **Expected Displayed donation**: No change.
 
-* **Test instructions (cont.)**: Then, key in “yes”.
+* **Test instructions (cont.)**: Then, input `yes`.
 
 * **Expected Message**: “BloodNet has been cleared!”
 
@@ -729,14 +729,14 @@ Key in either 'yes' or 'no'.”
 
 
 ### help:
-* **Test instructions**: Run `help`
+* **Test instructions**: Run `help`.
 
 * **Expected Action**:  A help window appears on the screen. The help window should be resizable and show a list of all of the commands with usage instructions.
 
 
 
 ### exit:
-* **Test instructions**: Run `exit`
+* **Test instructions**: Run `exit`.
 
 * **Expected Action**:  The program closes the graphical user interface and automatically saves all current data before exiting.
 
@@ -752,7 +752,7 @@ When reserves of a particular blood type are running low, users may want to sear
 ### New Donation Record entity type
 In order for the system to not only track donors but also their donations (i.e. when and what volume of blood was donated), we added a Donation Record model. This was incredibly time-consuming due to the increase in complexity in having multiple entity types compared to AB3 which only deals with one entity type.
 
-### New commands to manage donation records
+#### New commands to manage donation records
 To manage the donation records, we added new commands to add, edit, delete, and find donation records, which also took time to create, debug and document.
 
 ### User confirmation
