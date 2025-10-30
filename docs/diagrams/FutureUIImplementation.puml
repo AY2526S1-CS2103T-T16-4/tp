@@ -1,0 +1,33 @@
+@startuml
+title Future FindEligible Command Implementation
+!include style.puml
+skinparam activity {
+    BackgroundColor FUTURE_IMPLEMENTATION_COLOUR
+    BorderColor black
+    ArrowColor FUTURE_IMPLEMENTATION_COLOUR_T4
+    FontColor white
+}
+skinparam ActivityFontSize 15
+skinparam ArrowFontSize 12
+
+start
+:User inputs FindEligible command;
+:Parse user input;
+
+if ()then ([user includes relevant blood type(s)])
+    :Create a new FindEligible Command;
+    :Creates HasBloodTypePredicate;
+    :Creates IsEligibleToDonatePredicate;
+    :Filter PersonList using both predicates;
+    :From the updated PersonList, the DonationRecordList is updated;
+    if () then([filtered PersonList not empty])
+        :Update corresponding DonationRecord list;
+        :Show updated person and donation record list;
+    else([else])
+        :Show message: "No eligible donors found";
+    endif
+else ([no])
+    :Show message: "Invalid blood type(s)";
+endif
+stop
+@enduml
