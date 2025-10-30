@@ -105,7 +105,7 @@ How the `Logic` component works:
     * This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`), which its `createSession` is invoked by `LogicManager`  to create a new `CommandSession` object (more precisely, an object of one of its subclasses e.g., `ConfirmationCommandSession`), which will become `LogicManager`'s `currentCommandSession`.
       * During the invoking of `createSession`, the `Command` object (depending on its implementation of `createSession`) may interact with the `Model` component to query target objects and/or perform validation checks.
 3. Advance current session
-* The current session is called upon to handle the input. 
+* The current session is called upon to handle the input.
 * The result of the input handling is encapsulated as an `InputResponse` object.
 * If the current command session has finished (as checked by its `isDone` method), the current session will be marked as `null`.
 * The `InputResponse` object is then returned back from `Logic`.
@@ -130,7 +130,7 @@ To make the handling of user inputs (regardless of whether it is a command input
 * **Interactive commands** (e.g., `delete`) creates a specialised session like `ConfirmationCommandSession` that manage multi-step interactions
 * **Single-step commands** (e.g., `list`) creates a `SingleStepCommandSession` which immediately carry out the command's execution. This is the default behaviour of a `Command` if `Command#createSession(Model)` is not overridden.
 
-THis design allows the `LogicManager` to **treat all user inputs uniformly**, using the presence or absence of a `currentCommandSession` to determine whether an input should be treated as a new command input.
+This design allows the `LogicManager` to **treat all user inputs uniformly**, using the presence or absence of a `currentCommandSession` to determine whether an input should be treated as a new command input.
 
 The method `CommandSession#isDone()` is then used by `LogicManager` to determine whether a session has completed. Once it returns `true`, the session is cleaned up, clearing `currentCommandSession` and allowing the next command input to be processed.
 
@@ -238,7 +238,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | * * *    | admin staff | find all donors of a particular blood type                                            | If we have a shortage of a particular blood type, we can contact these people and ask them for donations                             |
 | * * *    | admin staff | record a blood donation by a contact                                                  | I can track how many donations each contact has made, and the details of those donations                                             |
 | * * *    | admin staff | modify a blood donation record                                                        | I can modify wrongly keyed in records                                                                                                |
-| * * *    | admin staff | add the volume and donation date associated with a donation record                    | the blood bank is aware of the details associated with each donation record                                                          
+| * * *    | admin staff | add the volume and donation date associated with a donation record                    | the blood bank is aware of the details associated with each donation record
 | * * *    | admin staff | delete a blood donation record                                                        | I can remove wrongly keyed in records                                                                                                |
 | * * *    | admin staff | find all eligible donors given a blood type (based on age and last donation interval) | I can determine who I can call if blood is needed                                                                                    |
 | * *      | admin staff | find a donor based on contact information                                             | I can link their name and contact information together                                                                               |
@@ -291,11 +291,11 @@ Use case ends.
     * Use case ends.
 
 * 2a. Donor ID not found.
-    * 3a1. BloodNet shows an error message.
+    * 2a1. BloodNet shows an error message.
     * Use case returns to step 2.
 
 * 2b. One or more invalid values provided.
-    * 3b1. BloodNet shows an error message.
+    * 2b1. BloodNet shows an error message.
     * Use case returns to step 2.
 
 ---
@@ -361,14 +361,14 @@ Use case ends.
 
 1. Admin staff requests to find donors of a particular blood type.
 2. BloodNet searches the entire donor list and applies the eligibility rules, such as date of birth and days since last donation.
-3. BloodNet displays all donors who match the given blood type and the eligibility rules. 
+3. BloodNet displays all donors who match the given blood type and the eligibility rules.
 
 Use case ends.
 
 **Extensions**
 
-* 1a. Invalid blood type entered. 
-  * 1a1. BloodNet shows an error message. 
+* 1a. Invalid blood type entered.
+  * 1a1. BloodNet shows an error message.
   * Use case relates back to step 1, prompting the user to re-enter a blood type.
 
 ---
@@ -392,11 +392,11 @@ Use case ends.
     * Use case ends.
 
 * 3a. Donor ID is invalid.
-    * 2a1. BloodNet shows an error message.
+    * 3a1. BloodNet shows an error message.
     * Use case returns to step 3.
 
 * 3b. Date or volume format is invalid.
-    * 2b1. BloodNet shows an error message.
+    * 3b1. BloodNet shows an error message.
     * Use case resumes at step 3.
 
 ---
