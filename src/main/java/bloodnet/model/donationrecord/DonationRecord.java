@@ -125,12 +125,12 @@ public class DonationRecord {
      * 0th date, then return false if successor donation record is the 83rd date or
      * lower.</li>
      *
-     * <li>If donor is a first-time donor (ie, there exists no predecessor donation
-     * record for that donor) AND donationDate >= 61st birthdate of donor.</li>
+     * <li>If person is a first-time blood donor (ie, there exists no predecessor donation
+     * record for that donor) AND donationDate >= 61st birthdate of the person.</li>
      *
-     * <li>If donor is not a first-time donor (ie, there exists some predecessor
-     * donation record for that donor) AND donor has not donated in the last 3 years
-     * AND donationDate >= 66th birthdate of donor.</li>
+     * <li>If person is not a first-time blood donor (ie, there exists some predecessor
+     * donation record for that donor) AND person has not donated in the last 3 years
+     * AND donationDate >= 66th birthdate of the person.</li>
      * </ul>
      *
      * @return an {@code ArrayList} containing a list of validation error strings
@@ -183,7 +183,7 @@ public class DonationRecord {
                 .filter(donationRecord -> donationRecord.getPersonId().equals(person.getId()))
                 .filter(donationRecord -> isDonationRecordIdNull || !donationRecord.getId().equals(this.getId()))
                 .map(DonationRecord::getDonationDate)
-                .filter(dd -> dd.getValue().isBefore(donationDateValue))
+                .filter(donationDate -> donationDate.getValue().isBefore(donationDateValue))
                 .max(Comparator.comparing(DonationDate::getValue));
 
         // Find successor (first donation after donationDate)
@@ -191,7 +191,7 @@ public class DonationRecord {
                 .filter(donationRecord -> donationRecord.getPersonId().equals(person.getId()))
                 .filter(donationRecord -> isDonationRecordIdNull || !donationRecord.getId().equals(this.getId()))
                 .map(DonationRecord::getDonationDate)
-                .filter(dd -> dd.getValue().isAfter(donationDateValue))
+                .filter(donationDate -> donationDate.getValue().isAfter(donationDateValue))
                 .min(Comparator.comparing(DonationDate::getValue));
 
         // 2. Days between predecessor and donationDate must be >= 84
@@ -224,7 +224,7 @@ public class DonationRecord {
             }
         }
 
-        // 4. First-time donor and donationDate >= 61st birthday
+        // 4. Person is a first-time blood donor and donationDate >= 61st birthday
         LocalDate sixtyFirstBirthday = dateOfBirthValue.plusYears(61);
         if (predecessorDonationDateOptional.isEmpty() && !donationDateValue.isBefore(sixtyFirstBirthday)) {
             String errorMessage = String.format(MESSAGE_FIRST_TIME_DONOR_TOO_OLD, sixtyFirstBirthday.format(
@@ -232,7 +232,7 @@ public class DonationRecord {
             validationErrorStrings.add(errorMessage);
         }
 
-        // 5. Not first-time donor AND not donated in last 3 years AND donationDate >= 66th birthday
+        // 5. Person not first-time blood donor AND not donated in last 3 years AND donationDate >= 66th birthday
         LocalDate sixtySixthBirthday = dateOfBirthValue.plusYears(66);
         if (predecessorDonationDateOptional.isPresent()) {
             LocalDate lastDonation = predecessorDonationDateOptional.get().getValue();
