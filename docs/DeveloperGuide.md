@@ -9,7 +9,7 @@ pageNav: 3
 
 ## **Acknowledgements**
 
-We acknowledge that the blood donation eligibility criteria implemented in this project were guided by the [Health Sciences Authority (HSA)](https://www.hsa.gov.sg/blood-donation/can-i-donate) guidelines in Singapore
+- We acknowledge that the blood donation eligibility criteria implemented in this project were guided by the [Health Sciences Authority (HSA)](https://www.hsa.gov.sg/blood-donation/can-i-donate) guidelines in Singapore.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
