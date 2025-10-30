@@ -261,7 +261,7 @@ Format: `findeligible BLOOD_TYPE...`
 
 Example:
 * `findeligible A+ B+`: Lists all donors who have blood type A+ or B+ and are found eligible to donate based on the official guidelines.
-!result for ['findeligible A+ AB-'](images/findeligibleResults.png)
+  ![result for 'findeligible A+ AB-'](images/findeligibleResults.png)
 
 ### ⚠️ Clearing all entries: `clear`
 
