@@ -28,9 +28,9 @@ endnote
 
 if () then ([currentCommandSession has finished])
     :currentCommandSession is set to null;
-    :SaveBloodNet();
+    :saveBloodNet();
 else ([else])
 endif
-:Pass InputResponse generated to UI;
+:Pass InputResponse generated to the UI;
 stop
 @enduml
