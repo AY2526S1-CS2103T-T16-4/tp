@@ -654,34 +654,34 @@ Key in either 'yes' or 'no'.”
 
 ### editdonation:
 #### _Test 1_
-* **Test instruction**: Run `editdonation 5 v/499`.
+* **Test instruction**: Run `finddonations 1`, followed by `editdonation 2 v/499`
 
-* **Expected Message**: “Edited Donation Record: Donor Name: Irfan Ibrahim; Donation Date: 18-02-2025; Blood Volume: 499”
+* **Expected Message**: “Edited Donation Record: Donor Name: Alex Yeoh; Donation Date: 15-10-2025; Blood Volume: 499”
 
 * **Expected Displayed Donor List**: No change to the donor list.
 
-* **Expected Display Donation Record List**: The 5th donation record shown with the name “Irfan Ibrahim” should have the changed blood volume from 400 ml to 499 ml.
+* **Expected Display Donation Record List**: The 2nd donation record shown with the name “Alex Yeoh” should have the changed blood volume from 450 ml to 499 ml.
 
 
 
 ### deletedonation:
 #### _Test 1_
-* **Test instructions**: Run `deletedonation 5`.
+* **Test instructions**: Run `finddonations 3`, followed by `deletedonation 1`
 
-* **Expected Message**: “Are you sure you want to delete donation record for: Donor Name: Irfan Ibrahim; Donation Date: 18-02-2025; Blood Volume: 400? This action is not reversible.
+* **Expected Message**: “Are you sure you want to delete donation record for: Donor Name: Charlotte Oliveiro; Donation Date: 21-03-2025; Blood Volume: 400? This action is not reversible.
 Key in either 'yes' or 'no'.”
 
 * **Expected Displayed Donor List**: No change.
 
 * **Expected Displayed Donation Record List**: No change.
 
-* **Test instructions (cont.)**: Then, input `yes`.
+* **Test instructions (cont.)**: Then, key in “yes”
 
-* **Expected message**: “Deleted Donation Record: Donor Name: Irfan Ibrahim; Donation Date: 18-02-2025; Blood Volume: 400”
+* **Expected message**: “Deleted Donation Record: Donor Name: Charlotte Oliveiro; Donation Date: 21-03-2025; Blood Volume: 400”
 
-* **Expected Displayed Donor List**: No change.
+* **Expected Displayed Donor List**: No change
 
-* **Expected Displayed Donation Records List**: The 5th record should have been deleted.
+* **Expected Displayed Donation Records List**: The 1st record should have been deleted.
 
 
 
