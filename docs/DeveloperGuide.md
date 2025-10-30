@@ -193,7 +193,7 @@ For clarity, the above diagrams omit general session handling, command parsing a
 
 --------------------------------------------------------------------------------------------------------------------
 
-### \[Future enhancements\]
+## **Future Implementation**
 
 In the future, we can make the `FilteredPersonList` and `FilteredDonationRecordList` in sync. This means that the `DonationRecords` displayed correspond to the `Persons` displayed at all times. For example, when the user finds eligible blood donors from the list of `Persons`, the `DonationRecordsList` will be filtered such that only records which correspond to the displayed `Persons` are shown.
 
