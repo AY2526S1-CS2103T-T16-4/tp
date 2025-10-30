@@ -766,3 +766,9 @@ Overall, the addition of this new feature involved considerable architectural ch
 
 ### New Blood Type and Data of Birth fields (Person model)
 In order for the person model to capture the information users need to track each donor, we added the blood type and date of birth fields. This meant that we had to add additional lines of code in many places of the codebase.
+
+## **Appendix: Planned Enhancements**
+
+Team size: 5
+
+    <!-- Can list anything you have. -->
