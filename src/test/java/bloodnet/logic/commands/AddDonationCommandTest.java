@@ -251,6 +251,11 @@ public class AddDonationCommandTest {
         }
 
         @Override
+        public boolean hasDonationRecordFor(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteDonationRecord(DonationRecord target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -267,7 +272,7 @@ public class AddDonationCommandTest {
 
         @Override
         public void updateFilteredDonationRecordList(Predicate<DonationRecord> predicate) {
-            throw new AssertionError("This method should not be called.");
+            // Do nothing
         }
     }
 

@@ -1,5 +1,8 @@
 package bloodnet.logic.commands;
 
+import static bloodnet.logic.parser.CliSyntax.DATE_FORMAT;
+import static bloodnet.logic.parser.CliSyntax.MILLILITRE_FORMAT;
+import static bloodnet.logic.parser.CliSyntax.POSITIVE_INTEGER_FORMAT;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_VOLUME;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_DONATION_DATE;
 import static java.util.Objects.requireNonNull;
@@ -8,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 
 import bloodnet.commons.core.index.Index;
 import bloodnet.commons.util.CollectionUtil;
@@ -29,21 +31,23 @@ public class EditDonationCommand extends Command {
 
     public static final String COMMAND_WORD = "editdonation";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the donation record identified "
-            + "by the index number used in the displayed donation record list. \n"
-            + "Existing values will be overwritten by the input values. \n"
-            + "Parameters: DONATION_RECORD_LIST_INDEX (must be a positive integer) "
-            + PREFIX_DONATION_DATE + "DONATION DATE (DD-MM-YYYY) "
-            + PREFIX_BLOOD_VOLUME + "BLOOD VOLUME (IN MILLILITRES)\n"
-            + "Example: editdonation 1 v/100 d/02-02-2002";
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
+            "Edits the donation "
+            + "record detail(s) identified by the index number used in the displayed donation record list. "
+            + "At least one field must be provided.",
+            "Parameters: DONATION_RECORD_LIST_INDEX_" + POSITIVE_INTEGER_FORMAT + " "
+            + "[" + PREFIX_DONATION_DATE + "DONATION_DATE_" + DATE_FORMAT + "] "
+            + "[" + PREFIX_BLOOD_VOLUME + "BLOOD_VOLUME_" + MILLILITRE_FORMAT + "]",
+            "Example: editdonation 1 d/02-02-2002 v/100");
 
     public static final String MESSAGE_EDIT_DONATION_RECORD_SUCCESS = "Edited Donation Record: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_DONATION_RECORD =
-            "No change to the donation record.";
+
     public static final String MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER =
             "You are attempting to modify a donation record to an invalid one. "
             + "Please fix these errors:";
+
+    public static final String MESSAGE_DONATION_RECORD_ALREADY_EXISTS = "Donor has already been recorded "
+            + "as donating on the same date.";
 
     private final Index indexOfDonationRecord;
     private final EditDonationRecordDescriptor editDonationRecordDescriptor;
@@ -66,13 +70,10 @@ public class EditDonationCommand extends Command {
         requireNonNull(model);
         DonationRecord recordToEdit = getDonationRecordToEdit(model);
         Person personForRecordEdit = getPersonToEditRecordFor(model, recordToEdit);
-
-        assert personForRecordEdit != null;
-        UUID personId = personForRecordEdit.getId();
-        assert personId != null;
         DonationRecord editedDonationRecord = createEditedDonationRecord(recordToEdit, editDonationRecordDescriptor);
-
-        ArrayList<String> validationErrorStrings = editedDonationRecord.validate(model);
+        ArrayList<String> validationErrorStrings = editedDonationRecord
+                                                        .validate(model.getBloodNet().getPersonList(),
+                                                                  model.getBloodNet().getDonationRecordList());
         if (!validationErrorStrings.isEmpty()) {
             String concatenatedMessage = MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER;
             for (String validationErrorString : validationErrorStrings) {
@@ -81,8 +82,8 @@ public class EditDonationCommand extends Command {
             throw new CommandException(concatenatedMessage);
         }
 
-        if (recordToEdit.equals(editedDonationRecord)) {
-            throw new CommandException(MESSAGE_DUPLICATE_DONATION_RECORD);
+        if (!recordToEdit.isSameDonationRecord(editedDonationRecord) && model.hasDonationRecord(editedDonationRecord)) {
+            throw new CommandException(MESSAGE_DONATION_RECORD_ALREADY_EXISTS);
         }
 
         model.setDonationRecord(recordToEdit, editedDonationRecord);
@@ -119,15 +120,15 @@ public class EditDonationCommand extends Command {
      */
     private Person getPersonToEditRecordFor(Model model, DonationRecord donationRecord) throws CommandException {
         requireNonNull(model);
-        List<Person> personList = model.getFilteredPersonList();
+        requireNonNull(donationRecord);
+        List<Person> personList = model.getBloodNet().getPersonList();
         Optional<Person> optionalPerson = personList.stream()
                 .filter(person -> person.getId().equals(donationRecord.getPersonId())).findFirst();
 
         if (optionalPerson.isPresent()) {
             return optionalPerson.get();
         }
-
-        return null;
+        throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND);
     }
 
     @Override
@@ -152,6 +153,10 @@ public class EditDonationCommand extends Command {
                 .add("indexOfDonationRecord", indexOfDonationRecord)
                 .add("editDonationRecordDescriptor", editDonationRecordDescriptor)
                 .toString();
+    }
+
+    public static String getMessageUsage() {
+        return COMMAND_INFORMATION.getMessageUsage();
     }
 
     /**

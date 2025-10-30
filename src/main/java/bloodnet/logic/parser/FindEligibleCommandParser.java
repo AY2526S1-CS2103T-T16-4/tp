@@ -26,7 +26,7 @@ public class FindEligibleCommandParser implements Parser<FindEligibleCommand> {
 
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEligibleCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEligibleCommand.getMessageUsage()));
         }
 
         for (String bloodType : list) {

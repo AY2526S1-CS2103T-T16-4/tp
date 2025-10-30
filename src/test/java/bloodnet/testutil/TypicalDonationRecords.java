@@ -43,7 +43,7 @@ public class TypicalDonationRecords {
                     new DonationDate("18-02-2025"), new BloodVolume("400")),
             new DonationRecord(UUID.fromString("27e01424-af32-4be4-a08b-b93f7870b45f"),
                     UUID.fromString("0bd76fb4-244b-41ee-b220-b4f03b12d6c7"),
-                    new DonationDate("15-10-2025"), new BloodVolume("500"))
+                    new DonationDate("15-10-2025"), new BloodVolume("499"))
     );
     public static final DonationRecord CARL_DONATION_RECORD = CARL_DONATION_RECORDS.get(0);
 

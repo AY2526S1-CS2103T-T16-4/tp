@@ -9,8 +9,7 @@ pageNav: 3
 
 ## **Acknowledgements**
 
-- Blood donation eligibility criteria in Singapore were based on guidelines from the Health Sciences Authority
-<!-- Can add more, if used -->
+- We acknowledge that the blood donation eligibility criteria implemented in this project were guided by the [Health Sciences Authority (HSA)](https://www.hsa.gov.sg/blood-donation/can-i-donate) guidelines in Singapore.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
@@ -38,22 +37,21 @@ Given below is a quick overview of main components and how they interact with ea
 The bulk of the app's work is done by the following four components:
 
 * [**`UI`**](#ui-component): The UI of the App.
-* [**`Logic`**](#logic-component): The command executor.
+* [**`Logic`**](#logic-component): The input handler.
 * [**`Model`**](#model-component): Holds the data of the App in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
-
-[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
+* [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1` followed by responding with `yes` when user confirmation is sought before the command is executed.
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
 
 Each of the four main components (also shown in the above diagram),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point).
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -67,7 +65,7 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/AY2
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`InputBox`, `OutputBox`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/java/bloodnet/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
@@ -84,9 +82,9 @@ The `UI` component,
 
 Here's a (partial) class diagram of the `Logic` component:
 
-<puml src="diagrams/LogicClassDiagram.puml" width="550"/>
+<puml src="diagrams/LogicClassDiagram.puml" width="650"/>
 
-The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
+The sequence diagram below illustrates the interactions within the `Logic` component, taking `handle("delete 1")` API call followed by a `handle("yes")` API call as an example in a freshly started program.
 
 <puml src="diagrams/DeleteSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `delete 1` Command" />
 
@@ -96,13 +94,21 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 </box>
 
 How the `Logic` component works:
+1. Receive input
+* The `Logic` is called upon to handle an input
+2. Check for active session
+* `Logic` checks for an active current session
+* If there is no active current session:
+    * The input is passed to a `BloodNetParser` object which in turns creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
+    * This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`), which its `createSession` is invoked by `LogicManager`  to create a new `CommandSession` object (more precisely, an object of one of its subclasses e.g., `ConfirmationCommandSession`), which will become `LogicManager`'s `currentCommandSession`.
+      * During the invoking of `createSession`, the `Command` object (depending on its implementation of `createSession`) may interact with the `Model` component to query target objects and/or perform validation checks.
+3. Advance current session
+* The current session is called upon to handle the input.
+* The result of the input handling is encapsulated as an `InputResponse` object.
+* If the current command session has finished (as checked by its `isDone` method), the current session will be marked as `null`.
+* The `InputResponse` object is then returned back from `Logic`.
 
-1. When `Logic` is called upon to execute a command, it is passed to an `BloodNetParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-3. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
-   Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
-
+#### Parsing
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
 <puml src="diagrams/ParserClasses.puml" width="600"/>
@@ -110,6 +116,24 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 How the parsing works:
 * When called upon to parse a user command, the `BloodNetParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `BloodNetParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+
+#### Command Sessions
+`CommandSession` is an abstraction that has been developed to manage user interactivity during a command lifecycle in a maintainable and extensible way. It encapsulates the state and logic needed to handle multi-step (which includes single-step) interactions, while keeping the `Command` execution logic separate from input handling. Since `CommandSession` does not implement the `Command`'s execution logic itself, this logic is typically passed in during construction either by providing the `Command` object itself or by wrapping it in a help object (e.g., `DeferredExecution`).
+
+By using sessions, the system can:
+* Pause a command mid-lifecycle to wait for user input
+* Maintain contextual information across multiple user inputs
+
+To make the handling of user inputs (regardless of whether it is a command input or session input) uniform, **all commands create a `CommandSession` via `Command#createSession(Model model)**, regardless of whether they are interactive or single-step:
+* **Interactive commands** (e.g., `delete`) creates a specialised session like `ConfirmationCommandSession` that manage multi-step interactions
+* **Single-step commands** (e.g., `list`) creates a `SingleStepCommandSession` which immediately carry out the command's execution. This is the default behaviour of a `Command` if `Command#createSession(Model)` is not overridden.
+
+This design allows the `LogicManager` to **treat all user inputs uniformly**, using the presence or absence of a `currentCommandSession` to determine whether an input should be treated as a new command input.
+
+The method `CommandSession#isDone()` is then used by `LogicManager` to determine whether a session has completed. Once it returns `true`, the session is cleaned up, clearing `currentCommandSession` and allowing the next command input to be processed.
+
+The following activity diagram summarises the session lifecycle management when the user inputs something:
+<puml src="diagrams/CommandSessionActivityDiagram.puml" width="600"/>
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/java/bloodnet/model/Model.java)
@@ -132,7 +156,7 @@ The `Model` component,
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
 The `Storage` component,
-* can save both bloodnet data and user preference data in JSON format, and read them back into corresponding objects.
+* can save both BloodNet data and user preference data in JSON format, and read them back into corresponding objects.
 * inherits from both `BloodNetStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
@@ -146,100 +170,38 @@ Classes used by multiple components are in the `bloodnet.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
+### User Confirmation
+The user confirmation mechanism is facilitated by `ConfirmationCommandSession` class which is an implementation of `CommandSession` (See [Command Sessions](#command-sessions) for more details.)
 
-#### Proposed Implementation
+The `ConfirmationCommandSession` class manages interactive commands that require explicit user confirmation before execution (i.e., destructive operations).
+* When a command input is identified as requiring confirmation, the `LogicManager` invokes the parsed `Command`'s `createSession()` method, producing a `ConfirmationCommandSession` that stores the execution of the Command in a `deferredExecution` object.
 
-The proposed undo/redo mechanism is facilitated by `VersionedBloodNet`. It extends `BloodNet` with an undo/redo history, stored internally as an `BloodNetStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+To facilitate the handling of inputs within the context of its session, `ConfirmationCommandSession` maintains three internal states:
 
-* `VersionedBloodNet#commit()` — Saves the current bloodnet state in its history.
-* `VersionedBloodNet#undo()` — Restores the previous bloodnet state from its history.
-* `VersionedBloodNet#redo()` — Restores a previously undone bloodnet state from its history.
+State                   | Description                                      | Transition Condition|
+------------------------|--------------------------------------------------|--------------------|
+`INITIAL`               | Default state immediately after creation. Ignores the original command input (since its information is already encapsulated within the deferred execution passed into it) and returns a confirmation prompt. | Automatically transitions to `PENDING_CONFIRMATION`.
+`PENDING_CONFIRMATION`  | Waits for user input(`yes` or `no` (caps-insensitive)) <br><ul><li> `yes` -> carry out deferred execution of command.</li><li>`no` -> cancels command</li><li>Other input -> re-prompts user. | Transitions to `DONE` after confirmation or cancellation|
+`DONE`                  | Terminal state indicating the session has completed. Any further `handle()` calls throw `TerminalSessionStateException` | -|
 
-These operations are exposed in the `Model` interface as `Model#commitBloodNet()`, `Model#undoBloodNet()` and `Model#redoBloodNet()` respectively.
+The following activity diagrams contrast the flow of a command requiring user confirmation and a single-step command:
+<puml src="diagrams/ConfirmationCommandSessionActivityDiagram.puml" alt="ConfirmationCommandSessionActivityDiagram"/>
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+<puml src="diagrams/SingleStepCommandSessionActivityDiagram.puml" alt="SingleStepCommandSessionActivityDiagram"/>
 
-Step 1. The user launches the application for the first time. The `VersionedBloodNet` will be initialized with the initial BloodNet state, and the `currentStatePointer` pointing to that single BloodNet state.
-
-<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
-
-Step 2. The user executes `delete 5` command to delete the 5th person in BloodNet. The `delete` command calls `Model#commitBloodNet()`, causing the modified state of BloodNet after the `delete 5` command executes to be saved in the `BloodNetStateList`, and the `currentStatePointer` is shifted to the newly inserted BloodNet state.
-
-<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
-
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitBloodNet()`, causing another modified BloodNet state to be saved into the `BloodNetStateList`.
-
-<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
-
-<box type="info" seamless>
-
-**Note:** If a command fails its execution, it will not call `Model#commitBloodNet()`, so the BloodNet state will not be saved into the `BloodNetStateList`.
-
-</box>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoBloodNet()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous BloodNet state, and restores the BloodNet to that state.
-
-<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
-
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial BloodNet state, then there are no previous BloodNet states to restore. The `undo` command uses `Model#canUndoBloodNet()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</box>
-
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
-
-<puml src="diagrams/UndoSequenceDiagram-Logic.puml" alt="UndoSequenceDiagram-Logic" />
-
-<box type="info" seamless>
-
-**Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</box>
-
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-<puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
-
-The `redo` command does the opposite — it calls `Model#redoBloodNet()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the bloodnet to that state.
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index `BloodNetStateList.size() - 1`, pointing to the latest bloodnet state, then there are no undone BloodNet states to restore. The `redo` command uses `Model#canRedoBloodNet()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</box>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify BloodNet, such as `list`, will usually not call `Model#commitBloodNet()`, `Model#undoBloodNet()` or `Model#redoBloodNet()`. Thus, the `BloodNetStateList` remains unchanged.
-
-<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
-
-Step 6. The user executes `clear`, which calls `Model#commitBloodNet()`. Since the `currentStatePointer` is not pointing at the end of the `BloodNetStateList`, all BloodNet states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<puml src="diagrams/CommitActivityDiagram.puml" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire BloodNet.
-    * Pros: Easy to implement.
-    * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-    * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-    * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
+For clarity, the above diagrams omit general session handling, command parsing and input delegation. See [**Command Sessions**](#command-sessions) for a complete overview.
 
 --------------------------------------------------------------------------------------------------------------------
+
+## **Future Implementation**
+
+In the future, we can make the `FilteredPersonList` and `FilteredDonationRecordList` in sync. This means that the `DonationRecords` displayed correspond to the `Persons` displayed at all times. For example, when the user finds eligible blood donors from the list of `Persons`, the `DonationRecordsList` will be filtered such that only records which correspond to the displayed `Persons` are shown.
+
+The diagram below illustrates a potential implementation using the `FindEligible` command.
+
+<puml src="diagrams/FutureUIImplementationForFindEligible.puml" alt="FutureUIImplementationForFindEligible">
+
+__________________________________________________________________________________________________
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
@@ -284,7 +246,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | * * *    | admin staff | find all donors of a particular blood type                                            | If we have a shortage of a particular blood type, we can contact these people and ask them for donations                             |
 | * * *    | admin staff | record a blood donation by a contact                                                  | I can track how many donations each contact has made, and the details of those donations                                             |
 | * * *    | admin staff | modify a blood donation record                                                        | I can modify wrongly keyed in records                                                                                                |
-| * * *    | admin staff | add the volume and donation date associated with a donation record                    | the blood bank is aware of the details associated with each donation record                                                          
+| * * *    | admin staff | add the volume and donation date associated with a donation record                    | the blood bank is aware of the details associated with each donation record
 | * * *    | admin staff | delete a blood donation record                                                        | I can remove wrongly keyed in records                                                                                                |
 | * * *    | admin staff | find all eligible donors given a blood type (based on age and last donation interval) | I can determine who I can call if blood is needed                                                                                    |
 | * *      | admin staff | find a donor based on contact information                                             | I can link their name and contact information together                                                                               |
@@ -296,7 +258,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is `BloodNet`, unless specified otherwise)
+(For all use cases below, the **System** is `BloodNet`, unless specified otherwise.)
 
 ---
 
@@ -313,7 +275,7 @@ Use case ends.
 
 **Extensions**
 
-* 1a. One or more of the provided information is invalid
+* 1a. One or more fields of the provided information is invalid
     * 1a1. BloodNet shows an error message.
     * Use case returns to step 1.
 
@@ -325,8 +287,7 @@ Use case ends.
 
 **MSS**
 
-1. Admin staff lists all donors ([UC05](#use-case-uc05---list-all-donors-in-the-system
-   )).
+1. Admin staff lists all donors ([UC05](#use-case-uc05---list-all-donors-in-the-system)).
 2. Admin staff requests to update a specified donor, and provides the fields to update and values to update them with.
 3. BloodNet updates fields of the donor for which values were supplied.
 
@@ -337,12 +298,12 @@ Use case ends.
     * Use case ends.
 
 * 2a. Donor ID not found.
-    * 3a1. BloodNet shows an error message.
-    * Use case returns to step 3.
+    * 2a1. BloodNet shows an error message.
+    * Use case returns to step 2.
 
 * 2b. One or more invalid values provided.
-    * 3b1. BloodNet shows an error message.
-    * Use case returns to step 3.
+    * 2b1. BloodNet shows an error message.
+    * Use case returns to step 2.
 
 ---
 
@@ -377,10 +338,14 @@ Use case ends.
     * Use case ends.
 
 * 2a. Donor ID is invalid.
-    * 3a1. BloodNet shows an error message.
-    * Use case returns to step 3.
+    * 2a1. BloodNet shows an error message.
+    * Use case returns to step 2.
 
----
+* 2b. Donor has one or more existing donation records.
+    * 2b1. Admin staff deletes donation records of user ([UC10](#use-case-uc10---delete-a-blood-donation-record)).
+    * Use case returns to step 2.
+
+`---
 
 ### **Use case: UC05 - List all donors in the system**
 
@@ -403,14 +368,14 @@ Use case ends.
 
 1. Admin staff requests to find donors of a particular blood type.
 2. BloodNet searches the entire donor list and applies the eligibility rules, such as date of birth and days since last donation.
-3. BloodNet displays all donors who match the given blood type and the eligibility rules. 
+3. BloodNet displays all donors who match the given blood type and the eligibility rules.
 
 Use case ends.
 
 **Extensions**
 
-* 1a. Invalid blood type entered. 
-  * 1a1. BloodNet shows an error message. 
+* 1a. Invalid blood type entered.
+  * 1a1. BloodNet shows an error message.
   * Use case relates back to step 1, prompting the user to re-enter a blood type.
 
 ---
@@ -492,7 +457,7 @@ Use case ends.
     * Use case returns to step 3.
 
 * 5a. Donation ID is invalid.
-    * 1a1. BloodNet shows an error message.
+    * 5a1. BloodNet shows an error message.
       Use case returns to step 5.
 
 * 5b. Invalid data format for date or volume.
@@ -526,7 +491,7 @@ Use case ends.
     * Use case returns to step 3.
 
 * 5a. Donation ID is invalid.
-    * 1a1. BloodNet shows an error message.
+    * 5a1. BloodNet shows an error message.
       Use case returns to step 5.
 
 ---
@@ -539,7 +504,7 @@ Use case ends.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands rather than using the mouse.
 4. Should start within 5 seconds on a typical user machine (4 core CPU, 8GB RAM, SSD).
 5. User guide should be written with easy-to-understand English that is comprehensible to users without technical background.
-6. The user interface should be intuitive enough for users who are not IT-saavy.
+6. The user interface should be intuitive enough for users who are not IT-savvy.
 7. Should not be required to have beautiful visual design or animations since it is for administrative use.
 8. Should have user confirmation for _destructive operations_.
 9. Should provide error message, in response to an invalid operation, that details what went wrong and how to fix it for a non-technical user.
@@ -554,8 +519,17 @@ Use case ends.
 * **Blood Type**: The blood types supported are A+, A-, B+, B-, AB+, AB-, O+ and O-
 * **Donor**: Person who donates blood to others
 * **Destructive operation**: An action that leads to permanent removal of data
+* **Field**: A single piece of information for a donor or donation record.
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A Singaporean (+65) contact detail that is not meant to be shared with others
+* **Private contact detail**: An 8-digit Singaporean (+65) phone number that is not meant to be shared with others
+* **Run**: In the context of a command, refers to carrying out the entire lifecycle of a command, including user interaction and invoking domain logic
+* **Execution**: In the context of a command, refers specifically to invoking the domain logic of the command, without handling any user interaction
+* **Input Box**: The text box in the application that receives all textual inputs from the user
+* **Output Box**: The text box in the application that displays output resulting from processing an input/ executing a command
+* **User Input**: Any textual input entered by the user into the input box
+* **Command Input**: A specific type of user input that triggers a new command to run
+* **Input Response**: The application's response to a user input, encapsulating information such as the output to display in the output box and whether to exit the application
+* **Command Result**: A specific type of input response produced by a command after executing its domain logic
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -609,3 +583,31 @@ testers are expected to do more *exploratory* testing.
     1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 2. _{ more test cases …​ }_
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Effort**
+
+In the course of the past few weeks, beyond just repurposing AB3 to a blood donor address book, we have made significant upgrades to it for our target audience, which involved a substantial amount of hard work, ingenuity, late nights and early mornings (just look at some of the commit timings):
+
+### New command to find eligible donors of particular blood types.
+When reserves of a particular blood type are running low, users may want to search for existing donors in the system who are eligible to donate, so they can reach out to them and request for an urgent donation. This was challenging as the official rules on blood donation eligibility are fairly complex. It should be noted that an eligibility check is conducted when adding or editing a donation record.
+
+### New Donation Record entity type
+In order for the system to not only track donors but also their donations (i.e. when and what volume of blood was donated), we added a Donation Record model. This was incredibly time-consuming due to the increase in complexity in having multiple entity types compared to AB3 which only deals with one entity type.
+
+### New commands to manage donation records
+To manage the donation records, we added new commands to add, edit, delete, and find donation records, which also took time to create, debug and document.
+
+### User confirmation
+Wanting to safeguard against accidental destructive operations, we sought to implement user confirmation before such operations.
+
+To accomplish, much complexity needed to be introduced. AB3 originally executes every user input as a new command immediately. But introducing user interactivity within a command (which user confirmation support requires) fundamentally change this flow requiring us to create a new abstraction, `commandSession`, to manage multi-step interactions and persist information throughout the command lifecycle until completion.
+
+The implementation was challenging due to input delegation, differentiating between a new command input and an input within a command session, handling command exceptions resulting in mid-session exits, and maintaining consistent system state, all while providing a uniform framework compatible with single-step commands. Documentation also required careful revision as existing terms like "command", “execution” needed to be clarified and properly redesigned.
+
+Overall, the addition of this new feature involved considerable architectural changes, edge case handling and documentation effort to balance the usability and safety of the system.
+
+### New Blood Type and Data of Birth fields (Person model)
+In order for the person model to capture the information users need to track each donor, we added the blood type and date of birth fields. This meant that we had to add additional lines of code in many places of the codebase.
+

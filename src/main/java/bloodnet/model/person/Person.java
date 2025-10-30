@@ -8,7 +8,7 @@ import java.util.UUID;
 import bloodnet.commons.util.ToStringBuilder;
 
 /**
- * Represents a Person in the bloodnet.
+ * Represents a Person in the BloodNet.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {

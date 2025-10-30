@@ -1,5 +1,8 @@
 package bloodnet.logic.commands;
 
+import static bloodnet.logic.parser.CliSyntax.DATE_FORMAT;
+import static bloodnet.logic.parser.CliSyntax.MILLILITRE_FORMAT;
+import static bloodnet.logic.parser.CliSyntax.POSITIVE_INTEGER_FORMAT;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_VOLUME;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_DONATION_DATE;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_PERSON_INDEX_ONE_BASED;
@@ -17,6 +20,7 @@ import bloodnet.model.Model;
 import bloodnet.model.donationrecord.BloodVolume;
 import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.donationrecord.DonationRecord;
+import bloodnet.model.donationrecord.DonorIsSamePersonPredicate;
 import bloodnet.model.person.Person;
 
 /**
@@ -26,16 +30,16 @@ public class AddDonationCommand extends Command {
 
     public static final String COMMAND_WORD = "adddonation";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a donation record for "
-            + "the person identified by their index number in the displayed person list.\n"
-            + "Parameters: "
-            + PREFIX_PERSON_INDEX_ONE_BASED + "PERSON INDEX (must be positive integer) "
-            + PREFIX_DONATION_DATE + "DONATION DATE (DD-MM-YYYY) "
-            + PREFIX_BLOOD_VOLUME + "BLOOD VOLUME (IN MILLILITRES)\n"
-            + "Example: " + COMMAND_WORD + " "
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
+            "Adds a donation "
+            + "record for the donor identified by their index number in the displayed donor list.",
+            "Parameters: " + PREFIX_PERSON_INDEX_ONE_BASED + "DONOR_LIST_INDEX_" + POSITIVE_INTEGER_FORMAT + " "
+            + PREFIX_DONATION_DATE + "DONATION_DATE_" + DATE_FORMAT + " " + PREFIX_BLOOD_VOLUME
+            + "BLOOD_VOLUME_" + MILLILITRE_FORMAT,
+            "Example: " + COMMAND_WORD + " "
             + PREFIX_PERSON_INDEX_ONE_BASED + "1 "
             + PREFIX_DONATION_DATE + "07-05-2025 "
-            + PREFIX_BLOOD_VOLUME + "450 ";
+            + PREFIX_BLOOD_VOLUME + "450 ");
 
     public static final String MESSAGE_SUCCESS = "New donation record added: %1$s";
     public static final String MESSAGE_DUPLICATE_DONATION_RECORD =
@@ -69,7 +73,8 @@ public class AddDonationCommand extends Command {
 
         DonationRecord donationRecord = new DonationRecord(null, personId, donationDate, bloodVolume);
 
-        ArrayList<String> validationErrorStrings = donationRecord.validate(model);
+        ArrayList<String> validationErrorStrings = donationRecord.validate(model.getBloodNet().getPersonList(),
+                                                                           model.getBloodNet().getDonationRecordList());
         if (!validationErrorStrings.isEmpty()) {
             String concatenatedMessage = MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER;
             for (String validationErrorString : validationErrorStrings) {
@@ -83,6 +88,8 @@ public class AddDonationCommand extends Command {
         }
 
         model.addDonationRecord(donationRecord);
+
+        model.updateFilteredDonationRecordList(new DonorIsSamePersonPredicate(personToAddRecordFor));
 
         return new InputResponse(String.format(MESSAGE_SUCCESS, Messages.format(donationRecord, personToAddRecordFor)));
     }
@@ -125,5 +132,9 @@ public class AddDonationCommand extends Command {
         }
 
         return lastShownList.get(targetPersonIndex.getZeroBased());
+    }
+
+    public static String getMessageUsage() {
+        return COMMAND_INFORMATION.getMessageUsage();
     }
 }

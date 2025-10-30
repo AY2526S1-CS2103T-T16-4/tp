@@ -15,10 +15,14 @@ import bloodnet.model.UserPrefs;
  * Manages storage of BloodNet data in local storage.
  */
 public class StorageManager implements Storage {
+    public static final String FILE_OPS_ERROR_FORMAT = "Could not save data due to the following error: %s";
+    public static final String FILE_OPS_PERMISSION_ERROR_FORMAT =
+            "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private BloodNetStorage bloodNetStorage;
     private UserPrefsStorage userPrefsStorage;
+
 
     /**
      * Creates a {@code StorageManager} with the given {@code BloodNetStorage} and {@code UserPrefStorage}.

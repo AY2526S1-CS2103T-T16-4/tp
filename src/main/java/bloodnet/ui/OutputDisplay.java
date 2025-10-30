@@ -7,7 +7,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 
 /**
- * A ui for the status bar that is displayed at the header of the application.
+ * A UI for the status bar that is displayed at the header of the application.
  */
 public class OutputDisplay extends UiPart<Region> {
 
@@ -22,7 +22,7 @@ public class OutputDisplay extends UiPart<Region> {
 
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
+        outputDisplay.setWrapText(true);
         outputDisplay.setText(feedbackToUser);
     }
-
 }

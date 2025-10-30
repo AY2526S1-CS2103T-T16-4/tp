@@ -8,17 +8,18 @@ import bloodnet.model.Model;
 import bloodnet.model.person.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all persons in bloodnet whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Finds and lists all donors in BloodNet whose name contains any of the argument keywords.
+ * Note that keyword matching is case-insensitive.
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
+            "Finds all donors whose names contain any of the specified keywords "
+                    + "(case-insensitive) and displays them as a "
+                    + "list with index numbers.", "Parameters: KEYWORD...",
+            "Example: " + COMMAND_WORD + " alice bob charlie");
 
     private final NameContainsKeywordsPredicate predicate;
 
@@ -57,5 +58,9 @@ public class FindCommand extends Command {
         return new ToStringBuilder(this)
                 .add("predicate", predicate)
                 .toString();
+    }
+
+    public static String getMessageUsage() {
+        return COMMAND_INFORMATION.getMessageUsage();
     }
 }

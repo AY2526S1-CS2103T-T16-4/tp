@@ -30,5 +30,4 @@ public abstract class Command {
      * @throws CommandException If an error occurs during command execution.
      */
     public abstract InputResponse execute(Model model) throws CommandException;
-
 }

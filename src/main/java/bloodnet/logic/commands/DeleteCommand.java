@@ -1,5 +1,6 @@
 package bloodnet.logic.commands;
 
+import static bloodnet.logic.parser.CliSyntax.POSITIVE_INTEGER_FORMAT;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -14,18 +15,20 @@ import bloodnet.model.Model;
 import bloodnet.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the bloodnet.
+ * Deletes a person identified using its displayed index from the person list.
  */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
+            "Deletes the "
+                    + "donor identified by the index number used in the displayed donor list. Note that the donor "
+                    + "can only be deleted if the donor has no donation records.",
+            "Parameters: DONOR_LIST_INDEX_" + POSITIVE_INTEGER_FORMAT,
+            "Example: " + COMMAND_WORD + " 1");
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted donor: %1$s";
 
     private final Index targetIndex;
 
@@ -76,6 +79,16 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        return lastShownList.get(targetIndex.getZeroBased());
+        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+
+        if (model.hasDonationRecordFor(personToDelete)) {
+            throw new CommandException(Messages.MESSAGE_DELETE_PERSON_WITH_DONATION);
+        }
+
+        return personToDelete;
+    }
+
+    public static String getMessageUsage() {
+        return COMMAND_INFORMATION.getMessageUsage();
     }
 }

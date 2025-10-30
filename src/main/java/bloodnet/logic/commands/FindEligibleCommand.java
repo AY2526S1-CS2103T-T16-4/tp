@@ -13,21 +13,22 @@ import bloodnet.model.person.HasBloodTypePredicate;
 import bloodnet.model.person.IsEligibleToDonatePredicate;
 
 /**
- * Finds and lists all eligible person based on blood type, date of birth
+ * Finds and lists all eligible persons based on blood type, date of birth
  * and number of days since their last donation, if applicable.
  */
 public class FindEligibleCommand extends Command {
 
     public static final String COMMAND_WORD = "findeligible";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all people who are eligible to donate"
-            + " blood for the specified blood type(s) (case-insensitive) \nand displays them as a list with index "
-            + "numbers. \nAll eligible blood donors must be at least 16 (inclusive) years old.\nThe maximum age for "
-            + "first-time donors is generally 60 years and 354 days, but repeat donors may have different age limits \n"
-            + "depending on donation history. \n"
-            + "Parameters: BLOOD_TYPE(S) \n"
-            + "Example: " + COMMAND_WORD + " O+ A+ B+";
-
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
+            "Finds all donors who are eligible to donate blood for the specified blood type(s) "
+                    + "(case-insensitive) and displays them as a list with index numbers. All eligible blood donors "
+                    + "must be at least 16 (inclusive) years old on the donation date. For first-time donors, the  "
+                    + "donation date must be strictly before their 61st birthday. For returning donors, they must have "
+                    + "made a previous donation within the last 3 years from the donation date (inclusive of "
+                    + "that donation date), and the donation date must be strictly before their 66th birthday."
+                    + " In addition, there must be a minimum of 84 days between any two consecutive donations.",
+            "Parameters: BLOOD_TYPE...", "Example: " + COMMAND_WORD + " O+ A+ B+");
 
     private final List<String> enteredBloodTypes;
 
@@ -68,5 +69,9 @@ public class FindEligibleCommand extends Command {
         return new ToStringBuilder(this)
                 .add("bloodTypes", enteredBloodTypes)
                 .toString();
+    }
+
+    public static String getMessageUsage() {
+        return COMMAND_INFORMATION.getMessageUsage();
     }
 }

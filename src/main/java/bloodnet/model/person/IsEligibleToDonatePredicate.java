@@ -36,12 +36,12 @@ public class IsEligibleToDonatePredicate implements Predicate<Person> {
      */
     public boolean test(Person person) {
         // Using a dummy blood volume, as we want to reuse DonationRecord's .validate() method.
-        // Not the best design.
         DonationRecord donationRecord = new DonationRecord(null,
                                                             person.getId(),
                                                             donationDate,
                                                             new BloodVolume("1"));
-        ArrayList<String> validationErrorStrings = donationRecord.validate(model);
+        ArrayList<String> validationErrorStrings = donationRecord.validate(model.getBloodNet().getPersonList(),
+                                                                           model.getBloodNet().getDonationRecordList());
         return validationErrorStrings.isEmpty();
     }
 

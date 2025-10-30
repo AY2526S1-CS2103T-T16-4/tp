@@ -4,13 +4,13 @@ import static bloodnet.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Person's blood type in the donor book.
+ * Represents a Person's blood type in the person list.
  * Guarantees: immutable; is valid as declared in {@link #isValidBloodType(String)}
  */
 public class BloodType {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Blood type should either be A-, A+, B-, B+, AB-, AB+, O- or O+, and it should not be blank";
+            "Blood type should either be A-, A+, B-, B+, AB-, AB+, O- or O+, and it should not be blank.";
 
     /*
      * The first character of the blood type must not be a whitespace,
@@ -28,14 +28,15 @@ public class BloodType {
     public BloodType(String bloodType) {
         requireNonNull(bloodType);
         checkArgument(isValidBloodType(bloodType), MESSAGE_CONSTRAINTS);
-        this.value = bloodType;
+        this.value = bloodType.toUpperCase();
     }
 
     /**
      * Returns true if a given string is a valid blood type
      */
     public static boolean isValidBloodType(String test) {
-        return test.toUpperCase().matches(VALIDATION_REGEX);
+        test = test.toUpperCase();
+        return test.matches(VALIDATION_REGEX);
     }
 
 

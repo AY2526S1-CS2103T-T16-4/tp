@@ -4,6 +4,7 @@ import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static bloodnet.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static bloodnet.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static bloodnet.testutil.TypicalPersons.getTypicalBloodNet;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,5 +36,11 @@ public class ListCommandTest {
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void getMessage_string_returnsTrue() {
+        String expectedMessage = ListCommand.COMMAND_WORD + ": Lists out all blood donors.";
+        assertEquals(expectedMessage, ListCommand.getMessageUsage().trim());
     }
 }

@@ -1,5 +1,6 @@
 package bloodnet.logic.commands;
 
+import static bloodnet.logic.parser.CliSyntax.DATE_FORMAT;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_TYPE;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -14,28 +15,28 @@ import bloodnet.model.Model;
 import bloodnet.model.person.Person;
 
 /**
- * Adds a person to the bloodnet.
+ * Adds a person to BloodNet.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to BloodNet. "
-            + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_BLOOD_TYPE + "BLOOD TYPE "
-            + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH (DD-MM-YYYY)\n"
-            + "Example: " + COMMAND_WORD + " "
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
+            "Adds a donor to BloodNet.",
+            "Parameters: "
+                    + PREFIX_NAME + "NAME "
+                    + PREFIX_PHONE + "PHONE "
+                    + PREFIX_EMAIL + "EMAIL "
+                    + PREFIX_BLOOD_TYPE + "BLOOD_TYPE" + " "
+                    + PREFIX_DATE_OF_BIRTH + "DATE_OF_BIRTH_" + DATE_FORMAT, "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_BLOOD_TYPE + "A+ "
-            + PREFIX_DATE_OF_BIRTH + "30-03-2004 ";
+            + PREFIX_DATE_OF_BIRTH + "30-03-2004");
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in BloodNet";
+    public static final String MESSAGE_SUCCESS = "New donor added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This donor already exists in BloodNet";
 
     private final Person toAdd;
 
@@ -45,6 +46,10 @@ public class AddCommand extends Command {
     public AddCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
+    }
+
+    public static String getMessageUsage() {
+        return COMMAND_INFORMATION.getMessageUsage();
     }
 
     @Override

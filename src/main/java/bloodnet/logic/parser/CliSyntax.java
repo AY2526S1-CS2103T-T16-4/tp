@@ -15,4 +15,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_DONATION_DATE = new Prefix("d/");
     public static final Prefix PREFIX_BLOOD_VOLUME = new Prefix("v/");
 
+    public static final String DATE_FORMAT = "(DD-MM-YYYY)";
+    public static final String POSITIVE_INTEGER_FORMAT = "(MUST_BE_A_POSITIVE_WHOLE_NUMBER)";
+    public static final String MILLILITRE_FORMAT = "(IN_MILLILITRES)";
 }

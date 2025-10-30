@@ -31,7 +31,7 @@ public class ModelManager implements Model {
     public ModelManager(ReadOnlyBloodNet bloodNet, ReadOnlyUserPrefs userPrefs) {
         requireAllNonNull(bloodNet, userPrefs);
 
-        logger.fine("Initializing with bloodnet: " + bloodNet + " and user prefs " + userPrefs);
+        logger.fine("Initializing with BloodNet: " + bloodNet + " and user prefs " + userPrefs);
 
         this.bloodNet = new BloodNet(bloodNet);
         this.userPrefs = new UserPrefs(userPrefs);
@@ -116,6 +116,12 @@ public class ModelManager implements Model {
         bloodNet.setPerson(target, editedPerson);
     }
 
+    @Override
+    public boolean hasDonationRecordFor(Person person) {
+        requireNonNull(person);
+        return bloodNet.hasDonationRecordFor(person);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -136,9 +142,9 @@ public class ModelManager implements Model {
     //=========== DonationRecord methods =============================================================
 
     @Override
-    public boolean hasDonationRecord(DonationRecord person) {
-        requireNonNull(person);
-        return bloodNet.hasDonationRecord(person);
+    public boolean hasDonationRecord(DonationRecord donationRecord) {
+        requireNonNull(donationRecord);
+        return bloodNet.hasDonationRecord(donationRecord);
     }
 
     @Override
@@ -147,8 +153,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addDonationRecord(DonationRecord person) {
-        bloodNet.addDonationRecord(person);
+    public void addDonationRecord(DonationRecord donationRecord) {
+        bloodNet.addDonationRecord(donationRecord);
         updateFilteredDonationRecordList(PREDICATE_SHOW_ALL_DONATION_RECORDS);
     }
 

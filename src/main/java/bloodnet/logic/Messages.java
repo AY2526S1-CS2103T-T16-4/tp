@@ -16,18 +16,23 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command.\nKey in 'help' to access the user guide,"
             + " which contains a list of valid commands.";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
+    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The donor index provided is invalid";
     public static final String MESSAGE_INVALID_DONATION_DISPLAYED_INDEX =
             "The donation record index provided is invalid";
+    public static final String MESSAGE_DELETE_PERSON_WITH_DONATION =
+        "This donor has existing donation records and cannot be deleted.\n"
+        + "Please delete their donation records first before removing the donor.";
     // Should find a more elegant way to handle plurality.
     // For the second placeholder, pass in '' if singular, 's' if plural
-    public static final String MESSAGE_PEOPLE_LISTED_OVERVIEW = "%d person%s listed!";
+    public static final String MESSAGE_PEOPLE_LISTED_OVERVIEW = "%d donor%s listed!";
     // For the second placeholder, pass in '' if singular, 's' if plural
     public static final String MESSAGE_DONATIONS_LISTED_OVERVIEW = "%d donation record%s related to %s found!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
             "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_PERSON_NOT_FOUND =
-            "No person found for the given donation record.";
+            "No donor found for the given donation record.";
+    public static final String MESSAGE_DATE_OF_BIRTH_TOO_OLD = "The date of birth should be of the format DD-MM-YYYY,"
+            + " not in the future, and not before %s.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
