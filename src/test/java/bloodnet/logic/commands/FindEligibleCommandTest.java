@@ -76,7 +76,7 @@ public class FindEligibleCommandTest {
 
     @Test
     public void execute_zeroMatch_executesSuccessfully() {
-        String expectedMessage = String.format(MESSAGE_PEOPLE_LISTED_OVERVIEW, 0, "");
+        String expectedMessage = String.format(MESSAGE_PEOPLE_LISTED_OVERVIEW, 0, "s");
         List<String> listOfBloodTypes = Arrays.asList("AB-");
         FindEligibleCommand findEligibleCommand = new FindEligibleCommand(listOfBloodTypes);
 
