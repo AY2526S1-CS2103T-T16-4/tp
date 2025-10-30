@@ -57,16 +57,16 @@ making it perfect for locations where internet service is unreliable or unavaila
 
  Action              | Format, Examples                                                                                                                                
 -------------------------- |-------------------------------------------------------------------------------------------------------------------------------------------------
+[**List All Donors**](#listing-all-donors-list) | `list`
+[**Find Donor**](#locating-donors-by-name-find)| `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 [**Add Donor**](#adding-a-donor-add)| `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com b/A+ d/22-11-2004` 
 [**Edit Donor**](#editing-a-donor-edit) | `edit DONOR_LIST_INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 [**Delete Donor** ⚠️](#deleting-a-donor-delete) | `delete DONOR_LIST_INDEX `<br> e.g., `delete 3`
-[**Find Donor**](#locating-donors-by-name-find)| `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-[**List All Donors**](#listing-all-donors-list) | `list`
-[**Delete All Data** ⚠️](#clearing-all-entries-clear) | `clear`
+[**Find Donation Records of a Donor**](#finding-donation-records-of-a-donor-finddonations) | `finddonations DONOR_LIST_INDEX` <br> e.g., `finddonations 3`
 [**Edit Donation Record**](#editing-a-donation-record-editdonation) | `editdonation DONATION_RECORD_LIST_INDEX `<br> e.g., `editdonation 1 v/350 d/20-02-2025`
 [**Delete Donation Record** ⚠️](#deleting-a-donation-record-deletedonation) | `deletedonation DONATION_RECORD_LIST_INDEX `<br> e.g., `deletedonation 1`
-[**Find Donation Records of a Donor**](#finding-donation-records-of-a-donor-finddonations) | `finddonations DONOR_LIST_INDEX` <br> e.g., `finddonations 3`
 [**Find Eligible Donors**](#finding-eligible-donors-based-on-blood-type-findeligible) | `findeligible BLOOD_TYPE(S)`<br> e.g., `findeligible A+ O+ B+`
+[**Delete All Data** ⚠️](#clearing-all-entries-clear) | `clear`
 [**Help**](#viewing-help-help) | `help` 
 [**Exit**](#exiting-the-program-exit) | `exit`                                                                                                                                          
 
@@ -95,6 +95,30 @@ making it perfect for locations where internet service is unreliable or unavaila
 
 * ⚠️ indicates that user confirmation will be prompted before execution.
   </box>
+
+### Listing all donors: `list`
+
+Shows a list of all donors in the BloodNet system.
+
+Format: `list`
+
+### Locating donors by name: `find`
+
+Finds donors whose names contain any of the given keywords.
+
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+* The search is case-insensitive. e.g. `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Persons matching at least one keyword will be returned (i.e. `OR` search).
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+
+Examples:
+
+* `find John` returns `john` and `John Doe`
+* `find alex david` returns `Alex Yeoh`, `David Li`<br>
+  ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Adding a donor: `add`
 
@@ -148,42 +172,6 @@ Examples:
 
 * `list` followed by `delete 2` deletes the 2nd donor in the BloodNet system.
 * `find Betsy` followed by `delete 1` deletes the 1st donor in the result of the `find` command.
-
-### Locating donors by name: `find`
-
-Finds donors whose names contain any of the given keywords.
-
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-* The search is case-insensitive. e.g. `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-
-Examples:
-
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
-
-### Listing all donors: `list`
-
-Shows a list of all donors in the BloodNet system.
-
-Format: `list`
-
-### ⚠️ Clearing all entries: `clear`
-
-Clears all entries from the BloodNet system.
-
-Format: `clear`
-
-<box type="warning" seamless>
-
-**Caution:**
-This operation is irreversible! Hence, it is recommended to take a backup of the data file before running this command.
-</box>
 
 ### Editing a donation record: `editdonation`
 
@@ -239,6 +227,18 @@ Format: `findeligible BLOOD_TYPE...`
 Example:
 * `findeligible A+ B+`: Lists all donors who have blood type A+ or B+ and are found eligible to donate based on the official guidelines.
 !result for ['findeligible A+ AB-'](images/findeligibleResults.png)
+
+### ⚠️ Clearing all entries: `clear`
+
+Clears all entries from the BloodNet system.
+
+Format: `clear`
+
+<box type="warning" seamless>
+
+**Caution:**
+This operation is irreversible! Hence, it is recommended to take a backup of the data file before running this command.
+</box>
 
 ### Viewing help: `help`
 

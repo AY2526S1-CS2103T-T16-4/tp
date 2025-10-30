@@ -195,9 +195,9 @@ For clarity, the above diagrams omit general session handling, command parsing a
 
 ### \[Future enhancements\]
 
-With future updates, changes to the `PersonList` will be reflected in the `DonationRecordList` in the UI. This ensures that whenever a user interacts with the `PersonList`, the corresponding donation records are updated immediately and consistently.
+In the future, we can make the `FilteredPersonList` and `FilteredDonationRecordList` in sync. This means that the `DonationRecords` displayed correspond to the `Persons` displayed at all times. For example, when the user finds eligible blood donors from the list of `Persons`, the `DonationRecordsList` will be filtered such that only records which correspond to the displayed `Persons` are shown.
 
-The diagram below illustrates a potential implementation using an example of the `FindEligible` command, showing how the UI would reflect future updates to the `PersonList` and `DonationRecordList`.
+The diagram below illustrates a potential implementation using the `FindEligible` command.
 
 <puml src="diagrams/FutureUIImplementation.puml" width="250" />
 
