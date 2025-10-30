@@ -73,7 +73,12 @@
         "appendix-instructions-for-manual-testing": "Appendix: Instructions for manual testing",
         "launch-and-shutdown": "Launch and shutdown",
         "deleting-a-person": "Deleting a person",
-        "saving-data": "Saving data"
+        "saving-data": "Saving data",
+        "appendix-effort": "Appendix: Effort",
+        "new-command-to-find-eligible-donors-of-particular-blood-types": "New command to find eligible donors of particular blood types.",
+        "new-donation-record-entity-type": "New Donation Record entity type",
+        "user-confirmation-2": "User confirmation",
+        "new-blood-type-and-data-of-birth-fields-person-model": "New Blood Type and Data of Birth fields (Person model)"
       },
       "headingKeywords": {}
     },
