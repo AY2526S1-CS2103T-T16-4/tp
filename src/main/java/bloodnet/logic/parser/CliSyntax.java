@@ -17,5 +17,5 @@ public class CliSyntax {
 
     public static final String DATE_FORMAT = "(DD-MM-YYYY)";
     public static final String POSITIVE_INTEGER_FORMAT = "(MUST_BE_A_POSITIVE_WHOLE_NUMBER)";
-    public static final String MILLIMITRE_FORMAT = "(IN_MILLIMITRES)";
+    public static final String MILLILITRE_FORMAT = "(IN_MILLILITRES)";
 }

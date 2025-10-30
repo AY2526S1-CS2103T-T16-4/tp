@@ -111,7 +111,7 @@ public class HelpWindow extends UiPart<Stage> {
         final ClipboardContent url = new ClipboardContent();
         url.putString(USERGUIDE_URL);
         clipboard.setContent(url);
-        logger.info("BloodNet User Guide URL copied successfully.");
+        logger.info("User clicked 'Copy Link' button.");
     }
 
     /**
