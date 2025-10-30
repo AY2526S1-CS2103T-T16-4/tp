@@ -19,10 +19,7 @@ if ()then ([user includes relevant blood type(s)])
     :Creates HasBloodTypePredicate;
     :Creates IsEligibleToDonatePredicate;
     :Filter PersonList using both predicates;
-    :Parses the PersonList based on the given user input blood type(s)
-     Parses the PersonList based on each person's date of birth and days since last blood donation;
-    :Person list is filtered;
-    :From the updated person list, the donation record list is updated;
+    :From the updated PersonList, the DonationRecordList is updated;
     if () then([filtered PersonList not empty])
         :Update corresponding DonationRecord list;
         :Show updated person and donation record list;
