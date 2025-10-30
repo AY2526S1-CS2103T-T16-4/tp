@@ -14,7 +14,7 @@ start
 :User inputs FindEligible command;
 :Parse user input;
 
-if ()then ([user includes relevant blood type(s)])
+if ()then ([user includes one or more valid blood type(s)])
     :Create a new FindEligible Command;
     :Creates HasBloodTypePredicate;
     :Creates IsEligibleToDonatePredicate;
@@ -22,11 +22,11 @@ if ()then ([user includes relevant blood type(s)])
     :From the updated PersonList, the DonationRecordList is updated;
     if () then([filtered PersonList not empty])
         :Update corresponding DonationRecord list;
-        :Show updated person and donation record list;
+        :Show updated donor list and donation record list;
     else([else])
         :Show message: "No eligible donors found";
     endif
-else ([no])
+else ([else])
     :Show message: "Invalid blood type(s)";
 endif
 stop
