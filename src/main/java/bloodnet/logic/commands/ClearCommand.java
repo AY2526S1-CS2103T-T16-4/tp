@@ -9,7 +9,7 @@ import bloodnet.model.BloodNet;
 import bloodnet.model.Model;
 
 /**
- * Clears the BloodNet donor and donation record list.
+ * Clears the BloodNet person and donation record list.
  */
 public class ClearCommand extends Command {
 
@@ -17,7 +17,8 @@ public class ClearCommand extends Command {
     public static final String MESSAGE_SUCCESS = "BloodNet has been cleared!";
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
-            "Clears the entire blood donor list.", "", "");
+            "Clears the entire blood donor and donation record list. Be careful with this command, "
+                    + "you are unable to undo this.", "", "");
 
     @Override
     public CommandSession createSession(Model model) throws CommandException {

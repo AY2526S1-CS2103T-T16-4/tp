@@ -52,7 +52,9 @@ public class ClearCommandTest {
 
     @Test
     public void getMessage_string_returnsTrue() {
-        String expectedMessage = ClearCommand.COMMAND_WORD + ": Clears the entire blood donor list.";
+        String expectedMessage = ClearCommand.COMMAND_WORD
+                + ": Clears the entire blood donor and donation record list. Be careful with this command,"
+                + " you are unable to undo this.";
         assertEquals(expectedMessage, ClearCommand.getMessageUsage().trim());
     }
 

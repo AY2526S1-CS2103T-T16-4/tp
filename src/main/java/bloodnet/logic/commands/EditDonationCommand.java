@@ -1,5 +1,8 @@
 package bloodnet.logic.commands;
 
+import static bloodnet.logic.parser.CliSyntax.DATE_FORMAT;
+import static bloodnet.logic.parser.CliSyntax.MILLILITRE_FORMAT;
+import static bloodnet.logic.parser.CliSyntax.POSITIVE_INTEGER_FORMAT;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_VOLUME;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_DONATION_DATE;
 import static java.util.Objects.requireNonNull;
@@ -32,15 +35,13 @@ public class EditDonationCommand extends Command {
             "Edits the donation "
             + "record detail(s) identified by the index number used in the displayed donation record list. "
             + "At least one field must be provided.",
-            "Parameters: DONATION RECORD INDEX (must be a positive integer) "
-            + "[" + PREFIX_DONATION_DATE + "DONATION DATE (DD-MM-YYYY)] "
-            + "[" + PREFIX_BLOOD_VOLUME + "BLOOD VOLUME (IN MILLILITRES)]",
-            "Example: editdonation 1 v/100 d/02-02-2002");
+            "Parameters: DONATION_RECORD_LIST_INDEX_" + POSITIVE_INTEGER_FORMAT + " "
+            + "[" + PREFIX_DONATION_DATE + "DONATION_DATE_" + DATE_FORMAT + "] "
+            + "[" + PREFIX_BLOOD_VOLUME + "BLOOD_VOLUME_" + MILLILITRE_FORMAT + "]",
+            "Example: editdonation 1 d/02-02-2002 v/100");
 
     public static final String MESSAGE_EDIT_DONATION_RECORD_SUCCESS = "Edited Donation Record: %1$s";
 
-    public static final String MESSAGE_DUPLICATE_DONATION_RECORD =
-            "No change to the donation record.";
     public static final String MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER =
             "You are attempting to modify a donation record to an invalid one. "
             + "Please fix these errors:";
