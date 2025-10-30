@@ -1,5 +1,5 @@
 @startuml
-title FindEligible Command
+title Future FindEligible Command Implementation
 !include style.puml
 skinparam activity {
     BackgroundColor FUTURE_IMPLEMENTATION_COLOUR
@@ -11,23 +11,26 @@ skinparam ActivityFontSize 15
 skinparam ArrowFontSize 12
 
 start
-:User inputs FindEligible command; as top
-:Parse FindEligible input into a Command;
+:User inputs FindEligible command;
+:Parse user input;
 
 if (User includes relevant blood type(s)) then (yes)
     :Create a new FindEligible Command;
-    :Creates a new HasBloodTypeAndIsEligibleToDonatePredicate;
-    :Parses the PersonList based on the given bloodType(s)
-     Parses the PersonList based on each person's dateOfBirth and days since last donation;
-    :Donor list is filtered based on filtering;
-    :From the updated donor list, the donation record list is updated;
-    if ([updated donor list not null]) then (yes)
-        :Show updated donor and donation record list;
+    :Creates HasBloodTypePredicate;
+    :Creates IsEligibleToDonatePredicate;
+    :Filter PersonList using both predicates;
+    :Parses the PersonList based on the given user input blood type(s)
+     Parses the PersonList based on each person's date of birth and days since last blood donation;
+    :Person list is filtered;
+    :From the updated person list, the donation record list is updated;
+    if (Filtered PersonList not empty) then (yes)
+        :Update corresponding DonationRecord list;
+        :Show updated person and donation record list;
     else(no)
-        :Show message no donors found;
+        :Show message: "No eligible donors found";
     endif
 else (no)
-    :bloodType(s) not valid;
+    :Show message: "Invalid blood type(s)";
 endif
 stop
 @enduml

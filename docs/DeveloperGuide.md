@@ -40,8 +40,7 @@ The bulk of the app's work is done by the following four components:
 * [**`Logic`**](#logic-component): The input handler.
 * [**`Model`**](#model-component): Holds the data of the App in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
-
-[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
+* [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
 **How the architecture components interact with each other**
 
@@ -196,11 +195,9 @@ For clarity, the above diagrams omit general session handling, command parsing a
 
 ### \[Future enhancements\]
 
-With future updates, the current `PersonList` and `DonationRecord` will be synchronized with respect to the UI.
-As such, the system will therefore ensure that whatever a user does an action to the donor list, it updates the UI
-accordingly for the `DonationRecord` list.
+With future updates, changes to the `PersonList` will be reflected in the `DonationRecordList` in the UI. This ensures that whenever a user interacts with the `PersonList`, the corresponding donation records are updated immediately and consistently.
 
-The below diagram is how a potential implementation of this would look like using command `FindEligible` as an example:
+The diagram below illustrates a potential implementation using an example of the `FindEligible` command, showing how the UI would reflect future updates to the `PersonList` and `DonationRecordList`.
 
 <puml src="diagrams/FutureUIImplementation.puml" width="250" />
 
@@ -349,7 +346,7 @@ Use case ends.
     * 2b1. Admin staff deletes donation records of user ([UC10](#use-case-uc10---delete-a-blood-donation-record)).
     * Use case returns to step 2.
 
----
+`---
 
 ### **Use case: UC05 - List all donors in the system**
 
