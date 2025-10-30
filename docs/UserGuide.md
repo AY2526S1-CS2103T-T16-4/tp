@@ -311,10 +311,6 @@ Furthermore, certain edits can cause the BloodNet to behave in unexpected ways (
 acceptable range). Therefore, edit the data file only if you are confident that you are able to update it correctly.
 </box>
 
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
