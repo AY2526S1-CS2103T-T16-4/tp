@@ -193,13 +193,13 @@ For clarity, the above diagrams omit general session handling, command parsing a
 
 --------------------------------------------------------------------------------------------------------------------
 
-### \[Future enhancements\]
+## **Future Implementation**
 
 In the future, we can make the `FilteredPersonList` and `FilteredDonationRecordList` in sync. This means that the `DonationRecords` displayed correspond to the `Persons` displayed at all times. For example, when the user finds eligible blood donors from the list of `Persons`, the `DonationRecordsList` will be filtered such that only records which correspond to the displayed `Persons` are shown.
 
 The diagram below illustrates a potential implementation using the `FindEligible` command.
 
-<puml src="diagrams/FutureUIImplementation.puml" width="250" />
+<puml src="diagrams/FutureUIImplementationForFindEligible.puml" alt="FutureUIImplementationForFindEligible">
 
 __________________________________________________________________________________________________
 
@@ -258,7 +258,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is `BloodNet`, unless specified otherwise)
+(For all use cases below, the **System** is `BloodNet`, unless specified otherwise.)
 
 ---
 
@@ -591,7 +591,7 @@ testers are expected to do more *exploratory* testing.
 In the course of the past few weeks, beyond just repurposing AB3 to a blood donor address book, we have made significant upgrades to it for our target audience, which involved a substantial amount of hard work, ingenuity, late nights and early mornings (just look at some of the commit timings):
 
 ### New command to find eligible donors of particular blood types.
-When reserves of a particular blood type are running low, users may want to search for existing donors in the system who are eligible to donate, so they can reach out to them and request for an urgent donation. This was challenging as the official rules on blood donation eligibility are fairly complex. It should be noted that eligibility check is also conducted when adding or editing a donation record.
+When reserves of a particular blood type are running low, users may want to search for existing donors in the system who are eligible to donate, so they can reach out to them and request for an urgent donation. This was challenging as the official rules on blood donation eligibility are fairly complex. It should be noted that an eligibility check is conducted when adding or editing a donation record.
 
 ### New Donation Record entity type
 In order for the system to not only track donors but also their donations (i.e. when and what volume of blood was donated), we added a Donation Record model. This was incredibly time-consuming due to the increase in complexity in having multiple entity types compared to AB3 which only deals with one entity type.
@@ -606,7 +606,7 @@ To accomplish, much complexity needed to be introduced. AB3 originally executes 
 
 The implementation was challenging due to input delegation, differentiating between a new command input and an input within a command session, handling command exceptions resulting in mid-session exits, and maintaining consistent system state, all while providing a uniform framework compatible with single-step commands. Documentation also required careful revision as existing terms like "command", “execution” needed to be clarified and properly redesigned.
 
-Overall, the feature involved considerable architectural changes, edge case handling and documentation effort to balance the usability and safety of the system.
+Overall, the addition of this new feature involved considerable architectural changes, edge case handling and documentation effort to balance the usability and safety of the system.
 
 ### New Blood Type and Data of Birth fields (Person model)
 In order for the person model to capture the information users need to track each donor, we added the blood type and date of birth fields. This meant that we had to add additional lines of code in many places of the codebase.

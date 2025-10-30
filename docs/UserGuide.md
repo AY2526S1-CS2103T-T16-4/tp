@@ -58,14 +58,15 @@ making it perfect for locations where internet service is unreliable or unavaila
  Action              | Format, Examples
 -------------------------- |-------------------------------------------------------------------------------------------------------------------------------------------------
 [**List All Donors**](#listing-all-donors-list) | `list`
-[**Find Donor**](#locating-donors-by-name-find)| `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-[**Add Donor**](#adding-a-donor-add)| `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com b/A+ d/22-11-2004` 
-[**Edit Donor**](#editing-a-donor-edit) | `edit DONOR_LIST_INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-[**Delete Donor** ⚠️](#deleting-a-donor-delete) | `delete DONOR_LIST_INDEX `<br> e.g., `delete 3`
-[**Find Donation Records of a Donor**](#finding-donation-records-of-a-donor-finddonations) | `finddonations DONOR_LIST_INDEX` <br> e.g., `finddonations 3`
-[**Edit Donation Record**](#editing-a-donation-record-editdonation) | `editdonation DONATION_RECORD_LIST_INDEX `<br> e.g., `editdonation 1 v/350 d/20-02-2025`
-[**Delete Donation Record** ⚠️](#deleting-a-donation-record-deletedonation) | `deletedonation DONATION_RECORD_LIST_INDEX `<br> e.g., `deletedonation 1`
-[**Find Eligible Donors**](#finding-eligible-donors-based-on-blood-type-findeligible) | `findeligible BLOOD_TYPE(S)`<br> e.g., `findeligible A+ O+ B+`
+[**Find Donor**](#locating-donors-by-name-find)| `find KEYWORD...`<br> e.g., `find alice bob charlie`
+[**Add Donor**](#adding-a-donor-add)| `add n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH_(DD-MM-YYYY)` <br> e.g., `add n/James Ho p/98765432 e/jamesho@example.com b/A+ d/22-11-2004` 
+[**Edit Donor**](#editing-a-donor-edit) | `edit DONOR_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER) [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH_(DD-MM-YYYY)]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+[**Delete Donor** ⚠️](#deleting-a-donor-delete) | `delete DONOR_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER) `<br> e.g., `delete 3`
+[**Find Donation Records of a Donor**](#finding-donation-records-of-a-donor-finddonations) | `finddonations DONOR_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER)` <br> e.g., `finddonations 3`
+[**Add Donation Records**](#adding-a-donation-record-adddonation)| `adddonation p/DONOR_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER) d/DONATION_DATE v/BLOOD_VOLUME` <br> e.g., `adddonation p/1 d/15-10-2025 v/200` 
+[**Edit Donation Records**](#editing-a-donation-record-editdonation) | `editdonation DONATION_RECORD_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER)`<br> e.g., `editdonation 1 v/350 d/20-02-2025`
+[**Delete Donation Records** ⚠️](#deleting-a-donation-record-deletedonation) | `deletedonation DONATION_RECORD_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER)`<br> e.g., `deletedonation 1`
+[**Find Eligible Donors**](#finding-eligible-donors-based-on-blood-type-findeligible) | `findeligible BLOOD_TYPE...`<br> e.g., `findeligible A+ O+ B+`
 [**Delete All Data** ⚠️](#clearing-all-entries-clear) | `clear`
 [**Help**](#viewing-help-help) | `help` 
 [**Exit**](#exiting-the-program-exit) | `exit`                                                                                                                                          
@@ -182,6 +183,21 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd donor in the BloodNet system.
 * `find Betsy` followed by `delete 1` deletes the 1st donor in the result of the `find` command.
 
+## Finding donation records of a donor: `finddonations`
+
+Find donation records of a donor.
+
+Format: `finddonations DONOR_LIST_INDEX`
+* List all donation records of the donor at the specified `DONOR_LIST_INDEX`.
+* The index refers to the index number shown in the displayed donor list.
+* The specified index **must be a positive whole number** 1, 2, 3, ...
+
+Example:
+
+* `finddonations 3`: List all donation records of the 3rd donor in the donor list.
+  ![result for 'finddonations 3'](images/finddonations3.png)
+
+
 ### Adding a donation record: `adddonation`
 
 This command can be used to add a donation record for a donor.
@@ -197,19 +213,6 @@ Format: `adddonation p/DONOR_LIST_INDEX d/DONATION_DATE v/BLOOD_VOLUME`
 Examples:
 * `adddonation p/1 d/15-10-2025 v/200` adds a donation record for the 1st donor, with a blood volume of 200ml donated on 15-10-2025.
 * `adddonation p/3 d/20-09-2024 v/450` adds a donation record for the 3rd donor, with a blood volume of 450ml donated on 20-09-2024.
-
-### ⚠️ Deleting a donation record: `deletedonation`
-
-This command can be used to delete a specified donation record from the BloodNet system.
-
-Format: `deletedonation DONATION_RECORD_LIST_INDEX`
-
-* Deletes the donation record at the specified `DONATION_RECORD_LIST_INDEX`.
-* The index refers to the index number shown in the displayed donation record list.
-* The index **must be a positive whole number** 1, 2, 3, …​
-
-Examples:
-* `finddonations 1` followed by `deletedonation 2` deletes the 2nd donation record of the 1st donor in the shown donor list.
 
 ### Editing a donation record: `editdonation`
 
@@ -228,36 +231,23 @@ Format: `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLU
 Examples:
 
 * `editdonation 1 v/200` Edits the blood volume of the 1st donation record in the entire donation record list.
+* `editdonation 3 d/13-10-2024` Edits the donation date of the 3rd donation record to 13-10-2024.
+* `editdonation 2 d/01-01-2025 v/350` Edits both the donation date and blood volume of the 2nd donation record.
+
 
 ### ⚠️ Deleting a donation record: `deletedonation`
 
-This command can be used to delete a specified donation from the BloodNet donation record system.
+This command can be used to delete a specified donation record from the BloodNet system.
 
 Format: `deletedonation DONATION_RECORD_LIST_INDEX`
 
-Examples:
-* `deletedonation 2` deletes the 2nd donation record of the entire donation record list.
-
-* Deletes the donor at the specified `DONATION_RECORD_LIST_INDEX`.
+* Deletes the donation record at the specified `DONATION_RECORD_LIST_INDEX`.
 * The index refers to the index number shown in the displayed donation record list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* `editdonation 1 v/200 ` Edits the blood volume of the 1st donation record to 200ml.
-* `editdonation 3 d/13-10-2024 ` Edits the donation date of the 3rd donation record to 13-10-2024.
-* `editdonation 2 d/01-01-2025 v/350` Edits both the donation date and blood volume of the 2nd donation record.
+* The index **must be a positive whole number** 1, 2, 3, …​
 
-## Finding donation records of a donor: `finddonations`
-
-Find donation records of a donor.
-
-Format: `finddonations DONOR_LIST_INDEX`
-* List all donation records of the donor at the specified `DONOR_LIST_INDEX`.
-* The index refers to the index number shown in the displayed donor list.
-* The specified index **must be a positive whole number** 1, 2, 3, ...
-
-Example:
-
-* `finddonations 3`: List all donation records of the 3rd donor in the donor list.
-  ![result for 'finddonations 3'](images/finddonations3.png)
+Examples:
+* `deletedonations 1` deletes the 1st donation record in the donation record list.
+* `finddonations 1` followed by `deletedonation 2` deletes the 2nd donation record of the 1st donor in the shown donor list.
 
 ### Finding eligible donors based on blood type: `findeligible`
 
@@ -271,7 +261,7 @@ Format: `findeligible BLOOD_TYPE...`
 
 Example:
 * `findeligible A+ B+`: Lists all donors who have blood type A+ or B+ and are found eligible to donate based on the official guidelines.
-!result for ['findeligible A+ AB-'](images/findeligibleResults.png)
+  ![result for 'findeligible A+ AB-'](images/findeligibleResults.png)
 
 ### ⚠️ Clearing all entries: `clear`
 
@@ -297,7 +287,6 @@ Format: `help`
 Exits the program.
 
 Format: `exit`
-
 
 ### Saving the data
 
