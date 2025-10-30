@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 
 
 /**
- * Represents a Person's phone number in the bloodnet.
+ * Represents a Person's phone number in BloodNet.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {
