@@ -596,7 +596,7 @@ When reserves of a particular blood type are running low, users may want to sear
 ### New Donation Record entity type
 In order for the system to not only track donors but also their donations (i.e. when and what volume of blood was donated), we added a Donation Record model. This was incredibly time-consuming due to the increase in complexity in having multiple entity types compared to AB3 which only deals with one entity type.
 
-#### New commands to manage donation records
+### New commands to manage donation records
 To manage the donation records, we added new commands to add, edit, delete, and find donation records, which also took time to create, debug and document.
 
 ### User confirmation
