@@ -589,11 +589,14 @@ In order for the person model to capture the information users need to track eac
 ### New Donation Record model
 In order for the system to not only track donors but also their donations (i.e. when and what volume of blood was donated), we added a Donation Record model. This was incredibly time consuming as we had to add a lot of new code to the storage, model, and logic packages.
 
+### New commands to manage donation records
+To manage the donation records, we added new commands to add, edit, delete, and find donation records. 
+
 ### New command to find eligible donors of particular blood types.
 When reserves of a particular blood type are running low, users may want to search for existing donors in the system who are eligible to donate, so they can reach out to them and request for an urgent donation. This was challenging as the official rules on blood donation eligibility are complex. This eligibility check is also conducted when adding or editing a donation record.
 
 ### User confirmation
-Wanting to safeguards against accidental destructive operations, we sought to implement user confirmation before such operations.
+Wanting to safeguard against accidental destructive operations, we sought to implement user confirmation before such operations.
 
 To accomplish, much complexity needed to be introduced. AB3 originally executes every user input as a new command immediately. But introducing user interactivity within a command (which user confirmation support requires) fundamentally change this flow requiring us to create a new abstraction, `commandSession`, to manage multi-step interactions and persist information throughout the command lifecycle until completion.
 
