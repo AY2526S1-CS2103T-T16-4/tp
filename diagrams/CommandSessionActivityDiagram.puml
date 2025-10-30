@@ -10,7 +10,7 @@ skinparam ActivityFontSize 15
 skinparam ArrowFontSize 12
 start
 :User inputs something;
-if () then ([no current CommandSession in LogicManager])
+if () then ([no currentCommandSession in LogicManager])
     :Parse command input into a Command;
     :Create CommandSession corresponding to the Command;
     :Set currentCommandSession to that \nnewly created CommandSession;
