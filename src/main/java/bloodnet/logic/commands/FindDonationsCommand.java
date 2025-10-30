@@ -42,7 +42,7 @@ public class FindDonationsCommand extends Command {
         return new InputResponse(
                 String.format(Messages.MESSAGE_DONATIONS_LISTED_OVERVIEW,
                         filteredDonationRecordListSize,
-                        filteredDonationRecordListSize > 1 ? "s" : "",
+                        filteredDonationRecordListSize == 1 ? "" : "s",
                         personToFindRecordsOf.getName()));
     }
 

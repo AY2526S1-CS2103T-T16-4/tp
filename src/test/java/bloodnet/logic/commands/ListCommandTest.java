@@ -40,7 +40,7 @@ public class ListCommandTest {
 
     @Test
     public void getMessage_string_returnsTrue() {
-        String expectedMessage = ListCommand.COMMAND_WORD + ": Lists out all blood donors.";
+        String expectedMessage = ListCommand.COMMAND_WORD + ": Lists out all donors.";
         assertEquals(expectedMessage, ListCommand.getMessageUsage().trim());
     }
 }

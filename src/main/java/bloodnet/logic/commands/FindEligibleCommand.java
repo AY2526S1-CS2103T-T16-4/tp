@@ -46,7 +46,7 @@ public class FindEligibleCommand extends Command {
         return new InputResponse(
                 String.format(Messages.MESSAGE_PEOPLE_LISTED_OVERVIEW,
                         filteredPersonListSize,
-                        filteredPersonListSize > 1 ? "s" : ""));
+                        filteredPersonListSize == 1 ? "" : "s"));
     }
 
     @Override
