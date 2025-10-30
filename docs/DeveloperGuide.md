@@ -9,7 +9,8 @@ pageNav: 3
 
 ## **Acknowledgements**
 
-We acknowledge that the blood donation eligibility criteria implemented in this project were guided by the [Health Sciences Authority (HSA)](https://www.hsa.gov.sg/blood-donation/can-i-donate) guidelines in Singapore
+- Blood donation eligibility criteria in Singapore were based on guidelines from the [Health Sciences Authority](https://www.hsa.gov.sg/blood-donation/can-i-donate)
+<!-- Can add more, if used -->
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
@@ -40,7 +41,8 @@ The bulk of the app's work is done by the following four components:
 * [**`Logic`**](#logic-component): The input handler.
 * [**`Model`**](#model-component): Holds the data of the App in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
-* [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
+
+[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
 **How the architecture components interact with each other**
 
@@ -51,7 +53,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 Each of the four main components (also shown in the above diagram),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point).
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -103,7 +105,7 @@ How the `Logic` component works:
     * This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`), which its `createSession` is invoked by `LogicManager`  to create a new `CommandSession` object (more precisely, an object of one of its subclasses e.g., `ConfirmationCommandSession`), which will become `LogicManager`'s `currentCommandSession`.
       * During the invoking of `createSession`, the `Command` object (depending on its implementation of `createSession`) may interact with the `Model` component to query target objects and/or perform validation checks.
 3. Advance current session
-* The current session is called upon to handle the input. 
+* The current session is called upon to handle the input.
 * The result of the input handling is encapsulated as an `InputResponse` object.
 * If the current command session has finished (as checked by its `isDone` method), the current session will be marked as `null`.
 * The `InputResponse` object is then returned back from `Logic`.
@@ -156,7 +158,7 @@ The `Model` component,
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
 The `Storage` component,
-* can save both BloodNet data and user preference data in JSON format, and read them back into corresponding objects.
+* can save both bloodnet data and user preference data in JSON format, and read them back into corresponding objects.
 * inherits from both `BloodNetStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
@@ -192,16 +194,6 @@ The following activity diagrams contrast the flow of a command requiring user co
 For clarity, the above diagrams omit general session handling, command parsing and input delegation. See [**Command Sessions**](#command-sessions) for a complete overview.
 
 --------------------------------------------------------------------------------------------------------------------
-
-### \[Future enhancements\]
-
-In the future, we can make the `FilteredPersonList` and `FilteredDonationRecordList` in sync. This means that the `DonationRecords` displayed correspond to the `Persons` displayed at all times. For example, when the user finds eligible blood donors from the list of `Persons`, the `DonationRecordsList` will be filtered such that only records which correspond to the displayed `Persons` are shown.
-
-The diagram below illustrates a potential implementation using the `FindEligible` command.
-
-<puml src="diagrams/FutureUIImplementation.puml" width="250" />
-
-__________________________________________________________________________________________________
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
@@ -246,7 +238,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | * * *    | admin staff | find all donors of a particular blood type                                            | If we have a shortage of a particular blood type, we can contact these people and ask them for donations                             |
 | * * *    | admin staff | record a blood donation by a contact                                                  | I can track how many donations each contact has made, and the details of those donations                                             |
 | * * *    | admin staff | modify a blood donation record                                                        | I can modify wrongly keyed in records                                                                                                |
-| * * *    | admin staff | add the volume and donation date associated with a donation record                    | the blood bank is aware of the details associated with each donation record                                                          
+| * * *    | admin staff | add the volume and donation date associated with a donation record                    | the blood bank is aware of the details associated with each donation record
 | * * *    | admin staff | delete a blood donation record                                                        | I can remove wrongly keyed in records                                                                                                |
 | * * *    | admin staff | find all eligible donors given a blood type (based on age and last donation interval) | I can determine who I can call if blood is needed                                                                                    |
 | * *      | admin staff | find a donor based on contact information                                             | I can link their name and contact information together                                                                               |
@@ -287,8 +279,7 @@ Use case ends.
 
 **MSS**
 
-1. Admin staff lists all donors ([UC05](#use-case-uc05---list-all-donors-in-the-system
-   )).
+1. Admin staff lists all donors ([UC05](#use-case-uc05---list-all-donors-in-the-system)).
 2. Admin staff requests to update a specified donor, and provides the fields to update and values to update them with.
 3. BloodNet updates fields of the donor for which values were supplied.
 
@@ -299,11 +290,11 @@ Use case ends.
     * Use case ends.
 
 * 2a. Donor ID not found.
-    * 3a1. BloodNet shows an error message.
+    * 2a1. BloodNet shows an error message.
     * Use case returns to step 2.
 
 * 2b. One or more invalid values provided.
-    * 3b1. BloodNet shows an error message.
+    * 2b1. BloodNet shows an error message.
     * Use case returns to step 2.
 
 ---
@@ -346,7 +337,7 @@ Use case ends.
     * 2b1. Admin staff deletes donation records of user ([UC10](#use-case-uc10---delete-a-blood-donation-record)).
     * Use case returns to step 2.
 
-`---
+---
 
 ### **Use case: UC05 - List all donors in the system**
 
@@ -369,14 +360,14 @@ Use case ends.
 
 1. Admin staff requests to find donors of a particular blood type.
 2. BloodNet searches the entire donor list and applies the eligibility rules, such as date of birth and days since last donation.
-3. BloodNet displays all donors who match the given blood type and the eligibility rules. 
+3. BloodNet displays all donors who match the given blood type and the eligibility rules.
 
 Use case ends.
 
 **Extensions**
 
-* 1a. Invalid blood type entered. 
-  * 1a1. BloodNet shows an error message. 
+* 1a. Invalid blood type entered.
+  * 1a1. BloodNet shows an error message.
   * Use case relates back to step 1, prompting the user to re-enter a blood type.
 
 ---
@@ -400,11 +391,11 @@ Use case ends.
     * Use case ends.
 
 * 3a. Donor ID is invalid.
-    * 2a1. BloodNet shows an error message.
+    * 3a1. BloodNet shows an error message.
     * Use case returns to step 3.
 
 * 3b. Date or volume format is invalid.
-    * 2b1. BloodNet shows an error message.
+    * 3b1. BloodNet shows an error message.
     * Use case resumes at step 3.
 
 ---
@@ -505,7 +496,7 @@ Use case ends.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands rather than using the mouse.
 4. Should start within 5 seconds on a typical user machine (4 core CPU, 8GB RAM, SSD).
 5. User guide should be written with easy-to-understand English that is comprehensible to users without technical background.
-6. The user interface should be intuitive enough for users who are not IT-saavy.
+6. The user interface should be intuitive enough for users who are not IT-savvy.
 7. Should not be required to have beautiful visual design or animations since it is for administrative use.
 8. Should have user confirmation for _destructive operations_.
 9. Should provide error message, in response to an invalid operation, that details what went wrong and how to fix it for a non-technical user.
@@ -522,7 +513,7 @@ Use case ends.
 * **Destructive operation**: An action that leads to permanent removal of data
 * **Field**: A single piece of information for a donor or donation record.
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: An 8-digit Singaporean (+65) contact detail that is not meant to be shared with others
+* **Private contact detail**: An 8-digit Singaporean (+65) phone number that is not meant to be shared with others
 * **Run**: In the context of a command, refers to carrying out the entire lifecycle of a command, including user interaction and invoking domain logic
 * **Execution**: In the context of a command, refers specifically to invoking the domain logic of the command, without handling any user interaction
 * **Input Box**: The text box in the application that receives all textual inputs from the user

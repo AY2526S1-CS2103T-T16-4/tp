@@ -13,7 +13,7 @@ public class HelpCommand extends Command {
             "Shows program usage instructions.", "",
             "");
 
-    public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
+    public static final String SHOWING_HELP_MESSAGE = "Opened help window!";
 
     @Override
     public InputResponse execute(Model model) {

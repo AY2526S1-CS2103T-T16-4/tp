@@ -86,12 +86,12 @@ public class MainApp extends Application {
                 logger.info("Creating a new data file " + storage.getBloodNetFilePath()
                         + " populated with a sample BloodNet.");
 
-                // We need to save the sample Bloodnet data to the data file
+                // We need to save the sample BloodNet data to the data file
                 // right away so that their UUIDs will be populated by the storage layer.
                 storage.saveBloodNet(getSampleBloodNet());
 
                 // Then, we need to read the data via the storage layer again
-                // because it will populate the donor's name in every Donation Record
+                // because it will populate the person's name in every Donation Record
                 bloodNetOptional = storage.readBloodNet();
             }
             initialData = bloodNetOptional.orElseGet(SampleDataUtil::getSampleBloodNet);

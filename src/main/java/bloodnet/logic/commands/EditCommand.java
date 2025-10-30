@@ -1,5 +1,7 @@
 package bloodnet.logic.commands;
 
+import static bloodnet.logic.parser.CliSyntax.DATE_FORMAT;
+import static bloodnet.logic.parser.CliSyntax.POSITIVE_INTEGER_FORMAT;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_BLOOD_TYPE;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static bloodnet.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -36,12 +38,12 @@ public class EditCommand extends Command {
             "Edits the "
             + "field(s) of the donor identified by the index number used in the displayed donor list. "
             + "At least one field to edit must "
-            + "be provided.", "Parameters: DONOR INDEX (must be a positive integer) "
+            + "be provided.", "Parameters: DONOR_LIST_INDEX_" + POSITIVE_INTEGER_FORMAT + " "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_BLOOD_TYPE + "BLOOD TYPE] "
-            + "[" + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH (DD-MM-YYYY)] ", "Example: " + COMMAND_WORD + " 1 "
+            + "[" + PREFIX_BLOOD_TYPE + "BLOOD_TYPE] "
+            + "[" + PREFIX_DATE_OF_BIRTH + "DATE_OF_BIRTH_" + DATE_FORMAT + "] ", "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com");
 

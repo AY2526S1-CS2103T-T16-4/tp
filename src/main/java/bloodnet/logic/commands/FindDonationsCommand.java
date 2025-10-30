@@ -1,5 +1,6 @@
 package bloodnet.logic.commands;
 
+import static bloodnet.logic.parser.CliSyntax.POSITIVE_INTEGER_FORMAT;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class FindDonationsCommand extends Command {
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD,
             "Finds all donation "
             + "records related to the donor identified by the index number used in the displayed donor list.",
-            "Parameters: DONATION RECORD INDEX (must be a positive integer)", "Example: "
+            "Parameters: DONATION_RECORD_LIST_INDEX_" + POSITIVE_INTEGER_FORMAT, "Example: "
             + COMMAND_WORD + " 1");
 
     private final Index targetPersonIndex;

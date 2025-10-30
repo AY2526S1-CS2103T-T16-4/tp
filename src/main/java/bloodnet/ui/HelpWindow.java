@@ -39,12 +39,12 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
+        logger.info("HelpWindow initialised.");
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         getRoot().setWidth(screenBounds.getWidth() * 0.6);
         getRoot().setHeight(screenBounds.getHeight() * 0.8);
         getRoot().setResizable(true);
         addTitle();
-        AllCommands all = new AllCommands();
         AllCommands.addCommands();
         formatInstructions();
         addLink();
@@ -111,6 +111,7 @@ public class HelpWindow extends UiPart<Stage> {
         final ClipboardContent url = new ClipboardContent();
         url.putString(USERGUIDE_URL);
         clipboard.setContent(url);
+        logger.info("User clicked 'Copy Link' button.");
     }
 
     /**
