@@ -199,7 +199,7 @@ In the future, we can make the `FilteredPersonList` and `FilteredDonationRecordL
 
 The diagram below illustrates a potential implementation using the `FindEligible` command.
 
-<puml src="diagrams/FutureUIImplementationForFindEligible.puml" alt="FutureUIImplementationForFindEligible">
+<puml src="diagrams/FutureUIImplementationForFindEligible.puml" alt="FutureUIImplementationForFindEligible"/>
 
 __________________________________________________________________________________________________
 
