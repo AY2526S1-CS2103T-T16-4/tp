@@ -126,6 +126,7 @@
         "finding-eligible-donors-based-on-blood-type-findeligible": "Finding eligible donors based on blood type: findeligible",
         "editing-a-donor-edit": "Editing a donor: edit",
         "deleting-a-donor-delete": "⚠️ Deleting a donor: delete",
+        "adding-a-donation-record-adddonation": "Adding a donation record: adddonation",
         "deleting-a-donation-record-deletedonation": "⚠️ Deleting a donation record: deletedonation",
         "editing-a-donation-record-editdonation": "Editing a donation record: editdonation",
         "finding-donation-records-of-a-donor-finddonations": "Finding donation records of a donor: finddonations",
