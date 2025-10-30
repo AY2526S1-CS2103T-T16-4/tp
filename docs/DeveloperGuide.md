@@ -53,7 +53,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 Each of the four main components (also shown in the above diagram),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point).
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -279,8 +279,7 @@ Use case ends.
 
 **MSS**
 
-1. Admin staff lists all donors ([UC05](#use-case-uc05---list-all-donors-in-the-system
-   )).
+1. Admin staff lists all donors ([UC05](#use-case-uc05---list-all-donors-in-the-system)).
 2. Admin staff requests to update a specified donor, and provides the fields to update and values to update them with.
 3. BloodNet updates fields of the donor for which values were supplied.
 
@@ -497,7 +496,7 @@ Use case ends.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands rather than using the mouse.
 4. Should start within 5 seconds on a typical user machine (4 core CPU, 8GB RAM, SSD).
 5. User guide should be written with easy-to-understand English that is comprehensible to users without technical background.
-6. The user interface should be intuitive enough for users who are not IT-saavy.
+6. The user interface should be intuitive enough for users who are not IT-savvy.
 7. Should not be required to have beautiful visual design or animations since it is for administrative use.
 8. Should have user confirmation for _destructive operations_.
 9. Should provide error message, in response to an invalid operation, that details what went wrong and how to fix it for a non-technical user.
@@ -514,7 +513,7 @@ Use case ends.
 * **Destructive operation**: An action that leads to permanent removal of data
 * **Field**: A single piece of information for a donor or donation record.
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: An 8-digit Singaporean (+65) contact detail that is not meant to be shared with others
+* **Private contact detail**: An 8-digit Singaporean (+65) phone number that is not meant to be shared with others
 * **Run**: In the context of a command, refers to carrying out the entire lifecycle of a command, including user interaction and invoking domain logic
 * **Execution**: In the context of a command, refers specifically to invoking the domain logic of the command, without handling any user interaction
 * **Input Box**: The text box in the application that receives all textual inputs from the user
