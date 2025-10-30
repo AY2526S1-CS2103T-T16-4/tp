@@ -9,8 +9,7 @@ pageNav: 3
 
 ## **Acknowledgements**
 
-- Blood donation eligibility criteria in Singapore were based on guidelines from the [Health Sciences Authority](https://www.hsa.gov.sg/blood-donation/can-i-donate)
-<!-- Can add more, if used -->
+We acknowledge that the blood donation eligibility criteria implemented in this project were guided by the [Health Sciences Authority (HSA)](https://www.hsa.gov.sg/blood-donation/can-i-donate) guidelines in Singapore
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
@@ -41,8 +40,7 @@ The bulk of the app's work is done by the following four components:
 * [**`Logic`**](#logic-component): The input handler.
 * [**`Model`**](#model-component): Holds the data of the App in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
-
-[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
+* [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
 **How the architecture components interact with each other**
 
@@ -158,7 +156,7 @@ The `Model` component,
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
 The `Storage` component,
-* can save both bloodnet data and user preference data in JSON format, and read them back into corresponding objects.
+* can save both BloodNet data and user preference data in JSON format, and read them back into corresponding objects.
 * inherits from both `BloodNetStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
@@ -194,6 +192,16 @@ The following activity diagrams contrast the flow of a command requiring user co
 For clarity, the above diagrams omit general session handling, command parsing and input delegation. See [**Command Sessions**](#command-sessions) for a complete overview.
 
 --------------------------------------------------------------------------------------------------------------------
+
+### \[Future enhancements\]
+
+In the future, we can make the `FilteredPersonList` and `FilteredDonationRecordList` in sync. This means that the `DonationRecords` displayed correspond to the `Persons` displayed at all times. For example, when the user finds eligible blood donors from the list of `Persons`, the `DonationRecordsList` will be filtered such that only records which correspond to the displayed `Persons` are shown.
+
+The diagram below illustrates a potential implementation using the `FindEligible` command.
+
+<puml src="diagrams/FutureUIImplementation.puml" width="250" />
+
+__________________________________________________________________________________________________
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
@@ -337,7 +345,7 @@ Use case ends.
     * 2b1. Admin staff deletes donation records of user ([UC10](#use-case-uc10---delete-a-blood-donation-record)).
     * Use case returns to step 2.
 
----
+`---
 
 ### **Use case: UC05 - List all donors in the system**
 
