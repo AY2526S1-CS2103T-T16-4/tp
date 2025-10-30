@@ -111,13 +111,16 @@ Whenever someone signs up to be a blood donor, use this command to add them to t
 
 Format: `add n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`
 
-* BLOOD_TYPE must be either O+, O-, A+, A-, B+, B-, AB+ or AB-
-* DATE_OF_BIRTH must be in the *DD-MM-YYYY* format
+* NAME should contain at least 2 letters.
+* PHONE must be an 8-digit phone number starting with either 3, 6, 8, or 9.
+* EMAIL must be a valid email address in the format `local-part@domain`.
+* BLOOD_TYPE must be either O+, O-, A+, A-, B+, B-, AB+ or AB-.
+* DATE_OF_BIRTH must be in the *dd-MM-yyyy* format.
 
 Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com b/B+ d/04-11-1999`
-* `add n/Betsy Crowe e/betsycrowe@example.com b/O- d/20-05-2004`
+* `add n/Betsy Crowe p/87654321 e/betsycrowe@example.com b/O- d/20-05-2004`
 
 ### Listing all donors: `list`
 
@@ -131,6 +134,7 @@ Finds donors whose names contain any of the given keywords.
 
 Format: `find KEYWORD...`
 
+* At least one keyword must be provided.
 * The search is case-insensitive. e.g. `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
@@ -149,12 +153,15 @@ Finds all people who are eligible to donate blood for the specified blood type(s
 
 Format: `findeligible BLOOD_TYPE...`
 
+* At least one blood type must be provided.
 * The search is case-insensitive. e.g. `O+` and `o+` will match the blood type of someone with blood type O+.
-* Eligibility criteria are based on official guidelines. The donor’s date of birth and
+* BLOOD_TYPE must be either O+, O-, A+, A-, B+, B-, AB+ or AB-.
+* Eligibility criteria are based on official guidelines. The donor's date of birth and
   how long it has been since their last blood donation are both considered when determining an individual's eligibility.
 
 Examples:
-To be added
+* `findeligible A+` returns all donors with blood type A+ who are currently eligible to donate.
+* `findeligible O+ A+ B+` returns all donors with blood type O+, A+, or B+ who are currently eligible to donate.
 
 ### Editing a donor: `edit`
 
@@ -167,6 +174,7 @@ Format: `edit DONOR_LIST_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE] [d/DA
   displayed donor list. The specified index **must be a positive whole number** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* New values of the fields must satisfy the validation rules as outlined for the `adddonation` command above.
 
 Examples:
 
@@ -202,12 +210,13 @@ Format: `adddonation p/DONOR_LIST_INDEX d/DONATION_DATE v/BLOOD_VOLUME`
 
 * Adds a donation record for the donor corresponding to the specified `DONOR_LIST_INDEX`.
 * The index refers to the index number shown in the displayed donor list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* DONATION_DATE must be in the *dd-MM-yyyy* format
-* BLOOD_VOLUME **must be a positive integer** strictly **less than 500**.
+* The index **must be a positive whole number** 1, 2, 3, …​
+* DONATION_DATE must be in the *dd-MM-yyyy* format.
+* BLOOD_VOLUME **must be a positive whole number** strictly **less than 500** (in milliliters).
 
 Examples:
 * `adddonation p/1 d/15-10-2025 v/200` adds a donation record for the 1st donor, with a blood volume of 200ml donated on 15-10-2025.
+* `adddonation p/3 d/20-09-2024 v/450` adds a donation record for the 3rd donor, with a blood volume of 450ml donated on 20-09-2024.
 
 ### ⚠️ Deleting a donation record: `deletedonation`
 
@@ -225,27 +234,31 @@ Examples:
 ### Editing a donation record: `editdonation`
 
 If you made a mistake when adding the donation record particulars for a person, please do not fret! Use this command to
-edit an existing donor record in the BloodNet system.
+edit an existing donation record in the BloodNet system.
 
 Format: `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLUME]`
 
-* Edits the person at the specified `DONATION_RECORD_LIST_INDEX`. The index refers to the index number shown in the
+* Edits the donation record at the specified `DONATION_RECORD_LIST_INDEX`. The index refers to the index number shown in the
   displayed donation record list. The specified index **must be a positive whole number** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* DONATION_DATE must be in the *dd-MM-yyyy* format.
+* BLOOD_VOLUME **must be a whole number** strictly **less than 500** (in milliliters).
 
 Examples:
 
-* `editdonation 1 v/200 ` Edits the blood volume of the 1st donation record.
-* `editdonation 3 d/13-10-2024 ` Edits the donation date of the 3rd donation record.
-<!-- More examples will be added soon -->
+* `editdonation 1 v/200 ` Edits the blood volume of the 1st donation record to 200ml.
+* `editdonation 3 d/13-10-2024 ` Edits the donation date of the 3rd donation record to 13-10-2024.
+* `editdonation 2 d/01-01-2025 v/350` Edits both the donation date and blood volume of the 2nd donation record.
 
 ## Finding donation records of a donor: `finddonations`
 
 Find donation records of a donor.
 
 Format: `finddonations DONOR_LIST_INDEX`
-* List all donation records of the donor at the specified `DONOR_LIST_INDEX`. The index refers to the index number shown in the displayed donor record list. The specified index **must be a positive whole number** 1, 2, 3, ...
+* List all donation records of the donor at the specified `DONOR_LIST_INDEX`.
+* The index refers to the index number shown in the displayed donor list.
+* The specified index **must be a positive whole number** 1, 2, 3, ...
 
 Example:
 
