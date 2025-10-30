@@ -189,11 +189,11 @@ Examples:
 
 ### ⚠️ Deleting a donation record: `deletedonation`
 
-This command can be used to delete a specified donor from the BloodNet system.
+This command can be used to delete a specified donation record from the BloodNet system.
 
-Format: `delete DONATION_RECORD_LIST_INDEX`
+Format: `deletedonation DONATION_RECORD_LIST_INDEX`
 
-* Deletes the donor at the specified `DONATION_RECORD_LIST_INDEX`.
+* Deletes the donation record at the specified `DONATION_RECORD_LIST_INDEX`.
 * The index refers to the index number shown in the displayed donation record list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
@@ -214,8 +214,8 @@ Format: `editdonation DONATION_RECORD_LIST_INDEX [v/BLOOD_VOLUME] [d/DONATION_DA
 
 Examples:
 
-* `editdonation 1 v/200 ` Edits the blood volume of the 1st donation record list
-* `editdonation 3 d/13-10-2024 ` Edits the donation date of the 3rd donation record list.
+* `editdonation 1 v/200 ` Edits the blood volume of the 1st donation record
+* `editdonation 3 d/13-10-2024 ` Edits the donation date of the 3rd donation record.
 <!-- More examples will be added soon -->
 
 ## Finding donation records of a donor: `finddonations`
