@@ -20,12 +20,13 @@ making it perfect for locations where internet service is unreliable or unavaila
    **Mac users:** Ensure you have the precise JDK version
    prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-2. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-T16-4/tp/releases).
+2. Download the latest `.jar` file from our [Github Releases](https://github.com/AY2526S1-CS2103T-T16-4/tp/releases).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your BloodNet application.
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar bloodnet.jar` command
-   to run the application.<br>
+   to run the application.<br> You can also open the terminal directly from the folder by right-clicking inside the folder and selecting "Open in Terminal".
+   ![RunInTerminal](images/RunInTerminal.png)
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
