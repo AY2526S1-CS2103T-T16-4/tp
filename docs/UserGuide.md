@@ -31,7 +31,7 @@ But don't take our word for it. Try it out for yourselves!
 3. Copy the file to the folder you want to use as the _home folder_ for your BloodNet application.
 
 4. Navigate to the folder. Then, right click in any empty area in the folder and select `Open in Terminal`.
-   ![RunInTerminal](images/RunInTerminal.png)
+   ![RunInTerminal](images/runInTerminal.png)
    A black window will appear. Then, key in `java -jar bloodnet.jar` and click enter.
    ![Terminal.png](Terminal.png)
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
@@ -144,6 +144,7 @@ Examples:
 
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
+
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Adding a donor: `add`
@@ -212,6 +213,7 @@ Format: `finddonations DONOR_LIST_INDEX`
 Example:
 
 * `finddonations 3`: List all donation records of the 3rd donor in the donor list.
+
   ![result for 'finddonations 3'](images/finddonations3.png)
 
 ### Adding a donation record: `adddonation`
@@ -281,10 +283,9 @@ Format: `findeligible BLOOD_TYPE...`
   how long it has been since their last blood donation are both considered when determining eligibility.
 
 Example:
-
-* `findeligible A+ B+`: Lists all donors who have blood type A+ or B+ and are found eligible to donate based on the
-  official guidelines.
-  ![result for 'findeligible A+ AB-'](images/findeligibleResults.png)
+* `findeligible A+ B+`: Lists all donors who have blood type A+ or B+ and are found eligible to donate based on the official guidelines.
+  
+   ![result for 'findeligible A+ AB-'](images/findeligibleResults.png)
 
 ### ⚠️ Clearing all entries: `clear`
 
@@ -331,17 +332,13 @@ Furthermore, certain edits can cause the BloodNet to behave in unexpected ways (
 acceptable range). Therefore, edit the data file only if you are confident that you are able to update it correctly.
 </box>
 
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
-the data of your previous BloodNet home folder.
+the data of your previous BloodNet home folder.<br>
 **Q**: Are the donor list and donation records list synchronised?
 **A**: **NO!** The two lists should be treated as largely independent. The only time they interact is for
 donation-related commands that require a donor to be specified (e.g., `finddonations`, `adddonation`). In these cases,
