@@ -502,7 +502,7 @@ Use case ends.
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 persons and the program should still be responsive with response time less than 1 second for each operation.
-3.  A user with typing speed of 40 words per minute for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands rather than using the mouse.
+3.  A user with typing speed of more than 40 words per minute for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands rather than using the mouse.
 4. Should start within 5 seconds on a typical user machine (4 core CPU, 8GB RAM, SSD).
 5. User guide should be written with easy-to-understand English that is comprehensible to users without technical background.
 6. The user interface should be intuitive enough for users who are not IT-savvy.
