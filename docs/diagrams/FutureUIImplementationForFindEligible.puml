@@ -11,8 +11,15 @@ skinparam ActivityFontSize 15
 skinparam ArrowFontSize 12
 
 start
-:User inputs FindEligible command;
+' To be fair, you can include the case if the user doesn't enter a blood type but I do not think it adds that
+' much complexity.
+' To be input is vague.
+:User inputs their FindEligible command;
 :Parse user input;
+
+' For reference the update list part with the "No eligible donors found."
+' is not actually how it currently runs but since this is a future implementation,
+' I think this is okay.
 
 if ()then ([user includes one or more valid blood type(s)])
     :Create a new FindEligible Command;
@@ -21,13 +28,15 @@ if ()then ([user includes one or more valid blood type(s)])
     :Filter PersonList using both predicates;
     :From the updated PersonList, the DonationRecordList is updated;
     if () then([filtered PersonList not empty])
-        :Update corresponding DonationRecord list;
-        :Show updated person list and donation record list;
+        :Update corresponding DonationRecordList;
+        :Show updated PersonList and DonationRecordList;
     else([else])
-        :Show message: "No eligible donors found";
+        :Update corresponding DonationRecordList;
+        :Show message: "No eligible donors found.";
     endif
 else ([else])
-    :Show message: "Invalid blood type(s)";
+    :Show message: "Blood type should either be A-, A+, B-,
+                    B+, AB-, AB+, O- or O+.";
 endif
 stop
 @enduml
