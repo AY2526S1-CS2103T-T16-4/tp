@@ -31,10 +31,15 @@ But don't take our word for it. Try it out for yourselves!
 3. Copy the file to the folder you want to use as the _home folder_ for your BloodNet application.
 
 4. Navigate to the folder. Then, right click in any empty area in the folder and select `Open in Terminal`.
+   <br><br>
    ![RunInTerminal](images/runInTerminal.png)
-   A black window will appear. Then, key in `java -jar bloodnet.jar` and click enter.
+   <br><br>
+   A black window will appear. Key in `java -jar bloodnet.jar` and press <kbd>Enter</kbd>.
+   <br><br>
    ![Terminal.png](Terminal.png)
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+   <br><br>
+   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
+   <br><br>
    ![Ui](images/Ui.png)
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. e.g. typing **`help`** and
@@ -283,9 +288,11 @@ Format: `findeligible BLOOD_TYPE...`
   how long it has been since their last blood donation are both considered when determining eligibility.
 
 Example:
-* `findeligible A+ B+`: Lists all donors who have blood type A+ or B+ and are found eligible to donate based on the official guidelines.
-  
-   ![result for 'findeligible A+ AB-'](images/findeligibleResults.png)
+
+* `findeligible A+ B+`: Lists all donors who have blood type A+ or B+ and are found eligible to donate based on the
+  official guidelines.
+
+  ![result for 'findeligible A+ AB-'](images/findeligibleResults.png)
 
 ### ⚠️ Clearing all entries: `clear`
 
