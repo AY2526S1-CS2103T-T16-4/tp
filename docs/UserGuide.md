@@ -150,14 +150,6 @@ Examples:
 * `add n/Betsy Crowe p/95559132 e/betsycrowe@example.com b/AB- d/20-05-2004`: Adds a donor named Betsy Crowe with phone 
    number 95559132, email betsycrowe@example.com, blood type AB- and date of birth 20-05-2004.
 
-### Listing all donors: `list`
-
-This command lists all donors in the BloodNet system.
-
-* `add n/John Doe p/98765432 e/johnd@example.com b/B+ d/04-11-1999`: Adds a donor named John Doe with phone 98765432, 
-   email johnd@example.com, blood type B+ and date of birth 04-11-1999.
-* `add n/Betsy Crowe p/95559132 e/betsycrowe@example.com b/AB- d/20-05-2004`: Adds a donor named Betsy Crowe with phone 
-  95559132, email betsycrowe@example.com, blood type AB- and date of birth 20-05-2004.
 
 ### Listing all donors: `list`
 
@@ -167,7 +159,6 @@ Format: `list`
 
 ### Locating donors by name: `find`
 
-<<<<<<< Updated upstream
 This command finds donors whose names contain any of the given keywords.
 
 Format: `find KEYWORD...`
@@ -201,7 +192,7 @@ Format: `edit DONOR_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF
 Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com`: Edits the 1st donor's phone number to `91234567` and email address to
-=======
+    `johndoe@example.com`.
 * New values of the fields must satisfy the validation rules as outlined for the `adddonation` command above.
 
 Examples:
