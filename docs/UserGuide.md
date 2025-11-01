@@ -154,6 +154,7 @@ Format: `find KEYWORD...`
 
 * At least one keyword must be provided.
 * The search is case-insensitive. e.g. `hans` will match `Hans`
+* If a keyword is a substring of a word in the person's name, it is considered a match. e.g. `al` will match `alex`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
