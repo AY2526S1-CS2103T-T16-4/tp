@@ -63,7 +63,11 @@ a time.
     * `clear`: Deletes the entire donation list and donation records from the app. Note that this command can be used 
       to delete all sample data from the app.
 
+<<<<<<< Updated upstream
     * `exit` : Exits out of the application.
+=======
+    * `exit` : Exits out of the application
+>>>>>>> Stashed changes
 
 6. Press <kbd>F1</kbd> or type **`help`** in the command box and press <kbd>Enter</kbd> to open
    the [help window](#viewing-help-help), which provides a summary of all command usages.
@@ -144,6 +148,7 @@ Format: `add n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`
 
 Examples:
 
+<<<<<<< Updated upstream
 * `add n/John Doe p/98765432 e/johnd@example.com b/B+ d/04-11-1999`: Adds a donor named John Doe with phone number 
    98765432, email johnd@example.com, blood type B+ and date of birth 04-11-1999.
 * `add n/Betsy Crowe p/95559132 e/betsycrowe@example.com b/AB- d/20-05-2004`: Adds a donor named Betsy Crowe with phone 
@@ -152,18 +157,36 @@ Examples:
 ### Listing all donors: `list`
 
 This command lists all donors in the BloodNet system.
+=======
+* `add n/John Doe p/98765432 e/johnd@example.com b/B+ d/04-11-1999`: Adds a donor named John Doe with phone 98765432, 
+   email johnd@example.com, blood type B+ and date of birth 04-11-1999.
+* `add n/Betsy Crowe p/95559132 e/betsycrowe@example.com b/AB- d/20-05-2004`: Adds a donor named Betsy Crowe with phone 
+  95559132, email betsycrowe@example.com, blood type AB- and date of birth 20-05-2004.
+
+### Listing all donors: `list`
+
+The command lists all donors in the BloodNet system.
+>>>>>>> Stashed changes
 
 Format: `list`
 
 ### Locating donors by name: `find`
 
+<<<<<<< Updated upstream
 This command finds donors whose names contain any of the given keywords.
+=======
+The command finds donors whose names contain any of the given keywords.
+>>>>>>> Stashed changes
 
 Format: `find KEYWORD...`
 
 * At least one keyword must be provided.
 * The search is case-insensitive. e.g. `jane` will match `Jane`.
+<<<<<<< Updated upstream
 * The order of the keywords does not matter. e.g. `Jane Bo` will match `Bo Jane`.
+=======
+* The order of the keywords does not matter. e.g. `jane Doe` will match `Doe Jane`.
+>>>>>>> Stashed changes
 * Only the donor's name is searched.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Jane Do` will return `Jane Gruber`, `Jane Yang`.
@@ -185,11 +208,19 @@ Format: `edit DONOR_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF
   displayed donor list. The specified index **must be a positive whole number** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the new input values.
+<<<<<<< Updated upstream
 * New values of the fields must satisfy the validation rules as outlined for the `add` command above.
 
 Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com`: Edits the 1st donor's phone number to `91234567` and email address to
+=======
+* New values of the fields must satisfy the validation rules as outlined for the `adddonation` command above.
+
+Examples:
+
+* `edit 1 p/91234567 e/johndoe@example.com`: Edits the 1st donor's phone number to `91234567` and email address to  
+>>>>>>> Stashed changes
   `johndoe@example.com`.
 * `edit 2 n/Betsy Crower`:Edits the name of the 2nd donor to be `Betsy Crower`.
 * `find Betsy` followed by `edit 1 p/91234567`: Edits the phone number of the 1st donor in the result of the `find`
@@ -221,7 +252,11 @@ Examples:
 
 ### Adding a donation record: `adddonation`
 
+<<<<<<< Updated upstream
 This command adds a donation record for a donor.
+=======
+The command adds a donation record for a donor.
+>>>>>>> Stashed changes
 
 Format: `adddonation p/DONOR_INDEX d/DONATION_DATE v/BLOOD_VOLUME`
 
@@ -240,7 +275,7 @@ Examples:
 
 ## Finding donation records of a donor: `finddonations`
 
-This command finds donation records of a donor.
+The command finds donation records of a donor.
 
 Format: `finddonations DONOR_INDEX`
 
@@ -318,7 +353,11 @@ Example:
 
 ### Clearing all entries: `clear`
 
+<<<<<<< Updated upstream
 Thisgit add command clears all entries from the BloodNet system.
+=======
+The command clears all entries from the BloodNet system.
+>>>>>>> Stashed changes
 
 Format: `clear`
 
