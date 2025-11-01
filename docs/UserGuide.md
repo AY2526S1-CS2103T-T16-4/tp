@@ -243,7 +243,6 @@ Format: `finddonations DONOR_LIST_INDEX`
 Example:
 
 * `finddonations 3`: List all donation records of the 3rd donor in the donor list.
-
   ![result for 'finddonations 3'](images/finddonations3.png)
 
 ### Editing a donation record: `editdonation`
@@ -303,8 +302,7 @@ Example:
 
 * `findeligible A+ B+`: Lists all donors who have blood type A+ or B+ and are found eligible to donate based on the
   official guidelines.
-
-  ![result for 'findeligible A+ AB-'](images/findeligibleResults.png)
+  ![result for 'findeligible A+ B+'](images/findeligibleResults.png)
 
 ### Clearing all entries: `clear`
 
