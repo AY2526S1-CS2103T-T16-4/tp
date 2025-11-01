@@ -24,18 +24,18 @@ public class DonationRecord {
     // Static validation error strings
     public static final String MESSAGE_AGE_BELOW_16 =
             "Donor is too young on the donation date. "
-            + "Donation date cannot be between %s (their birthdate) "
-            + "and %s (one day before their 16th birthdate) inclusive.";
+                    + "Donation date cannot be between %s (their birthdate) "
+                    + "and %s (one day before their 16th birthdate) inclusive.";
     public static final String MESSAGE_NEIGHBOURING_DONATION_TOO_CLOSE =
             "Consecutive donations must be at least 12 weeks (84 days) apart. "
-            + "However, the donor has already donated blood on %s. "
-            + "Therefore, the donation date cannot be between %s and %s inclusive.";
+                    + "However, the donor has already donated blood on %s. "
+                    + "Therefore, the donation date cannot be between %s and %s inclusive.";
     public static final String MESSAGE_FIRST_TIME_DONOR_TOO_OLD =
             "This is a first-time donor. "
-            + "Donation date cannot be on or after %s (their 61st birthdate).";
+                    + "Donation date cannot be on or after %s (their 61st birthdate).";
     public static final String MESSAGE_NON_RECENT_DONOR_TOO_OLD =
             "This is a repeated donor. However, they have not donated blood in the last 3 years. "
-            + "Donation date cannot be on or after %s (their 66th birthdate).";
+                    + "Donation date cannot be on or after %s (their 66th birthdate).";
 
     // Identity fields
     private UUID id;
@@ -48,6 +48,7 @@ public class DonationRecord {
     // Fields which aren't actually stored in the database, but displayed
     // in the UI
     private String donorName;
+    private String donorPhoneNumber;
 
     /**
      * Every field other than ID must be present and not null.
@@ -87,6 +88,14 @@ public class DonationRecord {
 
     public String getDonorName() {
         return donorName;
+    }
+
+    public void setDonorPhoneNumber(String donorPhoneNumber) {
+        this.donorPhoneNumber = donorPhoneNumber;
+    }
+
+    public String getDonorPhoneNumber() {
+        return donorPhoneNumber;
     }
 
     /**
@@ -160,8 +169,8 @@ public class DonationRecord {
         if (ageAtDonation < 16) {
             LocalDate sixteenthBirthday = dateOfBirthValue.plusYears(16);
             String errorString = String.format(MESSAGE_AGE_BELOW_16,
-                                                dateOfBirthValue.format(DateOfBirth.DATE_FORMATTER),
-                                                sixteenthBirthday.minusDays(1).format(DonationDate.DATE_FORMATTER));
+                    dateOfBirthValue.format(DateOfBirth.DATE_FORMATTER),
+                    sixteenthBirthday.minusDays(1).format(DonationDate.DATE_FORMATTER));
             validationErrorStrings.add(errorString);
         }
 
@@ -201,10 +210,10 @@ public class DonationRecord {
                     donationDateValue);
             if (daysSinceLastDonation < 84) {
                 String errorString = String.format(MESSAGE_NEIGHBOURING_DONATION_TOO_CLOSE,
-                                                    predecessorDonationDate.format(DonationDate.DATE_FORMATTER),
-                                                    predecessorDonationDate.format(DonationDate.DATE_FORMATTER),
-                                                    predecessorDonationDate.plusDays(83)
-                                                                           .format(DonationDate.DATE_FORMATTER));
+                        predecessorDonationDate.format(DonationDate.DATE_FORMATTER),
+                        predecessorDonationDate.format(DonationDate.DATE_FORMATTER),
+                        predecessorDonationDate.plusDays(83)
+                                .format(DonationDate.DATE_FORMATTER));
                 validationErrorStrings.add(errorString);
             }
         }
@@ -216,10 +225,10 @@ public class DonationRecord {
                     successorDonationDate);
             if (daysToNextDonation < 84) {
                 String errorString = String.format(MESSAGE_NEIGHBOURING_DONATION_TOO_CLOSE,
-                                                    successorDonationDate.format(DonationDate.DATE_FORMATTER),
-                                                    successorDonationDate.minusDays(83)
-                                                                         .format(DonationDate.DATE_FORMATTER),
-                                                    successorDonationDate.format(DonationDate.DATE_FORMATTER));
+                        successorDonationDate.format(DonationDate.DATE_FORMATTER),
+                        successorDonationDate.minusDays(83)
+                                .format(DonationDate.DATE_FORMATTER),
+                        successorDonationDate.format(DonationDate.DATE_FORMATTER));
                 validationErrorStrings.add(errorString);
             }
         }

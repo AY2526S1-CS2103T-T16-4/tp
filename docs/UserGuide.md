@@ -36,11 +36,12 @@ But don't take our word for it. Try it out for yourselves!
    <br><br>
    A black window will appear. Key in `java -jar bloodnet.jar` and press <kbd>Enter</kbd>.
    <br><br>
-   ![Terminal.png](Terminal.png)
+   ![Terminal.png](images/Terminal.png)
    <br><br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
    <br><br>
-   ![Ui](images/Ui.png)
+   ![Ui.png](images/Ui.png)
+   <br><br>
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. e.g. typing **`help`** and
    pressing <kbd>Enter</kbd> will
