@@ -63,7 +63,7 @@ a time.
     * `clear`: Deletes the entire donation list and donation records from the app. Note that this command can be used 
       to delete all sample data from the app.
 
-    * `exit` : Exits out of the application
+    * `exit` : Exits out of the application.
 
 6. Press <kbd>F1</kbd> or type **`help`** in the command box and press <kbd>Enter</kbd> to open
    the [help window](#viewing-help-help), which provides a summary of all command usages.
@@ -131,49 +131,42 @@ a time.
 
 This command adds a donor to the BloodNet system.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`
+Format: `add n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`
 
-<<<<<<< Updated upstream
-* BLOOD_TYPE must be either O+, O-, A+, A-, B+, B-, AB+ or AB-
-* DATE_OF_BIRTH must be in the *dd-MM-yyyy* format
-=======
+* NAME must contain at least 2 letters.
+* PHONE must contain only contain numbers, be 8 digits long and start with either 3, 6, 8 or 9. 
+* EMAIL must follow the format `local-part@domain`.
+  * Local-part: letters, numbers, `+`, `_`, `.` or `-`; cannot start nor end with a special character.
+  * Domain: labels should be separated by periods, each label must start and end with a letter or number, and may 
+    contain letters, numbers or hyphens in-between; the last label must be at least 2 or more characters long. 
 * BLOOD_TYPE must be either O+, O-, A+, A-, B+, B-, AB+, AB-.
 * DATE_OF_BIRTH must be in the *DD-MM-YYYY* format (for example, `20-01-2003`).
->>>>>>> Stashed changes
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com b/B+ d/04-11-1999`: Adds a donor named John Doe with phone 98765432, 
-   email johnd@example.com, blood type B+ and date of birth 04-11-1999.
+* `add n/John Doe p/98765432 e/johnd@example.com b/B+ d/04-11-1999`: Adds a donor named John Doe with phone number 
+   98765432, email johnd@example.com, blood type B+ and date of birth 04-11-1999.
 * `add n/Betsy Crowe p/95559132 e/betsycrowe@example.com b/AB- d/20-05-2004`: Adds a donor named Betsy Crowe with phone 
-  95559132, email betsycrowe@example.com, blood type AB- and date of birth 20-05-2004.
+   number 95559132, email betsycrowe@example.com, blood type AB- and date of birth 20-05-2004.
 
 ### Listing all donors: `list`
 
-The command lists all donors in the BloodNet system.
+This command lists all donors in the BloodNet system.
 
 Format: `list`
 
 ### Locating donors by name: `find`
 
-The command finds donors whose names contain any of the given keywords.
+This command finds donors whose names contain any of the given keywords.
 
 Format: `find KEYWORD...`
 
 * At least one keyword must be provided.
-<<<<<<< Updated upstream
-* The search is case-insensitive. e.g. `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-=======
 * The search is case-insensitive. e.g. `jane` will match `Jane`.
-* The order of the keywords does not matter. e.g. `jane Doe` will match `Doe Jane`.
+* The order of the keywords does not matter. e.g. `Jane Bo` will match `Bo Jane`.
 * Only the donor's name is searched.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Jane Do` will return `Jane Gruber`, `Jane Yang`.
->>>>>>> Stashed changes
 
 Examples:
 
@@ -184,7 +177,7 @@ Examples:
 
 ### Editing a donor: `edit`
 
-The command edits an existing donor in the BloodNet system.
+This command edits an existing donor in the BloodNet system.
 
 Format: `edit DONOR_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`
 
@@ -192,11 +185,11 @@ Format: `edit DONOR_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF
   displayed donor list. The specified index **must be a positive whole number** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the new input values.
-* New values of the fields must satisfy the validation rules as outlined for the `adddonation` command above.
+* New values of the fields must satisfy the validation rules as outlined for the `add` command above.
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com`: Edits the 1st donor's phone number to `91234567` and email address to  
+* `edit 1 p/91234567 e/johndoe@example.com`: Edits the 1st donor's phone number to `91234567` and email address to
   `johndoe@example.com`.
 * `edit 2 n/Betsy Crower`:Edits the name of the 2nd donor to be `Betsy Crower`.
 * `find Betsy` followed by `edit 1 p/91234567`: Edits the phone number of the 1st donor in the result of the `find`
@@ -228,7 +221,7 @@ Examples:
 
 ### Adding a donation record: `adddonation`
 
-The command adds a donation record for a donor.
+This command adds a donation record for a donor.
 
 Format: `adddonation p/DONOR_INDEX d/DONATION_DATE v/BLOOD_VOLUME`
 
@@ -247,7 +240,7 @@ Examples:
 
 ## Finding donation records of a donor: `finddonations`
 
-The command finds donation records of a donor.
+This command finds donation records of a donor.
 
 Format: `finddonations DONOR_INDEX`
 
@@ -325,7 +318,7 @@ Example:
 
 ### Clearing all entries: `clear`
 
-The command clears all entries from the BloodNet system.
+Thisgit add command clears all entries from the BloodNet system.
 
 Format: `clear`
 
