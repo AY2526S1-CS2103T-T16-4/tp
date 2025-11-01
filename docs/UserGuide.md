@@ -283,7 +283,6 @@ Examples:
 * `editdonation 2 d/01-01-2025 v/350`: Edits the donation date to 01-01-2025 and blood volume to 350 ml for 
    the second donation record.
 
-
 ### Deleting a donation record: `deletedonation`
 
 This command deletes a specified donation record from the BloodNet system.
@@ -315,12 +314,12 @@ Format: `findeligible BLOOD_TYPE...`
 
 * The search is case-insensitive. e.g. `O+` and `o+` will match the blood type of someone with blood type O+.
 * Eligibility is determined according to official guidelines, taking into account the donor’s date of birth and the 
-   interval since their last blood donation.
+ interval since their last blood donation.
 
 Example:
 
-* `findeligible A+ B+`: Lists all donors who have blood type A+ or B+ and are found eligible to donate based on the
-   official guidelines.
+* `findeligible A+ B+`: Lists all donors who have blood type A+ or B+ and are found eligible to donate based on the 
+ official guidelines.
 
   ![result for 'findeligible A+ AB-'](images/findeligibleResults.png)
 
