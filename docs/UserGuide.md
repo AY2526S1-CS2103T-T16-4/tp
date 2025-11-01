@@ -238,7 +238,7 @@ Format: `adddonation p/DONOR_LIST_INDEX d/DONATION_DATE v/BLOOD_VOLUME`
 * The index refers to the index number shown in the displayed donor list.
 * The index **must be a positive whole number** 1, 2, 3, …​
 * DONATION_DATE must be in the *dd-MM-yyyy* format and not in the future.
-* DONATION_DATE must also be such that the donor is eligible to donate blood on the DONATION_DATE. The criteria for
+* The donor must be eligible to donate blood on the specified DONATION_DATE. The criteria for
   eligibility can be found [here](#eligibility-criteria).
 * BLOOD_VOLUME **must be a positive whole number** strictly **less than 500** (in milliliters).
 
@@ -277,7 +277,7 @@ Format: `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLU
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * DONATION_DATE must be in the *dd-MM-yyyy* format and not in the future.
-* DONATION_DATE must also be such that the donor is eligible to donate blood on the DONATION_DATE. The criteria for
+* The donor must be eligible to donate blood on the specified DONATION_DATE. The criteria for
   eligibility can be found [here](#eligibility-criteria).
 * BLOOD_VOLUME **must be a whole number** strictly **less than 500** (in milliliters).
 
