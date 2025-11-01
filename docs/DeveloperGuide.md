@@ -517,7 +517,7 @@ Use case ends.
 
 ### Glossary
 
-* **Blood Type**: The blood types supported are A+, A-, B+, B-, AB+, AB-, O+ and O-
+* **Blood Type**: The blood types supported are A+, A-, B+, B-, AB+, AB-, O+, O-
 * **Donor**: Person who donates blood to others
 * **Destructive operation**: An action that leads to permanent removal of data
 * **Field**: A single piece of information for a donor or donation record.
