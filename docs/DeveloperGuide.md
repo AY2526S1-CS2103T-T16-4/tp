@@ -9,7 +9,7 @@ pageNav: 3
 
 ## **Acknowledgements**
 
-- We acknowledge that the blood donation eligibility criteria implemented in this project were guided by the [Health Sciences Authority (HSA)](https://www.hsa.gov.sg/blood-donation/can-i-donate) guidelines in Singapore.
+ - The blood donation eligibility criteria implemented in this project were guided by the [Health Sciences Authority (HSA)](https://www.hsa.gov.sg/blood-donation/can-i-donate) guidelines in Singapore.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
@@ -48,7 +48,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
 
-Each of the four main components (also shown in the above diagram),
+Each of the four main components (also shown in the above diagram):
 
 * defines its *API* in an `interface` with the same name as the Component.
 * implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point).
@@ -69,7 +69,7 @@ The UI consists of a `MainWindow` that is made up of parts e.g.`InputBox`, `Outp
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/java/bloodnet/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
-The `UI` component,
+The `UI` component:
 
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
@@ -141,7 +141,7 @@ The following activity diagram summarises the session lifecycle management when 
 <puml src="diagrams/ModelClassDiagram.puml" width="450" />
 
 
-The `Model` component,
+The `Model` component:
 
 * stores the BloodNet data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
@@ -155,7 +155,7 @@ The `Model` component,
 
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
-The `Storage` component,
+The `Storage` component:
 * can save both BloodNet data and user preference data in JSON format, and read them back into corresponding objects.
 * inherits from both `BloodNetStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
@@ -195,7 +195,9 @@ For clarity, the above diagrams omit general session handling, command parsing a
 
 ## **Future Implementation**
 
-In the future, we can make the `FilteredPersonList` and `FilteredDonationRecordList` in synchronization. This means that the `DonationRecords` displayed correspond to the `Persons` displayed at all times. For example, when the user finds eligible blood donors from the list of `Persons`, the `DonationRecordsList` will be filtered such that only records which correspond to the displayed `Persons` are shown.
+In the future, we can make the `FilteredPersonList` and `FilteredDonationRecordList` in synchronization. This means that the `DonationRecords` displayed correspond to the `Persons` displayed at all times. For example, when the user finds eligible donors from the `PersonList`, the `DonationRecordList` will be filtered such that only records which correspond to the displayed `Persons` are shown.
+
+<!-- Future implementation, so might not be doing exactly what the code actually does -->
 
 The diagram below illustrates a potential implementation using the `FindEligible` command.
 
@@ -219,15 +221,15 @@ ________________________________________________________________________________
 
 **Target user profile**:
 
-* has a need to manage a database of blood donors with detailed profile information
+* has a need to manage a database of donors with detailed profile information
 * requires quick access to donor personal information
 * prefer desktop apps over other types of apps
-* is able to type fast
+* is able to type fast such
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 * wants to filter profiles such as by blood type
 
-**Value proposition**: manage blood donor profiles more efficiently as opposed to a typical mouse driven app
+**Value proposition**: manage donor profiles more efficiently as opposed to a typical mouse driven app
 
 ### User stories
 
@@ -250,7 +252,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | * * *    | admin staff | delete a blood donation record                                                        | I can remove wrongly keyed in records                                                                                                |
 | * * *    | admin staff | find all eligible donors given a blood type (based on age and last donation interval) | I can determine who I can call if blood is needed                                                                                    |
 | * *      | admin staff | find a donor based on contact information                                             | I can link their name and contact information together                                                                               |
-| * *      | admin staff | detect duplicate donors                                                               | I can quickly identify duplicate data in the system and reconcile it to reduce data pollution                                        |
 | * *      | admin staff | detect duplicate donation records associated with the same person                     | I am able to quickly identify duplicate data in the BloodNet system and reconcile it to reduce data pollution                        |
 | *        | admin staff | record how much blood was donated by a donor in a session                             | I can recommend donors who have been very active for appreciation awards, to incentivise more donors                                 |
 | *        | admin staff | record when a donor donated blood in a session                                        | I can maintain accurate records of each donor’s donation history |
@@ -501,7 +502,7 @@ Use case ends.
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 persons and the program should still be responsive with response time less than 1 second for each operation.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands rather than using the mouse.
+3.  A user with typing speed of more than 40 words per minute for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands rather than using the mouse.
 4. Should start within 5 seconds on a typical user machine (4 core CPU, 8GB RAM, SSD).
 5. User guide should be written with easy-to-understand English that is comprehensible to users without technical background.
 6. The user interface should be intuitive enough for users who are not IT-savvy.
@@ -563,7 +564,7 @@ testers are expected to do more *exploratory* testing.
 #### _Test 1_
 * **Test instructions**: Run `find aleX davId iRfan`.
 
-* **Expected Message**: “3 persons listed”
+* **Expected Message**: “3 donors listed!”
 
 * **Expected Displayed Donor List**: Displays Alex Yeoh, David Li and Irfan Ibrahim.
 
@@ -639,22 +640,22 @@ Key in either 'yes' or 'no'.”
 * **Expected Displayed Donation Record List**: Displays only two donation records and the donor of these records is Alex Yeoh.
 
 
-
+<!-- Just realized that list resets the donation record list, like when adding-->
 ### adddonation:
 #### _Test 1_
-* **Test instructions**: Run `list`, followed by “adddonation p/1 d/10-10-2025 v/250”.
+* **Test instructions**: Run `list`, followed by `adddonation p/2 d/10-10-2025 v/250`.
 
-* **Expected Message**: “New donation record added: Donor Name: Alex Yeoh; Donation Date: 10-10-2025; Blood Volume: 250”
+* **Expected Message**: “New donation record added: Donor Name: Bernice Yu; Donation Date: 10-10-2025; Blood Volume: 250"
 
 * **Expected Displayed Donor List**: No change.
 
-* **Expected Displayed Donation Record List**: New donation record with the provided details shown at the bottom of the list (ie: If using test data, should be at index 7).
+* **Expected Displayed Donation Record List**:  Displays only one donation record and the donor of these records is Bernice Yu.
 
 
 
 ### editdonation:
 #### _Test 1_
-* **Test instruction**: Run `finddonations 1`, followed by `editdonation 2 v/499`
+* **Test instruction**: Run `finddonations 1`, followed by `editdonation 2 v/499`.
 
 * **Expected Message**: “Edited Donation Record: Donor Name: Alex Yeoh; Donation Date: 15-10-2025; Blood Volume: 499”
 
@@ -666,7 +667,7 @@ Key in either 'yes' or 'no'.”
 
 ### deletedonation:
 #### _Test 1_
-* **Test instructions**: Run `finddonations 3`, followed by `deletedonation 1`
+* **Test instructions**: Run `finddonations 3`, followed by `deletedonation 1`.
 
 * **Expected Message**: “Are you sure you want to delete donation record for: Donor Name: Charlotte Oliveiro; Donation Date: 21-03-2025; Blood Volume: 400? This action is not reversible.
 Key in either 'yes' or 'no'.”
@@ -744,16 +745,16 @@ Key in either 'yes' or 'no'.”
 
 ## **Appendix: Effort**
 
-In the course of the past few weeks, beyond just repurposing AB3 to a blood donor address book, we have made significant upgrades to it for our target audience, which involved a substantial amount of hard work, ingenuity, late nights and early mornings (just look at some of the commit timings):
+In the course of the past few weeks, beyond just repurposing AB3 to a blood donor address book, we have made significant upgrades to it for our target audience, which has involved a substantial amount of hard work, ingenuity, late nights and early mornings (just look at some of the commit timings):
 
 ### New command to find eligible donors of particular blood types.
 When reserves of a particular blood type are running low, users may want to search for existing donors in the system who are eligible to donate, so they can reach out to them and request for an urgent donation. This was challenging as the official rules on blood donation eligibility are fairly complex. It should be noted that an eligibility check is conducted when adding or editing a donation record.
 
 ### New Donation Record entity type
-In order for the system to not only track donors but also their donations (i.e. when and what volume of blood was donated), we added a Donation Record model. This was incredibly time-consuming due to the increase in complexity in having multiple entity types compared to AB3 which only deals with one entity type.
+In order for the system to not only track donors but also their donations (i.e: when and what volume of blood in millilitres was donated), we added a Donation Record model. This was incredibly time-consuming due to the increase in complexity in having multiple entity types compared to AB3 which only deals with one entity type.
 
 #### New commands to manage donation records
-To manage the donation records, we added new commands to add, edit, delete, and find donation records, which also took time to create, debug and document.
+To manage the donation records, we added new commands to add, edit, delete, and find donation records, which took time to create, debug and document.
 
 ### User confirmation
 Wanting to safeguard against accidental destructive operations, we sought to implement user confirmation before such operations.
