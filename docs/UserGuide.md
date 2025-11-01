@@ -54,7 +54,7 @@ time.
 
     * `delete 3` : Deletes the 3rd donor shown in the current donor list.
 
-    * `adddonation p/1 d/21-10-2025 v/500` : Adds a donation record for the 1st donor shown in the current donor
+    * `adddonation p/1 d/21-10-2025 v/400` : Adds a donation record for the 1st donor shown in the current donor
       list.
 
     * `findeligible O+ A+` : Finds all donors with the specified blood type(s) provided who are currently eligible to
