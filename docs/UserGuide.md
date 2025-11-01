@@ -133,7 +133,7 @@ This command is used to add a donor to the BloodNet system.
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`
 
 * BLOOD_TYPE must be either O+, O-, A+, A-, B+, B-, AB+, AB-.
-* DATE_OF_BIRTH must be in the *dd-MM-yyyy* format.
+* DATE_OF_BIRTH must be in the *dd-MM-yyyy* format (for example: 20-01-2003).
 
 Examples:
 
