@@ -132,8 +132,8 @@ This command is used to add a donor to the BloodNet system.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`
 
-* BLOOD_TYPE must be either O+, O-, A+, A-, B+, B-, AB+ or AB-
-* DATE_OF_BIRTH must be in the *dd-MM-yyyy* format
+* BLOOD_TYPE must be either O+, O-, A+, A-, B+, B-, AB+, AB-.
+* DATE_OF_BIRTH must be in the *dd-MM-yyyy* format (for example: 20-01-2003).
 
 Examples:
 
@@ -153,12 +153,12 @@ Finds donors whose names contain any of the given keywords.
 Format: `find KEYWORD...`
 
 * At least one keyword must be provided.
-* The search is case-insensitive. e.g. `hans` will match `Hans`
+* The search is case-insensitive. e.g. `hans` will match `Hans`.
 * If a keyword is a substring of a word in the person's name, it is considered a match. e.g. `al` will match `alex`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Only the name is searched.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
 
 Examples:
 
