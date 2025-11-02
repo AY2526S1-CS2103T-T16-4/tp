@@ -3,7 +3,7 @@ layout: default.md
 title: "User Guide"
 pageNav: 3
 ---
-
+<!-- For the TOC, actually, I think adding a site.json file might fix it, but adding a TOC for now. -->
 # BloodNet User Guide
 
 BloodNet is a **desktop app for tracking blood donors and their donations**, helping data entry staff to:
@@ -15,9 +15,30 @@ BloodNet is a **desktop app for tracking blood donors and their donations**, hel
 It is a standalone application which does not connect to the internet, making it perfect in parts of the world where
 internet connectivity is unreliable.
 
-BloodNet's mode of input resembles that of a Command Line Interface (CLI), making it the perfect tool for fast typists. 
-On the other hand, its Graphical User Interface (GUI) enables scrolling, making it easy to view large amounts of data at 
+BloodNet's mode of input resembles that of a Command Line Interface (CLI), making it the perfect tool for fast typists.
+On the other hand, its Graphical User Interface (GUI) enables scrolling, making it easy to view large amounts of data at
 a time.
+
+## Table of Contents
+- [Quick Start](#quick-start)
+- [Command Summary](#command-summary)
+- [Features](#features)
+    - [Adding a donor: add](#adding-a-donor-add)
+    - [Listing all donors: list](#listing-all-donors-list)
+    - [Locating donors by name: find](#locating-donors-by-name-find)
+    - [Editing a donor: edit](#editing-a-donor-edit)
+    - [Deleting a donor: delete](#deleting-a-donor-delete)
+    - [Add a donation record: adddonation](#adding-a-donation-record-adddonation)
+    - [Finding a donation record: finddonations](#finding-donation-records-of-a-donor-finddonations)
+    - [Editing a donation record: editdonation](#editing-a-donation-record-editdonation)
+    - [Deleting a donation record: deletedonation](#deleting-a-donation-record-deletedonation)
+    - [Find eligible donors based on blood type: findeligible](#finding-eligible-donors-based-on-blood-type-findeligible)
+    - [Clearing all entries: clear](#clearing-all-entries-clear)
+    - [Viewing help: help](#viewing-help-help)
+    - [Exiting the program: exit](#exiting-the-program-exit)
+- [Saving the Data](#saving-the-data)
+- [FAQ](#faq)
+- [Known Issues](#known-issues)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -60,9 +81,9 @@ a time.
     * `findeligible O+ A+` : Finds all donors with the specified blood type(s) provided who are currently eligible to
       donate based on their date of birth and number of days since their last donation.
 
-    * `clear`: Deletes the entire donation list and donation records from the app. Note that this command can be used 
+    * `clear`: Deletes the entire donation list and donation records from the app. Note that this command can be used
       to delete all sample data from the app.
-   
+
     * `exit` : Exits out of the application.
 
 
@@ -135,20 +156,20 @@ This command adds a donor to the BloodNet system.
 Format: `add n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`
 
 * NAME must contain at least 2 letters.
-* PHONE must contain only contain numbers, be 8 digits long and start with either 3, 6, 8 or 9. 
+* PHONE must contain only contain numbers, be 8 digits long and start with either 3, 6, 8 or 9.
 * EMAIL must follow the format `local-part@domain`.
-  * Local-part: letters, numbers, `+`, `_`, `.` or `-`; cannot start nor end with a special character.
-  * Domain: labels should be separated by periods, each label must start and end with a letter or number, and may 
-    contain letters, numbers or hyphens in-between; the last label must be at least 2 or more characters long. 
+    * Local-part: letters, numbers, `+`, `_`, `.` or `-`; cannot start nor end with a special character.
+    * Domain: labels should be separated by periods, each label must start and end with a letter or number, and may
+      contain letters, numbers or hyphens in-between; the last label must be at least 2 or more characters long.
 * BLOOD_TYPE must be either O+, O-, A+, A-, B+, B-, AB+, AB-.
 * DATE_OF_BIRTH must be in the *DD-MM-YYYY* format (for example, `20-01-2003`).
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com b/B+ d/04-11-1999`: Adds a donor named John Doe with phone number 
-   98765432, email johnd@example.com, blood type B+ and date of birth 04-11-1999.
-* `add n/Betsy Crowe p/95559132 e/betsycrowe@example.com b/AB- d/20-05-2004`: Adds a donor named Betsy Crowe with phone 
-   number 95559132, email betsycrowe@example.com, blood type AB- and date of birth 20-05-2004.
+* `add n/John Doe p/98765432 e/johnd@example.com b/B+ d/04-11-1999`: Adds a donor named John Doe with phone number
+  98765432, email johnd@example.com, blood type B+ and date of birth 04-11-1999.
+* `add n/Betsy Crowe p/95559132 e/betsycrowe@example.com b/AB- d/20-05-2004`: Adds a donor named Betsy Crowe with phone
+  number 95559132, email betsycrowe@example.com, blood type AB- and date of birth 20-05-2004.
 
 
 ### Listing all donors: `list`
@@ -192,7 +213,7 @@ Format: `edit DONOR_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF
 Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com`: Edits the 1st donor's phone number to `91234567` and email address to
-    `johndoe@example.com`.
+  `johndoe@example.com`.
 * New values of the fields must satisfy the validation rules as outlined for the `adddonation` command above.
 
 Examples:
@@ -277,11 +298,11 @@ Format: `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLU
 
 Examples:
 
-* `editdonation 1 v/200`: Edits the blood volume of the 1st donation record in the entire donation record list 
-   to be 200 millilitres.
+* `editdonation 1 v/200`: Edits the blood volume of the 1st donation record in the entire donation record list
+  to be 200 millilitres.
 * `editdonation 3 d/13-10-2024`: Edits the donation date of the 3rd donation record to 13-10-2024.
-* `editdonation 2 d/01-01-2025 v/350`: Edits the donation date to 01-01-2025 and blood volume to 350 ml for 
-   the second donation record.
+* `editdonation 2 d/01-01-2025 v/350`: Edits the donation date to 01-01-2025 and blood volume to 350 ml for
+  the second donation record.
 
 ### Deleting a donation record: `deletedonation`
 
@@ -313,13 +334,13 @@ This command finds all people who are eligible to donate blood for the specified
 Format: `findeligible BLOOD_TYPE...`
 
 * The search is case-insensitive. e.g. `O+` and `o+` will match the blood type of someone with blood type O+.
-* Eligibility is determined according to official guidelines, taking into account the donor’s date of birth and the 
- interval since their last blood donation.
+* Eligibility is determined according to official guidelines, taking into account the donor’s date of birth and the
+  interval since their last blood donation.
 
 Example:
 
-* `findeligible A+ B+`: Lists all donors who have blood type A+ or B+ and are found eligible to donate based on the 
- official guidelines.
+* `findeligible A+ B+`: Lists all donors who have blood type A+ or B+ and are found eligible to donate based on the
+  official guidelines.
 
   ![result for 'findeligible A+ AB-'](images/findeligibleResults.png)
 
@@ -339,7 +360,7 @@ is recommended to create a backup of the data file before running this command, 
 
 ### Viewing help: `help`
 
-Use this command to review the formats of all available commands. It provides a summary of each 
+Use this command to review the formats of all available commands. It provides a summary of each
 command's format and a link to this user guide.
 
 Format: `help`
@@ -357,23 +378,20 @@ manually.
 
 ### Editing the data file
 
-BloodNet data are saved automatically as a JSON file `[JAR file location]/data/bloodnet.json`. 
-
-<box type="warning" seamless>
+BloodNet data are saved automatically as a JSON file `[JAR file location]/data/bloodnet.json`.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
+**Q**: How do I transfer my data to another computer?  
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains  
+the data of your previous BloodNet home folder.  
+**Q**: Are the donor list and donation records list synchronised?  
+**A**: **No.** The two donor and donation records are largely independent. They interact in two specific cases:
+1. Donation-related commands such as `finddonations` and `adddonation`, where the donor index used as a parameter comes from the displayed donor list.
+2. Deleting a donor, which also removes all donation records associated with that donor to maintain data
+   consistency.
 
-**Q**: How do I transfer my data to another computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
-the data of your previous BloodNet home folder.<br>
-**Q**: Are the donor list and donation records list synchronised? <br>
-**A**: **No.** The two donor and donation records are largely independent. They interact in specific cases: <br>
-       1. Donation-related commands such as `finddonations` and `adddonation`, where the donor index used as a 
-       parameter comes from the displayed donor list. <br>
-       2. Deleting a donor, which also removes all donation records associated with that donor to maintain data 
-       consistency. <br>
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
