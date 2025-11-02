@@ -65,7 +65,7 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/AY2
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`InputBox`, `OutputBox`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`InputBox`, `OutputDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/java/bloodnet/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
@@ -151,7 +151,7 @@ The `Model` component:
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/BloodNet-level3/tree/master/src/main/java/bloodnet/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/java/bloodnet/storage/Storage.java)
 
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
@@ -517,7 +517,7 @@ Use case ends.
 
 ### Glossary
 
-* **Blood Type**: The blood types supported are A+, A-, B+, B-, AB+, AB-, O+ and O-
+* **Blood Type**: The blood types supported are A+, A-, B+, B-, AB+, AB-, O+, O-
 * **Donor**: Person who donates blood to others
 * **Destructive operation**: An action that leads to permanent removal of data
 * **Field**: A single piece of information for a donor or donation record.
@@ -526,10 +526,10 @@ Use case ends.
 * **Run**: In the context of a command, refers to carrying out the entire lifecycle of a command, including user interaction and invoking domain logic
 * **Execution**: In the context of a command, refers specifically to invoking the domain logic of the command, without handling any user interaction
 * **Input Box**: The text box in the application that receives all textual inputs from the user
-* **Output Box**: The text box in the application that displays output resulting from processing an input/ executing a command
+* **Output Display**: The text box in the application that displays output resulting from processing an input/ executing a command
 * **User Input**: Any textual input entered by the user into the input box
 * **Command Input**: A specific type of user input that triggers a new command to run
-* **Input Response**: The application's response to a user input, encapsulating information such as the output to display in the output box and whether to exit the application
+* **Input Response**: The application's response to a user input, encapsulating information such as the output to display in the output display and whether to exit the application
 * **Command Result**: A specific type of input response produced by a command after executing its domain logic
 
 --------------------------------------------------------------------------------------------------------------------

@@ -75,7 +75,7 @@ a time.
 
     * `delete 3` : Deletes the 3rd donor shown in the current donor list.
 
-    * `adddonation p/1 d/21-10-2025 v/450` : Adds a donation record for the 1st donor shown in the current donor
+    * `adddonation p/1 d/21-10-2025 v/400` : Adds a donation record for the 1st donor shown in the current donor
       list.
 
     * `findeligible O+ A+` : Finds all donors with the specified blood type(s) provided who are currently eligible to
@@ -146,8 +146,25 @@ a time.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines
   as space characters surrounding line-breaks may be omitted when copied over to the application.
+  <br><br>
 
-  </box>
+<a id="eligibility-criteria"></a>
+**Blood donation eligibility criteria**
+<br><br>
+In Bloodnet, a donor is **not eligible** to donate on a given date if:
+
+1. The donor is younger than 16 years old on the given date.
+2. There is already a donation record (corresponding to the donor) with a donation date that is less than 84 days before
+   the given date.
+3. There is already a donation record (corresponding to the donor) with a donation date that is less than 84 days after
+   the given date.
+4. The donor is a first-time blood donor **and** the donor is at least 61 years old on the given date.
+5. The donor has donated previously **and** they have not donated in the last 3 years **and** the donor is at least 66
+   years old on the given date
+   <br><br>
+   These rules are based on the [Health Sciences Authority (HSA)](https://www.hsa.gov.sg/blood-donation/can-i-donate)
+   guidelines.
+   </box>
 
 ### Adding a donor: `add`
 
@@ -257,7 +274,9 @@ Format: `adddonation p/DONOR_INDEX d/DONATION_DATE v/BLOOD_VOLUME`
 * Adds a donation record for the donor corresponding to the specified `DONOR_INDEX`.
 * The index refers to the index number shown in the displayed donor list.
 * The index **must be a positive whole number** 1, 2, 3, …​
-* DONATION_DATE must be in the *DD-MM-YYYY* format.
+* DONATION_DATE must be in the *dd-MM-yyyy* format and not in the future.
+* The donor must be eligible to donate blood on the specified DONATION_DATE. The criteria for
+  eligibility can be found [here](#eligibility-criteria).
 * BLOOD_VOLUME **must be a positive whole number** strictly **less than 500** (in milliliters).
 
 Examples:
@@ -293,8 +312,10 @@ Format: `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLU
   the displayed donation record list. The specified index **must be a positive whole number** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* DONATION_DATE must be in the *DD-MM-YYYY* format.
-* BLOOD_VOLUME **must be a positive whole number** strictly **less than 500** (in milliliters).
+* DONATION_DATE must be in the *dd-MM-yyyy* format and not in the future.
+* The donor must be eligible to donate blood on the specified DONATION_DATE. The criteria for
+  eligibility can be found [here](#eligibility-criteria).
+* BLOOD_VOLUME **must be a whole number** strictly **less than 500** (in milliliters).
 
 Examples:
 
@@ -334,8 +355,7 @@ This command finds all people who are eligible to donate blood for the specified
 Format: `findeligible BLOOD_TYPE...`
 
 * The search is case-insensitive. e.g. `O+` and `o+` will match the blood type of someone with blood type O+.
-* Eligibility is determined according to official guidelines, taking into account the donor’s date of birth and the
-  interval since their last blood donation.
+* The criteria for eligibility can be found [here](#eligibility-criteria).
 
 Example:
 
