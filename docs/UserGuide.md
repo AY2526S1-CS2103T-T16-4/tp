@@ -6,7 +6,8 @@ pageNav: 3
 
 # BloodNet User Guide
 
-BloodNet is a **desktop app for tracking blood donors and their donations**. It helps data entry staff:
+BloodNet is a **desktop app for tracking blood donors and their donations**, made for data entry and outreach staff at
+blood banks in 3rd world countries. It helps them:
 
 1. Quickly search for the contact information of any donor
 2. Easily view all donation records of any donor
