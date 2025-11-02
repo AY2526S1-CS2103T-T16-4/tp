@@ -37,11 +37,12 @@ time.
    <br><br>
    A black window will appear. Key in `java -jar bloodnet.jar` and press <kbd>Enter</kbd>.
    <br><br>
-   ![Terminal.png](Terminal.png)
+   ![Terminal.png](images/Terminal.png)
    <br><br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
    <br><br>
-   ![Ui](images/Ui.png)
+   ![Ui.png](images/Ui.png)
+   <br><br>
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. e.g. typing **`help`** and
    pressing <kbd>Enter</kbd> will
@@ -54,7 +55,7 @@ time.
 
     * `delete 3` : Deletes the 3rd donor shown in the current donor list.
 
-    * `adddonation p/1 d/21-10-2025 v/500` : Adds a donation record for the 1st donor shown in the current donor
+    * `adddonation p/1 d/21-10-2025 v/400` : Adds a donation record for the 1st donor shown in the current donor
       list.
 
     * `findeligible O+ A+` : Finds all donors with the specified blood type(s) provided who are currently eligible to
@@ -65,7 +66,7 @@ time.
     * `exit` : Exits the app.
 
 6. Press <kbd>F1</kbd> or type **`help`** in the command box and press <kbd>Enter</kbd> to open
-   the [help window](#viewing-help--help), which provides a summary of all command usages.
+   the [help window](#viewing-help-help), which provides a summary of all command usages.
 
 7. Refer to the [Features](#features) below for details of each command.
 
@@ -123,8 +124,25 @@ time.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines
   as space characters surrounding line-breaks may be omitted when copied over to the application.
+  <br><br>
 
-  </box>
+<a id="eligibility-criteria"></a>
+**Blood donation eligibility criteria**
+<br><br>
+In Bloodnet, a donor is **not eligible** to donate on a given date if:
+
+1. The donor is younger than 16 years old on the given date.
+2. There is already a donation record (corresponding to the donor) with a donation date that is less than 84 days before
+   the given date.
+3. There is already a donation record (corresponding to the donor) with a donation date that is less than 84 days after
+   the given date.
+4. The donor is a first-time blood donor **and** the donor is at least 61 years old on the given date.
+5. The donor has donated previously **and** they have not donated in the last 3 years **and** the donor is at least 66
+   years old on the given date
+   <br><br>
+   These rules are based on the [Health Sciences Authority (HSA)](https://www.hsa.gov.sg/blood-donation/can-i-donate)
+   guidelines.
+   </box>
 
 ### Adding a donor: `add`
 
@@ -132,8 +150,8 @@ This command is used to add a donor to the BloodNet system.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`
 
-* BLOOD_TYPE must be either O+, O-, A+, A-, B+, B-, AB+ or AB-
-* DATE_OF_BIRTH must be in the *dd-MM-yyyy* format
+* BLOOD_TYPE must be either O+, O-, A+, A-, B+, B-, AB+, AB-.
+* DATE_OF_BIRTH must be in the *dd-MM-yyyy* format (for example: 20-01-2003).
 
 Examples:
 
@@ -153,11 +171,12 @@ Finds donors whose names contain any of the given keywords.
 Format: `find KEYWORD...`
 
 * At least one keyword must be provided.
-* The search is case-insensitive. e.g. `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case-insensitive. e.g. `hans` will match `Hans`.
+* If a keyword is a substring of a word in the person's name, it is considered a match. e.g. `al` will match `alex`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Only the name is searched.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
 
 Examples:
 
@@ -219,7 +238,9 @@ Format: `adddonation p/DONOR_LIST_INDEX d/DONATION_DATE v/BLOOD_VOLUME`
 * Adds a donation record for the donor corresponding to the specified `DONOR_LIST_INDEX`.
 * The index refers to the index number shown in the displayed donor list.
 * The index **must be a positive whole number** 1, 2, 3, …​
-* DONATION_DATE must be in the *dd-MM-yyyy* format.
+* DONATION_DATE must be in the *dd-MM-yyyy* format and not in the future.
+* The donor must be eligible to donate blood on the specified DONATION_DATE. The criteria for
+  eligibility can be found [here](#eligibility-criteria).
 * BLOOD_VOLUME **must be a positive whole number** strictly **less than 500** (in milliliters).
 
 Examples:
@@ -242,7 +263,6 @@ Format: `finddonations DONOR_LIST_INDEX`
 Example:
 
 * `finddonations 3`: List all donation records of the 3rd donor in the donor list.
-
   ![result for 'finddonations 3'](images/finddonations3.png)
 
 ### Editing a donation record: `editdonation`
@@ -256,7 +276,9 @@ Format: `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLU
   displayed donation record list. The specified index **must be a positive whole number** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* DONATION_DATE must be in the *dd-MM-yyyy* format.
+* DONATION_DATE must be in the *dd-MM-yyyy* format and not in the future.
+* The donor must be eligible to donate blood on the specified DONATION_DATE. The criteria for
+  eligibility can be found [here](#eligibility-criteria).
 * BLOOD_VOLUME **must be a whole number** strictly **less than 500** (in milliliters).
 
 Examples:
@@ -295,15 +317,13 @@ This command finds all people who are eligible to donate blood for the specified
 Format: `findeligible BLOOD_TYPE...`
 
 * The search is case-insensitive. e.g. `O+` and `o+` will match the blood type of someone with blood type O+.
-* Eligibility criteria are based on official guidelines. The donor’s date of birth and
-  how long it has been since their last blood donation are both considered when determining eligibility.
+* The criteria for eligibility can be found [here](#eligibility-criteria).
 
 Example:
 
 * `findeligible A+ B+`: Lists all donors who have blood type A+ or B+ and are found eligible to donate based on the
   official guidelines.
-
-  ![result for 'findeligible A+ AB-'](images/findeligibleResults.png)
+  ![result for 'findeligible A+ B+'](images/findeligibleResults.png)
 
 ### Clearing all entries: `clear`
 
@@ -357,11 +377,11 @@ acceptable range). Therefore, edit the data file only if you are confident that 
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
-the data of your previous BloodNet home folder.<br>
-**Q**: Are the donor list and donation records list synchronised?
+the data of your previous BloodNet home folder.<br><br>
+**Q**: Are the donor list and donation records list synchronised?<br>
 **A**: **No.** The two lists should be treated as largely independent. The only time they interact is for
 donation-related commands that require a donor to be specified (e.g., `finddonations`, `adddonation`). In these cases,
-the donor index used as a parameter is derived from the shown donor list.
+the donor index used as a parameter is derived from the shown donor list.<br>
 
 --------------------------------------------------------------------------------------------------------------------
 
