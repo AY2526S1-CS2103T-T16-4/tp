@@ -377,11 +377,11 @@ acceptable range). Therefore, edit the data file only if you are confident that 
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
-the data of your previous BloodNet home folder.<br>
-**Q**: Are the donor list and donation records list synchronised?
+the data of your previous BloodNet home folder.<br><br>
+**Q**: Are the donor list and donation records list synchronised?<br>
 **A**: **No.** The two lists should be treated as largely independent. The only time they interact is for
 donation-related commands that require a donor to be specified (e.g., `finddonations`, `adddonation`). In these cases,
-the donor index used as a parameter is derived from the shown donor list.
+the donor index used as a parameter is derived from the shown donor list.<br>
 
 --------------------------------------------------------------------------------------------------------------------
 
