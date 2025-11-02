@@ -66,7 +66,7 @@ time.
     * `exit` : Exits the app.
 
 6. Press <kbd>F1</kbd> or type **`help`** in the command box and press <kbd>Enter</kbd> to open
-   the [help window](#viewing-help--help), which provides a summary of all command usages.
+   the [help window](#viewing-help-help), which provides a summary of all command usages.
 
 7. Refer to the [Features](#features) below for details of each command.
 
