@@ -206,6 +206,7 @@ Format: `find KEYWORD...`
 
 * At least one keyword must be provided.
 * The search is case-insensitive. e.g. `jane` will match `Jane`.
+* If a keyword is a substring of a word in the person's name, it is considered a match. e.g. `al` will match `alex`
 * The order of the keywords does not matter. e.g. `Jane Bo` will match `Bo Jane`.
 * Only the donor's name is searched.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
@@ -318,9 +319,10 @@ Examples:
 
 * `editdonation 1 v/200`: Edits the blood volume of the 1st donation record in the displayed donation record list
   to be 200 millilitres.
-* `editdonation 3 d/13-10-2024`: Edits the donation date of the 3rd donation record to 13-10-2024.
+* `editdonation 3 d/13-10-2024`: Edits the donation date of the 3rd donation in the displayed donation record list
+  to 13-10-2024.
 * `editdonation 2 d/01-01-2025 v/350`: Edits the donation date to 01-01-2025 and blood volume to 350 ml for
-  the second donation record.
+  the second donation record in the displayed donation record list.
 
 ### Deleting a donation record: `deletedonation`
 
