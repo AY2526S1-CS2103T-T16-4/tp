@@ -2,6 +2,7 @@ package bloodnet.logic.commands;
 
 import static bloodnet.logic.commands.CommandTestUtil.assertCommandFailure;
 import static bloodnet.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static bloodnet.model.donationrecord.DonationRecord.MESSAGE_NEIGHBOURING_DONATION_TOO_CLOSE;
 import static bloodnet.testutil.TypicalDonationRecords.getTypicalBloodNet;
 import static bloodnet.testutil.TypicalIndexes.INDEX_FIRST_DONATION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -108,7 +109,7 @@ public class EditDonationCommandTest {
         expectedModel.setDonationRecord(model.getFilteredDonationRecordList().get(0), editedDonationRecord);
         String expectedMessage = EditDonationCommand.MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER
                                 + "\n- "
-                                + String.format(DonationRecord.MESSAGE_NEIGHBOURING_DONATION_TOO_CLOSE,
+                                + String.format(MESSAGE_NEIGHBOURING_DONATION_TOO_CLOSE,
                                                 "15-05-2025",
                                                 "15-05-2025",
                                                 "06-08-2025");
@@ -132,7 +133,19 @@ public class EditDonationCommandTest {
         EditDonationCommand editDonationCommand = new EditDonationCommand(INDEX_FIRST_DONATION,
                 editDonationRecordDescriptor);
 
-        assertCommandFailure(editDonationCommand, model, EditDonationCommand.MESSAGE_DONATION_RECORD_ALREADY_EXISTS);
+        String expectedMessage = EditDonationCommand.MESSAGE_CONCATENATED_VALIDATION_ERRORS_HEADER
+                + "\n- "
+                + String.format(MESSAGE_NEIGHBOURING_DONATION_TOO_CLOSE,
+                "15-05-2025",
+                "15-05-2025",
+                "06-08-2025") + "\n";
+
+        String futureMessage = "- " + String.format(MESSAGE_NEIGHBOURING_DONATION_TOO_CLOSE,
+                "15-05-2025",
+                "21-02-2025",
+                "15-05-2025");
+
+        assertCommandFailure(editDonationCommand, model, expectedMessage + futureMessage);
     }
 
     @Test
