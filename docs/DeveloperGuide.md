@@ -23,10 +23,10 @@ pageNav: 3
 - [Implementation](#implementation)
   - [User Confirmation](#user-confirmation)
 - [Future Implementation](#future-implementation)
-- [Documentation, Logging, Testin, Configuration, Dev-ops](#documentation-logging-testing-configuration-dev-ops)
+- [Documentation, Logging, Testing, Configuration, Dev-ops](#documentation-logging-testing-configuration-dev-ops)
 - [Appendix: Requirements](#appendix-requirements)
 - [Product Scope](#product-scope)
-- [Use Stories](#user-stories)
+- [User Stories](#user-stories)
 - [Use Cases](#use-cases)
   - [UC01 - Add a donor's contact & blood type](#use-case-uc01-add-a-donor-s-contact-and-amp-blood-type)
   - [UC02 - Update a donor's information](#use-case-uc02-update-a-donor-s-information)
@@ -198,7 +198,7 @@ The `Model` component:
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/BloodNet-level3/tree/master/src/main/java/bloodnet/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/12e2e4ca39a1f9106499633fe0d58a6ad3996260/src/main/java/bloodnet/storage/Storage.java)
 
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
@@ -764,7 +764,7 @@ testers are expected to do more *exploratory* testing.
 
 * **Expected Displayed Donor List**: No change.
 
-* **Expected Displayed donation**: No change.
+* **Expected Displayed Donation Records List**: No change.
 
 * **Test instructions (cont.)**: Then, input `yes`.
 
@@ -806,7 +806,7 @@ To manage the donation records, we added new commands to add, edit, delete, and 
 ### User confirmation
 Wanting to safeguard against accidental destructive operations, we sought to implement user confirmation before such operations.
 
-To accomplish, much complexity needed to be introduced. AB3 originally executes every user input as a new command immediately. But introducing user interactivity within a command (which user confirmation support requires) fundamentally change this flow requiring us to create a new abstraction, `commandSession`, to manage multi-step interactions and persist information throughout the command lifecycle until completion.
+To accomplish this, much complexity needed to be introduced. AB3 originally executes every user input as a new command immediately. But introducing user interactivity within a command (which user confirmation support requires) fundamentally change this flow requiring us to create a new abstraction, `commandSession`, to manage multi-step interactions and persist information throughout the command lifecycle until completion.
 
 The implementation was challenging due to input delegation, differentiating between a new command input and an input within a command session, handling command exceptions resulting in mid-session exits, and maintaining consistent system state, all while providing a uniform framework compatible with single-step commands. Documentation also required careful revision as existing terms like "command", “execution” needed to be clarified and properly redesigned.
 
