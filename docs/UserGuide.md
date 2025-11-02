@@ -73,21 +73,21 @@ time.
 
 ## Command summary
 
- Action                                                                                     | Format, Examples                                                                                                                                                                                 
+ Action                                                                                     | Format, Examples
 --------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- [**Add Donor**](#adding-a-donor-add)                                                       | `add n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH_(DD-MM-YYYY)` <br> e.g., `add n/James Ho p/98765432 e/jamesho@example.com b/A+ d/22-11-2004`                                            
- [**List All Donors**](#listing-all-donors-list)                                            | `list`                                                                                                                                                                                           
- [**Find Donor**](#locating-donors-by-name-find)                                            | `find KEYWORD...`<br> e.g., `find alice bob charlie`                                                                                                                                             
- [**Edit Donor**](#editing-a-donor-edit)                                                    | `edit DONOR_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER) [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH_(DD-MM-YYYY)]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com` 
- [**Delete Donor**](#deleting-a-donor-delete)                                               | `delete DONOR_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER) `<br> e.g., `delete 3`                                                                                                                
- [**Add Donation Records**](#adding-a-donation-record-adddonation)                          | `adddonation p/DONOR_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER) d/DONATION_DATE v/BLOOD_VOLUME` <br> e.g., `adddonation p/1 d/15-10-2025 v/200`                                                
- [**Find Donation Records of a Donor**](#finding-donation-records-of-a-donor-finddonations) | `finddonations DONOR_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER)` <br> e.g., `finddonations 3`                                                                                                  
- [**Edit Donation Records**](#editing-a-donation-record-editdonation)                       | `editdonation DONATION_RECORD_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER)`<br> e.g., `editdonation 1 v/350 d/20-02-2025`                                                                        
- [**Delete Donation Records**](#deleting-a-donation-record-deletedonation)                  | `deletedonation DONATION_RECORD_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER)`<br> e.g., `deletedonation 1`                                                                                       
- [**Find Eligible Donors**](#finding-eligible-donors-based-on-blood-type-findeligible)      | `findeligible BLOOD_TYPE...`<br> e.g., `findeligible A+ O+ B+`                                                                                                                                   
- [**Delete All Data**](#clearing-all-entries-clear)                                         | `clear`                                                                                                                                                                                          
- [**Help**](#viewing-help-help)                                                             | `help`                                                                                                                                                                                           
- [**Exit**](#exiting-the-program-exit)                                                      | `exit`                                                                                                                                                                                           
+ [**Add Donor**](#adding-a-donor-add)                                                       | `add n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH_(DD-MM-YYYY)` <br> e.g., `add n/James Ho p/98765432 e/jamesho@example.com b/A+ d/22-11-2004`
+ [**List All Donors**](#listing-all-donors-list)                                            | `list`
+ [**Find Donor**](#locating-donors-by-name-find)                                            | `find KEYWORD...`<br> e.g., `find alice bob charlie`
+ [**Edit Donor**](#editing-a-donor-edit)                                                    | `edit DONOR_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER) [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH_(DD-MM-YYYY)]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+ [**Delete Donor**](#deleting-a-donor-delete)                                               | `delete DONOR_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER) `<br> e.g., `delete 3`
+ [**Add Donation Records**](#adding-a-donation-record-adddonation)                          | `adddonation p/DONOR_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER) d/DONATION_DATE v/BLOOD_VOLUME` <br> e.g., `adddonation p/1 d/15-10-2025 v/200`
+ [**Find Donation Records of a Donor**](#finding-donation-records-of-a-donor-finddonations) | `finddonations DONOR_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER)` <br> e.g., `finddonations 3`
+ [**Edit Donation Records**](#editing-a-donation-record-editdonation)                       | `editdonation DONATION_RECORD_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER)`<br> e.g., `editdonation 1 v/350 d/20-02-2025`
+ [**Delete Donation Records**](#deleting-a-donation-record-deletedonation)                  | `deletedonation DONATION_RECORD_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER)`<br> e.g., `deletedonation 1`
+ [**Find Eligible Donors**](#finding-eligible-donors-based-on-blood-type-findeligible)      | `findeligible BLOOD_TYPE...`<br> e.g., `findeligible A+ O+ B+`
+ [**Delete All Data**](#clearing-all-entries-clear)                                         | `clear`
+ [**Help**](#viewing-help-help)                                                             | `help`
+ [**Exit**](#exiting-the-program-exit)                                                      | `exit`
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -278,7 +278,7 @@ Format: `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLU
 * DONATION_DATE must be in the *dd-MM-yyyy* format and not in the future.
 * The donor must be eligible to donate blood on the specified DONATION_DATE. The criteria for
   eligibility can be found [here](#eligibility-criteria).
-* BLOOD_VOLUME **must be a whole number** strictly **less than 500** (in milliliters).
+* BLOOD_VOLUME **must be a positive whole number** strictly **less than 500** (in milliliters).
 
 Examples:
 
