@@ -36,6 +36,8 @@ public class DonationRecord {
     public static final String MESSAGE_NON_RECENT_DONOR_TOO_OLD =
             "This is a repeated donor. However, they have not donated blood in the last 3 years. "
             + "Donation date cannot be on or after %s (their 66th birthdate).";
+    public static final String MESSAGE_CANNOT_DONATE_BEFORE_BIRTHDAY =
+            "Donation date cannot be before %s (their birthdate).";
 
     // Identity fields
     private UUID id;
@@ -164,6 +166,14 @@ public class DonationRecord {
         LocalDate donationDateValue = donationDate.getValue();
         LocalDate dateOfBirthValue = person.getDateOfBirth().getValue();
 
+        // Before checking age of person, confirm that the donationDate is on or after their birthday
+        int daysBetweenDonationDateAndBirthday = Period.between(donationDateValue, dateOfBirthValue).getYears();
+        if (daysBetweenDonationDateAndBirthday > 0) {
+            String errorMessage = String.format(MESSAGE_CANNOT_DONATE_BEFORE_BIRTHDAY,
+                    dateOfBirthValue.format(DateOfBirth.DATE_FORMATTER));
+            validationErrorStrings.add(errorMessage);
+            return validationErrorStrings;
+        }
         // 1. Age of person at donationDate must be >= 16
         int ageAtDonation = Period.between(dateOfBirthValue, donationDateValue).getYears();
         if (ageAtDonation < 16) {
