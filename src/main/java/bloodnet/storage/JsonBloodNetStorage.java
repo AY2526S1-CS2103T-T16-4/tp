@@ -59,7 +59,7 @@ public class JsonBloodNetStorage implements BloodNetStorage {
         try {
             BloodNet bloodNet = jsonBloodNet.get().toModelType();
 
-            // Populate the "donorName" field of the DonationRecords
+            // Populate the "donorName" & "donorPhoneNumber" fields of the DonationRecords
             for (DonationRecord donationRecord : bloodNet.getDonationRecordList()) {
                 List<Person> matchingPersons = bloodNet.getPersonList().stream()
                         .filter(person -> person.getId().equals(donationRecord.getPersonId())).toList();
@@ -67,7 +67,9 @@ public class JsonBloodNetStorage implements BloodNetStorage {
                 assert matchingPersons.size() == 1;
 
                 String donorName = matchingPersons.get(0).getName().toString();
+                String donorPhoneNumber = matchingPersons.get(0).getPhone().toString();
                 donationRecord.setDonorName(donorName);
+                donationRecord.setDonorPhoneNumber(donorPhoneNumber);
             }
 
             logger.info("Successfully populated each donation record's donor name");

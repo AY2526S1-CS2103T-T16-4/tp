@@ -37,11 +37,12 @@ time.
    <br><br>
    A black window will appear. Key in `java -jar bloodnet.jar` and press <kbd>Enter</kbd>.
    <br><br>
-   ![Terminal.png](Terminal.png)
+   ![Terminal.png](images/Terminal.png)
    <br><br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
    <br><br>
-   ![Ui](images/Ui.png)
+   ![Ui.png](images/Ui.png)
+   <br><br>
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. e.g. typing **`help`** and
    pressing <kbd>Enter</kbd> will
@@ -262,7 +263,6 @@ Format: `finddonations DONOR_LIST_INDEX`
 Example:
 
 * `finddonations 3`: List all donation records of the 3rd donor in the donor list.
-
   ![result for 'finddonations 3'](images/finddonations3.png)
 
 ### Editing a donation record: `editdonation`
@@ -323,8 +323,7 @@ Example:
 
 * `findeligible A+ B+`: Lists all donors who have blood type A+ or B+ and are found eligible to donate based on the
   official guidelines.
-
-  ![result for 'findeligible A+ AB-'](images/findeligibleResults.png)
+  ![result for 'findeligible A+ B+'](images/findeligibleResults.png)
 
 ### Clearing all entries: `clear`
 
