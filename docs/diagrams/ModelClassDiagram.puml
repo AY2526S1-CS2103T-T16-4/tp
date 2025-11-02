@@ -26,8 +26,9 @@ Class DonationDate
 Class BloodVolume
 
 Class I #FFFFFF
+Class Space #FFFFFF
 }
-
+ReadOnlyUserPrefs -[hidden]-> Space
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
