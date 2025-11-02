@@ -9,7 +9,7 @@ pageNav: 3
 
 ## **Acknowledgements**
 
- - The blood donation eligibility criteria implemented in this project were guided by the [Health Sciences Authority (HSA)](https://www.hsa.gov.sg/blood-donation/can-i-donate) guidelines in Singapore.
+- The blood donation eligibility criteria implemented in this project were guided by the [Health Sciences Authority (HSA)](https://www.hsa.gov.sg/blood-donation/can-i-donate) guidelines in Singapore.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
@@ -101,7 +101,7 @@ How the `Logic` component works:
 * If there is no active current session:
     * The input is passed to a `BloodNetParser` object which in turns creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
     * This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`), which its `createSession` is invoked by `LogicManager`  to create a new `CommandSession` object (more precisely, an object of one of its subclasses e.g., `ConfirmationCommandSession`), which will become `LogicManager`'s `currentCommandSession`.
-      * During the invoking of `createSession`, the `Command` object (depending on its implementation of `createSession`) may interact with the `Model` component to query target objects and/or perform validation checks.
+        * During the invoking of `createSession`, the `Command` object (depending on its implementation of `createSession`) may interact with the `Model` component to query target objects and/or perform validation checks.
 3. Advance current session
 * The current session is called upon to handle the input.
 * The result of the input handling is encapsulated as an `InputResponse` object.
@@ -235,26 +235,26 @@ ________________________________________________________________________________
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …      | I want to …                                                                           | So that …                                                                                                                            |
-| -------- | ----------- |---------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| * * *    | admin staff | add a donor’s contact & blood type                                                    | the blood bank can keep in touch with the donor if more information is needed                                                        |
-| * * *    | admin staff | add a donor’s date of birth                                                           | the blood bank knows can determine a person's eligibility in donating blood                                                          |
-| * * *    | admin staff | search donors by name                                                                 | I can find their contact information if I need to contact them                                                                       |
-| * * *    | admin staff | modify a donor’s contact information                                                  | I can fix the stored contact information if it was keyed in wrongly previously                                                       |
-| * * *    | admin staff | modify a donor’s date of birth                                                        | I can fix the stored date of birth if it was keyed in wrongly                                                                        |
-| * * *    | admin staff | modify a donor’s blood type                                                           | I can fix the stored blood type if it was keyed in wrongly previously                                                                |
-| * * *    | admin staff | delete a donor (soft-delete / archive)                                                | Remove donors who have passed away or are no longer eligible for donation                                                            |
-| * * *    | admin staff | list all donors in the system                                                         | Have a quick overview of all the people who have agreed to donate blood to us                                                        |
-| * * *    | admin staff | find all donors of a particular blood type                                            | If we have a shortage of a particular blood type, we can contact these people and ask them for donations                             |
-| * * *    | admin staff | record a blood donation by a contact                                                  | I can track how many donations each contact has made, and the details of those donations                                             |
-| * * *    | admin staff | modify a blood donation record                                                        | I can modify wrongly keyed in records                                                                                                |
-| * * *    | admin staff | add the volume and donation date associated with a donation record                    | the blood bank is aware of the details associated with each donation record
-| * * *    | admin staff | delete a blood donation record                                                        | I can remove wrongly keyed in records                                                                                                |
-| * * *    | admin staff | find all eligible donors given a blood type (based on age and last donation interval) | I can determine who I can call if blood is needed                                                                                    |
-| * *      | admin staff | find a donor based on contact information                                             | I can link their name and contact information together                                                                               |
-| * *      | admin staff | detect duplicate donation records associated with the same person                     | I am able to quickly identify duplicate data in the BloodNet system and reconcile it to reduce data pollution                        |
-| *        | admin staff | record how much blood was donated by a donor in a session                             | I can recommend donors who have been very active for appreciation awards, to incentivise more donors                                 |
-| *        | admin staff | record when a donor donated blood in a session                                        | I can maintain accurate records of each donor’s donation history |
+| Priority | As a …      | I want to …                                                                           | So that …                                                                                                     |
+|----------|-------------|---------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| * * *    | admin staff | add a donor’s contact & blood type                                                    | the blood bank can keep in touch with the donor if more information is needed                                 |
+| * * *    | admin staff | add a donor’s date of birth                                                           | the blood bank knows can determine a person's eligibility in donating blood                                   |
+| * * *    | admin staff | search donors by name                                                                 | I can find their contact information if I need to contact them                                                |
+| * * *    | admin staff | modify a donor’s contact information                                                  | I can fix the stored contact information if it was keyed in wrongly previously                                |
+| * * *    | admin staff | modify a donor’s date of birth                                                        | I can fix the stored date of birth if it was keyed in wrongly                                                 |
+| * * *    | admin staff | modify a donor’s blood type                                                           | I can fix the stored blood type if it was keyed in wrongly previously                                         |
+| * * *    | admin staff | delete a donor (soft-delete / archive)                                                | I can remove donors who have passed away or are no longer eligible for donation                               |
+| * * *    | admin staff | list all donors in the system                                                         | I can have a quick overview of all the people who have agreed to donate blood to us                           |
+| * * *    | admin staff | find all donors of a particular blood type                                            | I can contact these people and ask them for donations, if the blood bank were to have a shortage              |
+| * * *    | admin staff | record a blood donation by a contact                                                  | I can track how many donations each contact has made, and the details of those donations                      |
+| * * *    | admin staff | modify a blood donation record                                                        | I can modify wrongly keyed in records                                                                         |
+| * * *    | admin staff | add the volume and donation date associated with a donation record                    | the blood bank is aware of the details associated with each donation record                                   |
+| * * *    | admin staff | delete a blood donation record                                                        | I can remove wrongly keyed in records                                                                         |
+| * * *    | admin staff | find all eligible donors given a blood type (based on age and last donation interval) | I can determine who I can call if blood is needed                                                             |
+| * *      | admin staff | find a donor based on contact information                                             | I can link their name and contact information together                                                        |
+| * *      | admin staff | detect duplicate donation records associated with the same person                     | I am able to quickly identify duplicate data in the BloodNet system and reconcile it to reduce data pollution |
+| *        | admin staff | record how much blood was donated by a donor in a session                             | I can recommend donors who have been very active for appreciation awards, to incentivise more donors          |
+| *        | admin staff | record when a donor donated blood in a session                                        | I can maintain accurate records of each donor’s donation history                                              |
 
 
 ### Use cases
@@ -376,8 +376,8 @@ Use case ends.
 **Extensions**
 
 * 1a. Invalid blood type entered.
-  * 1a1. BloodNet shows an error message.
-  * Use case relates back to step 1, prompting the user to re-enter a blood type.
+    * 1a1. BloodNet shows an error message.
+    * Use case relates back to step 1, prompting the user to re-enter a blood type.
 
 ---
 
@@ -531,6 +531,9 @@ Use case ends.
 * **Command Input**: A specific type of user input that triggers a new command to run
 * **Input Response**: The application's response to a user input, encapsulating information such as the output to display in the output box and whether to exit the application
 * **Command Result**: A specific type of input response produced by a command after executing its domain logic
+* **CPU**: The component in charge of executing program instructions and processing command logic within the application
+* **SSD**: The device that stores the application's data files and where user and system data are kept
+* **RAM**: The memory used by the application to temporarily store data and other information while the commands are being executed, thereby enabling fast access alongside processing
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -613,7 +616,7 @@ testers are expected to do more *exploratory* testing.
 * **Test instructions**: Run `list`, followed by `delete 6`.
 
 * **Expected Message**: “Are you sure you want to delete Roy Balakrishnan? This action is not reversible.
-Key in either 'yes' or 'no'.”
+  Key in either 'yes' or 'no'.”
 
 * **Expected Displayed Donor List**: No change.
 
@@ -670,7 +673,7 @@ Key in either 'yes' or 'no'.”
 * **Test instructions**: Run `finddonations 3`, followed by `deletedonation 1`.
 
 * **Expected Message**: “Are you sure you want to delete donation record for: Donor Name: Charlotte Oliveiro; Donation Date: 21-03-2025; Blood Volume: 400? This action is not reversible.
-Key in either 'yes' or 'no'.”
+  Key in either 'yes' or 'no'.”
 
 * **Expected Displayed Donor List**: No change.
 
@@ -713,7 +716,7 @@ Key in either 'yes' or 'no'.”
 * **Test instructions**: Run `list` followed by `clear`.
 
 * **Expected Message**: “Are you sure you want to clear BloodNet? This action is not reversible.
-Key in either 'yes' or 'no'.”
+  Key in either 'yes' or 'no'.”
 
 * **Expected Displayed Donor List**: No change.
 
