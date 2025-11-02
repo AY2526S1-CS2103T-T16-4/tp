@@ -10,6 +10,53 @@ pageNav: 3
 ## **Acknowledgements**
 
 - The blood donation eligibility criteria implemented in this project were guided by the [Health Sciences Authority (HSA)](https://www.hsa.gov.sg/blood-donation/can-i-donate) guidelines in Singapore.
+
+## Table of Contents
+- [Setting up, getting started](#setting-up-getting-started)
+- [Design](#design)
+  - [Architecture](#architecture)
+  - [UI Component](#ui-component)
+  - [Logic Component](#logic-component)
+  - [Model Component](#model-component)
+  - [Storage Component](#storage-component)
+  - [Common Classes](#common-classes)
+- [Implementation](#implementation)
+  - [User Confirmation](#user-confirmation)
+- [Future Implementation](#future-implementation)
+- [Documentation, Logging, Testin, Configuration, Dev-ops](#documentation-logging-testing-configuration-dev-ops)
+- [Appendix: Requirements](#appendix-requirements)
+- [Product Scope](#product-scope)
+- [Use Stories](#user-stories)
+- [Use Cases](#use-cases)
+  - [UC01 - Add a donor's contact & blood type](#use-case-uc01-add-a-donor-s-contact-and-amp-blood-type)
+  - [UC02 - Update a donor's information](#use-case-uc02-update-a-donor-s-information)
+  - [UC03 - Search donors by name](#use-case-uc03-search-donors-by-name)
+  - [UC04 - Delete a donor](#use-case-uc04-delete-a-donor)
+  - [UC05 - List all donors in the system](#use-case-uc05-list-all-donors-in-the-system)
+  - [UC06 - Find all eligible donors of a particular blood type](#use-case-uc06-find-all-eligible-donors-of-a-particular-blood-type)
+  - [UC07 - Record a blood donation by a donor](#use-case-uc07-record-a-blood-donation-by-a-donor)
+  - [UC08 - List all blood donations by a donor](#use-case-uc08-list-all-blood-donations-by-a-donor)
+  - [UC09 - Modify a blood donation record](#use-case-uc09-modify-a-blood-donation-record)
+  - [UC10 - Delete a blood donation record](#use-case-uc10-delete-a-blood-donation-record)
+- [Non-Functional Requirements](#non-functional-requirements)
+- [Glossary](#glossary)
+- [Appendix: Instructions for Manual Testing](#appendix-instructions-for-manual-testing)
+  - [Launch and Shutdown](#launch-and-shutdown)
+  - [Instructions](#instructions-to-test)
+    - [find](#find)
+    - [list](#list)
+    - [add](#add)
+    - [edit](#edit)
+    - [delete](#delete)
+    - [finddonations](#finddonations)
+    - [adddonation](#adddonation)
+    - [editdonation](#editdonation)
+    - [deletedonation](#deletedonation)
+    - [findeligible](#findeligible)
+    - [clear](#clear)
+    - [help](#help)
+    - [exit](#exit)
+  - [Appendix: Effort](#appendix-effort)
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
@@ -563,8 +610,9 @@ testers are expected to do more *exploratory* testing.
     2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-### find:
-#### _Test 1_
+### Instructions to Test
+#### find:
+##### _Test 1_
 * **Test instructions**: Run `find aleX davId iRfan`.
 
 * **Expected Message**: “3 donors listed!”
@@ -575,8 +623,8 @@ testers are expected to do more *exploratory* testing.
 
 
 
-### list:
-#### _Test 1_
+#### list:
+##### _Test 1_
 * **Test instructions**: Run `list`.
 
 * **Expected Message**: “Listed all donors”
@@ -587,8 +635,8 @@ testers are expected to do more *exploratory* testing.
 
 
 
-### add:
-#### _Test 1_
+#### add:
+##### _Test 1_
 * **Test instructions**: Run `add n/John Doe p/98765432 e/johnd@example.com b/A+ d/30-03-2004`.
 
 * **Expected Message**: “New donor added: John Doe; Phone: 98765432; Email: johnd@example.com; Blood Type: A+; Date Of Birth: 30-03-2004”
@@ -599,8 +647,8 @@ testers are expected to do more *exploratory* testing.
 
 
 
-### edit:
-#### _Test 1_
+#### edit:
+##### _Test 1_
 * **Test instructions**: Run `list`, followed by `edit 1 p/91234567 e/johndoe@example.com`.
 
 * **Expected Message**: “Edited donor: Alex Yeoh; Phone: 91234567; Email: johndoe@example.com; Blood Type: A+; Date Of Birth: 28-03-1995”
@@ -611,8 +659,8 @@ testers are expected to do more *exploratory* testing.
 
 
 
-### delete:
-#### _Test 1_
+#### delete:
+##### _Test 1_
 * **Test instructions**: Run `list`, followed by `delete 6`.
 
 * **Expected Message**: “Are you sure you want to delete Roy Balakrishnan? This action is not reversible.
@@ -632,8 +680,8 @@ testers are expected to do more *exploratory* testing.
 
 
 
-### finddonations:
-#### _Test 1_
+#### finddonations:
+##### _Test 1_
 * **Test instructions**: Run `list`, followed by `finddonations 1`
 
 * **Expected Message**: “2 donation records related to Alex Yeoh found!”
@@ -642,10 +690,8 @@ testers are expected to do more *exploratory* testing.
 
 * **Expected Displayed Donation Record List**: Displays only two donation records and the donor of these records is Alex Yeoh.
 
-
-<!-- Just realized that list resets the donation record list, like when adding-->
-### adddonation:
-#### _Test 1_
+#### adddonation:
+##### _Test 1_
 * **Test instructions**: Run `list`, followed by `adddonation p/2 d/10-10-2025 v/250`.
 
 * **Expected Message**: “New donation record added: Donor Name: Bernice Yu; Donation Date: 10-10-2025; Blood Volume: 250"
@@ -656,8 +702,8 @@ testers are expected to do more *exploratory* testing.
 
 
 
-### editdonation:
-#### _Test 1_
+#### editdonation:
+##### _Test 1_
 * **Test instruction**: Run `finddonations 1`, followed by `editdonation 2 v/499`.
 
 * **Expected Message**: “Edited Donation Record: Donor Name: Alex Yeoh; Donation Date: 15-10-2025; Blood Volume: 499”
@@ -668,8 +714,8 @@ testers are expected to do more *exploratory* testing.
 
 
 
-### deletedonation:
-#### _Test 1_
+#### deletedonation:
+##### _Test 1_
 * **Test instructions**: Run `finddonations 3`, followed by `deletedonation 1`.
 
 * **Expected Message**: “Are you sure you want to delete donation record for: Donor Name: Charlotte Oliveiro; Donation Date: 21-03-2025; Blood Volume: 400? This action is not reversible.
@@ -689,8 +735,8 @@ testers are expected to do more *exploratory* testing.
 
 
 
-### findeligible:
-#### _Test 1_
+#### findeligible:
+##### _Test 1_
 * **Test instructions**: Run `findeligible A+`.
 
 * **Expected message**: "0 donors listed!"
@@ -700,7 +746,7 @@ testers are expected to do more *exploratory* testing.
 * **Expected Displayed Donation Records List**: No change.
 
 
-#### _Test 2_
+##### _Test 2_
 * **Test instructions**: Run `findeligible B+ AB+`.
 
 * **Expected message**: "2 donors listed!"
@@ -711,8 +757,8 @@ testers are expected to do more *exploratory* testing.
 
 
 
-### clear:
-#### _Test 1_
+#### clear:
+##### _Test 1_
 * **Test instructions**: Run `list` followed by `clear`.
 
 * **Expected Message**: “Are you sure you want to clear BloodNet? This action is not reversible.
@@ -732,14 +778,14 @@ testers are expected to do more *exploratory* testing.
 
 
 
-### help:
+#### help:
 * **Test instructions**: Run `help`.
 
 * **Expected Action**:  A help window appears on the screen. The help window should be resizable and show a list of all of the commands with usage instructions.
 
 
 
-### exit:
+#### exit:
 * **Test instructions**: Run `exit`.
 
 * **Expected Action**:  The program closes the graphical user interface and automatically saves all current data before exiting.
