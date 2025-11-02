@@ -27,7 +27,7 @@ a time.
 - [Features](#features)
     - [Adding a donor: add](#adding-a-donor-add)
     - [Listing all donors: list](#listing-all-donors-list)
-    - [Locating donors by name: find](#locating-donors-by-name-find)
+    - [Finding donors by name: find](#locating-donors-by-name-find)
     - [Editing a donor: edit](#editing-a-donor-edit)
     - [Deleting a donor: delete](#deleting-a-donor-delete)
     - [Add a donation record: adddonation](#adding-a-donation-record-adddonation)
@@ -82,7 +82,7 @@ a time.
       list.
 
     * `findeligible O+ A+` : Finds all donors with the specified blood type(s) provided who are currently eligible to
-      donate based on their date of birth and number of days since their last donation.
+      donate based on their date of birth and number of days since their last donation [link](#features).
 
     * `clear`: Deletes the entire donation list and donation records list from the app. Note that this command can be 
      used to delete all sample data from the app.
@@ -198,7 +198,7 @@ This command lists all donors in the BloodNet system.
 
 Format: `list`
 
-### Locating donors by name: `find`
+### Finding donors by name: `find`
 
 This command finds donors whose names contain any of the given keywords.
 
@@ -285,7 +285,7 @@ Examples:
 
 ### Finding donation records of a donor: `finddonations`
 
-The command finds donation records of a donor.
+This command finds donation records of a donor.
 
 Format: `finddonations DONOR_INDEX`
 
@@ -316,7 +316,7 @@ Format: `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLU
 
 Examples:
 
-* `editdonation 1 v/200`: Edits the blood volume of the 1st donation record in the entire donation record list
+* `editdonation 1 v/200`: Edits the blood volume of the 1st donation record in the displayed donation record list
   to be 200 millilitres.
 * `editdonation 3 d/13-10-2024`: Edits the donation date of the 3rd donation record to 13-10-2024.
 * `editdonation 2 d/01-01-2025 v/350`: Edits the donation date to 01-01-2025 and blood volume to 350 ml for
@@ -341,9 +341,9 @@ deletion.
 
 Examples:
 
-* `deletedonation 1`: Deletes the 1st donation record in the donation record list.
-* `finddonations 1` followed by `deletedonation 2`: Deletes the 2nd donation record of the 1st donor in the shown donor
-  list.
+* `deletedonation 1`: Deletes the 1st donation record in the displayed donation record list.
+* `finddonations 1` followed by `deletedonation 2`: Deletes the 2nd donation record of the 1st donor in the shown 
+donor list.
 
 ### Finding eligible donors based on blood type: `findeligible`
 
