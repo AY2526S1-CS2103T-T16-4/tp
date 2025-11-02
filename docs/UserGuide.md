@@ -106,9 +106,9 @@ a time.
 | [**Find Donor**](#locating-donors-by-name-find)                                            | `find KEYWORD...`<br> e.g., `find aiden bob caitlyn`                                                                                     |
 | [**Edit Donor**](#editing-a-donor-edit)                                                    | `edit DONOR_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`    |
 | [**Delete Donor**](#deleting-a-donor-delete)                                               | `delete DONOR_INDEX `<br> e.g., `delete 3`                                                                                               |
-| [**Add Donation Records**](#adding-a-donation-record-adddonation)                          | `adddonation p/DONOR_INDEX d/DONATION_DATE v/BLOOD_VOLUME` <br> e.g., `adddonation p/1 d/15-10-2025 v/200`                               |
+| [**Add Donation Records**](#adding-a-donation-record-adddonation)                          | `adddonation p/DONOR_INDEX d/DONATION_DATE v/BLOOD_VOLUME_IN_ML` <br> e.g., `adddonation p/1 d/15-10-2025 v/200`                         |
 | [**Find Donation Records of a Donor**](#finding-donation-records-of-a-donor-finddonations) | `finddonations DONOR_INDEX` <br> e.g., `finddonations 3`                                                                                 |
-| [**Edit Donation Records**](#editing-a-donation-record-editdonation)                       | `editdonation DONATION_RECORD_INDEX`<br> e.g., `editdonation 1 v/350 d/20-02-2025`                                                       |
+| [**Edit Donation Records**](#editing-a-donation-record-editdonation)                       | `editdonation DONATION_RECORD_INDEX [d/DONATION_DATE] [v/BLOOD_VOLUME_IN_ML] `<br> e.g., `editdonation 1 v/350 d/20-02-2025`             |
 | [**Delete Donation Records**](#deleting-a-donation-record-deletedonation)                  | `deletedonation DONATION_RECORD_INDEX`<br> e.g., `deletedonation 1`                                                                      |
 | [**Find Eligible Donors**](#finding-eligible-donors-based-on-blood-type-findeligible)      | `findeligible BLOOD_TYPE...`<br> e.g., `findeligible A+ O+ B+`                                                                           |
 | [**Delete All Data**](#clearing-all-entries-clear)                                         | `clear`                                                                                                                                  |
@@ -136,8 +136,8 @@ a time.
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * Parameters enclosed in square brackets, `[]`, are optional.
-  e.g., in `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLUME]`, `[d/DONATION_DATE]`
-  and `[v/BLOOD_VOLUME]` may each be omitted.
+  e.g., in `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLUME_IN_ML]`, `[d/DONATION_DATE]`
+  and `[v/BLOOD_VOLUME_IN_ML]` may each be omitted.
     * **Note**: Although parameters may be marked as optional, there may be cases where at least one of the optional
       parameters must be provided (such as in `editdonation` and `edit`). When this applies, it will be explicitly
       stated both in this user guide and in the in-application help messages.
@@ -266,7 +266,7 @@ Examples:
 
 This command adds a donation record for a donor.
 
-Format: `adddonation p/DONOR_INDEX d/DONATION_DATE v/BLOOD_VOLUME`
+Format: `adddonation p/DONOR_INDEX d/DONATION_DATE v/BLOOD_VOLUME_IN_ML`
 
 * Adds a donation record for the donor corresponding to the specified `DONOR_INDEX`.
 * The index refers to the index number shown in the displayed donor list.
@@ -274,7 +274,7 @@ Format: `adddonation p/DONOR_INDEX d/DONATION_DATE v/BLOOD_VOLUME`
 * DONATION_DATE must be in the *DD-MM-YYYY* format and not in the future.
 * The donor must be eligible to donate blood on the specified DONATION_DATE. The criteria for
   eligibility can be found [here](#eligibility-criteria).
-* BLOOD_VOLUME **must be a positive whole number** strictly **less than 500** (in milliliters).
+* BLOOD_VOLUME_IN_ML **must be a positive whole number** strictly **less than 500** (in milliliters).
 
 Examples:
 
@@ -303,7 +303,7 @@ Example:
 
 This command edits an existing donation record in the BloodNet system.
 
-Format: `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLUME]`
+Format: `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLUME_IN_ML]`
 
 * Edits the donation record at the specified `DONATION_RECORD_INDEX`. The index refers to the index number shown in
   the displayed donation record list. The specified index **must be a positive whole number** 1, 2, 3, …​
@@ -312,7 +312,7 @@ Format: `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLU
 * DONATION_DATE must be in the *DD-MM-YYYY* format and not in the future.
 * The donor must be eligible to donate blood on the specified DONATION_DATE. The criteria for
   eligibility can be found [here](#eligibility-criteria).
-* BLOOD_VOLUME **must be a positive whole number** strictly **less than 500** (in milliliters).
+* BLOOD_VOLUME_IN_ML **must be a positive whole number** strictly **less than 500** (in milliliters).
 
 Examples:
 
