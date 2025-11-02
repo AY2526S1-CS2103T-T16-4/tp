@@ -194,7 +194,7 @@ Format: `edit DONOR_LIST_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE] [d/DA
   displayed donor list. The specified index **must be a positive whole number** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* New values of the fields must satisfy the validation rules as outlined for the `adddonation` command above.
+* New values of the fields must satisfy the validation rules as outlined for the `add` command above.
 
 Examples:
 
