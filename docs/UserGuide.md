@@ -399,10 +399,13 @@ welcome to update data directly by editing that data file.
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, BloodNet will discard all data and start with an empty data
-file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the BloodNet to behave in unexpected ways (e.g., if a value entered is outside the
-acceptable range). Therefore, edit the data file only if you are confident that you are able to update it correctly.
+Note that if the changes to the data file cause the data to be internally inconsistent, the system might not function 
+as expected. <br>
+If your edits make the data file format invalid, BloodNet will discard all data and start with an empty data
+file at the next run. Thus, it is strongly recommended that you take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the BloodNet to behave in unexpected ways. For instance, entering a value outside
+the acceptable range may lead to errors or unpredictable behaviours. Therefore, edit the data file only if you are 
+confident that you are able to update it correctly.
 </box>
 
 
@@ -415,7 +418,7 @@ the data of your previous BloodNet home folder.
 **Q**: Are the donor list and donation records list synchronised?  
 **A**: **No.** The donor list and donation records list are largely independent. They interact in two specific cases:
 1. Donation-related commands such as `finddonations` and `adddonation`, where the donor index used as a parameter comes from the displayed donor list.
-2. If users try to `delete` a donor and that donor has donation records, those donation records will have to be 
+2. If you try to `delete` a donor and that donor has donation records, those donation records will have to be 
    deleted first using the `deletedonation` command before the donor can be fully deleted.
 
 --------------------------------------------------------------------------------------------------------------------
