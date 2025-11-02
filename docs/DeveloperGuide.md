@@ -225,11 +225,11 @@ The `ConfirmationCommandSession` class manages interactive commands that require
 
 To facilitate the handling of inputs within the context of its session, `ConfirmationCommandSession` maintains three internal states:
 
-State                   | Description                                      | Transition Condition|
-------------------------|--------------------------------------------------|--------------------|
-`INITIAL`               | Default state immediately after creation. Ignores the original command input (since its information is already encapsulated within the deferred execution passed into it) and returns a confirmation prompt. | Automatically transitions to `PENDING_CONFIRMATION`.
-`PENDING_CONFIRMATION`  | Waits for user input(`yes` or `no` (caps-insensitive)) <br><ul><li> `yes` -> carry out deferred execution of command.</li><li>`no` -> cancels command</li><li>Other input -> re-prompts user. | Transitions to `DONE` after confirmation or cancellation|
-`DONE`                  | Terminal state indicating the session has completed. Any further `handle()` calls throw `TerminalSessionStateException` | -|
+| State                  | Description                                                                                                                                                                                                  | Transition Condition                                     |
+|------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
+| `INITIAL`              | Default state immediately after creation. Ignores the original command input (since its information is already encapsulated within the deferred execution passed into it) and returns a confirmation prompt. | Automatically transitions to `PENDING_CONFIRMATION`.     |
+| `PENDING_CONFIRMATION` | Waits for user input(`yes` or `no` (caps-insensitive)) <br><ul><li> `yes` -> carry out deferred execution of command.</li><li>`no` -> cancels command</li><li>Other input -> re-prompts user.                | Transitions to `DONE` after confirmation or cancellation |
+| `DONE`                 | Terminal state indicating the session has completed. Any further `handle()` calls throw `TerminalSessionStateException`                                                                                      | -                                                        |
 
 The following activity diagrams contrast the flow of a command requiring user confirmation and a single-step command:
 <puml src="diagrams/ConfirmationCommandSessionActivityDiagram.puml" alt="ConfirmationCommandSessionActivityDiagram"/>
@@ -243,8 +243,6 @@ For clarity, the above diagrams omit general session handling, command parsing a
 ## **Future Implementation**
 
 In the future, we can make the `FilteredPersonList` and `FilteredDonationRecordList` in synchronization. This means that the `DonationRecords` displayed correspond to the `Persons` displayed at all times. For example, when the user finds eligible donors from the `PersonList`, the `DonationRecordList` will be filtered such that only records which correspond to the displayed `Persons` are shown.
-
-<!-- Future implementation, so might not be doing exactly what the code actually does -->
 
 The diagram below illustrates a potential implementation using the `FindEligible` command.
 
