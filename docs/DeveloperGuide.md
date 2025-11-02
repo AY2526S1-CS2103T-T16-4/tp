@@ -269,7 +269,7 @@ ________________________________________________________________________________
 * has a need to manage a database of donors with detailed profile information
 * requires quick access to donor personal information
 * prefer desktop apps over other types of apps
-* is able to type fast such
+* is able to type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 * wants to filter profiles such as by blood type
@@ -812,5 +812,5 @@ The implementation was challenging due to input delegation, differentiating betw
 
 Overall, the addition of this new feature involved considerable architectural changes, edge case handling and documentation effort to balance the usability and safety of the system.
 
-### New Blood Type and Data of Birth fields (Person model)
+### New Blood Type and Date of Birth fields (Person model)
 In order for the person model to capture the information users need to track each donor, we added the blood type and date of birth fields. This meant that we had to add additional lines of code in many places of the codebase.
