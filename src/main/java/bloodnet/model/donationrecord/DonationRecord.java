@@ -23,9 +23,7 @@ import javafx.collections.ObservableList;
 public class DonationRecord {
     // Static validation error strings
     public static final String MESSAGE_AGE_BELOW_16 =
-            "Donor is too young on the donation date. "
-            + "Donation date cannot be between %s (their birthdate) "
-            + "and %s (one day before their 16th birthdate) inclusive.";
+            "Donor is too young on the donation date. Donation date cannot be before their 16th birthdate.";
     public static final String MESSAGE_NEIGHBOURING_DONATION_TOO_CLOSE =
             "Consecutive donations must be at least 12 weeks (84 days) apart. "
             + "However, the donor has already donated blood on %s. "
@@ -36,8 +34,6 @@ public class DonationRecord {
     public static final String MESSAGE_NON_RECENT_DONOR_TOO_OLD =
             "This is a repeated donor. However, they have not donated blood in the last 3 years. "
             + "Donation date cannot be on or after %s (their 66th birthdate).";
-    public static final String MESSAGE_CANNOT_DONATE_BEFORE_BIRTHDAY =
-            "Donation date cannot be before %s (their birthdate).";
 
     // Identity fields
     private UUID id;
@@ -166,14 +162,6 @@ public class DonationRecord {
         LocalDate donationDateValue = donationDate.getValue();
         LocalDate dateOfBirthValue = person.getDateOfBirth().getValue();
 
-        // Before checking age of person, confirm that the donationDate is on or after their birthday
-        int daysBetweenDonationDateAndBirthday = Period.between(donationDateValue, dateOfBirthValue).getYears();
-        if (daysBetweenDonationDateAndBirthday > 0) {
-            String errorMessage = String.format(MESSAGE_CANNOT_DONATE_BEFORE_BIRTHDAY,
-                    dateOfBirthValue.format(DateOfBirth.DATE_FORMATTER));
-            validationErrorStrings.add(errorMessage);
-            return validationErrorStrings;
-        }
         // 1. Age of person at donationDate must be >= 16
         int ageAtDonation = Period.between(dateOfBirthValue, donationDateValue).getYears();
         if (ageAtDonation < 16) {
