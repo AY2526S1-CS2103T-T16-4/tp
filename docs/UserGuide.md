@@ -6,9 +6,11 @@ pageNav: 3
 <!-- For the TOC, actually, I think adding a site.json file might fix it, but adding a TOC for now. -->
 # BloodNet User Guide
 
-BloodNet is a **desktop app for tracking blood donors and their donations**, helping data entry staff to:
+BloodNet is a **desktop app for tracking blood donors and their donations**, made for data entry and outreach staff at
+blood banks. It helps them:
 
-1. Quickly search for the contact information of any donor
+1. Store information about donors and their donations
+2. Quickly search for the contact information of any donor
 2. Easily view all donation records of any donor
 3. Instantly collate a list of eligible donors of any specified blood group
 
@@ -58,11 +60,12 @@ a time.
    <br><br>
    A black window will appear. Key in `java -jar bloodnet.jar` and press <kbd>Enter</kbd>.
    <br><br>
-   ![Terminal.png](Terminal.png)
+   ![Terminal.png](images/Terminal.png)
    <br><br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
    <br><br>
-   ![Ui](images/Ui.png)
+   ![Ui.png](images/Ui.png)
+   <br><br>
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. e.g. typing **`help`** and
    pressing <kbd>Enter</kbd> will
@@ -361,8 +364,7 @@ Example:
 
 * `findeligible A+ B+`: Lists all donors who have blood type A+ or B+ and are found eligible to donate based on the
   official guidelines.
-
-  ![result for 'findeligible A+ AB-'](images/findeligibleResults.png)
+  ![result for 'findeligible A+ B+'](images/findeligibleResults.png)
 
 ### Clearing all entries: `clear`
 
