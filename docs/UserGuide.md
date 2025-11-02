@@ -46,7 +46,7 @@ a time.
 
 ## Quick Start
 
-1. Install Java 17 if you computer does not already have it. The instructions for how to do so can be
+1. Install Java 17 if your computer does not already have it. The instructions for how to do so can be
    found [here](https://se-education.org/guides/tutorials/javaInstallation.html).
 
 2. Download the `.jar` file from our latest [Github Release](https://github.com/AY2526S1-CS2103T-T16-4/tp/releases).
@@ -84,8 +84,8 @@ a time.
     * `findeligible O+ A+` : Finds all donors with the specified blood type(s) provided who are currently eligible to
       donate based on their date of birth and number of days since their last donation.
 
-    * `clear`: Deletes the entire donation list and donation records from the app. Note that this command can be used
-      to delete all sample data from the app.
+    * `clear`: Deletes the entire donation list and donation records list from the app. Note that this command can be 
+     used to delete all sample data from the app.
 
     * `exit` : Exits out of the application.
 
@@ -176,7 +176,7 @@ This command adds a donor to the BloodNet system.
 Format: `add n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`
 
 * NAME must contain at least 2 letters.
-* PHONE must contain only contain numbers, be 8 digits long and start with either 3, 6, 8 or 9.
+* PHONE must contain only numbers, be 8 digits long and start with either 3, 6, 8 or 9.
 * EMAIL must follow the format `local-part@domain`.
     * Local-part: letters, numbers, `+`, `_`, `.` or `-`; cannot start nor end with a special character.
     * Domain: labels should be separated by periods, each label must start and end with a letter or number, and may
@@ -232,12 +232,6 @@ Format: `edit DONOR_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com`: Edits the 1st donor's phone number to `91234567` and email address to
-  `johndoe@example.com`.
-* New values of the fields must satisfy the validation rules as outlined for the `adddonation` command above.
-
-Examples:
-
 * `edit 1 p/91234567 e/johndoe@example.com`: Edits the 1st donor's phone number to `91234567` and email address to  
   `johndoe@example.com`.
 * `edit 2 n/Betsy Crower`:Edits the name of the 2nd donor to be `Betsy Crower`.
@@ -248,7 +242,7 @@ Examples:
 
 This command deletes a specified donor from the BloodNet system.
 
-Format: `delete DONOR_NDEX`
+Format: `delete DONOR_INDEX`
 
 * Deletes the donor at the specified `DONOR_INDEX`.
 * The index refers to the index number shown in the displayed donor list.
@@ -289,7 +283,7 @@ Examples:
 * `adddonation p/3 d/20-09-2024 v/450`: Adds a donation record for the 3rd donor, with a blood volume of 450ml donated on
   20-09-2024.
 
-## Finding donation records of a donor: `finddonations`
+### Finding donation records of a donor: `finddonations`
 
 The command finds donation records of a donor.
 
@@ -347,7 +341,7 @@ deletion.
 
 Examples:
 
-* `deletedonations 1`: Deletes the 1st donation record in the donation record list.
+* `deletedonation 1`: Deletes the 1st donation record in the donation record list.
 * `finddonations 1` followed by `deletedonation 2`: Deletes the 2nd donation record of the 1st donor in the shown donor
   list.
 
@@ -409,10 +403,10 @@ BloodNet data are saved automatically as a JSON file `[JAR file location]/data/b
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains  
 the data of your previous BloodNet home folder.  
 **Q**: Are the donor list and donation records list synchronised?  
-**A**: **No.** The two donor and donation records are largely independent. They interact in two specific cases:
+**A**: **No.** The donor list and donation records list are largely independent. They interact in two specific cases:
 1. Donation-related commands such as `finddonations` and `adddonation`, where the donor index used as a parameter comes from the displayed donor list.
-2. Deleting a donor, which also removes all donation records associated with that donor to maintain data
-   consistency.
+2. If users try to `delete` a donor and that donor has donation records, those donation records will have to be 
+   deleted first using the `deletedonation` command before the donor can be fully deleted.
 
 --------------------------------------------------------------------------------------------------------------------
 
