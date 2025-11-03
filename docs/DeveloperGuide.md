@@ -509,7 +509,7 @@ Use case ends.
     * 3a1. BloodNet shows an error message.
     * Use case returns to step 3.
 
-* 5a. Donation Record ID is invalid.
+* 5a. Donation Record Index is invalid.
     * 5a1. BloodNet shows an error message.
       Use case returns to step 5.
 
@@ -545,7 +545,7 @@ Use case ends.
     * 3a1. BloodNet shows an error message.
     * Use case returns to step 3.
 
-* 5a. Donation Record ID is invalid.
+* 5a. Donation Record Index is invalid.
     * 5a1. BloodNet shows an error message.
     * Use case returns to step 5.
 
