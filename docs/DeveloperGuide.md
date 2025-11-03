@@ -25,21 +25,21 @@ pageNav: 3
 - [Future Implementation](#future-implementation)
 - [Documentation, Logging, Testing, Configuration, Dev-ops](#documentation-logging-testing-configuration-dev-ops)
 - [Appendix: Requirements](#appendix-requirements)
-- [Product Scope](#product-scope)
-- [User Stories](#user-stories)
-- [Use Cases](#use-cases)
-  - [UC01 - Add a donor's contact & blood type](#use-case-uc01-add-a-donor-s-contact-and-amp-blood-type)
-  - [UC02 - Update a donor's information](#use-case-uc02-update-a-donor-s-information)
-  - [UC03 - Search donors by name](#use-case-uc03-search-donors-by-name)
-  - [UC04 - Delete a donor](#use-case-uc04-delete-a-donor)
-  - [UC05 - List all donors in the system](#use-case-uc05-list-all-donors-in-the-system)
-  - [UC06 - Find all eligible donors of a particular blood type](#use-case-uc06-find-all-eligible-donors-of-a-particular-blood-type)
-  - [UC07 - Record a blood donation by a donor](#use-case-uc07-record-a-blood-donation-by-a-donor)
-  - [UC08 - List all blood donations by a donor](#use-case-uc08-list-all-blood-donations-by-a-donor)
-  - [UC09 - Modify a blood donation record](#use-case-uc09-modify-a-blood-donation-record)
-  - [UC10 - Delete a blood donation record](#use-case-uc10-delete-a-blood-donation-record)
-- [Non-Functional Requirements](#non-functional-requirements)
-- [Glossary](#glossary)
+  - [Product Scope](#product-scope)
+  - [User Stories](#user-stories)
+  - [Use Cases](#use-cases)
+    - [UC01 - Add a donor's contact & blood type](#use-case-uc01-add-a-donor-s-contact-and-amp-blood-type)
+    - [UC02 - Update a donor's information](#use-case-uc02-update-a-donor-s-information)
+    - [UC03 - Search donors by name](#use-case-uc03-search-donors-by-name)
+    - [UC04 - Delete a donor](#use-case-uc04-delete-a-donor)
+    - [UC05 - List all donors in the system](#use-case-uc05-list-all-donors-in-the-system)
+    - [UC06 - Find all eligible donors of a particular blood type](#use-case-uc06-find-all-eligible-donors-of-a-particular-blood-type)
+    - [UC07 - Record a blood donation by a donor](#use-case-uc07-record-a-blood-donation-by-a-donor)
+    - [UC08 - List all blood donations by a donor](#use-case-uc08-list-all-blood-donations-by-a-donor)
+    - [UC09 - Modify a blood donation record](#use-case-uc09-modify-a-blood-donation-record)
+    - [UC10 - Delete a blood donation record](#use-case-uc10-delete-a-blood-donation-record)
+  - [Non-Functional Requirements](#non-functional-requirements)
+  - [Glossary](#glossary)
 - [Appendix: Instructions for Manual Testing](#appendix-instructions-for-manual-testing)
   - [Launch and Shutdown](#launch-and-shutdown)
   - [Instructions](#instructions-to-test)
@@ -833,13 +833,13 @@ Team size: 5
 1. **Enhancement**: Update the `delete` command to remove a donor and all of their associated donation records in 
    a single operation. <br>
 
-   **Current Behaviour**: Currently, a donor cannot be deleted until all of their associated donation records have been manually removed by the user. <br>
+   **Current Behaviour**: Currently, a donor cannot be deleted until all of their associated donation records have been removed by the user with the command `deletedonation`. <br>
    
    **Feature Flaw**: This is a feature not a bug, because in real life, users would most likely want to preserve a donor's donation records in the system for audit purposes, even if the donor is past the age of eligibility. Therefore, we have intentionally made deleting a donor and their donation records difficult. However, some users, such as PE-D testers, have expressed that the current functionality is time-consuming. <br>
 
    **Proposed Change**: We can add an optional flag (e.g. such as the `--all` flag) to the `delete` command that allows users to remove all donation records linked to the donor. <br>
 
-   **Expected Behaviour**: When a user runs `delete 3 --all`, the system prompts the user for confirmation and then deletes the donor along with all associated donation records after the user has confirmed the deletion. <br><br>
+   **Expected Behaviour**: When a user runs `delete 3 --all`, the system prompts the user for confirmation and then deletes the 3rd donor along with all associated donation records after the user has confirmed the deletion. <br><br>
 
 
 2. **Enhancement**: Update the `list` command to display both the donor list and the donation record list. <br>
