@@ -20,7 +20,6 @@ import bloodnet.model.Model;
 import bloodnet.model.donationrecord.BloodVolume;
 import bloodnet.model.donationrecord.DonationDate;
 import bloodnet.model.donationrecord.DonationRecord;
-import bloodnet.model.donationrecord.DonorIsSamePersonPredicate;
 import bloodnet.model.person.Person;
 
 /**
