@@ -52,12 +52,14 @@ a time.
 4. Open the terminal at that _home folder_ directory. You may do so by either opening a terminal manually and running `cd` into that directory or by using the file manager directly:
 
     * **For Windows users:** 
+    <br>
       Right-click on any empty area in the folder and select **"Open in Terminal"**.
       <p align=center>
         <img src="images/runInTerminalWindows.png" alt="Open Terminal Windows" width="600">
       </p>
 
     * **For macOS users:** 
+    <br>
       Right-click on the folder name in the path bar at the bottom of Finder and select **"Open in Terminal"**.
       <p align=center>
         <img src="images/runInTerminalMac.png" alt="Open Terminal Mac" width="600">
@@ -66,7 +68,7 @@ a time.
         Doing so will cause a black (by default) terminal window.
       <br><br>
     * **For Linux users:**  
-      Open your preferred terminal application (e.g. **GNOME Terminal**, **Konsole**, **Kitty**), then use the `cd` command to navigate to the home folder.  
+      Open your preferred terminal application (e.g. GNOME Terminal, Konsole, Kitty), then use the `cd` command to navigate to the home folder.  
       Example:  
       ```
       cd ~/Documents/BloodNet
