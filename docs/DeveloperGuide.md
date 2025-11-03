@@ -815,3 +815,42 @@ Overall, the addition of this new feature involved considerable architectural ch
 
 ### New Blood Type and Date of Birth fields (Person model)
 In order for the person model to capture the information users need to track each donor, we added the blood type and date of birth fields. This meant that we had to add additional lines of code in many places of the codebase.
+
+## **Appendix: Planned Enhancements**
+
+Team size: 5
+
+1. **Feature**: Allow users to delete a donor along with all donation records associated with that specific 
+   donor in a single step. <br>
+
+   **Current Behaviour**: Users must manually delete all donation records with respect to a donor before they can delete a donor.
+   This is a feature not a bug, because in real life, users would most likely want to preserve a donor's donation records in the system for audit purposes, even if the donor is past the age of eligibility. Therefore, we have intentionally made deleting a donor and their donation records difficult.<br>
+
+   **Rationality for the New Feature**: However, some PE-D testers have expressed that the current process is 
+   time-consuming. As such, if real users express a similar sentiment too, we will introduce this new feature. <br><br>
+
+2. **Feature**: Introduce a `listdonations` command that allows users to view all donation records in the system. <br>
+
+   **Current Behaviour**: There is no feature that allows users to view all the donation records at once and users 
+   are only allowed to access donation records individually through other commands such as `finddonations`. This design 
+   choice was purely intentional as we believed that users did not see a need to view all donation records at once.
+   Rather, our focus was more on allowing users to retrieve specific records efficiently, prioritizing quick access to 
+   individual donation records versus displaying a full list of all donation records, which we believed would be 
+   overwhelming or unnecessary for most users. <br>
+
+    **Rationality for the New Feature**: Some PE-D testers have noticed that the absence of such a feature makes it difficult
+     to get an overview of all the donation records prevalent. As such, if real users express a similar need, we will introduce the `listdonations` features. <br><br>
+
+3. **Feature**: Warn users when BloodNet already contains a donor with the same phone number or the same name.<br>
+
+   **Current Behaviour**: 2 donors are only considered to be identical if they have both the same name (case-sensitive) and phone number.<br>
+
+    **Rationality for the New Feature**: It is possible for the existing validation check to miss certain edge cases. For example, if a donor with a name "Alex Tan" and phone number "88888888" already exists in BloodNet, a donor with a name "Alex T." and phone number "88888888" can still be added the BloodNet, even though there is a decent chance they refer to the same person.<br><br>
+
+4. **Feature**: Loosen phone number validation requirements.<br>
+
+   **Current Behaviour**: The phone number must contain exactly 8 digits. This may be too strict in some cases. For example, "8888 8888" would fail the validation check due to the whitespace in between.<br>
+
+    **Rationality for the New Feature**: We want to make the validation more fit-for-purpose.<br><br>
+
+
