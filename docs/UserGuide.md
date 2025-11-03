@@ -74,7 +74,7 @@ a time.
       cd ~/Documents/BloodNet
       ```
 
-5. Verify that **Java 17** is installed in your system by typing `java --version` within the newly-opened terminal and pressing <kbd>Enter</kbd>. The output should display information about your installed Java version, including `openjdk version "17.x.x"` or `java version "17.x.x"`. Example output:
+5. Verify that **Java 17** is installed in your system by typing `java --version` within the newly-opened terminal and pressing <kbd>Enter</kbd>. The output should display information about your installed Java version, including `openjdk 17.x.x` or `java 17.x.x`. Example output:
     ```
     java 17.0.10 2024-01-16 LTS
     Java(TM) SE Runtime Environment (build 17.0.10+11-LTS-240)
