@@ -199,7 +199,7 @@ Format: `list`
 This command finds donors whose names contain any of the given keywords.
 
 > **Note:**
-> The `find` command always filters the **entire list of donors** in the system, **not just the currently donor list**. Even if you have previously filtered the donor list (e.g., using `find` or `findeligible`), running `find` will search through all donors stored in BloodNet.
+> The `find` command always filters the **entire list of donors** in the system, **not just the displayed donor list**. Even if you have previously filtered the donor list (e.g., using `find` or `findeligible`), running `find` will search through all donors stored in BloodNet.
 
 Format: `find KEYWORD...`
 
