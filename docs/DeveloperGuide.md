@@ -244,9 +244,9 @@ For clarity, the above diagrams omit general session handling, command parsing a
 
 ## **Future Implementation**
 
-In the future, we can make the `FilteredPersonList` and `FilteredDonationRecordList` synchronized. This means that the `DonationRecords` displayed correspond to the `Persons` displayed at all times. For example, when the user finds eligible donors from the `PersonList`, the `DonationRecordList` will be filtered such that only records which correspond to the displayed `Persons` are displayed to the user. By doing so, the approach ensures that both the `PersonList` and the `DonationRecord` lists are always consistent and up-to-date. 
+In the future, we can make the `FilteredPersonList` and `FilteredDonationRecordList` synchronized. This means that the `DonationRecords` displayed correspond to the `Persons` displayed at all times. For instance, when the user finds eligible donors from the `PersonList`, the `DonationRecordList` will be filtered such that only records which correspond to the displayed `Persons` are displayed to the user. By doing so, the approach ensures that both the `PersonList` and the `DonationRecord` lists are always consistent. 
 
-The diagram below illustrates a potential implementation using the `FindEligible` command.
+The diagram below illustrates a potential implementation using the `FindEligible` command as an example.
 
 <puml src="diagrams/FutureUIImplementationForFindEligible.puml" alt="FutureUIImplementationForFindEligible"/>
 
@@ -335,7 +335,7 @@ Use case ends.
 
 **MSS**
 
-1. Admin staff lists all donors ([UC05](#use-case-uc05---list-all-donors-in-the-system)). 
+1. Admin staff lists all donors ([UC05](#use-case-uc05-list-all-donors-in-the-system)). 
 2. Admin staff selects a donor to update and provides new values for the fields that need to be changed. 
 3. BloodNet updates fields of the donor for which values were supplied.
 
@@ -374,7 +374,7 @@ Use case ends.
 
 **MSS**
 
-1. Admin staff lists all donors ([UC05](#use-case-uc05---list-all-donors-in-the-system)).
+1. Admin staff lists all donors ([UC05](#use-case-uc05-list-all-donors-in-the-system)).
 2. Admin staff requests to delete a donor.
 3. BloodNet requests for confirmation.
 4. Admin staff confirms deletion.
@@ -392,7 +392,7 @@ Use case ends.
     * Use case returns to step 2.
 
 * 2b. Donor has one or more existing donation records.
-    * 2b1. Admin staff deletes donation records of donor ([UC10](#use-case-uc10---delete-a-blood-donation-record)).
+    * 2b1. Admin staff deletes donation records of donor ([UC10](#use-case-uc10-delete-a-blood-donation-record)).
     * Use case returns to step 2.
 
 * 3a. Admin staff declines deletion.
