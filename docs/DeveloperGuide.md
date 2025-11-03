@@ -10,6 +10,9 @@ pageNav: 3
 ## **Acknowledgements**
 
 - This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org/).
+
+- Java Libraries Used: [JavaFX](https://openjfx.io/)
+
 - The blood donation eligibility criteria implemented in this project were guided by the [Health Sciences Authority (HSA)](https://www.hsa.gov.sg/blood-donation/can-i-donate) guidelines in Singapore.
 
 ## Table of Contents
