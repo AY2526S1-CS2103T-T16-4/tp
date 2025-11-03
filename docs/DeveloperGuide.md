@@ -9,6 +9,7 @@ pageNav: 3
 
 ## **Acknowledgements**
 
+- This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org/).
 - The blood donation eligibility criteria implemented in this project were guided by the [Health Sciences Authority (HSA)](https://www.hsa.gov.sg/blood-donation/can-i-donate) guidelines in Singapore.
 
 ## Table of Contents
@@ -829,7 +830,7 @@ Team size: 5
 
    **Proposed Change**: We can add an optional flag (e.g. such as the `--all` flag) to the `delete` command that allows users to remove all donation records linked to the donor. <br>
 
-   **Expected Behaviour**: When a user runs `delete 3 --all`, the system prompts the user for confirmation and then deletes the 3rd donor along with all associated donation records after the user has confirmed the deletion. <br><br>
+   **Expected Behaviour**: When a user runs `delete 3 --all`, the system prompts the user for confirmation and then deletes the 3rd donor in the displayed donor list along with all associated donation records after the user has confirmed the deletion. <br><br>
 
 
 2. **Enhancement**: Update the `list` command to display both the donor list and the donation record list. <br>
