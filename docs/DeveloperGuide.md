@@ -87,7 +87,8 @@ The bulk of the app's work is done by the following four components:
 * [**`Logic`**](#logic-component): The input handler.
 * [**`Model`**](#model-component): Holds the data of the App in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
-* [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
+
+[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
 **How the architecture components interact with each other**
 
@@ -266,13 +267,13 @@ ________________________________________________________________________________
 
 **Target user profile**:
 
-* has a need to manage a database of donors with detailed profile information
+* has a need to manage a database of donors and their donation records
 * requires quick access to donor personal information
+* may need to find donors of a particular blood type who are eligible for donation on the current day
 * prefer desktop apps over other types of apps
-* is able to type fast such
+* is able to type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
-* wants to filter profiles such as by blood type
 
 **Value proposition**: manage donor profiles more efficiently as opposed to a typical mouse driven app
 
@@ -812,5 +813,5 @@ The implementation was challenging due to input delegation, differentiating betw
 
 Overall, the addition of this new feature involved considerable architectural changes, edge case handling and documentation effort to balance the usability and safety of the system.
 
-### New Blood Type and Data of Birth fields (Person model)
+### New Blood Type and Date of Birth fields (Person model)
 In order for the person model to capture the information users need to track each donor, we added the blood type and date of birth fields. This meant that we had to add additional lines of code in many places of the codebase.

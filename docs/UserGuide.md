@@ -3,7 +3,6 @@ layout: default.md
 title: "User Guide"
 pageNav: 3
 ---
-
 # BloodNet User Guide
 
 BloodNet is a **desktop app for tracking blood donors and their donations**, made for data entry and outreach staff at
@@ -11,18 +10,39 @@ blood banks. It helps them:
 
 1. Store information about donors and their donations
 2. Quickly search for the contact information of any donor
-2. Easily view all donation records of any donor
-3. Instantly collate a list of eligible donors of any specified blood group
+3. Easily view all donation records of any donor
+4. Instantly collate a list of eligible donors of any specified blood group
 
-BloodNet's mode of input resembles that of a Command Line Interface (CLI), making it perfect for fast typists. On the
-other hand, its Graphical User Interface (GUI) enables scrolling, making it easy to view large amounts of data at a
-time.
+BloodNet's mode of input resembles that of a Command Line Interface (CLI), making it the perfect tool for fast typists.
+On the other hand, its Graphical User Interface (GUI) enables scrolling, making it easy to view large amounts of data at
+a time.
+
+## Table of Contents
+- [Quick Start](#quick-start)
+- [Command Summary](#command-summary)
+- [Features](#features)
+    - [Adding a donor: add](#adding-a-donor-add)
+    - [Listing all donors: list](#listing-all-donors-list)
+    - [Finding donors by name: find](#locating-donors-by-name-find)
+    - [Editing a donor: edit](#editing-a-donor-edit)
+    - [Deleting a donor: delete](#deleting-a-donor-delete)
+    - [Add a donation record: adddonation](#adding-a-donation-record-adddonation)
+    - [Finding a donation record: finddonations](#finding-donation-records-of-a-donor-finddonations)
+    - [Editing a donation record: editdonation](#editing-a-donation-record-editdonation)
+    - [Deleting a donation record: deletedonation](#deleting-a-donation-record-deletedonation)
+    - [Find eligible donors based on blood type: findeligible](#finding-eligible-donors-based-on-blood-type-findeligible)
+    - [Clearing all entries: clear](#clearing-all-entries-clear)
+    - [Viewing help: help](#viewing-help-help)
+    - [Exiting the program: exit](#exiting-the-program-exit)
+- [Saving the Data](#saving-the-data)
+- [FAQ](#faq)
+- [Known Issues](#known-issues)
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick Start
 
-1. Install Java 17 if you computer doesn't already have it. The instructions for how to do so can be
+1. Install Java 17 if your computer does not already have it. The instructions for how to do so can be
    found [here](https://se-education.org/guides/tutorials/javaInstallation.html).
 
 2. Download the `.jar` file from our latest [Github Release](https://github.com/AY2526S1-CS2103T-T16-4/tp/releases).
@@ -57,12 +77,14 @@ time.
     * `adddonation p/1 d/21-10-2025 v/400` : Adds a donation record for the 1st donor shown in the current donor
       list.
 
-    * `findeligible O+ A+` : Finds all donors with the specified blood type(s) provided who are currently eligible to
-      donate based on their date of birth and number of days since last donation.
+    * `findeligible O+ A+` : Finds all donors with the specified blood type(s) who are eligible to
+      donate on the current day. The criteria for eligibility can be found [here](#eligibility-criteria).
 
-    * `clear`: Deletes all data from the app. This command can be used to delete all sample data from the app.
+    * `clear`: Deletes the entire donation list and donation records list from the app. Note that this command can be 
+     used to delete all sample data from the app.
 
-    * `exit` : Exits the app.
+    * `exit` : Exits out of the application.
+
 
 6. Press <kbd>F1</kbd> or type **`help`** in the command box and press <kbd>Enter</kbd> to open
    the [help window](#viewing-help-help), which provides a summary of all command usages.
@@ -73,21 +95,21 @@ time.
 
 ## Command summary
 
- Action                                                                                     | Format, Examples                                                                                                                                                                                 
---------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- [**Add Donor**](#adding-a-donor-add)                                                       | `add n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH_(DD-MM-YYYY)` <br> e.g., `add n/James Ho p/98765432 e/jamesho@example.com b/A+ d/22-11-2004`                                            
- [**List All Donors**](#listing-all-donors-list)                                            | `list`                                                                                                                                                                                           
- [**Find Donor**](#locating-donors-by-name-find)                                            | `find KEYWORD...`<br> e.g., `find alice bob charlie`                                                                                                                                             
- [**Edit Donor**](#editing-a-donor-edit)                                                    | `edit DONOR_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER) [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH_(DD-MM-YYYY)]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com` 
- [**Delete Donor**](#deleting-a-donor-delete)                                               | `delete DONOR_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER) `<br> e.g., `delete 3`                                                                                                                
- [**Add Donation Records**](#adding-a-donation-record-adddonation)                          | `adddonation p/DONOR_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER) d/DONATION_DATE v/BLOOD_VOLUME` <br> e.g., `adddonation p/1 d/15-10-2025 v/200`                                                
- [**Find Donation Records of a Donor**](#finding-donation-records-of-a-donor-finddonations) | `finddonations DONOR_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER)` <br> e.g., `finddonations 3`                                                                                                  
- [**Edit Donation Records**](#editing-a-donation-record-editdonation)                       | `editdonation DONATION_RECORD_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER)`<br> e.g., `editdonation 1 v/350 d/20-02-2025`                                                                        
- [**Delete Donation Records**](#deleting-a-donation-record-deletedonation)                  | `deletedonation DONATION_RECORD_LIST_INDEX_(MUST_BE_A_POSITIVE_WHOLE_NUMBER)`<br> e.g., `deletedonation 1`                                                                                       
- [**Find Eligible Donors**](#finding-eligible-donors-based-on-blood-type-findeligible)      | `findeligible BLOOD_TYPE...`<br> e.g., `findeligible A+ O+ B+`                                                                                                                                   
- [**Delete All Data**](#clearing-all-entries-clear)                                         | `clear`                                                                                                                                                                                          
- [**Help**](#viewing-help-help)                                                             | `help`                                                                                                                                                                                           
- [**Exit**](#exiting-the-program-exit)                                                      | `exit`                                                                                                                                                                                           
+| Action                                                                                     | Format, Examples                                                                                                                         |
+|--------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| [**Add Donor**](#adding-a-donor-add)                                                       | `add n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH` <br> e.g., `add n/James Ho p/98765432 e/jamesho@example.com b/A+ d/22-11-2004` |
+| [**List All Donors**](#listing-all-donors-list)                                            | `list`                                                                                                                                   |
+| [**Find Donor**](#locating-donors-by-name-find)                                            | `find KEYWORD...`<br> e.g., `find aiden bob caitlyn`                                                                                     |
+| [**Edit Donor**](#editing-a-donor-edit)                                                    | `edit DONOR_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`    |
+| [**Delete Donor**](#deleting-a-donor-delete)                                               | `delete DONOR_INDEX `<br> e.g., `delete 3`                                                                                               |
+| [**Add Donation Records**](#adding-a-donation-record-adddonation)                          | `adddonation p/DONOR_INDEX d/DONATION_DATE v/BLOOD_VOLUME` <br> e.g., `adddonation p/1 d/15-10-2025 v/200`                               |
+| [**Find Donation Records of a Donor**](#finding-donation-records-of-a-donor-finddonations) | `finddonations DONOR_INDEX` <br> e.g., `finddonations 3`                                                                                 |
+| [**Edit Donation Records**](#editing-a-donation-record-editdonation)                       | `editdonation DONATION_RECORD_INDEX [d/DONATION_DATE] [v/BLOOD_VOLUME] `<br> e.g., `editdonation 1 v/350 d/20-02-2025`                   |
+| [**Delete Donation Records**](#deleting-a-donation-record-deletedonation)                  | `deletedonation DONATION_RECORD_INDEX`<br> e.g., `deletedonation 1`                                                                      |
+| [**Find Eligible Donors**](#finding-eligible-donors-based-on-blood-type-findeligible)      | `findeligible BLOOD_TYPE...`<br> e.g., `findeligible A+ O+ B+`                                                                           |
+| [**Delete All Data**](#clearing-all-entries-clear)                                         | `clear`                                                                                                                                  |
+| [**Help**](#viewing-help-help)                                                             | `help`                                                                                                                                   |
+| [**Exit**](#exiting-the-program-exit)                                                      | `exit`                                                                                                                                   |
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -128,7 +150,7 @@ time.
 <a id="eligibility-criteria"></a>
 **Blood donation eligibility criteria**
 <br><br>
-In Bloodnet, a donor is **not eligible** to donate on a given date if:
+In BloodNet, a donor is **not eligible** to donate on a given date if:
 
 1. The donor is younger than 16 years old on the given date.
 2. There is already a donation record (corresponding to the donor) with a donation date that is less than 84 days before
@@ -145,37 +167,46 @@ In Bloodnet, a donor is **not eligible** to donate on a given date if:
 
 ### Adding a donor: `add`
 
-This command is used to add a donor to the BloodNet system.
+This command adds a donor to the BloodNet system.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`
+Format: `add n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`
 
+* NAME must contain at least 2 letters.
+* PHONE must contain only numbers, be 8 digits long and start with either 3, 6, 8 or 9.
+* EMAIL must follow the format `local-part@domain`.
+    * Local-part: letters, numbers, `+`, `_`, `.` or `-`; cannot start nor end with a special character.
+    * Domain: labels should be separated by periods, each label must start and end with a letter or number, and may
+      contain letters, numbers or hyphens in-between; the last label must be at least 2 or more characters long.
 * BLOOD_TYPE must be either O+, O-, A+, A-, B+, B-, AB+, AB-.
-* DATE_OF_BIRTH must be in the *dd-MM-yyyy* format (for example: 20-01-2003).
+* DATE_OF_BIRTH must be in the *DD-MM-YYYY* format (for example, `20-01-2003`).
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com b/B+ d/04-11-1999`
-* `add n/Betsy Crowe e/betsycrowe@example.com b/O- d/20-05-2004`
+* `add n/John Doe p/98765432 e/johnd@example.com b/B+ d/04-11-1999`: Adds a donor named John Doe with phone number
+  98765432, email johnd@example.com, blood type B+ and date of birth 04-11-1999.
+* `add n/Betsy Crowe p/95559132 e/betsycrowe@example.com b/AB- d/20-05-2004`: Adds a donor named Betsy Crowe with phone
+  number 95559132, email betsycrowe@example.com, blood type AB- and date of birth 20-05-2004.
+
 
 ### Listing all donors: `list`
 
-Shows a list of all donors in the BloodNet system.
+This command lists all donors in the BloodNet system.
 
 Format: `list`
 
-### Locating donors by name: `find`
+### Finding donors by name: `find`
 
-Finds donors whose names contain any of the given keywords.
+This command finds donors whose names contain any of the given keywords.
 
 Format: `find KEYWORD...`
 
 * At least one keyword must be provided.
-* The search is case-insensitive. e.g. `hans` will match `Hans`.
+* The search is case-insensitive. e.g. `jane` will match `Jane`.
 * If a keyword is a substring of a word in the person's name, it is considered a match. e.g. `al` will match `alex`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
-* Only the name is searched.
+* The order of the keywords does not matter. e.g. `Jane Bo` will match `Bo Jane`.
+* Only the donor's name is searched.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
+  e.g. `Jane Do` will return `Jane Gruber`, `Jane Yang`.
 
 Examples:
 
@@ -186,31 +217,31 @@ Examples:
 
 ### Editing a donor: `edit`
 
-The command edits an existing donor in the BloodNet system.
+This command edits an existing donor in the BloodNet system.
 
-Format: `edit DONOR_LIST_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`
+Format: `edit DONOR_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`
 
-* Edits the person at the specified `DONOR_LIST_INDEX`. The index refers to the index number shown in the
+* Edits the person at the specified `DONOR_INDEX`. The index refers to the index number shown in the
   displayed donor list. The specified index **must be a positive whole number** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* New values of the fields must satisfy the validation rules as outlined for the `adddonation` command above.
+* Existing values will be updated to the new input values.
+* New values of the fields must satisfy the validation rules as outlined for the `add` command.
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567`
-  and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower ` Edits the name of the 2nd person to be `Betsy Crower`.
-* `find Betsy` followed by `edit 1 p/91234567` edits the phone number of the 1st donor in the result of the `find`
+* `edit 1 p/91234567 e/johndoe@example.com`: Edits the 1st donor's phone number to `91234567` and email address to  
+  `johndoe@example.com`.
+* `edit 2 n/Betsy Crower`:Edits the name of the 2nd donor to be `Betsy Crower`.
+* `find Betsy` followed by `edit 1 p/91234567`: Edits the phone number of the 1st donor in the result of the `find`
   command.
 
 ### Deleting a donor: `delete`
 
 This command deletes a specified donor from the BloodNet system.
 
-Format: `delete DONOR_LIST_INDEX`
+Format: `delete DONOR_INDEX`
 
-* Deletes the donor at the specified `DONOR_LIST_INDEX`.
+* Deletes the donor at the specified `DONOR_INDEX`.
 * The index refers to the index number shown in the displayed donor list.
 * The index **must be a positive whole number** 1, 2, 3, …​
 * If the specified donor has donation records, those donation records will have to be deleted first using the
@@ -230,38 +261,39 @@ Examples:
 
 ### Adding a donation record: `adddonation`
 
-This command can be used to add a donation record for a donor.
+This command adds a donation record for a donor.
 
-Format: `adddonation p/DONOR_LIST_INDEX d/DONATION_DATE v/BLOOD_VOLUME`
+Format: `adddonation p/DONOR_INDEX d/DONATION_DATE v/BLOOD_VOLUME`
 
-* Adds a donation record for the donor corresponding to the specified `DONOR_LIST_INDEX`.
+* Adds a donation record for the donor corresponding to the specified `DONOR_INDEX`.
 * The index refers to the index number shown in the displayed donor list.
 * The index **must be a positive whole number** 1, 2, 3, …​
-* DONATION_DATE must be in the *dd-MM-yyyy* format and not in the future.
+* DONATION_DATE must be in the *DD-MM-YYYY* format and not in the future.
 * The donor must be eligible to donate blood on the specified DONATION_DATE. The criteria for
   eligibility can be found [here](#eligibility-criteria).
 * BLOOD_VOLUME **must be a positive whole number** strictly **less than 500** (in milliliters).
 
 Examples:
 
-* `adddonation p/1 d/15-10-2025 v/200` adds a donation record for the 1st donor, with a blood volume of 200ml donated on
+* `adddonation p/1 d/15-10-2025 v/200`: Adds a donation record for the 1st donor, with a blood volume of 200ml donated on
   15-10-2025.
-* `adddonation p/3 d/20-09-2024 v/450` adds a donation record for the 3rd donor, with a blood volume of 450ml donated on
+* `adddonation p/3 d/20-09-2024 v/450`: Adds a donation record for the 3rd donor, with a blood volume of 450ml donated on
   20-09-2024.
 
-## Finding donation records of a donor: `finddonations`
+### Finding donation records of a donor: `finddonations`
 
 This command finds donation records of a donor.
 
-Format: `finddonations DONOR_LIST_INDEX`
+Format: `finddonations DONOR_INDEX`
 
-* List all donation records of the donor at the specified `DONOR_LIST_INDEX`.
+* List all donation records of the donor at the specified `DONOR_INDEX`.
 * The index refers to the index number shown in the displayed donor list.
-* The specified index **must be a positive whole number** 1, 2, 3, ...
+* The specified index **must be a positive whole number** 1, 2, 3, …​
 
 Example:
 
-* `finddonations 3`: List all donation records of the 3rd donor in the donor list.
+* `finddonations 3`: Lists all donation records of the 3rd donor in the donor list.
+
   ![result for 'finddonations 3'](images/finddonations3.png)
 
 ### Editing a donation record: `editdonation`
@@ -270,21 +302,23 @@ This command edits an existing donation record in the BloodNet system.
 
 Format: `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLUME]`
 
-* Edits the donation record at the specified `DONATION_RECORD_LIST_INDEX`. The index refers to the index number shown in
-  the
-  displayed donation record list. The specified index **must be a positive whole number** 1, 2, 3, …​
+* Edits the donation record at the specified `DONATION_RECORD_INDEX`. The index refers to the index number shown in
+  the displayed donation record list. The specified index **must be a positive whole number** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* DONATION_DATE must be in the *dd-MM-yyyy* format and not in the future.
+* DONATION_DATE must be in the *DD-MM-YYYY* format and not in the future.
 * The donor must be eligible to donate blood on the specified DONATION_DATE. The criteria for
   eligibility can be found [here](#eligibility-criteria).
-* BLOOD_VOLUME **must be a whole number** strictly **less than 500** (in milliliters).
+* BLOOD_VOLUME **must be a positive whole number** strictly **less than 500** (in milliliters).
 
 Examples:
 
-* `editdonation 1 v/200` Edits the blood volume of the 1st donation record in the entire donation record list.
-* `editdonation 3 d/13-10-2024` Edits the donation date of the 3rd donation record to 13-10-2024.
-* `editdonation 2 d/01-01-2025 v/350` Edits both the donation date and blood volume of the 2nd donation record.
+* `editdonation 1 v/200`: Edits the blood volume of the 1st donation record in the displayed donation record list
+  to be 200 millilitres.
+* `editdonation 3 d/13-10-2024`: Edits the donation date of the 3rd donation in the displayed donation record list
+  to 13-10-2024.
+* `editdonation 2 d/01-01-2025 v/350`: Edits the donation date to 01-01-2025 and blood volume to 350 ml for
+  the second donation record in the displayed donation record list.
 
 ### Deleting a donation record: `deletedonation`
 
@@ -305,9 +339,9 @@ deletion.
 
 Examples:
 
-* `deletedonations 1` deletes the 1st donation record in the donation record list.
-* `finddonations 1` followed by `deletedonation 2` deletes the 2nd donation record of the 1st donor in the shown donor
-  list.
+* `deletedonation 1`: Deletes the 1st donation record in the displayed donation record list.
+* `finddonations 1` followed by `deletedonation 2`: Deletes the 2nd donation record of the 1st donor in the shown 
+donor list.
 
 ### Finding eligible donors based on blood type: `findeligible`
 
@@ -326,33 +360,32 @@ Example:
 
 ### Clearing all entries: `clear`
 
-Clears all entries from the BloodNet system.
+This command clears all entries from the BloodNet system.
 
 Format: `clear`
 
 <box type="warning" seamless>
 
 **Caution:**
-This operation is irreversible and will lead to significant data loss if unintended! Therefore, the system
-will prompt you for confirmation before deleting all data. Even if deleting all data is the desired course of action, it
-is recommended to create a backup of the data file before running this command as you may change your mind later on.
+This operation is irreversible and will lead to significant data loss if performed unintentionally. The system
+will prompt you for confirmation before deleting all data. Even if you intend to delete everything, it
+is recommended to create a backup of the data file before running this command, in case you change your mind later.
 </box>
 
 ### Viewing help: `help`
 
-If you need a refresher on the formats of the various commands, use this command! It will provide a summary of the
-formats of each command, as well as the link to this user guide.
+Use this command to review the formats of all available commands. It provides a summary of each
+command's format and a link to this user guide.
 
 Format: `help`
 
 ### Exiting the program: `exit`
 
-Exits the program.
+This command exits the program.
 
 Format: `exit`
 
 ### Saving the data
-
 BloodNet data are saved in the hard disk automatically after any command that changes the data. There is no need to save
 manually.
 
@@ -364,23 +397,27 @@ welcome to update data directly by editing that data file.
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, BloodNet will discard all data and start with an empty data
-file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the BloodNet to behave in unexpected ways (e.g., if a value entered is outside the
-acceptable range). Therefore, edit the data file only if you are confident that you are able to update it correctly.
+Note that if the changes to the data file cause the data to be in an invalid state, the system might not function 
+as expected. <br>
+If your edits make the data file format invalid, BloodNet will discard all data and start with an empty data
+file at the next run. Thus, it is strongly recommended that you take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the BloodNet to behave in unexpected ways. For instance, entering a value outside
+the acceptable range may lead to errors or unpredictable behaviours. Therefore, edit the data file only if you are 
+confident that you are able to update it correctly.
 </box>
+
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
-
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
-the data of your previous BloodNet home folder.<br><br>
-**Q**: Are the donor list and donation records list synchronised?<br>
-**A**: **No.** The two lists should be treated as largely independent. The only time they interact is for
-donation-related commands that require a donor to be specified (e.g., `finddonations`, `adddonation`). In these cases,
-the donor index used as a parameter is derived from the shown donor list.<br>
+**Q**: How do I transfer my data to another computer?  
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains  
+the data of your previous BloodNet home folder.  
+**Q**: Are the donor list and donation records list synchronised?  
+**A**: **No.** The donor list and donation records list are largely independent. They interact in two specific cases:
+1. Donation-related commands such as `finddonations` and `adddonation`, where the donor index used as a parameter comes from the displayed donor list.
+2. If you try to `delete` a donor and that donor has donation records, those donation records will have to be 
+   deleted first using the `deletedonation` command before the donor can be fully deleted.
 
 --------------------------------------------------------------------------------------------------------------------
 
