@@ -306,7 +306,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-### **Use case: UC01 - Add a donor’s contact & blood type**
+##### **Use case: UC01 - Add a donor’s contact & blood type**
 
 **Actor**: Admin staff
 
@@ -325,7 +325,7 @@ Use case ends.
 
 ---
 
-### **Use case: UC02 - Update a donor's information**
+##### **Use case: UC02 - Update a donor's information**
 
 **Actor**: Admin staff
 
@@ -351,7 +351,7 @@ Use case ends.
 
 ---
 
-### **Use case: UC03 - Search donors by name**
+##### **Use case: UC03 - Search donors by name**
 
 **Actor**: Admin staff
 
@@ -364,7 +364,7 @@ Use case ends.
 
 ---
 
-### **Use case: UC04 - Delete a donor**
+##### **Use case: UC04 - Delete a donor**
 
 **Actor**: Admin staff
 
@@ -397,7 +397,7 @@ Use case ends.
 
 ---
 
-### **Use case: UC05 - List all donors in the system**
+##### **Use case: UC05 - List all donors in the system**
 
 **Actor**: Admin staff
 
@@ -410,7 +410,7 @@ Use case ends.
 
 ---
 
-### **Use case: UC06 - Find all eligible donors of a particular blood type**
+##### **Use case: UC06 - Find all eligible donors of a particular blood type**
 
 **Actor**: Admin staff
 
@@ -430,7 +430,7 @@ Use case ends.
 
 ---
 
-### **Use case: UC07 - Record a blood donation by a donor**
+##### **Use case: UC07 - Record a blood donation by a donor**
 
 **Actor**: Admin staff
 
@@ -458,7 +458,7 @@ Use case ends.
 
 ---
 
-### **Use case: UC08 - List all blood donations by a donor**
+##### **Use case: UC08 - List all blood donations by a donor**
 
 **Actor**: Admin staff
 
@@ -482,7 +482,7 @@ Use case ends.
 
 ---
 
-### **Use case: UC09 - Modify a blood donation record**
+##### **Use case: UC09 - Modify a blood donation record**
 
 **Actor**: Admin staff
 
@@ -516,7 +516,7 @@ Use case ends.
 
 ---
 
-### **Use case: UC10 - Delete a blood donation record**
+##### **Use case: UC10 - Delete a blood donation record**
 
 **Actor**: Admin staff
 
