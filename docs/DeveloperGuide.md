@@ -9,7 +9,54 @@ pageNav: 3
 
 ## **Acknowledgements**
 
-- We acknowledge that the blood donation eligibility criteria implemented in this project were guided by the [Health Sciences Authority (HSA)](https://www.hsa.gov.sg/blood-donation/can-i-donate) guidelines in Singapore.
+- The blood donation eligibility criteria implemented in this project were guided by the [Health Sciences Authority (HSA)](https://www.hsa.gov.sg/blood-donation/can-i-donate) guidelines in Singapore.
+
+## Table of Contents
+- [Setting up, getting started](#setting-up-getting-started)
+- [Design](#design)
+  - [Architecture](#architecture)
+  - [UI Component](#ui-component)
+  - [Logic Component](#logic-component)
+  - [Model Component](#model-component)
+  - [Storage Component](#storage-component)
+  - [Common Classes](#common-classes)
+- [Implementation](#implementation)
+  - [User Confirmation](#user-confirmation)
+- [Future Implementation](#future-implementation)
+- [Documentation, Logging, Testing, Configuration, Dev-ops](#documentation-logging-testing-configuration-dev-ops)
+- [Appendix: Requirements](#appendix-requirements)
+- [Product Scope](#product-scope)
+- [User Stories](#user-stories)
+- [Use Cases](#use-cases)
+  - [UC01 - Add a donor's contact & blood type](#use-case-uc01-add-a-donor-s-contact-and-amp-blood-type)
+  - [UC02 - Update a donor's information](#use-case-uc02-update-a-donor-s-information)
+  - [UC03 - Search donors by name](#use-case-uc03-search-donors-by-name)
+  - [UC04 - Delete a donor](#use-case-uc04-delete-a-donor)
+  - [UC05 - List all donors in the system](#use-case-uc05-list-all-donors-in-the-system)
+  - [UC06 - Find all eligible donors of a particular blood type](#use-case-uc06-find-all-eligible-donors-of-a-particular-blood-type)
+  - [UC07 - Record a blood donation by a donor](#use-case-uc07-record-a-blood-donation-by-a-donor)
+  - [UC08 - List all blood donations by a donor](#use-case-uc08-list-all-blood-donations-by-a-donor)
+  - [UC09 - Modify a blood donation record](#use-case-uc09-modify-a-blood-donation-record)
+  - [UC10 - Delete a blood donation record](#use-case-uc10-delete-a-blood-donation-record)
+- [Non-Functional Requirements](#non-functional-requirements)
+- [Glossary](#glossary)
+- [Appendix: Instructions for Manual Testing](#appendix-instructions-for-manual-testing)
+  - [Launch and Shutdown](#launch-and-shutdown)
+  - [Instructions](#instructions-to-test)
+    - [find](#find)
+    - [list](#list)
+    - [add](#add)
+    - [edit](#edit)
+    - [delete](#delete)
+    - [finddonations](#finddonations)
+    - [adddonation](#adddonation)
+    - [editdonation](#editdonation)
+    - [deletedonation](#deletedonation)
+    - [findeligible](#findeligible)
+    - [clear](#clear)
+    - [help](#help)
+    - [exit](#exit)
+  - [Appendix: Effort](#appendix-effort)
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
@@ -48,7 +95,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
 
-Each of the four main components (also shown in the above diagram),
+Each of the four main components (also shown in the above diagram):
 
 * defines its *API* in an `interface` with the same name as the Component.
 * implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point).
@@ -65,11 +112,11 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/AY2
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`InputBox`, `OutputBox`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`InputBox`, `OutputDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/java/bloodnet/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
-The `UI` component,
+The `UI` component:
 
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
@@ -101,7 +148,7 @@ How the `Logic` component works:
 * If there is no active current session:
     * The input is passed to a `BloodNetParser` object which in turns creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
     * This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`), which its `createSession` is invoked by `LogicManager`  to create a new `CommandSession` object (more precisely, an object of one of its subclasses e.g., `ConfirmationCommandSession`), which will become `LogicManager`'s `currentCommandSession`.
-      * During the invoking of `createSession`, the `Command` object (depending on its implementation of `createSession`) may interact with the `Model` component to query target objects and/or perform validation checks.
+        * During the invoking of `createSession`, the `Command` object (depending on its implementation of `createSession`) may interact with the `Model` component to query target objects and/or perform validation checks.
 3. Advance current session
 * The current session is called upon to handle the input.
 * The result of the input handling is encapsulated as an `InputResponse` object.
@@ -141,7 +188,7 @@ The following activity diagram summarises the session lifecycle management when 
 <puml src="diagrams/ModelClassDiagram.puml" width="450" />
 
 
-The `Model` component,
+The `Model` component:
 
 * stores the BloodNet data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
@@ -151,11 +198,11 @@ The `Model` component,
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/BloodNet-level3/tree/master/src/main/java/bloodnet/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/12e2e4ca39a1f9106499633fe0d58a6ad3996260/src/main/java/bloodnet/storage/Storage.java)
 
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
-The `Storage` component,
+The `Storage` component:
 * can save both BloodNet data and user preference data in JSON format, and read them back into corresponding objects.
 * inherits from both `BloodNetStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
@@ -178,11 +225,11 @@ The `ConfirmationCommandSession` class manages interactive commands that require
 
 To facilitate the handling of inputs within the context of its session, `ConfirmationCommandSession` maintains three internal states:
 
-State                   | Description                                      | Transition Condition|
-------------------------|--------------------------------------------------|--------------------|
-`INITIAL`               | Default state immediately after creation. Ignores the original command input (since its information is already encapsulated within the deferred execution passed into it) and returns a confirmation prompt. | Automatically transitions to `PENDING_CONFIRMATION`.
-`PENDING_CONFIRMATION`  | Waits for user input(`yes` or `no` (caps-insensitive)) <br><ul><li> `yes` -> carry out deferred execution of command.</li><li>`no` -> cancels command</li><li>Other input -> re-prompts user. | Transitions to `DONE` after confirmation or cancellation|
-`DONE`                  | Terminal state indicating the session has completed. Any further `handle()` calls throw `TerminalSessionStateException` | -|
+| State                  | Description                                                                                                                                                                                                  | Transition Condition                                     |
+|------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
+| `INITIAL`              | Default state immediately after creation. Ignores the original command input (since its information is already encapsulated within the deferred execution passed into it) and returns a confirmation prompt. | Automatically transitions to `PENDING_CONFIRMATION`.     |
+| `PENDING_CONFIRMATION` | Waits for user input(`yes` or `no` (caps-insensitive)) <br><ul><li> `yes` -> carry out deferred execution of command.</li><li>`no` -> cancels command</li><li>Other input -> re-prompts user.                | Transitions to `DONE` after confirmation or cancellation |
+| `DONE`                 | Terminal state indicating the session has completed. Any further `handle()` calls throw `TerminalSessionStateException`                                                                                      | -                                                        |
 
 The following activity diagrams contrast the flow of a command requiring user confirmation and a single-step command:
 <puml src="diagrams/ConfirmationCommandSessionActivityDiagram.puml" alt="ConfirmationCommandSessionActivityDiagram"/>
@@ -195,7 +242,7 @@ For clarity, the above diagrams omit general session handling, command parsing a
 
 ## **Future Implementation**
 
-In the future, we can make the `FilteredPersonList` and `FilteredDonationRecordList` in synchronization. This means that the `DonationRecords` displayed correspond to the `Persons` displayed at all times. For example, when the user finds eligible blood donors from the list of `Persons`, the `DonationRecordsList` will be filtered such that only records which correspond to the displayed `Persons` are shown.
+In the future, we can make the `FilteredPersonList` and `FilteredDonationRecordList` in synchronization. This means that the `DonationRecords` displayed correspond to the `Persons` displayed at all times. For example, when the user finds eligible donors from the `PersonList`, the `DonationRecordList` will be filtered such that only records which correspond to the displayed `Persons` are shown.
 
 The diagram below illustrates a potential implementation using the `FindEligible` command.
 
@@ -219,41 +266,40 @@ ________________________________________________________________________________
 
 **Target user profile**:
 
-* has a need to manage a database of blood donors with detailed profile information
+* has a need to manage a database of donors with detailed profile information
 * requires quick access to donor personal information
 * prefer desktop apps over other types of apps
-* is able to type fast
+* is able to type fast such
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 * wants to filter profiles such as by blood type
 
-**Value proposition**: manage blood donor profiles more efficiently as opposed to a typical mouse driven app
+**Value proposition**: manage donor profiles more efficiently as opposed to a typical mouse driven app
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …      | I want to …                                                                           | So that …                                                                                                                            |
-| -------- | ----------- |---------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| * * *    | admin staff | add a donor’s contact & blood type                                                    | the blood bank can keep in touch with the donor if more information is needed                                                        |
-| * * *    | admin staff | add a donor’s date of birth                                                           | the blood bank knows can determine a person's eligibility in donating blood                                                          |
-| * * *    | admin staff | search donors by name                                                                 | I can find their contact information if I need to contact them                                                                       |
-| * * *    | admin staff | modify a donor’s contact information                                                  | I can fix the stored contact information if it was keyed in wrongly previously                                                       |
-| * * *    | admin staff | modify a donor’s date of birth                                                        | I can fix the stored date of birth if it was keyed in wrongly                                                                        |
-| * * *    | admin staff | modify a donor’s blood type                                                           | I can fix the stored blood type if it was keyed in wrongly previously                                                                |
-| * * *    | admin staff | delete a donor (soft-delete / archive)                                                | Remove donors who have passed away or are no longer eligible for donation                                                            |
-| * * *    | admin staff | list all donors in the system                                                         | Have a quick overview of all the people who have agreed to donate blood to us                                                        |
-| * * *    | admin staff | find all donors of a particular blood type                                            | If we have a shortage of a particular blood type, we can contact these people and ask them for donations                             |
-| * * *    | admin staff | record a blood donation by a contact                                                  | I can track how many donations each contact has made, and the details of those donations                                             |
-| * * *    | admin staff | modify a blood donation record                                                        | I can modify wrongly keyed in records                                                                                                |
-| * * *    | admin staff | add the volume and donation date associated with a donation record                    | the blood bank is aware of the details associated with each donation record
-| * * *    | admin staff | delete a blood donation record                                                        | I can remove wrongly keyed in records                                                                                                |
-| * * *    | admin staff | find all eligible donors given a blood type (based on age and last donation interval) | I can determine who I can call if blood is needed                                                                                    |
-| * *      | admin staff | find a donor based on contact information                                             | I can link their name and contact information together                                                                               |
-| * *      | admin staff | detect duplicate donors                                                               | I can quickly identify duplicate data in the system and reconcile it to reduce data pollution                                        |
-| * *      | admin staff | detect duplicate donation records associated with the same person                     | I am able to quickly identify duplicate data in the BloodNet system and reconcile it to reduce data pollution                        |
-| *        | admin staff | record how much blood was donated by a donor in a session                             | I can recommend donors who have been very active for appreciation awards, to incentivise more donors                                 |
-| *        | admin staff | record when a donor donated blood in a session                                        | I can maintain accurate records of each donor’s donation history |
+| Priority | As a …      | I want to …                                                                           | So that …                                                                                                     |
+|----------|-------------|---------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| * * *    | admin staff | add a donor’s contact & blood type                                                    | the blood bank can keep in touch with the donor if more information is needed                                 |
+| * * *    | admin staff | add a donor’s date of birth                                                           | the blood bank knows can determine a person's eligibility in donating blood                                   |
+| * * *    | admin staff | search donors by name                                                                 | I can find their contact information if I need to contact them                                                |
+| * * *    | admin staff | modify a donor’s contact information                                                  | I can fix the stored contact information if it was keyed in wrongly previously                                |
+| * * *    | admin staff | modify a donor’s date of birth                                                        | I can fix the stored date of birth if it was keyed in wrongly                                                 |
+| * * *    | admin staff | modify a donor’s blood type                                                           | I can fix the stored blood type if it was keyed in wrongly previously                                         |
+| * * *    | admin staff | delete a donor (soft-delete / archive)                                                | I can remove donors who have passed away or are no longer eligible for donation                               |
+| * * *    | admin staff | list all donors in the system                                                         | I can have a quick overview of all the people who have agreed to donate blood to us                           |
+| * * *    | admin staff | find all donors of a particular blood type                                            | I can contact these people and ask them for donations, if the blood bank were to have a shortage              |
+| * * *    | admin staff | record a blood donation by a contact                                                  | I can track how many donations each contact has made, and the details of those donations                      |
+| * * *    | admin staff | modify a blood donation record                                                        | I can modify wrongly keyed in records                                                                         |
+| * * *    | admin staff | add the volume and donation date associated with a donation record                    | the blood bank is aware of the details associated with each donation record                                   |
+| * * *    | admin staff | delete a blood donation record                                                        | I can remove wrongly keyed in records                                                                         |
+| * * *    | admin staff | find all eligible donors given a blood type (based on age and last donation interval) | I can determine who I can call if blood is needed                                                             |
+| * *      | admin staff | find a donor based on contact information                                             | I can link their name and contact information together                                                        |
+| * *      | admin staff | detect duplicate donation records associated with the same person                     | I am able to quickly identify duplicate data in the BloodNet system and reconcile it to reduce data pollution |
+| *        | admin staff | record how much blood was donated by a donor in a session                             | I can recommend donors who have been very active for appreciation awards, to incentivise more donors          |
+| *        | admin staff | record when a donor donated blood in a session                                        | I can maintain accurate records of each donor’s donation history                                              |
 
 
 ### Use cases
@@ -375,8 +421,8 @@ Use case ends.
 **Extensions**
 
 * 1a. Invalid blood type entered.
-  * 1a1. BloodNet shows an error message.
-  * Use case relates back to step 1, prompting the user to re-enter a blood type.
+    * 1a1. BloodNet shows an error message.
+    * Use case relates back to step 1, prompting the user to re-enter a blood type.
 
 ---
 
@@ -501,7 +547,7 @@ Use case ends.
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 persons and the program should still be responsive with response time less than 1 second for each operation.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands rather than using the mouse.
+3.  A user with typing speed of more than 40 words per minute for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands rather than using the mouse.
 4. Should start within 5 seconds on a typical user machine (4 core CPU, 8GB RAM, SSD).
 5. User guide should be written with easy-to-understand English that is comprehensible to users without technical background.
 6. The user interface should be intuitive enough for users who are not IT-savvy.
@@ -516,7 +562,7 @@ Use case ends.
 
 ### Glossary
 
-* **Blood Type**: The blood types supported are A+, A-, B+, B-, AB+, AB-, O+ and O-
+* **Blood Type**: The blood types supported are A+, A-, B+, B-, AB+, AB-, O+, O-
 * **Donor**: Person who donates blood to others
 * **Destructive operation**: An action that leads to permanent removal of data
 * **Field**: A single piece of information for a donor or donation record.
@@ -525,11 +571,14 @@ Use case ends.
 * **Run**: In the context of a command, refers to carrying out the entire lifecycle of a command, including user interaction and invoking domain logic
 * **Execution**: In the context of a command, refers specifically to invoking the domain logic of the command, without handling any user interaction
 * **Input Box**: The text box in the application that receives all textual inputs from the user
-* **Output Box**: The text box in the application that displays output resulting from processing an input/ executing a command
+* **Output Display**: The text box in the application that displays output resulting from processing an input/ executing a command
 * **User Input**: Any textual input entered by the user into the input box
 * **Command Input**: A specific type of user input that triggers a new command to run
-* **Input Response**: The application's response to a user input, encapsulating information such as the output to display in the output box and whether to exit the application
+* **Input Response**: The application's response to a user input, encapsulating information such as the output to display in the output display and whether to exit the application
 * **Command Result**: A specific type of input response produced by a command after executing its domain logic
+* **CPU**: The component in charge of executing program instructions and processing command logic within the application
+* **SSD**: The device that stores the application's data files and where user and system data are kept
+* **RAM**: The memory used by the application to temporarily store data and other information while the commands are being executed, thereby enabling fast access alongside processing
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -559,11 +608,12 @@ testers are expected to do more *exploratory* testing.
     2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-### find:
-#### _Test 1_
+### Instructions to Test
+#### find:
+##### _Test 1_
 * **Test instructions**: Run `find aleX davId iRfan`.
 
-* **Expected Message**: “3 persons listed”
+* **Expected Message**: “3 donors listed!”
 
 * **Expected Displayed Donor List**: Displays Alex Yeoh, David Li and Irfan Ibrahim.
 
@@ -571,8 +621,8 @@ testers are expected to do more *exploratory* testing.
 
 
 
-### list:
-#### _Test 1_
+#### list:
+##### _Test 1_
 * **Test instructions**: Run `list`.
 
 * **Expected Message**: “Listed all donors”
@@ -583,8 +633,8 @@ testers are expected to do more *exploratory* testing.
 
 
 
-### add:
-#### _Test 1_
+#### add:
+##### _Test 1_
 * **Test instructions**: Run `add n/John Doe p/98765432 e/johnd@example.com b/A+ d/30-03-2004`.
 
 * **Expected Message**: “New donor added: John Doe; Phone: 98765432; Email: johnd@example.com; Blood Type: A+; Date Of Birth: 30-03-2004”
@@ -595,8 +645,8 @@ testers are expected to do more *exploratory* testing.
 
 
 
-### edit:
-#### _Test 1_
+#### edit:
+##### _Test 1_
 * **Test instructions**: Run `list`, followed by `edit 1 p/91234567 e/johndoe@example.com`.
 
 * **Expected Message**: “Edited donor: Alex Yeoh; Phone: 91234567; Email: johndoe@example.com; Blood Type: A+; Date Of Birth: 28-03-1995”
@@ -607,12 +657,12 @@ testers are expected to do more *exploratory* testing.
 
 
 
-### delete:
-#### _Test 1_
+#### delete:
+##### _Test 1_
 * **Test instructions**: Run `list`, followed by `delete 6`.
 
 * **Expected Message**: “Are you sure you want to delete Roy Balakrishnan? This action is not reversible.
-Key in either 'yes' or 'no'.”
+  Key in either 'yes' or 'no'.”
 
 * **Expected Displayed Donor List**: No change.
 
@@ -628,8 +678,8 @@ Key in either 'yes' or 'no'.”
 
 
 
-### finddonations:
-#### _Test 1_
+#### finddonations:
+##### _Test 1_
 * **Test instructions**: Run `list`, followed by `finddonations 1`
 
 * **Expected Message**: “2 donation records related to Alex Yeoh found!”
@@ -638,23 +688,21 @@ Key in either 'yes' or 'no'.”
 
 * **Expected Displayed Donation Record List**: Displays only two donation records and the donor of these records is Alex Yeoh.
 
+#### adddonation:
+##### _Test 1_
+* **Test instructions**: Run `list`, followed by `adddonation p/2 d/10-10-2025 v/250`.
 
-
-### adddonation:
-#### _Test 1_
-* **Test instructions**: Run `list`, followed by “adddonation p/1 d/10-10-2025 v/250”.
-
-* **Expected Message**: “New donation record added: Donor Name: Alex Yeoh; Donation Date: 10-10-2025; Blood Volume: 250”
+* **Expected Message**: “New donation record added: Donor Name: Bernice Yu; Donation Date: 10-10-2025; Blood Volume: 250"
 
 * **Expected Displayed Donor List**: No change.
 
-* **Expected Displayed Donation Record List**: New donation record with the provided details shown at the bottom of the list (ie: If using test data, should be at index 7).
+* **Expected Displayed Donation Record List**:  Displays only one donation record and the donor of these records is Bernice Yu.
 
 
 
-### editdonation:
-#### _Test 1_
-* **Test instruction**: Run `finddonations 1`, followed by `editdonation 2 v/499`
+#### editdonation:
+##### _Test 1_
+* **Test instruction**: Run `finddonations 1`, followed by `editdonation 2 v/499`.
 
 * **Expected Message**: “Edited Donation Record: Donor Name: Alex Yeoh; Donation Date: 15-10-2025; Blood Volume: 499”
 
@@ -664,12 +712,12 @@ Key in either 'yes' or 'no'.”
 
 
 
-### deletedonation:
-#### _Test 1_
-* **Test instructions**: Run `finddonations 3`, followed by `deletedonation 1`
+#### deletedonation:
+##### _Test 1_
+* **Test instructions**: Run `finddonations 3`, followed by `deletedonation 1`.
 
 * **Expected Message**: “Are you sure you want to delete donation record for: Donor Name: Charlotte Oliveiro; Donation Date: 21-03-2025; Blood Volume: 400? This action is not reversible.
-Key in either 'yes' or 'no'.”
+  Key in either 'yes' or 'no'.”
 
 * **Expected Displayed Donor List**: No change.
 
@@ -685,8 +733,8 @@ Key in either 'yes' or 'no'.”
 
 
 
-### findeligible:
-#### _Test 1_
+#### findeligible:
+##### _Test 1_
 * **Test instructions**: Run `findeligible A+`.
 
 * **Expected message**: "0 donors listed!"
@@ -696,7 +744,7 @@ Key in either 'yes' or 'no'.”
 * **Expected Displayed Donation Records List**: No change.
 
 
-#### _Test 2_
+##### _Test 2_
 * **Test instructions**: Run `findeligible B+ AB+`.
 
 * **Expected message**: "2 donors listed!"
@@ -707,16 +755,16 @@ Key in either 'yes' or 'no'.”
 
 
 
-### clear:
-#### _Test 1_
+#### clear:
+##### _Test 1_
 * **Test instructions**: Run `list` followed by `clear`.
 
 * **Expected Message**: “Are you sure you want to clear BloodNet? This action is not reversible.
-Key in either 'yes' or 'no'.”
+  Key in either 'yes' or 'no'.”
 
 * **Expected Displayed Donor List**: No change.
 
-* **Expected Displayed donation**: No change.
+* **Expected Displayed Donation Records List**: No change.
 
 * **Test instructions (cont.)**: Then, input `yes`.
 
@@ -728,14 +776,14 @@ Key in either 'yes' or 'no'.”
 
 
 
-### help:
+#### help:
 * **Test instructions**: Run `help`.
 
 * **Expected Action**:  A help window appears on the screen. The help window should be resizable and show a list of all of the commands with usage instructions.
 
 
 
-### exit:
+#### exit:
 * **Test instructions**: Run `exit`.
 
 * **Expected Action**:  The program closes the graphical user interface and automatically saves all current data before exiting.
@@ -744,21 +792,21 @@ Key in either 'yes' or 'no'.”
 
 ## **Appendix: Effort**
 
-In the course of the past few weeks, beyond just repurposing AB3 to a blood donor address book, we have made significant upgrades to it for our target audience, which involved a substantial amount of hard work, ingenuity, late nights and early mornings (just look at some of the commit timings):
+In the course of the past few weeks, beyond just repurposing AB3 to a blood donor address book, we have made significant upgrades to it for our target audience, which has involved a substantial amount of hard work, ingenuity, late nights and early mornings (just look at some of the commit timings):
 
 ### New command to find eligible donors of particular blood types.
 When reserves of a particular blood type are running low, users may want to search for existing donors in the system who are eligible to donate, so they can reach out to them and request for an urgent donation. This was challenging as the official rules on blood donation eligibility are fairly complex. It should be noted that an eligibility check is conducted when adding or editing a donation record.
 
 ### New Donation Record entity type
-In order for the system to not only track donors but also their donations (i.e. when and what volume of blood was donated), we added a Donation Record model. This was incredibly time-consuming due to the increase in complexity in having multiple entity types compared to AB3 which only deals with one entity type.
+In order for the system to not only track donors but also their donations (i.e: when and what volume of blood in millilitres was donated), we added a Donation Record model. This was incredibly time-consuming due to the increase in complexity in having multiple entity types compared to AB3 which only deals with one entity type.
 
 #### New commands to manage donation records
-To manage the donation records, we added new commands to add, edit, delete, and find donation records, which also took time to create, debug and document.
+To manage the donation records, we added new commands to add, edit, delete, and find donation records, which took time to create, debug and document.
 
 ### User confirmation
 Wanting to safeguard against accidental destructive operations, we sought to implement user confirmation before such operations.
 
-To accomplish, much complexity needed to be introduced. AB3 originally executes every user input as a new command immediately. But introducing user interactivity within a command (which user confirmation support requires) fundamentally change this flow requiring us to create a new abstraction, `commandSession`, to manage multi-step interactions and persist information throughout the command lifecycle until completion.
+To accomplish this, much complexity needed to be introduced. AB3 originally executes every user input as a new command immediately. But introducing user interactivity within a command (which user confirmation support requires) fundamentally change this flow requiring us to create a new abstraction, `commandSession`, to manage multi-step interactions and persist information throughout the command lifecycle until completion.
 
 The implementation was challenging due to input delegation, differentiating between a new command input and an input within a command session, handling command exceptions resulting in mid-session exits, and maintaining consistent system state, all while providing a uniform framework compatible with single-step commands. Documentation also required careful revision as existing terms like "command", “execution” needed to be clarified and properly redesigned.
 

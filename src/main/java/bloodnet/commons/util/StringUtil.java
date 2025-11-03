@@ -14,11 +14,11 @@ public class StringUtil {
 
     /**
      * Returns true if the {@code sentence} contains the {@code word}.
-     * Ignores case, but a full word match is required.
+     * Ignores case, full word match is not required.
      * <br>examples:<pre>
      *       containsWordIgnoreCase("ABc def", "abc") == true
      *       containsWordIgnoreCase("ABc def", "DEF") == true
-     *       containsWordIgnoreCase("ABc def", "AB") == false //not a full word match
+     *       containsWordIgnoreCase("ABc def", "AB") == true
      *       </pre>
      *
      * @param sentence cannot be null
@@ -36,7 +36,7 @@ public class StringUtil {
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
 
         return Arrays.stream(wordsInPreppedSentence)
-                .anyMatch(preppedWord::equalsIgnoreCase);
+                .anyMatch(w -> w.toLowerCase().contains(preppedWord.toLowerCase()));
     }
 
     /**

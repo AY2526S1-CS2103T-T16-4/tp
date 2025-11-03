@@ -48,6 +48,7 @@ public class DonationRecord {
     // Fields which aren't actually stored in the database, but displayed
     // in the UI
     private String donorName;
+    private String donorPhoneNumber;
 
     /**
      * Every field other than ID must be present and not null.
@@ -87,6 +88,14 @@ public class DonationRecord {
 
     public String getDonorName() {
         return donorName;
+    }
+
+    public void setDonorPhoneNumber(String donorPhoneNumber) {
+        this.donorPhoneNumber = donorPhoneNumber;
+    }
+
+    public String getDonorPhoneNumber() {
+        return donorPhoneNumber;
     }
 
     /**
@@ -183,7 +192,7 @@ public class DonationRecord {
                 .filter(donationRecord -> donationRecord.getPersonId().equals(person.getId()))
                 .filter(donationRecord -> isDonationRecordIdNull || !donationRecord.getId().equals(this.getId()))
                 .map(DonationRecord::getDonationDate)
-                .filter(donationDate -> donationDate.getValue().isBefore(donationDateValue))
+                .filter(donationDate -> !donationDate.getValue().isAfter(donationDateValue))
                 .max(Comparator.comparing(DonationDate::getValue));
 
         // Find successor (first donation after donationDate)
@@ -191,7 +200,7 @@ public class DonationRecord {
                 .filter(donationRecord -> donationRecord.getPersonId().equals(person.getId()))
                 .filter(donationRecord -> isDonationRecordIdNull || !donationRecord.getId().equals(this.getId()))
                 .map(DonationRecord::getDonationDate)
-                .filter(donationDate -> donationDate.getValue().isAfter(donationDateValue))
+                .filter(donationDate -> !donationDate.getValue().isBefore(donationDateValue))
                 .min(Comparator.comparing(DonationDate::getValue));
 
         // 2. Days between predecessor and donationDate must be >= 84
