@@ -94,7 +94,7 @@ a time.
     <p align=center>
       <img src="images/Ui.png" alt="Ui" width="600">
     </p>
-
+   <br>
 
 7. Type the command in the input box and press <kbd>Enter</kbd> to execute it. e.g. typing **`help`** and
    pressing <kbd>Enter</kbd> will
@@ -395,6 +395,7 @@ Example:
 
 * `findeligible A+ B+`: Lists all donors who have blood type A+ or B+ and are found eligible to donate based on the
   official guidelines.
+  <br>
   ![result for 'findeligible A+ B+'](images/findeligibleResults.png)
 
 ### Clearing all entries: `clear`
