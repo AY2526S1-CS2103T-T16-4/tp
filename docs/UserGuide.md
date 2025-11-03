@@ -153,7 +153,7 @@ a time.
 <a id="eligibility-criteria"></a>
 **Blood donation eligibility criteria**
 <br><br>
-In Bloodnet, a donor is **not eligible** to donate on a given date if:
+In BloodNet, a donor is **not eligible** to donate on a given date if:
 
 1. The donor is younger than 16 years old on the given date.
 2. There is already a donation record (corresponding to the donor) with a donation date that is less than 84 days before
