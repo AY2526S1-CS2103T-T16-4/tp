@@ -344,7 +344,7 @@ Use case ends.
 * 1a. The list is empty.
     * Use case ends.
 
-* 2a. Donor ID not found.
+* 2a. Donor Index not found.
     * 2a1. BloodNet shows an error message.
     * Use case returns to step 2.
 
@@ -375,7 +375,9 @@ Use case ends.
 
 1. Admin staff lists all donors ([UC05](#use-case-uc05---list-all-donors-in-the-system)).
 2. Admin staff requests to delete a donor.
-3. BloodNet deletes a donor.
+3. BloodNet requests for confirmation.
+4. Admin staff confirms deletion.
+5. BloodNet deletes a donor.
 
 Use case ends.
 
@@ -384,13 +386,17 @@ Use case ends.
 * 1a. The list is empty.
     * Use case ends.
 
-* 2a. Donor ID is invalid.
+* 2a. Donor Index is invalid.
     * 2a1. BloodNet shows an error message.
     * Use case returns to step 2.
 
 * 2b. Donor has one or more existing donation records.
-    * 2b1. Admin staff deletes donation records of user ([UC10](#use-case-uc10---delete-a-blood-donation-record)).
+    * 2b1. Admin staff deletes donation records of donor ([UC10](#use-case-uc10---delete-a-blood-donation-record)).
     * Use case returns to step 2.
+
+* 3a. Admin staff declines deletion.
+    * 3a1. BloodNet cancels the deletion request.
+    * Use case ends.
 
 ---
 
@@ -423,7 +429,7 @@ Use case ends.
 
 * 1a. Invalid blood type entered.
     * 1a1. BloodNet shows an error message.
-    * Use case relates back to step 1, prompting the user to re-enter a blood type.
+    * Use case relates back to step 1, prompting the admin staff to re-enter a blood type.
 
 ---
 
@@ -445,7 +451,7 @@ Use case ends.
 * 2a. No donors match the search name.
     * Use case ends.
 
-* 3a. Donor ID is invalid.
+* 3a. Donor Index is invalid.
     * 3a1. BloodNet shows an error message.
     * Use case returns to step 3.
 
@@ -473,7 +479,7 @@ Use case ends.
 * 2a. No donors match the search name.
     * Use case ends.
 
-* 3a. Donor ID is invalid.
+* 3a. Donor Index is invalid.
     * 3a1. BloodNet shows an error message.
     * Use case returns to step 3.
 
@@ -499,11 +505,11 @@ Use case ends.
 * 2a. No donors match the search name.
     * Use case ends.
 
-* 3a. Donor ID is invalid.
+* 3a. Donor Index is invalid.
     * 3a1. BloodNet shows an error message.
     * Use case returns to step 3.
 
-* 5a. Donation ID is invalid.
+* 5a. Donation Record Index is invalid.
     * 5a1. BloodNet shows an error message.
       Use case returns to step 5.
 
@@ -524,7 +530,9 @@ Use case ends.
 3. Admin staff requests to list all blood donations by a specified donor.
 4. BloodNet returns a list of blood donations, sorted by donation date in descending order.
 5. Admin staff requests to delete a specified blood donation record.
-6. BloodNet deletes the donation record.
+6. BloodNet requests for confirmation.
+7. Admin staff confirms deletion.
+8. BloodNet deletes the donation record.
 
 Use case ends.
 
@@ -533,13 +541,17 @@ Use case ends.
 * 2a. No donors match the search name.
     * Use case ends.
 
-* 3a. Donor ID is invalid.
+* 3a. Donor Index is invalid.
     * 3a1. BloodNet shows an error message.
     * Use case returns to step 3.
 
-* 5a. Donation ID is invalid.
+* 5a. Donation Record Index is invalid.
     * 5a1. BloodNet shows an error message.
-      Use case returns to step 5.
+    * Use case returns to step 5.
+
+* 6a. Admin staff declines deletion.
+    * 6a1. BloodNet cancels the deletion request.
+    * Use case ends.
 
 ---
 
