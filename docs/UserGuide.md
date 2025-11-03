@@ -26,11 +26,11 @@ a time.
     - [Finding donors by name: find](#finding-donors-by-name-find)
     - [Editing a donor: edit](#editing-a-donor-edit)
     - [Deleting a donor: delete](#deleting-a-donor-delete)
-    - [Add a donation record: adddonation](#adding-a-donation-record-adddonation)
+    - [Adding a donation record: adddonation](#adding-a-donation-record-adddonation)
     - [Finding a donation record: finddonations](#finding-donation-records-of-a-donor-finddonations)
     - [Editing a donation record: editdonation](#editing-a-donation-record-editdonation)
     - [Deleting a donation record: deletedonation](#deleting-a-donation-record-deletedonation)
-    - [Find eligible donors based on blood type: findeligible](#finding-eligible-donors-based-on-blood-type-findeligible)
+    - [Finding eligible donors based on blood type: findeligible](#finding-eligible-donors-based-on-blood-type-findeligible)
     - [Clearing all entries: clear](#clearing-all-entries-clear)
     - [Viewing help: help](#viewing-help-help)
     - [Exiting the program: exit](#exiting-the-program-exit)
@@ -174,7 +174,7 @@ a time.
   <br><br>
 
 <a id="eligibility-criteria"></a>
-**Blood donation eligibility criteria**
+**Blood donation eligibility criteria:**
 <br><br>
 In BloodNet, a donor is **not eligible** to donate on a given date if:
 
@@ -300,7 +300,7 @@ Format: `adddonation p/DONOR_INDEX d/DONATION_DATE v/BLOOD_VOLUME`
 * DONATION_DATE must be a valid date in the *DD-MM-YYYY* format and not in the future.
 * The donor must be eligible to donate blood on the specified DONATION_DATE. The criteria for
   eligibility can be found [here](#eligibility-criteria).
-* BLOOD_VOLUME **must be a positive whole number** strictly **less than 500** (in milliliters).
+* BLOOD_VOLUME **must be a positive whole number** strictly **less than 500** (in millilitres).
 
 Examples:
 
@@ -338,7 +338,7 @@ Format: `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLU
 * DONATION_DATE must be a valid date in the *DD-MM-YYYY* format and not in the future.
 * The donor must be eligible to donate blood on the specified DONATION_DATE. The criteria for
   eligibility can be found [here](#eligibility-criteria).
-* BLOOD_VOLUME **must be a positive whole number** strictly **less than 500** (in milliliters).
+* BLOOD_VOLUME **must be a positive whole number** strictly **less than 500** (in millilitres).
 
 Examples:
 
