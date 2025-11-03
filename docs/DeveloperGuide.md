@@ -834,10 +834,12 @@ Team size: 5
    a single operation. <br>
 
    **Current Behaviour**: Users must manually delete all donation records with respect to a donor before they are able to delete a donor.
-   This is a feature not a bug, because in real life, users would most likely want to preserve a donor's donation records in the system for audit purposes, even if the donor is past the age of eligibility. Therefore, we have intentionally made deleting a donor and their donation records difficult.<br>
+   
+   **Feature Flaw**: This is a feature not a bug, because in real life, users would most likely want to preserve a donor's donation records in the system for audit purposes, even if the donor is past the age of eligibility. Therefore, we have intentionally made deleting a donor and their donation records difficult.<br>
 
-   **Rationality for the Enhancement**: However, some PE-D testers have expressed that the current process is fairly
-   time-consuming. As such, if real users express a similar sentiment too, we will introduce this new feature. <br><br>
+   **Proposed Change**: We can add an optional flag in the delete command that allows users to remove all donation records linked to the donor. Users are still able to preserve records by default, if desired. 
+
+   **Expected Behaviour**: When a user runs `delete 3 --all`, the system prompts for user confirmation and then deletes the donor along with all associated donation records if the user were to provide confirmation. <br><br>
 
 2. **Enhancement**: Update the `list` command to display both the donor list and the donation record list. <br>
 
@@ -869,17 +871,25 @@ Team size: 5
 
    **Rationality for the Enhancement**: We would like to make our GUI more usable and accessible for users.<br><br>
 
-6. **Enhancement**: Modify the `add` and `adddonation` commands to use distinct tokens. <br>
+6. **Enhancement**: Modify the `add` and `adddonation` commands to use distinct tokens for all values. <br>
 
-   **Current Behaviour**: Currently, both the `adddonation` and the `add` command use the `p/` token when inputting a command. Unfortunately, some PE-D testers found this behaviour unintuitive.<br>
+   **Current Behaviour**: Currently, both the `adddonation` and the `add` command use the `p/` token when inputting a command. <br>
 
-   **Rationality for the Enhancement**: We would like to ensure that the command inputs are clear and easy for users to understand.<br><br>
+   **Feature Flaw**: Unfortunately, some PE-D testers found this behaviour unintuitive and difficult to distinguish between a person index or a phone number. <br>
 
-7. **Enhancement**: Improve the panel resizing behavior by setting a minimum size or restricting resizing in order to prevent truncation of the content.<br>
+   **Proposed Change**: We can assign unique tokens for each command input, such as using i/ for index when running the `addonation` command and then use p/ for phone number for the `add` command to clearly differentiate all fields. <br>
+
+   **Expected Behaviour**: Users are able to very clearly distinguish which input corrosponds to which field, thereby increasing its current usability.  <br><br>
+
+7. **Enhancement**: Improve the panel resizing behavior by setting a minimum size or restricting resizing to prevent truncation of the content.<br>
    
-   **Current Behaviour**: Currently, if users resize one of the lists too much, then the other list, such as the `DonationRecord` list is truncated, making it difficult for users to view both lists.<br>
+   **Current Behaviour**: Currently, if users resize one of the lists too much, then the other list, such as the `DonationRecordList` is truncated.<br>
 
-   **Rationality for the Enhancement**: We would like to prevent content truncation and improve readability when the panels are resized.<br><br>
+   **Feature Flaw**: As such, this makes it difficult for users to view both lists when running the commands in the BloodNet GUI.
+
+   **Proposed Change**: Set a minimum panel size or restrict resizing so that both the `PersonList` and the `DonationRecordList` remains visible, regardless of how users adjust the panel sizes.
+
+   **Expected Behaviour**: When users resize the panels, the system prevents any panel from shrinking below a certain threshold, ensuring that both lists remain fully visible and readable. <br><br>
 
 
 
