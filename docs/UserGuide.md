@@ -413,13 +413,13 @@ confident that you are able to update it correctly.
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
-**Q**: How do I transfer my data to another computer?
-**A**: Install the app on the other computer. Overwrite the empty data file it creates with the file that contains the data from your previous BloodNet home folder.
-**Q**: Are the donor list and donation records list synchronised?
-**A**: **No.** The donor list and donation records list are largely independent. They interact in two specific cases:
+**Q**: How do I transfer my data to another computer?<br>
+**A:** Install the app on the other computer. Overwrite the empty data file it creates with the file that contains the data from your previous BloodNet home folder.
+
+**Q**: Are the donor list and donation records list synchronised?<br>
+**A:** **No.** The donor list and donation records list are largely independent. They interact in two specific cases:
 1. Donation-related commands such as `finddonations` and `adddonation`, where the donor index used as a parameter comes from the displayed donor list.
-2. If you try to `delete` a donor and that donor has donation records, those donation records will have to be
-   deleted first using the `deletedonation` command before the donor can be fully deleted.
+2. If you try to `delete` a donor and that donor has donation records, those donation records will have to be deleted first using the `deletedonation` command before the donor can be fully deleted.
 
 --------------------------------------------------------------------------------------------------------------------
 
