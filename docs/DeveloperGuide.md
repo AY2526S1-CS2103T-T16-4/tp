@@ -819,27 +819,27 @@ In order for the person model to capture the information users need to track eac
 
 Team size: 5
 
-1. *Feature*: Allow users to delete a donor along with all associated donation records associated with that specific 
+1. **Feature**: Allow users to delete a donor along with all donation records associated with that specific 
    donor in a single step. <br>
 
-   *Current Behaviour*: Users must manually delete all donation records before they 
+   **Current Behaviour**: Users must manually delete all donation records with respect to a donor before they 
    can delete a donor. This particular design model was intentional, as after all, just 
-   like in most record books, we wanted to preserve the donation records of all donors, regardless of 
-   whether the donor is no longer active. <br>
+   like in most record books, we wanted to preserve the donation records of all donors, regardless of the 
+   donor's status. <br>
 
-   *Rationality for the New Feature*: However, some users have expressed that the current process is 
-   time-consuming. As such, to align with the expectation of our users, we will introduce this new feature. 
+   **Rationality for the New Feature**: However, some users have expressed that the current process is 
+   time-consuming. As such, to align with the expectation of our users, we will introduce this new feature. <br> <br>
 
-2. *Feature*: Introduce a `listdonations` command that allows users to view all donation records in the system. <br>
+2. **Feature**: Introduce a `listdonations` command that allows users to view all donation records in the system. <br>
 
-   *Current Behaviour*: There is no feature that allows users to view all the donation records at once and users 
+   **Current Behaviour**: There is no feature that allows users to view all the donation records at once and users 
    are only allowed to access donation records individually through other commands such as `finddonations`. This design 
    choice was purely intentional as we assumed that users did not see a need to view all donation records at once.
    Rather, our focus was more on allowing users to retrieve specific records efficiently, prioritizing quick access to 
    individual donation records versus displaying a full list of all donation records, which we believed would be 
    overwhelming or unnecessary for most users. <br>
 
-  *Rationality for the New Feature*: Some users have noticed that the absence of such a feature makes it difficult
-  to get overview of all the donations prevalent. As such, in order to improve accessibility and align with 
-  user expectations, we will introduce the `listdonations` features. 
+    **Rationality for the New Feature**: Some users have noticed that the absence of such a feature makes it difficult
+     to get an overview of all the donation records prevalent. As such, in order to improve accessibility and align with 
+     user expectations, we will introduce the `listdonations` features.  <br>
 
