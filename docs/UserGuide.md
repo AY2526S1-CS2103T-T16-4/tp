@@ -78,7 +78,7 @@ a time.
     * `adddonation p/1 d/21-10-2025 v/400` : Adds a donation record for the 1st donor shown in the current donor
       list.
 
-    * `findeligible O+ A+` : Finds all donors with the specified blood type(s) provided who are eligible to
+    * `findeligible O+ A+` : Finds all donors with the specified blood type(s) who are eligible to
       donate on the current day. The criteria for eligibility can be found [here](#eligibility-criteria).
 
     * `clear`: Deletes the entire donation list and donation records list from the app. Note that this command can be 
