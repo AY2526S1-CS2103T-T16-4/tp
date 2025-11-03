@@ -267,13 +267,13 @@ ________________________________________________________________________________
 
 **Target user profile**:
 
-* has a need to manage a database of donors with detailed profile information
+* has a need to manage a database of donors and their donation records
 * requires quick access to donor personal information
+* may need to find donors of a particular blood type who are eligible for donation on the current day
 * prefer desktop apps over other types of apps
 * is able to type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
-* wants to filter profiles such as by blood type
 
 **Value proposition**: manage donor profiles more efficiently as opposed to a typical mouse driven app
 
