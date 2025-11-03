@@ -78,7 +78,8 @@
         "new-command-to-find-eligible-donors-of-particular-blood-types": "New command to find eligible donors of particular blood types.",
         "new-donation-record-entity-type": "New Donation Record entity type",
         "user-confirmation-2": "User confirmation",
-        "new-blood-type-and-date-of-birth-fields-person-model": "New Blood Type and Date of Birth fields (Person model)"
+        "new-blood-type-and-date-of-birth-fields-person-model": "New Blood Type and Date of Birth fields (Person model)",
+        "appendix-planned-enhancements": "Appendix: Planned Enhancements"
       },
       "headingKeywords": {}
     },
