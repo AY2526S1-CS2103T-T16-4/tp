@@ -57,6 +57,7 @@ pageNav: 3
     - [help](#help)
     - [exit](#exit)
   - [Appendix: Effort](#appendix-effort)
+  - [Appendix: Planned Enhancements](#appendix-planned-enhancements)
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
@@ -78,7 +79,7 @@ Given below is a quick overview of main components and how they interact with ea
 **Main components of the architecture**
 
 **`Main`** (consisting of classes [`Main`](https://github.com/AY2526S1-CS2103T-T16-4/tp/tree/master/src/main/java/bloodnet) and [`MainApp`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/java/bloodnet/MainApp.java)) is in charge of the app launch and shut down.
-* At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
+* At app launch, it initializes the other components in the correct sequence and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
 The bulk of the app's work is done by the following four components:
@@ -109,13 +110,13 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/java/bloodnet/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/java/bloodnet/ui/Ui.java).
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`InputBox`, `OutputDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/java/bloodnet/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/java/bloodnet/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/resources/view/MainWindow.fxml).
 
 The `UI` component:
 
@@ -128,7 +129,7 @@ The `UI` component:
 
 **API** : [`Logic.java`](https://github.com/AY2526S1-CS2103T-T16-4/tp/blob/master/src/main/java/bloodnet/logic/Logic.java)
 
-Here's a (partial) class diagram of the `Logic` component:
+Here is a (partial) class diagram of the `Logic` component:
 
 <puml src="diagrams/LogicClassDiagram.puml" width="650"/>
 
@@ -243,7 +244,7 @@ For clarity, the above diagrams omit general session handling, command parsing a
 
 ## **Future Implementation**
 
-In the future, we can make the `FilteredPersonList` and `FilteredDonationRecordList` in synchronization. This means that the `DonationRecords` displayed correspond to the `Persons` displayed at all times. For example, when the user finds eligible donors from the `PersonList`, the `DonationRecordList` will be filtered such that only records which correspond to the displayed `Persons` are shown.
+In the future, we can make the `FilteredPersonList` and `FilteredDonationRecordList` synchronized. This means that the `DonationRecords` displayed correspond to the `Persons` displayed at all times. For example, when the user finds eligible donors from the `PersonList`, the `DonationRecordList` will be filtered such that only records which correspond to the displayed `Persons` are displayed to the user. By doing so, the approach ensures that both the `PersonList` and the `DonationRecord` lists are always consistent and up-to-date. 
 
 The diagram below illustrates a potential implementation using the `FindEligible` command.
 
@@ -281,26 +282,26 @@ ________________________________________________________________________________
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …      | I want to …                                                                           | So that …                                                                                                     |
-|----------|-------------|---------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| * * *    | admin staff | add a donor’s contact & blood type                                                    | the blood bank can keep in touch with the donor if more information is needed                                 |
-| * * *    | admin staff | add a donor’s date of birth                                                           | the blood bank knows can determine a person's eligibility in donating blood                                   |
-| * * *    | admin staff | search donors by name                                                                 | I can find their contact information if I need to contact them                                                |
-| * * *    | admin staff | modify a donor’s contact information                                                  | I can fix the stored contact information if it was keyed in wrongly previously                                |
-| * * *    | admin staff | modify a donor’s date of birth                                                        | I can fix the stored date of birth if it was keyed in wrongly                                                 |
-| * * *    | admin staff | modify a donor’s blood type                                                           | I can fix the stored blood type if it was keyed in wrongly previously                                         |
-| * * *    | admin staff | delete a donor (soft-delete / archive)                                                | I can remove donors who have passed away or are no longer eligible for donation                               |
-| * * *    | admin staff | list all donors in the system                                                         | I can have a quick overview of all the people who have agreed to donate blood to us                           |
-| * * *    | admin staff | find all donors of a particular blood type                                            | I can contact these people and ask them for donations, if the blood bank were to have a shortage              |
-| * * *    | admin staff | record a blood donation by a contact                                                  | I can track how many donations each contact has made, and the details of those donations                      |
-| * * *    | admin staff | modify a blood donation record                                                        | I can modify wrongly keyed in records                                                                         |
-| * * *    | admin staff | add the volume and donation date associated with a donation record                    | the blood bank is aware of the details associated with each donation record                                   |
-| * * *    | admin staff | delete a blood donation record                                                        | I can remove wrongly keyed in records                                                                         |
-| * * *    | admin staff | find all eligible donors given a blood type (based on age and last donation interval) | I can determine who I can call if blood is needed                                                             |
-| * *      | admin staff | find a donor based on contact information                                             | I can link their name and contact information together                                                        |
-| * *      | admin staff | detect duplicate donation records associated with the same person                     | I am able to quickly identify duplicate data in the BloodNet system and reconcile it to reduce data pollution |
-| *        | admin staff | record how much blood was donated by a donor in a session                             | I can recommend donors who have been very active for appreciation awards, to incentivise more donors          |
-| *        | admin staff | record when a donor donated blood in a session                                        | I can maintain accurate records of each donor’s donation history                                              |
+| Priority | As a …      | I want to …                                                        | So that …                                                                                                     |
+|----------|-------------|--------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| * * *    | admin staff | add a donor’s contact & blood type                                 | the blood bank can keep in touch with the donor if more information is needed                                 |
+| * * *    | admin staff | add a donor’s date of birth                                        | the blood bank knows can determine a donor's eligibility in donating blood                                    |
+| * * *    | admin staff | search donors by name                                              | I can find their contact information if I need to contact them                                                |
+| * * *    | admin staff | modify a donor’s contact information                               | I can fix the stored contact information if it was keyed in wrongly previously                                |
+| * * *    | admin staff | modify a donor’s date of birth                                     | I can fix the stored date of birth if it was keyed in wrongly                                                 |
+| * * *    | admin staff | modify a donor’s blood type                                        | I can fix the stored blood type if it was keyed in wrongly previously                                         |
+| * * *    | admin staff | delete a donor if they have no donation records                    | I can remove donors who have passed away or are no longer eligible for donation                               |
+| * * *    | admin staff | list all donors in the system                                      | I can have a quick overview of all the donors who have agreed to donate blood to us                           |
+| * * *    | admin staff | find all donors of a particular blood type                         | I can contact these donors and ask them for donations, if the blood bank were ever to have a shortage         |
+| * * *    | admin staff | record a blood donation by a contact                               | I can track how many donations each contact has made and the details of those donations                       |
+| * * *    | admin staff | modify a blood donation record                                     | I can modify wrongly keyed in donation records                                                                |
+| * * *    | admin staff | add the volume and donation date associated with a donation record | the blood bank is aware of the details associated with each donation record                                   |
+| * * *    | admin staff | delete a blood donation record                                     | I can remove wrongly keyed in donation records                                                                |
+| * * *    | admin staff | find all eligible donors given a blood type                        | I can determine who I can call if blood is needed                                                             |
+| * *      | admin staff | find a donor based on contact information                          | I can link their name and contact information together                                                        |
+| * *      | admin staff | detect duplicate donation records associated with the same donor   | I am able to quickly identify duplicate data in the BloodNet system and reconcile it to reduce data pollution |
+| *        | admin staff | record how much blood was donated by a donor in a session          | I can recommend donors who have been very active for appreciation awards, to incentivise more donors          |
+| *        | admin staff | record when a donor donated blood in a session                     | I can maintain accurate records of each donor’s donation history                                              |
 
 
 ### Use cases
@@ -334,8 +335,8 @@ Use case ends.
 
 **MSS**
 
-1. Admin staff lists all donors ([UC05](#use-case-uc05---list-all-donors-in-the-system)).
-2. Admin staff requests to update a specified donor, and provides the fields to update and values to update them with.
+1. Admin staff lists all donors ([UC05](#use-case-uc05---list-all-donors-in-the-system)). 
+2. Admin staff selects a donor to update and provides new values for the fields that need to be changed. 
 3. BloodNet updates fields of the donor for which values were supplied.
 
 Use case ends.
@@ -592,6 +593,7 @@ Use case ends.
 * **CPU**: The component in charge of executing program instructions and processing command logic within the application
 * **SSD**: The device that stores the application's data files and where user and system data are kept
 * **RAM**: The memory used by the application to temporarily store data and other information while the commands are being executed, thereby enabling fast access alongside processing
+* **CLI**: A text-based interface that allows users to interact with a program by typing commands.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -864,5 +866,24 @@ Team size: 5
    **Current Behaviour**: The phone number must contain exactly 8 digits. This may be too strict in some cases. For example, "8888 8888" would fail the validation check due to the whitespace in between.<br>
 
     **Rationality for the New Feature**: We want to make the validation more fit-for-purpose.<br><br>
+
+5. **Feature**: Thicken panel borders to make resizing easier for users.<br>
+
+   **Current Behaviour**: The margin between the panels is very small, thus resulting in users struggling to resize the panels. <br>
+
+   **Rationality for the New Feature**: We would like to make our GUI more usable and accessible for users.<br><br>
+
+6. **Feature**: Use different tokens for `adddonation` and `add` in order to clearly distinguish the person index from a phone number.<br>
+
+   **Current Behaviour**: Currently, both the `adddonation` and the `add` command use the p token when inputting a command. Unfortunately, some PE-d testers have stated that this behaviour is somewhat unintuitive for the user.<br>
+
+   **Rationality for the New Feature**: We would like to ensure that the command inputs are clear, intuitive and easy for users to understand.<br><br>
+
+7. **Feature**: Set a minimum panel size or lock resizing.<br>
+   
+   **Current Behaviour**: Currently, if users were to resize on of the lists by too much, then the other list, such as the `DonationRecord` list is truncated, making it difficult for users to view both full lists.<br>
+
+   **Rationality for the New Feature**: We would like to prevent content truncation and improves readability when panels are resized.<br><br>
+
 
 
