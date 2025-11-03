@@ -77,7 +77,7 @@ a time.
     * `adddonation p/1 d/21-10-2025 v/400` : Adds a donation record for the 1st donor shown in the current donor
       list.
 
-    * `findeligible O+ A+` : Finds all donors with the specified blood type(s) provided who are eligible to
+    * `findeligible O+ A+` : Finds all donors with the specified blood type(s) who are eligible to
       donate on the current day. The criteria for eligibility can be found [here](#eligibility-criteria).
 
     * `clear`: Deletes the entire donation list and donation records list from the app. Note that this command can be 
@@ -397,7 +397,7 @@ welcome to update data directly by editing that data file.
 <box type="warning" seamless>
 
 **Caution:**
-Note that if the changes to the data file cause the data to be internally inconsistent, the system might not function 
+Note that if the changes to the data file cause the data to be in an invalid state, the system might not function 
 as expected. <br>
 If your edits make the data file format invalid, BloodNet will discard all data and start with an empty data
 file at the next run. Thus, it is strongly recommended that you take a backup of the file before editing it.<br>
