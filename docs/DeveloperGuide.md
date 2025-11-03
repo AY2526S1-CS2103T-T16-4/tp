@@ -843,33 +843,45 @@ Team size: 5
 
 2. **Enhancement**: Update the `list` command to display both the donor list and the donation record list. <br>
 
-   **Current Behaviour**: Currently, the `list` feature only displays the donor list and users 
-   are only allowed to access donation records individually through other commands such as `finddonations`. This design 
-   choice was purely intentional as we believed that users did not see a need to view all donation records at once.
-   Rather, our focus was more on allowing users to retrieve specific records efficiently, prioritizing quick access to 
-   individual donation records versus displaying a full list of all donation records, which we believed would be 
-   overwhelming or unnecessary for most users. <br>
+   **Current Behaviour**: The `list` command currently only displays the entire donor list when executed. Donation records currently can only be accessed individually via other commands such as `finddonations`. We had this design as it prioritizes quick retrieval of specific records and avoids overwhelming users with a full list of donation records. <br>
 
-    **Rationality for the Enhancement**: Some PE-D testers have noticed that the current feature is too limiting, as it makes it difficult
-     to get an overview of all the donation records prevalent in the system. As such, if real users express a similar need, we will enhance the `list` feature to show all donation records. <br><br>
+    **Feature Flaw**: Some users, such as PE-D testers, noted that they cannot get an overview of all donation records in the system, which they considered to be limiting and inconvenient for those who want to see the full donation record list. <br>
+.
+    **Proposed Change**: We propose a solution of updating the existing `list` command to optionally display all donation records alongside the donor list. If desired, users can still choose to view only the donor list. <br>
 
-3. **Enhancement**: Improve the existing duplication check feature to warn users when a donor with the same phone number or a similar name already exists in BloodNet.<br>
+    **Expected Behaviour**: When the enhanced `list` command is used, users are able to view both the donor and donation record list, providing a clear overview of the system’s data. <br><br>
 
-   **Current Behaviour**: 2 donors are only considered to be identical if they both have the same name (case-sensitive) and phone number.<br>
+3.  **Enhancement**: Improve the existing duplication check to warn users when a donor with a similar name and same phone number already exists in the BloodNet system. <br>
 
-    **Rationality for the Enhancement**: It is possible for the existing validation check to miss certain edge cases. For example, if a donor with a name "Alex Tan" and phone number "88888888" already exists in BloodNet, a donor with a name "Alex T." and phone number "88888888" can still be added to the BloodNet, even though there is a decent chance they refer to the same person.<br><br>
+    **Current Behaviour**: Two donors are only considered identical if they have the same name (case-sensitive) and phone number.<br>
 
-4. **Enhancement**: Improve upon current phone number validation requirements.<br>
+    **Feature Flaw**: Near duplicates might be missed. For example, "Alex Tan" with phone 88888888 exists, but "Alex T." with the same phone number of 88888888 can still be added, even though they likely refer to the same person. <br>
 
-   **Current Behaviour**: The phone number must contain exactly 8 digits, but this may be too strict in some scenarios. For example, "8888 8888" would fail the validation check due to the whitespace in between.<br>
+    **Proposed Change**: Implement a similarity check for name, such as partial matches and always warn users if a phone number already exists, even if the names are considered to be slightly different. <br>
 
-    **Rationality for the Enhancement**: We would like for the validation to be more user-friendly by accepting common formatting characters (spaces, parenthesis, plus signs, dashes) <br><br>
+    **Expected Behaviour**: When a user tries to add a donor with an existing phone number or a name that is similar to an existing donor's name, the system will display a warning message and ask users for confirmation before adding the donor. <br><br>
+
+4.  **Enhancement**: Improve phone number validation to accept common symbols. <br>
+
+    **Current Behaviour**: The phone number must contain exactly 8 digits, but this may be too strict in some scenarios. For example, "8888 8888" would fail the validation check due to the whitespace in between.<br>
+
+    **Feature Flaw**: Some people, such as PE-D testers, argue that the current validation is too strict, making it inconvenient for users who enter phone numbers with common formatting like spaces, dashes, or parentheses. 
+
+    **Proposed Change**: Thus, we propose that we will update the validation logic to allow spaces, parentheses, plus signs, or even dashes.
+
+    **Expected Behaviour**: Users are able to enter phone numbers like such as "8888-8888" successfully without getting any error messages. <br><br>
+
 
 5. **Enhancement**: Increase the thickness of panel borders to make resizing panels easier for users. <br>
 
-   **Current Behaviour**: The margin between the panels is very small, thus resulting in users struggling to resize the panels, especially for the two lists. <br>
+   **Current Behaviour**: The margin between panels is fairly small, thereby making it difficult for users to resize panels, especially the two list panels. <br>
 
-   **Rationality for the Enhancement**: We would like to make our GUI more usable and accessible for users.<br><br>
+   **Feature Flaw**: Users struggle to adjust panel sizes accurately, thereby reducing usability and accessibility.
+
+   **Proposed Change**: Make the panel borders thicker so that users can grab and resize panels more easily.
+
+   **Expected Behaviour**: Users are able to resize panels smoothly without having to struggle when finding or dragging the borders. <br><br>
+
 
 6. **Enhancement**: Modify the `add` and `adddonation` commands to use distinct tokens for all values. <br>
 
@@ -880,6 +892,7 @@ Team size: 5
    **Proposed Change**: We can assign unique tokens for each command input, such as using i/ for index when running the `addonation` command and then use p/ for phone number for the `add` command to clearly differentiate all fields. <br>
 
    **Expected Behaviour**: Users are able to very clearly distinguish which input corrosponds to which field, thereby increasing its current usability.  <br><br>
+
 
 7. **Enhancement**: Improve the panel resizing behavior by setting a minimum size or restricting resizing to prevent truncation of the content.<br>
    
