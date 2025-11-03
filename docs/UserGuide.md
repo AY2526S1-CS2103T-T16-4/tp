@@ -198,9 +198,6 @@ Format: `list`
 
 This command finds donors whose names contain any of the given keywords.
 
-> **Note:**
-> The `find` command always filters the **entire list of donors** in the system, **not just the displayed donor list**. Even if you have previously filtered the donor list (e.g., using `find` or `findeligible`), running `find` will search through all donors stored in BloodNet.
-
 Format: `find KEYWORD...`
 
 * At least one keyword must be provided.
@@ -210,6 +207,9 @@ Format: `find KEYWORD...`
 * Only the donor's name is searched.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Jane Do` will return `Jane Gruber`, `Jane Yang`.
+
+> **Note:**
+> The `find` command always filters the **entire list of donors** in the system, **not just the displayed donor list**. Even if you have previously filtered the donor list (e.g., using `find` or `findeligible`), running `find` will search through all donors stored in BloodNet.
 
 Examples:
 
