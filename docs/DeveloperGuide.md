@@ -375,7 +375,8 @@ Use case ends.
 
 1. Admin staff lists all donors ([UC05](#use-case-uc05---list-all-donors-in-the-system)).
 2. Admin staff requests to delete a donor.
-3. BloodNet deletes a donor.
+3. User confirms deletion. 
+4. BloodNet deletes a donor.
 
 Use case ends.
 
@@ -391,6 +392,10 @@ Use case ends.
 * 2b. Donor has one or more existing donation records.
     * 2b1. Admin staff deletes donation records of user ([UC10](#use-case-uc10---delete-a-blood-donation-record)).
     * Use case returns to step 2.
+
+* 3a. User declines deletion.
+    * 3a1. BloodNet shows cancellation message. 
+    * Use case ends.
 
 ---
 
@@ -524,7 +529,8 @@ Use case ends.
 3. Admin staff requests to list all blood donations by a specified donor.
 4. BloodNet returns a list of blood donations, sorted by donation date in descending order.
 5. Admin staff requests to delete a specified blood donation record.
-6. BloodNet deletes the donation record.
+6. User confirms deletion. 
+7. BloodNet deletes the donation record.
 
 Use case ends.
 
@@ -538,8 +544,12 @@ Use case ends.
     * Use case returns to step 3.
 
 * 5a. Donation ID is invalid.
-    * 5a1. BloodNet shows an error message.
-      Use case returns to step 5.
+    * 5a1. BloodNet shows an error message. 
+    * Use case returns to step 5.
+  
+* 6a. User declines deletion.
+    * 6a1. BloodNet shows cancellation message. 
+    * Use case ends.
 
 ---
 

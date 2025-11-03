@@ -18,3 +18,8 @@
 .tooltip-text {
     -fx-text-fill: white;
 }
+
+.split-pane > .split-pane-divider {
+    -fx-background-color: #ffffff;
+    -fx-padding: 3px;
+}
