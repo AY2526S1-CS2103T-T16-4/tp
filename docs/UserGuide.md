@@ -13,9 +13,6 @@ blood banks. It helps them:
 3. Easily view all donation records of any donor
 4. Instantly collate a list of eligible donors of any specified blood group
 
-It is a standalone application which does not connect to the internet, making it perfect in parts of the world where
-internet connectivity is unreliable.
-
 BloodNet's mode of input resembles that of a Command Line Interface (CLI), making it the perfect tool for fast typists.
 On the other hand, its Graphical User Interface (GUI) enables scrolling, making it easy to view large amounts of data at
 a time.
