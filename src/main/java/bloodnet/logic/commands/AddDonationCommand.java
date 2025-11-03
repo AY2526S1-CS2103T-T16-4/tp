@@ -89,8 +89,6 @@ public class AddDonationCommand extends Command {
 
         model.addDonationRecord(donationRecord);
 
-        model.updateFilteredDonationRecordList(new DonorIsSamePersonPredicate(personToAddRecordFor));
-
         return new InputResponse(String.format(MESSAGE_SUCCESS, Messages.format(donationRecord, personToAddRecordFor)));
     }
 
