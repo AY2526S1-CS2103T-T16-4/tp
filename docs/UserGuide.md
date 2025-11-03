@@ -250,7 +250,7 @@ Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
 
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Editing a donor: `edit`
 
@@ -333,7 +333,7 @@ Example:
 
 * `finddonations 3`: Lists all donation records of the 3rd donor in the donor list.
 
-  ![result for 'finddonations 3'](images/finddonations3.png)
+![result for 'finddonations 3'](images/finddonations3.png)
 
 ### Editing a donation record: `editdonation`
 
@@ -395,8 +395,8 @@ Example:
 
 * `findeligible A+ B+`: Lists all donors who have blood type A+ or B+ and are found eligible to donate based on the
   official guidelines.
-  <br>
-  ![result for 'findeligible A+ B+'](images/findeligibleResults.png)
+
+![result for 'findeligible A+ B+'](images/findeligibleResults.png)
 
 ### Clearing all entries: `clear`
 
