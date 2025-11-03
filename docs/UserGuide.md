@@ -398,7 +398,7 @@ welcome to update data directly by editing that data file.
 <box type="warning" seamless>
 
 **Caution:**
-Note that if the changes to the data file cause the data to be internally inconsistent, the system might not function 
+Note that if the changes to the data file cause the data to be in an invalid state, the system might not function 
 as expected. <br>
 If your edits make the data file format invalid, BloodNet will discard all data and start with an empty data
 file at the next run. Thus, it is strongly recommended that you take a backup of the file before editing it.<br>
