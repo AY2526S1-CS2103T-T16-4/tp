@@ -830,56 +830,56 @@ In order for the person model to capture the information users need to track eac
 
 Team size: 5
 
-1. **Feature**: Allow users to delete a donor along with all donation records associated with that specific 
-   donor in a single step. <br>
+1. **Enhancement**: Update the `delete` command to remove a donor and all of their associated donation records in 
+   a single operation. <br>
 
    **Current Behaviour**: Users must manually delete all donation records with respect to a donor before they are able to delete a donor.
    This is a feature not a bug, because in real life, users would most likely want to preserve a donor's donation records in the system for audit purposes, even if the donor is past the age of eligibility. Therefore, we have intentionally made deleting a donor and their donation records difficult.<br>
 
-   **Rationality for the New Feature**: However, some PE-D testers have expressed that the current process is fairly
+   **Rationality for the Enhancement**: However, some PE-D testers have expressed that the current process is fairly
    time-consuming. As such, if real users express a similar sentiment too, we will introduce this new feature. <br><br>
 
-2. **Feature**: Introduce a `listdonations` command that allows users to view all donation records in the system. <br>
+2. **Enhancement**: Update the `list` command to display both the donor list and the donation record list. <br>
 
-   **Current Behaviour**: There is no feature that allows users to view all the donation records at once and users 
+   **Current Behaviour**: Currently, the `list` feature only displays the donor list and users 
    are only allowed to access donation records individually through other commands such as `finddonations`. This design 
    choice was purely intentional as we believed that users did not see a need to view all donation records at once.
    Rather, our focus was more on allowing users to retrieve specific records efficiently, prioritizing quick access to 
    individual donation records versus displaying a full list of all donation records, which we believed would be 
    overwhelming or unnecessary for most users. <br>
 
-    **Rationality for the New Feature**: Some PE-D testers have noticed that the absence of such a feature makes it difficult
-     to get an overview of all the donation records prevalent in the system. As such, if real users express a similar need, we will introduce the `listdonations` feature. <br><br>
+    **Rationality for the Enhancement**: Some PE-D testers have noticed that the current feature is too limiting, as it makes it difficult
+     to get an overview of all the donation records prevalent in the system. As such, if real users express a similar need, we will enhance the `list` feature to show all donation records. <br><br>
 
-3. **Feature**: Warn users when BloodNet already contains a donor with the same phone number or the same name.<br>
+3. **Enhancement**: Improve the existing duplication check feature to warn users when a donor with the same phone number or a similar name already exists in BloodNet.<br>
 
    **Current Behaviour**: 2 donors are only considered to be identical if they both have the same name (case-sensitive) and phone number.<br>
 
-    **Rationality for the New Feature**: It is possible for the existing validation check to miss certain edge cases. For example, if a donor with a name "Alex Tan" and phone number "88888888" already exists in BloodNet, a donor with a name "Alex T." and phone number "88888888" can still be added to the BloodNet, even though there is a decent chance they refer to the same person.<br><br>
+    **Rationality for the Enhancement**: It is possible for the existing validation check to miss certain edge cases. For example, if a donor with a name "Alex Tan" and phone number "88888888" already exists in BloodNet, a donor with a name "Alex T." and phone number "88888888" can still be added to the BloodNet, even though there is a decent chance they refer to the same person.<br><br>
 
-4. **Feature**: Loosen phone number validation requirements.<br>
+4. **Enhancement**: Improve upon current phone number validation requirements.<br>
 
    **Current Behaviour**: The phone number must contain exactly 8 digits, but this may be too strict in some scenarios. For example, "8888 8888" would fail the validation check due to the whitespace in between.<br>
 
-    **Rationality for the New Feature**: We would like for the validation to be more user-friendly by accepting common formatting characters (spaces, parenthesis, plus signs, dashes) <br><br>
+    **Rationality for the Enhancement**: We would like for the validation to be more user-friendly by accepting common formatting characters (spaces, parenthesis, plus signs, dashes) <br><br>
 
-5. **Feature**: Thicken panel borders to make resizing easier for users.<br>
+5. **Enhancement**: Increase the thickness of panel borders to make resizing panels easier for users. <br>
 
    **Current Behaviour**: The margin between the panels is very small, thus resulting in users struggling to resize the panels, especially for the two lists. <br>
 
-   **Rationality for the New Feature**: We would like to make our GUI more usable and accessible for users.<br><br>
+   **Rationality for the Enhancement**: We would like to make our GUI more usable and accessible for users.<br><br>
 
-6. **Feature**: Use different tokens for `adddonation` and `add` to clearly distinguish the person index from a phone number.<br>
+6. **Enhancement**: Modify the `add` and `adddonation` commands to use distinct tokens. <br>
 
    **Current Behaviour**: Currently, both the `adddonation` and the `add` command use the `p/` token when inputting a command. Unfortunately, some PE-D testers found this behaviour unintuitive.<br>
 
-   **Rationality for the New Feature**: We would like to ensure that the command inputs are clear, intuitive and easy for users to understand.<br><br>
+   **Rationality for the Enhancement**: We would like to ensure that the command inputs are clear and easy for users to understand.<br><br>
 
-7. **Feature**: Set a minimum size or lock resizing for all panels to prevent content truncation.<br>
+7. **Enhancement**: Improve the panel resizing behavior by setting a minimum size or restricting resizing in order to prevent truncation of the content.<br>
    
    **Current Behaviour**: Currently, if users resize one of the lists too much, then the other list, such as the `DonationRecord` list is truncated, making it difficult for users to view both lists.<br>
 
-   **Rationality for the New Feature**: We would like to prevent content truncation and improve readability when the panels are resized.<br><br>
+   **Rationality for the Enhancement**: We would like to prevent content truncation and improve readability when the panels are resized.<br><br>
 
 
 
