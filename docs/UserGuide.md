@@ -178,7 +178,7 @@ Format: `add n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`
     * Domain: labels should be separated by periods, each label must start and end with a letter or number, and may
       contain letters, numbers or hyphens in-between; the last label must be at least 2 or more characters long.
 * BLOOD_TYPE must be either O+, O-, A+, A-, B+, B-, AB+, AB-.
-* DATE_OF_BIRTH must be in the *DD-MM-YYYY* format (for example, `20-01-2003`).
+* DATE_OF_BIRTH must be a valid date in the *DD-MM-YYYY* format (for example, `20-01-2003`).
 
 Examples:
 
@@ -271,7 +271,7 @@ Format: `adddonation p/DONOR_INDEX d/DONATION_DATE v/BLOOD_VOLUME`
 * Adds a donation record for the donor corresponding to the specified `DONOR_INDEX`.
 * The index refers to the index number shown in the displayed donor list.
 * The index **must be a positive whole number** 1, 2, 3, …​
-* DONATION_DATE must be in the *DD-MM-YYYY* format and not in the future.
+* DONATION_DATE must be a valid date in the *DD-MM-YYYY* format and not in the future.
 * The donor must be eligible to donate blood on the specified DONATION_DATE. The criteria for
   eligibility can be found [here](#eligibility-criteria).
 * BLOOD_VOLUME **must be a positive whole number** strictly **less than 500** (in milliliters).
@@ -309,7 +309,7 @@ Format: `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLU
   the displayed donation record list. The specified index **must be a positive whole number** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* DONATION_DATE must be in the *DD-MM-YYYY* format and not in the future.
+* DONATION_DATE must be a valid date in the *DD-MM-YYYY* format and not in the future.
 * The donor must be eligible to donate blood on the specified DONATION_DATE. The criteria for
   eligibility can be found [here](#eligibility-criteria).
 * BLOOD_VOLUME **must be a positive whole number** strictly **less than 500** (in milliliters).

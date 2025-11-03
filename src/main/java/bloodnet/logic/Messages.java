@@ -31,9 +31,8 @@ public class Messages {
             "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_PERSON_NOT_FOUND =
             "No donor found for the given donation record.";
-    public static final String MESSAGE_DATE_OF_BIRTH_TOO_OLD = "The date of birth should be of the format DD-MM-YYYY,"
-            + " not in the future, and not before %s.";
-
+    public static final String MESSAGE_DATE_OF_BIRTH_TOO_OLD = "The date of birth should be a valid date "
+            + "of the format DD-MM-YYYY, not in the future, and not before %s.";
     /**
      * Returns an error message indicating the duplicate prefixes.
      */

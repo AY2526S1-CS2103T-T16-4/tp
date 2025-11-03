@@ -15,7 +15,7 @@ import java.time.format.DateTimeParseException;
 public class DateOfBirth {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "The date of birth should be of the format DD-MM-YYYY, not in the future,"
+            "The date of birth should be a valid date of the format DD-MM-YYYY, not in the future,"
                     + " and not before %s.";
     public static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(STRICT);
@@ -83,4 +83,3 @@ public class DateOfBirth {
     }
 
 }
-
