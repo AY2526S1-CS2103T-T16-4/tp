@@ -282,26 +282,22 @@ ________________________________________________________________________________
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …      | I want to …                                                        | So that …                                                                                                     |
-|----------|-------------|--------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| * * *    | admin staff | add a donor’s contact & blood type                                 | the blood bank can keep in touch with the donor if more information is needed                                 |
-| * * *    | admin staff | add a donor’s date of birth                                        | the blood bank knows can determine a donor's eligibility in donating blood                                    |
-| * * *    | admin staff | search donors by name                                              | I can find their contact information if I need to contact them                                                |
-| * * *    | admin staff | modify a donor’s contact information                               | I can fix the stored contact information if it was keyed in wrongly previously                                |
-| * * *    | admin staff | modify a donor’s date of birth                                     | I can fix the stored date of birth if it was keyed in wrongly                                                 |
-| * * *    | admin staff | modify a donor’s blood type                                        | I can fix the stored blood type if it was keyed in wrongly previously                                         |
-| * * *    | admin staff | delete a donor if they have no donation records                    | I can remove donors who have passed away or are no longer eligible for donation                               |
-| * * *    | admin staff | list all donors in the system                                      | I can have a quick overview of all the donors who have agreed to donate blood to us                           |
-| * * *    | admin staff | find all donors of a particular blood type                         | I can contact these donors and ask them for donations, if the blood bank were ever to have a shortage         |
-| * * *    | admin staff | record a blood donation by a contact                               | I can track how many donations each contact has made and the details of those donations                       |
-| * * *    | admin staff | modify a blood donation record                                     | I can modify wrongly keyed in donation records                                                                |
-| * * *    | admin staff | add the volume and donation date associated with a donation record | the blood bank is aware of the details associated with each donation record                                   |
-| * * *    | admin staff | delete a blood donation record                                     | I can remove wrongly keyed in donation records                                                                |
-| * * *    | admin staff | find all eligible donors given a blood type                        | I can determine who I can call if blood is needed                                                             |
-| * *      | admin staff | find a donor based on contact information                          | I can link their name and contact information together                                                        |
-| * *      | admin staff | detect duplicate donation records associated with the same donor   | I am able to quickly identify duplicate data in the BloodNet system and reconcile it to reduce data pollution |
-| *        | admin staff | record how much blood was donated by a donor in a session          | I can recommend donors who have been very active for appreciation awards, to incentivise more donors          |
-| *        | admin staff | record when a donor donated blood in a session                     | I can maintain accurate records of each donor’s donation history                                              |
+| Priority | As a …      | I want to …                                                      | So that …                                                                                                     |
+|----------|-------------|------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| * * *    | admin staff | add a donor’s contact & blood type                               | the blood bank can keep in touch with the donor if more information is needed                                 |
+| * * *    | admin staff | add a donor’s date of birth                                      | the blood bank knows can determine a donor's eligibility in donating blood                                    |
+| * * *    | admin staff | search donors by name                                            | I can find their contact information if I need to contact them                                                |
+| * * *    | admin staff | modify a donor’s contact information                             | I can fix the stored contact information if it was keyed in wrongly previously                                |
+| * * *    | admin staff | modify a donor’s date of birth                                   | I can fix the stored date of birth if it was keyed in wrongly                                                 |
+| * * *    | admin staff | modify a donor’s blood type                                      | I can fix the stored blood type if it was keyed in wrongly previously                                         |
+| * * *    | admin staff | delete a donor if they have no donation records                  | I can remove donors who were accidentally added to the system                                                 |
+| * * *    | admin staff | list all donors in the system                                    | I can have a quick overview of all the donors who have agreed to donate blood to us                           |
+| * * *    | admin staff | record a blood donation by a donor                               | I can track how many donations each contact has made and the details of those donations                       |
+| * * *    | admin staff | modify a blood donation record                                   | I can modify wrongly keyed in donation records                                                                |
+| * * *    | admin staff | delete a blood donation record                                   | I can remove wrongly keyed in donation records                                                                |
+| * * *    | admin staff | find all eligible donors given a blood type                      | I can determine who I can call if blood is needed                                                             |
+| * *      | admin staff | detect duplicate donation records associated with the same donor | I am able to quickly identify duplicate data in the BloodNet system and reconcile it to reduce data pollution |
+| *        | admin staff | record how much blood was donated by a donor in a session        | I can recommend donors who have been very active for appreciation awards, to incentivise more donors          |
 
 
 ### Use cases
@@ -593,7 +589,7 @@ Use case ends.
 * **CPU**: The component in charge of executing program instructions and processing command logic within the application
 * **SSD**: The device that stores the application's data files and where user and system data are kept
 * **RAM**: The memory used by the application to temporarily store data and other information while the commands are being executed, thereby enabling fast access alongside processing
-* **CLI**: A text-based interface that allows users to interact with a program by typing commands.
+* **CLI**: A text-based interface that allows users to interact with a program by typing commands
 
 --------------------------------------------------------------------------------------------------------------------
 
