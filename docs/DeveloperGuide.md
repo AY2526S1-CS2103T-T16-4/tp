@@ -833,24 +833,24 @@ Team size: 5
 1. **Enhancement**: Update the `delete` command to remove a donor and all of their associated donation records in 
    a single operation. <br>
 
-   **Current Behaviour**: Users must manually delete all donation records with respect to a donor before they are able to delete a donor. <br>
+   **Current Behaviour**: Currently, a donor cannot be deleted until all of their associated donation records have been manually removed by the user. <br>
    
    **Feature Flaw**: This is a feature not a bug, because in real life, users would most likely want to preserve a donor's donation records in the system for audit purposes, even if the donor is past the age of eligibility. Therefore, we have intentionally made deleting a donor and their donation records difficult. However, some users, such as PE-D testers, have expressed that the current functionality is time-consuming. <br>
 
-   **Proposed Change**: We can add an optional flag (e.g. such as the `--all` flag) to the `delete` command that allows users to remove all donation records that are linked to the donor. <br>
+   **Proposed Change**: We can add an optional flag (e.g. such as the `--all` flag) to the `delete` command that allows users to remove all donation records linked to the donor. <br>
 
    **Expected Behaviour**: When a user runs `delete 3 --all`, the system prompts the user for confirmation and then deletes the donor along with all associated donation records after the user has confirmed the deletion. <br><br>
 
 
 2. **Enhancement**: Update the `list` command to display both the donor list and the donation record list. <br>
 
-   **Current Behaviour**: The `list` command currently only displays the entire donor list when executed. Donation records currently can only be accessed individually via other commands such as `finddonations`. We had this design as it prioritizes quick retrieval of specific records and avoids overwhelming users with a full list of donation records. <br>
+   **Current Behaviour**: The `list` command currently only displays the entire donor list when executed. Donation records currently can only be accessed individually via other commands such as `finddonations`. We had this design as we believe it prioritizes quick retrieval of specific records and avoids overwhelming users with a full list of donation records. <br>
 
-    **Feature Flaw**: Some users, such as PE-D testers, noted that they cannot get an overview of all donation records in the system, which they considered to be limiting and inconvenient for those who want to see the full donation record list. <br>
-.
-    **Proposed Change**: We propose a solution of updating the existing `list` command to optionally display all donation records alongside the donor list. <br>
+    **Feature Flaw**: Some users, such as PE-D testers, noted that they cannot get an overview of all donation records in the system, which they considered to be limiting and inconvenient for those who want to see the full donation record list.<br>
 
-    **Expected Behaviour**: When the enhanced `list` command is used, users are able to view both the donor and donation record list. <br><br>
+    **Proposed Change**: We propose updating the existing `list` command to optionally display the entire donation record list alongside the donor list. <br>
+
+    **Expected Behaviour**: When the enhanced `list` command is executed, users are able to view both the donor and donation record list. <br><br>
 
 
 3.  **Enhancement**: Improve the existing duplication check to warn users when a donor with a similar name and same phone number already exists in the BloodNet system. <br>
@@ -868,9 +868,9 @@ Team size: 5
 
     **Current Behaviour**: The phone number must contain exactly 8 digits, but this may be too strict in some scenarios. For example, "8888 8888" would fail the validation check due to the space in between.<br>
 
-    **Feature Flaw**: Some people, such as PE-D testers, argue that the current validation is too strict, making it inconvenient for users who enter phone numbers with common formatting like spaces, dashes, or parentheses. <br>
+    **Feature Flaw**: Some people, such as PE-D testers, argue that the current validation is too strict, making it inconvenient for users who might want to enter phone numbers with common symbols like spaces, dashes or parentheses. <br>
 
-    **Proposed Change**: Thus, we propose that we will update the validation logic to allow spaces, parentheses, plus signs or even dashes. <br>
+    **Proposed Change**: Thus, we propose that we will update the validation logic to allow spaces, parentheses, plus signs and dashes. <br>
 
     **Expected Behaviour**: Users are able to enter phone numbers such as "8888-8888" successfully without getting any error messages. <br><br>
 
@@ -883,27 +883,27 @@ Team size: 5
 
    **Proposed Change**: Make the panel borders thicker so that users are able to resize panels more easily. <br>
 
-   **Expected Behaviour**: Users can resize panels smoothly without having to struggle when dragging the borders. <br><br>
+   **Expected Behaviour**: Users can resize panels smoothly without having to struggle when dragging the borders of the list. <br><br>
 
 
 6. **Enhancement**: Modify the `add` and `adddonation` commands to use distinct tokens for all values. <br>
 
-   **Current Behaviour**: Currently, both the `adddonation` and the `add` command use the `p/` token to refer to a person index and a phone number, respectively. <br>
+   **Current Behaviour**: Currently, both the `adddonation` and the `add` command use the `p/` token to refer to a donor index and a phone number, respectively. <br>
 
    **Feature Flaw**: Unfortunately, some PE-D testers found this behaviour unintuitive. <br>
 
-   **Proposed Change**: We can assign unique tokens for each command input, such as using `i/` for index when running the `addonation` command and then using `p/` for phone number for the `add` command in order to clearly differentiate all fields. <br>
+   **Proposed Change**: We can assign unique tokens for each command input, such as using `i/` for index when running the `addonation` command and then using `p/` for phone number for the `add` command to clearly differentiate all fields. <br>
 
    **Expected Behaviour**: Users are able to clearly distinguish which input corresponds to which field, thereby increasing its current usability. <br><br>
 
 
-7. **Enhancement**: Improve the panel resizing behavior by setting a minimum size or restricting resizing to prevent truncation of the two lists.<br>
+7. **Enhancement**: Improve the panel resizing behavior by setting a minimum size or restricting resizing to prevent truncation of the donor and donation record list.<br>
    
-   **Current Behaviour**: Currently, if users resize one of the lists too much, then the other list, such as the `DonationRecordList` is truncated.<br>
+   **Current Behaviour**: Currently, if users resize one of the lists too much, then the other list, such as the donation record list is truncated.<br>
 
    **Feature Flaw**: As such, this makes it difficult for users to view both lists when executing the commands in the BloodNet GUI. <br>
 
-   **Proposed Change**: Set a minimum panel size or restrict resizing so that both the `PersonList` and the `DonationRecordList` remains visible, regardless of how users adjust the panel sizes. <br>
+   **Proposed Change**: Set a minimum panel size or restrict resizing so that both the donor list and the donation record list remains visible, regardless of how users adjust the panel sizes. <br>
 
    **Expected Behaviour**: When users resize the panels, the system prevents any panel from shrinking below a certain threshold, thereby ensuring that both the donor and the donation record list remain fully visible and readable. <br><br>
 
