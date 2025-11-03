@@ -82,7 +82,7 @@ a time.
     ```
     Otherwise, Java 17 is not installed on your system and you can follow this installation guide
     [here](https://se-education.org/guides/tutorials/javaInstallation.html).
-6. Run the application by type `java -jar bloodnet.jar`into the terminal and pressing <kbd>Enter</kbd>. 
+6. Run the application by typing `java -jar bloodnet.jar`into the terminal and pressing <kbd>Enter</kbd>. 
     After a few seconds, the BloodNet application window, similar to the one below, will appear. It is preloaded with sample data which you can easily clear, with the `clear` command, as described in the next step.
     <p align=center>
       <img src="images/Ui.png" alt="Ui" width="600">
