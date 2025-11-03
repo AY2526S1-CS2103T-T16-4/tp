@@ -3,6 +3,7 @@ layout: default.md
 title: "User Guide"
 pageNav: 3
 ---
+
 # BloodNet User Guide
 
 BloodNet is a **desktop app for tracking blood donors and their donations**, made for data entry and outreach staff at
@@ -18,6 +19,7 @@ On the other hand, its Graphical User Interface (GUI) enables scrolling, making 
 a time.
 
 ## Table of Contents
+
 - [Quick Start](#quick-start)
 - [Command Summary](#command-summary)
 - [Features](#features)
@@ -49,41 +51,46 @@ a time.
 
 3. Open your file manager (File Explorer for Windows, Finder for macOS) and navigate to that _home folder_.
 
-4. Open the terminal at that _home folder_ directory. You may do so by either opening a terminal manually and running `cd` into that directory or by using the file manager directly:
+4. Open the terminal at that _home folder_ directory:
 
-    * **For Windows users:** 
-    <br>
+    * **For Windows users:**
+      <br>
       Right-click on any empty area in the folder and select **"Open in Terminal"**.
       <p align=center>
         <img src="images/runInTerminalWindows.png" alt="Open Terminal Windows" width="600">
       </p>
 
-    * **For macOS users:** 
-    <br>
+    * **For macOS users:**
+      <br>
       Right-click on the folder name in the path bar at the bottom of Finder and select **"Open in Terminal"**.
       <p align=center>
         <img src="images/runInTerminalMac.png" alt="Open Terminal Mac" width="600">
       </p>
       <br>
-        Doing so will cause a black (by default) terminal window.
+        Doing so will cause a black (by default) terminal window to appear.
       <br><br>
     * **For Linux users:**  
-      Open your preferred terminal application (e.g. GNOME Terminal, Konsole, Kitty), then use the `cd` command to navigate to the home folder.  
-      Example:  
+      Open your preferred terminal application (e.g. GNOME Terminal, Konsole, Kitty), then use the `cd` command to
+      navigate to the home folder.  
+      Example:
       ```
       cd ~/Documents/BloodNet
       ```
+      <br>
 
-5. Verify that **Java 17** is installed in your system by typing `java --version` within the newly-opened terminal and pressing <kbd>Enter</kbd>. The output should display information about your installed Java version, including `openjdk 17.x.x` or `java 17.x.x`. Example output:
+5. Verify that **Java 17** is installed in your system by typing `java --version` within the newly-opened terminal and
+   pressing <kbd>Enter</kbd>. The output should display information about your installed Java version,
+   including `openjdk 17.x.x` or `java 17.x.x`. Example output:
     ```
     java 17.0.10 2024-01-16 LTS
     Java(TM) SE Runtime Environment (build 17.0.10+11-LTS-240)
     Java HotSpot(TM) 64-Bit Server VM (build 17.0.10+11-LTS-240, mixed mode, sharing)
     ```
-    Otherwise, Java 17 is not installed on your system and you can follow this installation guide
-    [here](https://se-education.org/guides/tutorials/javaInstallation.html).
-6. Run the application by typing `java -jar bloodnet.jar`into the terminal and pressing <kbd>Enter</kbd>. 
-    After a few seconds, the BloodNet application window, similar to the one below, will appear. It is preloaded with sample data which you can easily clear, with the `clear` command, as described in the next step.
+   Otherwise, Java 17 is not installed on your system and you can follow this installation guide
+   [here](https://se-education.org/guides/tutorials/javaInstallation.html).
+6. Run the application by typing `java -jar bloodnet.jar`into the terminal and pressing <kbd>Enter</kbd>.
+   After a few seconds, the BloodNet application window, similar to the one below, will appear. It is preloaded with
+   sample data which you can easily clear, with the `clear` command, as described in the next step.
     <p align=center>
       <img src="images/Ui.png" alt="Ui" width="600">
     </p>
@@ -107,7 +114,7 @@ a time.
       donate on the current day. The criteria for eligibility can be found [here](#eligibility-criteria).
 
     * `clear`: Deletes the entire donor list and donation records list from the app. **Note that this command can be
-     used to delete all sample data from the app.**
+      used to delete all sample data from the app.**
 
     * `exit` : Exits out of the application.
 
@@ -133,7 +140,7 @@ a time.
 | [**Edit Donation Record**](#editing-a-donation-record-editdonation)                        | `editdonation DONATION_RECORD_INDEX [d/DONATION_DATE] [v/BLOOD_VOLUME] `<br> e.g., `editdonation 1 v/350 d/20-02-2025`                   |
 | [**Delete Donation Record**](#deleting-a-donation-record-deletedonation)                   | `deletedonation DONATION_RECORD_INDEX`<br> e.g., `deletedonation 1`                                                                      |
 | [**Find Eligible Donors**](#finding-eligible-donors-based-on-blood-type-findeligible)      | `findeligible BLOOD_TYPE...`<br> e.g., `findeligible A+ O+ B+`                                                                           |
-| [**Delete All Data**](#clearing-all-entries-clear)                                    | `clear`                                                                                                                                  |
+| [**Delete All Data**](#clearing-all-entries-clear)                                         | `clear`                                                                                                                                  |
 | [**Help**](#viewing-help-help)                                                             | `help`                                                                                                                                   |
 | [**Exit**](#exiting-the-program-exit)                                                      | `exit`                                                                                                                                   |
 
@@ -213,7 +220,6 @@ Examples:
 * `add n/Betsy Crowe p/95559132 e/betsycrowe@example.com b/AB- d/20-05-2004`: Adds a donor named Betsy Crowe with phone
   number 95559132, email betsycrowe@example.com, blood type AB- and date of birth 20-05-2004.
 
-
 ### Listing all donors: `list`
 
 This command lists all donors in the BloodNet system.
@@ -235,7 +241,9 @@ Format: `find KEYWORD...`
   e.g. `Jane Do` will return `Jane Gruber`, `Jane Yang`.
 
 > **Note:**
-> The `find` command always filters the **entire list of donors** in the system, **not just the displayed donor list**. Even if you have previously filtered the donor list (e.g., using `find` or `findeligible`), running `find` will search through all donors stored in BloodNet.
+> The `find` command always filters the **entire list of donors** in the system, **not just the displayed donor list**.
+> Even if you have previously filtered the donor list (e.g., using `find` or `findeligible`), running `find` will search
+> through all donors stored in BloodNet.
 
 Examples:
 
@@ -304,9 +312,11 @@ Format: `adddonation p/DONOR_INDEX d/DONATION_DATE v/BLOOD_VOLUME`
 
 Examples:
 
-* `adddonation p/1 d/15-10-2025 v/200`: Adds a donation record for the 1st donor, with a blood volume of 200ml donated on
+* `adddonation p/1 d/15-10-2025 v/200`: Adds a donation record for the 1st donor, with a blood volume of 200ml donated
+  on
   15-10-2025.
-* `adddonation p/3 d/20-09-2024 v/450`: Adds a donation record for the 3rd donor, with a blood volume of 450ml donated on
+* `adddonation p/3 d/20-09-2024 v/450`: Adds a donation record for the 3rd donor, with a blood volume of 450ml donated
+  on
   20-09-2024.
 
 ### Finding donation records of a donor: `finddonations`
@@ -370,7 +380,7 @@ Examples:
 
 * `deletedonation 1`: Deletes the 1st donation record in the displayed donation record list.
 * `finddonations 1` followed by `deletedonation 2`: Deletes the 2nd donation record of the 1st donor in the shown
-donor list.
+  donor list.
 
 ### Finding eligible donors based on blood type: `findeligible`
 
@@ -415,6 +425,7 @@ This command exits the program.
 Format: `exit`
 
 ### Saving the data
+
 BloodNet data are saved in the hard disk automatically after any command that changes the data. There is no need to save
 manually.
 
@@ -439,11 +450,15 @@ confident that you are able to update it correctly.
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
+
 **Q**: How do I transfer my data to another computer?
-**A**: Install the app on the other computer. Overwrite the empty data file it creates with the file that contains the data from your previous BloodNet home folder.
+**A**: Install the app on the other computer. Overwrite the empty data file it creates with the file that contains the
+data from your previous BloodNet home folder.
 **Q**: Are the donor list and donation records list synchronised?
 **A**: **No.** The donor list and donation records list are largely independent. They interact in two specific cases:
-1. Donation-related commands such as `finddonations` and `adddonation`, where the donor index used as a parameter comes from the displayed donor list.
+
+1. Donation-related commands such as `finddonations` and `adddonation`, where the donor index used as a parameter comes
+   from the displayed donor list.
 2. If you try to `delete` a donor and that donor has donation records, those donation records will have to be
    deleted first using the `deletedonation` command before the donor can be fully deleted.
 
