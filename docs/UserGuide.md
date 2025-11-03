@@ -42,28 +42,54 @@ a time.
 
 ## Quick Start
 
-1. Install Java 17 if your computer does not already have it. The instructions for how to do so can be
-   found [here](https://se-education.org/guides/tutorials/javaInstallation.html).
-
-2. Download the `.jar` file from our latest [Github Release](https://github.com/AY2526S1-CS2103T-T16-4/tp/releases).
+1. Download the `.jar` file from our latest [Github Release](https://github.com/AY2526S1-CS2103T-T16-4/tp/releases).
    The `.jar` file can be found in the `Assets` section.
 
-3. Copy the file to the folder you want to use as the _home folder_ for your BloodNet application.
+2. Copy the file to the folder you want to use as the _home folder_ for your BloodNet application.
 
-4. Navigate to the folder. Then, right click in any empty area in the folder and select `Open in Terminal`.
-   <br><br>
-   ![RunInTerminal](images/runInTerminal.png)
-   <br><br>
-   A black window will appear. Key in `java -jar bloodnet.jar` and press <kbd>Enter</kbd>.
-   <br><br>
-   ![Terminal.png](images/Terminal.png)
-   <br><br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
-   <br><br>
-   ![Ui.png](images/Ui.png)
-   <br><br>
+3. Open your file manager (File Explorer for Windows, Finder for macOS) and navigate to that _home folder_.
 
-5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. e.g. typing **`help`** and
+4. Open the terminal at that _home folder_ directory. You may do so by either opening a terminal manually and running `cd` into that directory or by using the file manager directly:
+
+    * **For Windows users:** 
+    <br>
+      Right-click on any empty area in the folder and select **"Open in Terminal"**.
+      <p align=center>
+        <img src="images/runInTerminalWindows.png" alt="Open Terminal Windows" width="600">
+      </p>
+
+    * **For macOS users:** 
+    <br>
+      Right-click on the folder name in the path bar at the bottom of Finder and select **"Open in Terminal"**.
+      <p align=center>
+        <img src="images/runInTerminalMac.png" alt="Open Terminal Mac" width="600">
+      </p>
+      <br>
+        Doing so will cause a black (by default) terminal window.
+      <br><br>
+    * **For Linux users:**  
+      Open your preferred terminal application (e.g. GNOME Terminal, Konsole, Kitty), then use the `cd` command to navigate to the home folder.  
+      Example:  
+      ```
+      cd ~/Documents/BloodNet
+      ```
+
+5. Verify that **Java 17** is installed in your system by typing `java --version` within the newly-opened terminal and pressing <kbd>Enter</kbd>. The output should display information about your installed Java version, including `openjdk 17.x.x` or `java 17.x.x`. Example output:
+    ```
+    java 17.0.10 2024-01-16 LTS
+    Java(TM) SE Runtime Environment (build 17.0.10+11-LTS-240)
+    Java HotSpot(TM) 64-Bit Server VM (build 17.0.10+11-LTS-240, mixed mode, sharing)
+    ```
+    Otherwise, Java 17 is not installed on your system and you can follow this installation guide
+    [here](https://se-education.org/guides/tutorials/javaInstallation.html).
+6. Run the application by typing `java -jar bloodnet.jar`into the terminal and pressing <kbd>Enter</kbd>. 
+    After a few seconds, the BloodNet application window, similar to the one below, will appear. It is preloaded with sample data which you can easily clear, with the `clear` command, as described in the next step.
+    <p align=center>
+      <img src="images/Ui.png" alt="Ui" width="600">
+    </p>
+
+
+7. Type the command in the input box and press <kbd>Enter</kbd> to execute it. e.g. typing **`help`** and
    pressing <kbd>Enter</kbd> will
    open the help window.<br>
    Some example commands you can try:
@@ -80,13 +106,13 @@ a time.
     * `findeligible O+ A+` : Finds all donors with the specified blood type(s) who are eligible to
       donate on the current day. The criteria for eligibility can be found [here](#eligibility-criteria).
 
-    * `clear`: Deletes the entire donor list and donation records list from the app. Note that this command can be
-     used to delete all sample data from the app.
+    * `clear`: Deletes the entire donor list and donation records list from the app. **Note that this command can be
+     used to delete all sample data from the app.**
 
     * `exit` : Exits out of the application.
 
 
-6. Press <kbd>F1</kbd> or type **`help`** in the command box and press <kbd>Enter</kbd> to open
+6. Press <kbd>F1</kbd> or type **`help`** in the input box and press <kbd>Enter</kbd> to open
    the [help window](#viewing-help-help), which provides a summary of all command usages.
 
 7. Refer to the [Features](#features) below for details of each command.
