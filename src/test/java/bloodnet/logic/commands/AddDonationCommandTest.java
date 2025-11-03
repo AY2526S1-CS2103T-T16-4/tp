@@ -1,8 +1,11 @@
 package bloodnet.logic.commands;
 
+import static java.time.format.ResolverStyle.STRICT;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -24,6 +27,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class AddDonationCommandTest {
+
+    public static final DateTimeFormatter DATE_FORMATTER =
+            DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(STRICT);
 
     @Test
     public void constructor_nullBloodVolume_throwsNullPointerException() {
@@ -84,6 +90,22 @@ public class AddDonationCommandTest {
         Index indexStub = Index.fromZeroBased(0);
         // less than 84 days after Alice's donation record
         DonationDate donationDateStub = new DonationDate("16-01-2025");
+        BloodVolume bloodVolumeStub = new BloodVolume("450");
+
+        AddDonationCommand addDonationCommand =
+                new AddDonationCommand(indexStub, donationDateStub, bloodVolumeStub);
+
+        assertThrows(CommandException.class, () -> addDonationCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_invalidDonationDateBeforeDateOfBirth_throwsCommandException() throws Exception {
+        ModelStub modelStub = new ModelStubWithPerson();
+        Index indexStub = Index.fromZeroBased(0);
+        // donation date before date of birth
+        LocalDate oneHundrendTwentyYearsAgo = LocalDate.now().minusYears(120);
+        String stringDateForOneHundredTwentyYearsAgo = DATE_FORMATTER.format(oneHundrendTwentyYearsAgo);
+        DonationDate donationDateStub = new DonationDate(stringDateForOneHundredTwentyYearsAgo);
         BloodVolume bloodVolumeStub = new BloodVolume("450");
 
         AddDonationCommand addDonationCommand =

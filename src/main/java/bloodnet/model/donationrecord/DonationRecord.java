@@ -23,9 +23,7 @@ import javafx.collections.ObservableList;
 public class DonationRecord {
     // Static validation error strings
     public static final String MESSAGE_AGE_BELOW_16 =
-            "Donor is too young on the donation date. "
-            + "Donation date cannot be between %s (their birthdate) "
-            + "and %s (one day before their 16th birthdate) inclusive.";
+            "Donor is too young on the donation date. Donation date cannot be before their 16th birthdate.";
     public static final String MESSAGE_NEIGHBOURING_DONATION_TOO_CLOSE =
             "Consecutive donations must be at least 12 weeks (84 days) apart. "
             + "However, the donor has already donated blood on %s. "
