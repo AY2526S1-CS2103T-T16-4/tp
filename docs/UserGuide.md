@@ -23,7 +23,7 @@ a time.
 - [Features](#features)
     - [Adding a donor: add](#adding-a-donor-add)
     - [Listing all donors: list](#listing-all-donors-list)
-    - [Finding donors by name: find](#locating-donors-by-name-find)
+    - [Finding donors by name: find](#finding-donors-by-name-find)
     - [Editing a donor: edit](#editing-a-donor-edit)
     - [Deleting a donor: delete](#deleting-a-donor-delete)
     - [Add a donation record: adddonation](#adding-a-donation-record-adddonation)
@@ -80,7 +80,7 @@ a time.
     * `findeligible O+ A+` : Finds all donors with the specified blood type(s) who are eligible to
       donate on the current day. The criteria for eligibility can be found [here](#eligibility-criteria).
 
-    * `clear`: Deletes the entire donation list and donation records list from the app. Note that this command can be
+    * `clear`: Deletes the entire donor list and donation records list from the app. Note that this command can be
      used to delete all sample data from the app.
 
     * `exit` : Exits out of the application.
@@ -99,15 +99,15 @@ a time.
 |--------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
 | [**Add Donor**](#adding-a-donor-add)                                                       | `add n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH` <br> e.g., `add n/James Ho p/98765432 e/jamesho@example.com b/A+ d/22-11-2004` |
 | [**List All Donors**](#listing-all-donors-list)                                            | `list`                                                                                                                                   |
-| [**Find Donor**](#locating-donors-by-name-find)                                            | `find KEYWORD...`<br> e.g., `find aiden bob caitlyn`                                                                                     |
+| [**Find Donor**](#finding-donors-by-name-find)                                             | `find KEYWORD...`<br> e.g., `find aiden bob caitlyn`                                                                                     |
 | [**Edit Donor**](#editing-a-donor-edit)                                                    | `edit DONOR_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF_BIRTH]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`    |
 | [**Delete Donor**](#deleting-a-donor-delete)                                               | `delete DONOR_INDEX `<br> e.g., `delete 3`                                                                                               |
-| [**Add Donation Records**](#adding-a-donation-record-adddonation)                          | `adddonation p/DONOR_INDEX d/DONATION_DATE v/BLOOD_VOLUME` <br> e.g., `adddonation p/1 d/15-10-2025 v/200`                               |
+| [**Add Donation Record**](#adding-a-donation-record-adddonation)                           | `adddonation p/DONOR_INDEX d/DONATION_DATE v/BLOOD_VOLUME` <br> e.g., `adddonation p/1 d/15-10-2025 v/200`                               |
 | [**Find Donation Records of a Donor**](#finding-donation-records-of-a-donor-finddonations) | `finddonations DONOR_INDEX` <br> e.g., `finddonations 3`                                                                                 |
-| [**Edit Donation Records**](#editing-a-donation-record-editdonation)                       | `editdonation DONATION_RECORD_INDEX [d/DONATION_DATE] [v/BLOOD_VOLUME] `<br> e.g., `editdonation 1 v/350 d/20-02-2025`                   |
-| [**Delete Donation Records**](#deleting-a-donation-record-deletedonation)                  | `deletedonation DONATION_RECORD_INDEX`<br> e.g., `deletedonation 1`                                                                      |
+| [**Edit Donation Record**](#editing-a-donation-record-editdonation)                        | `editdonation DONATION_RECORD_INDEX [d/DONATION_DATE] [v/BLOOD_VOLUME] `<br> e.g., `editdonation 1 v/350 d/20-02-2025`                   |
+| [**Delete Donation Record**](#deleting-a-donation-record-deletedonation)                   | `deletedonation DONATION_RECORD_INDEX`<br> e.g., `deletedonation 1`                                                                      |
 | [**Find Eligible Donors**](#finding-eligible-donors-based-on-blood-type-findeligible)      | `findeligible BLOOD_TYPE...`<br> e.g., `findeligible A+ O+ B+`                                                                           |
-| [**Delete All Data**](#clearing-all-entries-clear)                                         | `clear`                                                                                                                                  |
+| [**Delete All Data**](#clearing-all-entries-clear)                                    | `clear`                                                                                                                                  |
 | [**Help**](#viewing-help-help)                                                             | `help`                                                                                                                                   |
 | [**Exit**](#exiting-the-program-exit)                                                      | `exit`                                                                                                                                   |
 
@@ -159,7 +159,7 @@ In BloodNet, a donor is **not eligible** to donate on a given date if:
    the given date.
 4. The donor is a first-time blood donor **and** the donor is at least 61 years old on the given date.
 5. The donor has donated previously **and** they have not donated in the last 3 years **and** the donor is at least 66
-   years old on the given date
+   years old on the given date.
    <br><br>
    These rules are based on the [Health Sciences Authority (HSA)](https://www.hsa.gov.sg/blood-donation/can-i-donate)
    guidelines.
@@ -208,6 +208,9 @@ Format: `find KEYWORD...`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Jane Do` will return `Jane Gruber`, `Jane Yang`.
 
+> **Note:**
+> The `find` command always filters the **entire list of donors** in the system, **not just the displayed donor list**. Even if you have previously filtered the donor list (e.g., using `find` or `findeligible`), running `find` will search through all donors stored in BloodNet.
+
 Examples:
 
 * `find John` returns `john` and `John Doe`
@@ -231,7 +234,7 @@ Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com`: Edits the 1st donor's phone number to `91234567` and email address to
   `johndoe@example.com`.
-* `edit 2 n/Betsy Crower`:Edits the name of the 2nd donor to be `Betsy Crower`.
+* `edit 2 n/Betsy Crower`: Edits the name of the 2nd donor to be `Betsy Crower`.
 * `find Betsy` followed by `edit 1 p/91234567`: Edits the phone number of the 1st donor in the result of the `find`
   command.
 
@@ -324,9 +327,9 @@ Examples:
 
 This command deletes a specified donation record from the BloodNet system.
 
-Format: `deletedonation DONATION_RECORD_LIST_INDEX`
+Format: `deletedonation DONATION_RECORD_INDEX`
 
-* Deletes the donation record at the specified `DONATION_RECORD_LIST_INDEX`.
+* Deletes the donation record at the specified `DONATION_RECORD_INDEX`.
 * The index refers to the index number shown in the displayed donation record list.
 * The index **must be a positive whole number** 1, 2, 3, …​
 
@@ -401,7 +404,7 @@ Note that if the changes to the data file cause the data to be in an invalid sta
 as expected. <br>
 If your edits make the data file format invalid, BloodNet will discard all data and start with an empty data
 file at the next run. Thus, it is strongly recommended that you take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the BloodNet to behave in unexpected ways. For instance, entering a value outside
+Furthermore, certain edits can cause BloodNet to behave in unexpected ways. For instance, entering a value outside
 the acceptable range may lead to errors or unpredictable behaviours. Therefore, edit the data file only if you are
 confident that you are able to update it correctly.
 </box>
@@ -411,8 +414,7 @@ confident that you are able to update it correctly.
 
 ## FAQ
 **Q**: How do I transfer my data to another computer?
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
-the data of your previous BloodNet home folder.
+**A**: Install the app on the other computer. Overwrite the empty data file it creates with the file that contains the data from your previous BloodNet home folder.
 **Q**: Are the donor list and donation records list synchronised?
 **A**: **No.** The donor list and donation records list are largely independent. They interact in two specific cases:
 1. Donation-related commands such as `finddonations` and `adddonation`, where the donor index used as a parameter comes from the displayed donor list.
