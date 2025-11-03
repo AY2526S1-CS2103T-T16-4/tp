@@ -80,7 +80,7 @@ a time.
     * `findeligible O+ A+` : Finds all donors with the specified blood type(s) who are eligible to
       donate on the current day. The criteria for eligibility can be found [here](#eligibility-criteria).
 
-    * `clear`: Deletes the entire donation list and donation records list from the app. Note that this command can be 
+    * `clear`: Deletes the entire donation list and donation records list from the app. Note that this command can be
      used to delete all sample data from the app.
 
     * `exit` : Exits out of the application.
@@ -178,7 +178,7 @@ Format: `add n/NAME p/PHONE e/EMAIL b/BLOOD_TYPE d/DATE_OF_BIRTH`
     * Domain: labels should be separated by periods, each label must start and end with a letter or number, and may
       contain letters, numbers or hyphens in-between; the last label must be at least 2 or more characters long.
 * BLOOD_TYPE must be either O+, O-, A+, A-, B+, B-, AB+, AB-.
-* DATE_OF_BIRTH must be in the *DD-MM-YYYY* format (for example, `20-01-2003`).
+* DATE_OF_BIRTH must be a valid date in the *DD-MM-YYYY* format (for example, `20-01-2003`).
 
 Examples:
 
@@ -229,7 +229,7 @@ Format: `edit DONOR_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [b/BLOOD_TYPE] [d/DATE_OF
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com`: Edits the 1st donor's phone number to `91234567` and email address to  
+* `edit 1 p/91234567 e/johndoe@example.com`: Edits the 1st donor's phone number to `91234567` and email address to
   `johndoe@example.com`.
 * `edit 2 n/Betsy Crower`:Edits the name of the 2nd donor to be `Betsy Crower`.
 * `find Betsy` followed by `edit 1 p/91234567`: Edits the phone number of the 1st donor in the result of the `find`
@@ -268,7 +268,7 @@ Format: `adddonation p/DONOR_INDEX d/DONATION_DATE v/BLOOD_VOLUME`
 * Adds a donation record for the donor corresponding to the specified `DONOR_INDEX`.
 * The index refers to the index number shown in the displayed donor list.
 * The index **must be a positive whole number** 1, 2, 3, …​
-* DONATION_DATE must be in the *DD-MM-YYYY* format and not in the future.
+* DONATION_DATE must be a valid date in the *DD-MM-YYYY* format and not in the future.
 * The donor must be eligible to donate blood on the specified DONATION_DATE. The criteria for
   eligibility can be found [here](#eligibility-criteria).
 * BLOOD_VOLUME **must be a positive whole number** strictly **less than 500** (in milliliters).
@@ -306,7 +306,7 @@ Format: `editdonation DONATION_RECORD_LIST_INDEX [d/DONATION_DATE] [v/BLOOD_VOLU
   the displayed donation record list. The specified index **must be a positive whole number** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* DONATION_DATE must be in the *DD-MM-YYYY* format and not in the future.
+* DONATION_DATE must be a valid date in the *DD-MM-YYYY* format and not in the future.
 * The donor must be eligible to donate blood on the specified DONATION_DATE. The criteria for
   eligibility can be found [here](#eligibility-criteria).
 * BLOOD_VOLUME **must be a positive whole number** strictly **less than 500** (in milliliters).
@@ -340,7 +340,7 @@ deletion.
 Examples:
 
 * `deletedonation 1`: Deletes the 1st donation record in the displayed donation record list.
-* `finddonations 1` followed by `deletedonation 2`: Deletes the 2nd donation record of the 1st donor in the shown 
+* `finddonations 1` followed by `deletedonation 2`: Deletes the 2nd donation record of the 1st donor in the shown
 donor list.
 
 ### Finding eligible donors based on blood type: `findeligible`
@@ -397,12 +397,12 @@ welcome to update data directly by editing that data file.
 <box type="warning" seamless>
 
 **Caution:**
-Note that if the changes to the data file cause the data to be in an invalid state, the system might not function 
+Note that if the changes to the data file cause the data to be in an invalid state, the system might not function
 as expected. <br>
 If your edits make the data file format invalid, BloodNet will discard all data and start with an empty data
 file at the next run. Thus, it is strongly recommended that you take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the BloodNet to behave in unexpected ways. For instance, entering a value outside
-the acceptable range may lead to errors or unpredictable behaviours. Therefore, edit the data file only if you are 
+the acceptable range may lead to errors or unpredictable behaviours. Therefore, edit the data file only if you are
 confident that you are able to update it correctly.
 </box>
 
@@ -410,13 +410,13 @@ confident that you are able to update it correctly.
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
-**Q**: How do I transfer my data to another computer?  
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains  
-the data of your previous BloodNet home folder.  
-**Q**: Are the donor list and donation records list synchronised?  
+**Q**: How do I transfer my data to another computer?
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
+the data of your previous BloodNet home folder.
+**Q**: Are the donor list and donation records list synchronised?
 **A**: **No.** The donor list and donation records list are largely independent. They interact in two specific cases:
 1. Donation-related commands such as `finddonations` and `adddonation`, where the donor index used as a parameter comes from the displayed donor list.
-2. If you try to `delete` a donor and that donor has donation records, those donation records will have to be 
+2. If you try to `delete` a donor and that donor has donation records, those donation records will have to be
    deleted first using the `deletedonation` command before the donor can be fully deleted.
 
 --------------------------------------------------------------------------------------------------------------------

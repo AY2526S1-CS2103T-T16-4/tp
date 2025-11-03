@@ -15,7 +15,7 @@ import java.time.format.DateTimeParseException;
 public class DonationDate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "The donation date should be of the format DD-MM-YYYY, not in the future,"
+            "The donation date should be a valid date of the format DD-MM-YYYY, not in the future,"
                     + " and not more than 130 years ago from today.";
     public static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(STRICT);
