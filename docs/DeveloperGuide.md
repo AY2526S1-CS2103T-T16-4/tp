@@ -207,7 +207,7 @@ The `Model` component:
 The `Storage` component:
 * can save both BloodNet data and user preference data in JSON format, and read them back into corresponding objects.
 * inherits from both `BloodNetStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
-* depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
+* depends on some classes in the `Model` component (because the `Storage` component's job is to save or retrieve objects that belong to the `Model`).
 
 ### Common classes
 
@@ -443,7 +443,7 @@ Use case ends.
 1. Admin staff requests to find a donor by their name.
 2. BloodNet searches and displays donors with matching names.
 3. Admin staff requests to record a blood donation by a donor.
-4. BloodNet records the donation details (including date and volume).
+4. BloodNet records the donation details, including date and volume.
 
 Use case ends.
 
@@ -569,7 +569,7 @@ Use case ends.
 8. Should have user confirmation for _destructive operations_.
 9. Should provide error message, in response to an invalid operation, that details what went wrong and how to fix it for a non-technical user.
 10. Should be designed for a single user within a single computer.
-11. Should back up contacts data within a human-editable file such that it persists across instances of the program.
+11. Ensure contacts data persists in a human-editable file; manual editing errors are the user’s responsibility.
 12. Should work without requiring an installer.
 13. Should be built into a JAR file of no larger than 100MB.
 
@@ -837,10 +837,10 @@ Team size: 5
 1. **Feature**: Allow users to delete a donor along with all donation records associated with that specific 
    donor in a single step. <br>
 
-   **Current Behaviour**: Users must manually delete all donation records with respect to a donor before they can delete a donor.
+   **Current Behaviour**: Users must manually delete all donation records with respect to a donor before they are able to delete a donor.
    This is a feature not a bug, because in real life, users would most likely want to preserve a donor's donation records in the system for audit purposes, even if the donor is past the age of eligibility. Therefore, we have intentionally made deleting a donor and their donation records difficult.<br>
 
-   **Rationality for the New Feature**: However, some PE-D testers have expressed that the current process is 
+   **Rationality for the New Feature**: However, some PE-D testers have expressed that the current process is fairly
    time-consuming. As such, if real users express a similar sentiment too, we will introduce this new feature. <br><br>
 
 2. **Feature**: Introduce a `listdonations` command that allows users to view all donation records in the system. <br>
@@ -853,37 +853,37 @@ Team size: 5
    overwhelming or unnecessary for most users. <br>
 
     **Rationality for the New Feature**: Some PE-D testers have noticed that the absence of such a feature makes it difficult
-     to get an overview of all the donation records prevalent. As such, if real users express a similar need, we will introduce the `listdonations` features. <br><br>
+     to get an overview of all the donation records prevalent in the system. As such, if real users express a similar need, we will introduce the `listdonations` feature. <br><br>
 
 3. **Feature**: Warn users when BloodNet already contains a donor with the same phone number or the same name.<br>
 
-   **Current Behaviour**: 2 donors are only considered to be identical if they have both the same name (case-sensitive) and phone number.<br>
+   **Current Behaviour**: 2 donors are only considered to be identical if they both have the same name (case-sensitive) and phone number.<br>
 
-    **Rationality for the New Feature**: It is possible for the existing validation check to miss certain edge cases. For example, if a donor with a name "Alex Tan" and phone number "88888888" already exists in BloodNet, a donor with a name "Alex T." and phone number "88888888" can still be added the BloodNet, even though there is a decent chance they refer to the same person.<br><br>
+    **Rationality for the New Feature**: It is possible for the existing validation check to miss certain edge cases. For example, if a donor with a name "Alex Tan" and phone number "88888888" already exists in BloodNet, a donor with a name "Alex T." and phone number "88888888" can still be added to the BloodNet, even though there is a decent chance they refer to the same person.<br><br>
 
 4. **Feature**: Loosen phone number validation requirements.<br>
 
-   **Current Behaviour**: The phone number must contain exactly 8 digits. This may be too strict in some cases. For example, "8888 8888" would fail the validation check due to the whitespace in between.<br>
+   **Current Behaviour**: The phone number must contain exactly 8 digits, but this may be too strict in some scenarios. For example, "8888 8888" would fail the validation check due to the whitespace in between.<br>
 
-    **Rationality for the New Feature**: We want to make the validation more fit-for-purpose.<br><br>
+    **Rationality for the New Feature**: We would like for the validation to be more user-friendly by accepting common formatting characters (spaces, parenthesis, plus signs, dashes) <br><br>
 
 5. **Feature**: Thicken panel borders to make resizing easier for users.<br>
 
-   **Current Behaviour**: The margin between the panels is very small, thus resulting in users struggling to resize the panels. <br>
+   **Current Behaviour**: The margin between the panels is very small, thus resulting in users struggling to resize the panels, especially for the two lists. <br>
 
    **Rationality for the New Feature**: We would like to make our GUI more usable and accessible for users.<br><br>
 
-6. **Feature**: Use different tokens for `adddonation` and `add` in order to clearly distinguish the person index from a phone number.<br>
+6. **Feature**: Use different tokens for `adddonation` and `add` to clearly distinguish the person index from a phone number.<br>
 
-   **Current Behaviour**: Currently, both the `adddonation` and the `add` command use the p token when inputting a command. Unfortunately, some PE-d testers have stated that this behaviour is somewhat unintuitive for the user.<br>
+   **Current Behaviour**: Currently, both the `adddonation` and the `add` command use the `p/` token when inputting a command. Unfortunately, some PE-D testers found this behaviour unintuitive.<br>
 
    **Rationality for the New Feature**: We would like to ensure that the command inputs are clear, intuitive and easy for users to understand.<br><br>
 
-7. **Feature**: Set a minimum panel size or lock resizing.<br>
+7. **Feature**: Set a minimum size or lock resizing for all panels to prevent content truncation.<br>
    
-   **Current Behaviour**: Currently, if users were to resize on of the lists by too much, then the other list, such as the `DonationRecord` list is truncated, making it difficult for users to view both full lists.<br>
+   **Current Behaviour**: Currently, if users resize one of the lists too much, then the other list, such as the `DonationRecord` list is truncated, making it difficult for users to view both lists.<br>
 
-   **Rationality for the New Feature**: We would like to prevent content truncation and improves readability when panels are resized.<br><br>
+   **Rationality for the New Feature**: We would like to prevent content truncation and improve readability when the panels are resized.<br><br>
 
 
 
